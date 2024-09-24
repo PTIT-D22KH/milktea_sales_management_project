@@ -12,6 +12,14 @@
         <!--<exec.mainClass>Milk_tea_sales_management</exec.mainClass>-->
     </properties>
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/com.formdev/flatlaf -->
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf</artifactId>
+            <version>3.5.1</version>
+            <scope>runtime</scope>
+        </dependency>
+        
         <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
         <dependency>
             <groupId>com.mysql</groupId>
