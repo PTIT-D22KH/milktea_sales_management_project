@@ -1,7 +1,8 @@
 package models;
 
 public class FoodCategory extends Model {
-    private int id;
+
+    private int foodCategoryId;
     private String name;
     private String slug;
     
@@ -9,12 +10,12 @@ public class FoodCategory extends Model {
         
     }
 
-    public int getId() {
-        return id;
+    public int getFoodCategoryId() {
+        return foodCategoryId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setFoodCategoryId(int foodCategoryId) {
+        this.foodCategoryId = foodCategoryId;
     }
 
     public String getName() {
@@ -32,9 +33,9 @@ public class FoodCategory extends Model {
     public void setSlug(String slug) {
         this.slug = slug;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return "";
     }
 }

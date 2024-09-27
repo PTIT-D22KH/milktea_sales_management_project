@@ -3,7 +3,8 @@ package models;
 import java.util.Date;
 
 public class Employee extends Model {
-    private int id, salary;
+    
+    private int employeeId, salary;
     private String username, password, name, phoneNumber;
     private String permission;
     private Date startDate;
@@ -12,12 +13,12 @@ public class Employee extends Model {
         
     }
 
-    public int getId() {
-        return id;
+    public int getEmployeeId() {
+        return employeeId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
     }
 
     public int getSalary() {
