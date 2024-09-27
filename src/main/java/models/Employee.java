@@ -2,10 +2,6 @@ package models;
 
 import java.util.Date;
 
-/**
- *
- * @author TP
- */
 public class Employee extends Model {
     private int id, salary;
     private String username, password, name, phoneNumber;

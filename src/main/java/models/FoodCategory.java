@@ -1,9 +1,5 @@
 package models;
 
-/**
- *
- * @author TP
- */
 public class FoodCategory extends Model {
     private int id;
     private String name;
