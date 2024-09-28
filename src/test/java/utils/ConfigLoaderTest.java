@@ -45,6 +45,9 @@ public class ConfigLoaderTest {
     //
     // @Test
     // public void hello() {}
+    /**
+     * Test Singleton pattern from Properties class in java
+     */
     @Test
     public void testSingleTonInstance() {
         ConfigLoader a = ConfigLoader.getInstance();
@@ -52,6 +55,9 @@ public class ConfigLoaderTest {
         assertSame(a, b, "Instances should be the same (singleton pattern)");
     }
     
+    /**
+     * Test get property from PropertyLoader attribute
+     */
     @Test
     public void testGetProperty() {
         String expectedDataDriverClass = "com.mysql.cj.jdbc.Driver";
@@ -65,7 +71,7 @@ public class ConfigLoaderTest {
         String expectedMysql = "test_mysql_path";
         String expectedBackupPath = "test_backup_path";
         
-        assertEquals(null, cfgLoader.getProperty("database.driver_classs"), "Property value should match the expected data driver class");
+        assertEquals(null, cfgLoader.getProperty("database.driver_classs"), "Property value should be null");
         assertEquals(expectedDataDriverClass, cfgLoader.getProperty("database.driver_class"), "Property value should match the expected data driver class");
         assertEquals(expectedJdbc, cfgLoader.getProperty("database.jdbc"), "Property value should match the expected JDBC");
         assertEquals(expectedHost, cfgLoader.getProperty("database.host"), "Property value should match the expected host");
@@ -79,6 +85,9 @@ public class ConfigLoaderTest {
 
     }
     
+    /**
+     * Test getter of propertyLoader
+     */
     @Test
     public void testGetPropertyLoader() {
         Properties properties = cfgLoader.getPropertyLoader();
