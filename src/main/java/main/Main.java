@@ -4,7 +4,7 @@
  */
 package main;
 
-import dao.DatabaseConnector;
+import utils.DatabaseConnector;
 import java.sql.Connection;
 
 /**

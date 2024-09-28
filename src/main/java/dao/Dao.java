@@ -4,6 +4,7 @@
  */
 package dao;
 
+import utils.DatabaseConnector;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.sql.SQLException;
