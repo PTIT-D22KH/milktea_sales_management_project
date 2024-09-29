@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class FoodItem extends Model {
-    private int FoodItemId;
+    private int foodItemId;
     private String name, description, imagePath, unitName;
     private int unitPrice, idCategory;
     DecimalFormat formatter = new DecimalFormat("###, ###,###");
@@ -13,10 +13,10 @@ public class FoodItem extends Model {
     public FoodItem() {
     }
     public int getID() {
-        return this.FoodItemId;
+        return this.foodItemId;
     }
     public void setID(int id) {
-        this.FoodItemId = id;
+        this.foodItemId = id;
     }
 
     public String getName() {
@@ -31,10 +31,10 @@ public class FoodItem extends Model {
     public void setDescription(String description) {
         this.description = description;
     }
-    public String getUrlImage() {
+    public String getImagePath() {
         return this.imagePath;
     }
-    public void setUrlImage(String urlImage) {
+    public void setImagePath(String urlImage) {
         this.imagePath = urlImage;
     }
 

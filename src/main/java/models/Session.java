@@ -3,7 +3,7 @@ package models;
 import java.sql.*;
 
 public class Session {
-    private int SessionId, idEmployee;
+    private int sessionId, idEmployee;
     private Timestamp startTime, endTime;
     private Employee employee;
     private String message;
@@ -11,10 +11,10 @@ public class Session {
     public Session() {
     }
     public int getId() {
-        return this.SessionId;
+        return this.sessionId;
     }
     public void setID(int id) {
-        this.SessionId = id;
+        this.sessionId = id;
     }
     public int getIDEmployee() {
         return this.idEmployee;
@@ -58,7 +58,7 @@ public class Session {
     }
     @Override 
     public String toString() {
-        return "Session{" + "id=" + SessionId + ", idEmployee=" + idEmployee + ", startTime=" + startTime + ", endTime=" + endTime + ", message=" + message + "}";
+        return "Session{" + "id=" + sessionId + ", idEmployee=" + idEmployee + ", startTime=" + startTime + ", endTime=" + endTime + ", message=" + message + "}";
     }
 
 
