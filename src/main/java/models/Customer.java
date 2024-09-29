@@ -4,6 +4,9 @@
  */
 package models;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  *
  * @author P51
@@ -48,7 +51,14 @@ public class Customer extends Model{
         this.address = address;
     }
     
-    
+    public static Customer getFromResultSet(ResultSet result) throws SQLException {
+        Customer customer = new Customer();
+        customer.setCustomerId(result.getInt("customerId"));
+        customer.setAddress(result.getNString("address"));
+        customer.setName(result.getNString("name"));
+        customer.setPhoneNumber(result.getNString("phoneNumber"));
+        return customer;
+    }
     
     @Override
     public String toString (){
