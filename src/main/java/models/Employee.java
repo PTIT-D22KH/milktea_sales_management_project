@@ -1,13 +1,13 @@
 package models;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class Employee extends Model {
     
     private int employeeId, salary;
     private String username, password, name, phoneNumber;
     private String permission;
-    private Date startDate;
+    private Timestamp startDate;
     
     public Employee(){
         
@@ -69,11 +69,11 @@ public class Employee extends Model {
         this.permission = permission;
     }
 
-    public Date getStartDate() {
+    public Timestamp getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(Timestamp startDate) {
         this.startDate = startDate;
     }
     
