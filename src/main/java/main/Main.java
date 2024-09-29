@@ -4,12 +4,16 @@
  */
 package main;
 
+import utils.DatabaseConnector;
+import java.sql.Connection;
+
 /**
  *
  * @author P51
  */
 public class Main {
     public static void main(String[] args) {
-        System.out.println("HELLO");
+        Connection conn = DatabaseConnector.getInstance().getConn();
+        System.out.println("Ket noi csdl thanh cong!");
     }
 }
