@@ -5,18 +5,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class FoodItem extends Model {
-    private int id;
-    private String name, description, urlImage, unitName;
+    private int FoodItemId;
+    private String name, description, imagePath, unitName;
     private int unitPrice, idCategory;
     DecimalFormat formatter = new DecimalFormat("###, ###,###");
 
     public FoodItem() {
     }
     public int getID() {
-        return this.id;
+        return this.FoodItemId;
     }
     public void setID(int id) {
-        this.id = id;
+        this.FoodItemId = id;
     }
 
     public String getName() {
@@ -32,10 +32,10 @@ public class FoodItem extends Model {
         this.description = description;
     }
     public String getUrlImage() {
-        return this.urlImage;
+        return this.imagePath;
     }
     public void setUrlImage(String urlImage) {
-        this.urlImage = urlImage;
+        this.imagePath = urlImage;
     }
 
     public String getUnitName() {
