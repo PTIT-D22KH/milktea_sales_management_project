@@ -4,7 +4,6 @@
  */
 package models;
 
-import java.math.BigInteger;
 
 /**
  *
@@ -12,7 +11,7 @@ import java.math.BigInteger;
  */
 public class OderItem extends Model{
     private int orderId,foodItemId,toppingId,quantity;
-    private BigInteger foodPrice,toppingPrice;
+    private int foodPrice,toppingPrice;
     private String note;
     private FoodItem foodItem, toppingItem;
 
@@ -54,19 +53,19 @@ public class OderItem extends Model{
         this.quantity = quantity;
     }
 
-    public BigInteger getFoodPrice() {
+    public int getFoodPrice() {
         return foodPrice;
     }
 
-    public void setFoodPrice(BigInteger foodPrice) {
+    public void setFoodPrice(int foodPrice) {
         this.foodPrice = foodPrice;
     }
 
-    public BigInteger getToppingPrice() {
+    public int getToppingPrice() {
         return toppingPrice;
     }
 
-    public void setToppingPrice(BigInteger toppingPrice) {
+    public void setToppingPrice(int toppingPrice) {
         this.toppingPrice = toppingPrice;
     }
 
@@ -94,6 +93,7 @@ public class OderItem extends Model{
         this.toppingItem = toppingItem;
     }
 
+  
     @Override
     public String toString() {
         return "OderItem{" + "orderId=" + orderId + ", foodItemId=" + foodItemId + ", toppingId=" + toppingId + ", quantity=" + quantity + ", foodPrice=" + foodPrice + ", toppingPrice=" + toppingPrice + ", note=" + note + ", foodItem=" + foodItem + ", toppingItem=" + toppingItem + '}';

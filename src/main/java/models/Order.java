@@ -4,7 +4,6 @@
  */
 package models;
 
-import java.math.BigInteger;
 import java.sql.Timestamp;
 import utils.OrderStatus;
 import utils.OrderType;
@@ -18,9 +17,10 @@ public class Order extends Model{
     private OrderStatus status;
     private OrderType type;
     private Timestamp orderDate,payDate;
-    private BigInteger paidAmount,rebate,totalAmount;
+    private int paidAmount,rebate,totalAmount;
     private Employee employee;
     private Table table;
+    private Customer customer;
     
     public Order() {
         status = OrderStatus.UNPAID;
@@ -28,10 +28,6 @@ public class Order extends Model{
 
     public int getOrderId() {
         return orderId;
-    }
-
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
     }
 
     public int getEmployeeId() {
@@ -98,27 +94,27 @@ public class Order extends Model{
         this.payDate = payDate;
     }
 
-    public BigInteger getPaidAmount() {
+    public int getPaidAmount() {
         return paidAmount;
     }
 
-    public void setPaidAmount(BigInteger paidAmount) {
+    public void setPaidAmount(int paidAmount) {
         this.paidAmount = paidAmount;
     }
 
-    public BigInteger getRebate() {
+    public int getRebate() {
         return rebate;
     }
 
-    public void setRebate(BigInteger rebate) {
+    public void setRebate(int rebate) {
         this.rebate = rebate;
     }
 
-    public BigInteger getTotalAmount() {
+    public int getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(BigInteger totalAmount) {
+    public void setTotalAmount(int totalAmount) {
         this.totalAmount = totalAmount;
     }
 
@@ -138,10 +134,19 @@ public class Order extends Model{
         this.table = table;
     }
 
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
     @Override
     public String toString() {
-        return "Order{" + "orderId=" + orderId + ", employeeId=" + employeeId + ", tableId=" + tableId + ", customerId=" + customerId + ", discount=" + discount + ", status=" + status + ", type=" + type + ", orderDate=" + orderDate + ", payDate=" + payDate + ", paidAmount=" + paidAmount + ", rebate=" + rebate + ", totalAmount=" + totalAmount + ", employee=" + employee + ", table=" + table + '}';
+        return "Order{" + "orderId=" + orderId + ", employeeId=" + employeeId + ", tableId=" + tableId + ", customerId=" + customerId + ", discount=" + discount + ", status=" + status + ", type=" + type + ", orderDate=" + orderDate + ", payDate=" + payDate + ", paidAmount=" + paidAmount + ", rebate=" + rebate + ", totalAmount=" + totalAmount + ", employee=" + employee + ", table=" + table + ", customer=" + customer + '}';
     }
-    
+
+   
     
 }
