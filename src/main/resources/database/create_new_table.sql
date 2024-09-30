@@ -56,6 +56,7 @@ CREATE TABLE IF NOT EXISTS `order` (
     `payDate` TIMESTAMP NULL DEFAULT NULL,
     `paidAmount` bigint NULL DEFAULT 0,
     `rebate` bigint NOT NULL DEFAULT 0,
+    `finalAmount` bigint NOT NULL DEFAULT 0,
     `totalAmount` bigint NOT NULL DEFAULT 0,
     `discount` int NOT NULL DEFAULT 0,
     CHECK(discount >= 0 AND discount <= 100),
