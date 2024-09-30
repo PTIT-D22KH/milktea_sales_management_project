@@ -70,6 +70,7 @@ CREATE TABLE IF NOT EXISTS `shipment` (
     `customerId` int NOT NULL,
     `employeeId` int NOT NULL,
     `status` varchar(45) NOT NULL DEFAULT 'topay' COMMENT 'topay - chờ xác nhận\ntoship - chờ lấy hàng\ntoreceive - đang giao\ncompleted - hoàn thành\ncancelled - đã hủy',
+    `shipCost` int NOT NULL DEFAULT 0,
     `startDate` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
     `endDate` TIMESTAMP NULL DEFAULT NULL,
     PRIMARY KEY (`orderId`),

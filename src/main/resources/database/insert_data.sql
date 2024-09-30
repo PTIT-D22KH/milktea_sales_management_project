@@ -212,6 +212,6 @@ INSERT INTO `session` (`sessionId`, `employeeId`, `startTime`, `endTime`, `messa
 (55, 1, '2021-01-09 03:42:06', NULL, 'login'),
 (56, 1, '2021-01-10 14:17:16', '2021-01-10 14:17:42', 'logout'),
 (57, 1, '2021-01-10 14:20:51', '2021-01-10 14:21:12', 'logout');
-INSERT INTO `shipment` (`orderId`, `customerId`, `employeeId`, `status`, `startDate`, `endDate`) VALUES
-(2, 1, 1, 'toreceive', '2020-11-23 17:00:00', NULL),
-(11, 1, 1, 'toreceive', '2020-12-25 06:58:48', NULL);
+INSERT INTO `shipment` (`orderId`, `customerId`, `employeeId`, `status`, `startDate`, `endDate`, `shipCost`) VALUES
+(2, 1, 1, 'toreceive', '2020-11-23 17:00:00', NULL, 0),
+(11, 1, 1, 'toreceive', '2020-12-25 06:58:48', NULL, 0);
