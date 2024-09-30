@@ -1,13 +1,14 @@
 package models;
 
-import java.sql.Timestamp;
+import java.sql.Date;
+import utils.EmployeePermission;
 
 public class Employee extends Model {
     
     private int employeeId, salary;
     private String username, password, name, phoneNumber;
-    private String permission;
-    private Timestamp startDate;
+    private EmployeePermission permission;
+    private Date startDate;
     
     public Employee(){
         
@@ -61,19 +62,19 @@ public class Employee extends Model {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getPermission() {
+    public EmployeePermission getPermission() {
         return permission;
     }
 
-    public void setPermission(String permission) {
+    public void setPermission(EmployeePermission permission) {
         this.permission = permission;
     }
 
-    public Timestamp getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Timestamp startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
     
