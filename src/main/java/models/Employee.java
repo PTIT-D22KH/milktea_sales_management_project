@@ -27,7 +27,7 @@ public class Employee extends Model {
     }
 
     public void setSalary(int salary) {
-        this.salary = salary;
+        this.salary = Math.max(0, salary);
     }
 
     public String getUsername() {

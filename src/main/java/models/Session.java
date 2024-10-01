@@ -3,25 +3,15 @@ package models;
 import java.sql.*;
 
 public class Session {
-    private int sessionId, idEmployee;
+    private int sessionId, employeeId;
     private Timestamp startTime, endTime;
     private Employee employee;
     private String message;
     
     public Session() {
     }
-    public int getId() {
-        return this.sessionId;
-    }
-    public void setID(int id) {
-        this.sessionId = id;
-    }
-    public int getIDEmployee() {
-        return this.idEmployee;
-    }
-    public void setIDEmployee(int idEmployee) {
-        this.idEmployee = idEmployee;
-    }
+    
+    
     public Timestamp getStartTime() {
         return this.startTime;
     }
@@ -41,15 +31,29 @@ public class Session {
     public void setEmployee(Employee employee) {
         this.employee = employee;
         if(employee != null) {
-            this.idEmployee = employee.getEmployeeId();
+            this.employeeId = employee.getEmployeeId();
         }
     }
-    public int getIdEmployee() {
-        return this.idEmployee;
+
+    public int getSessionId() {
+        return sessionId;
     }
-    public void setIdEmployee(int idEmployee) {
-        this.idEmployee = idEmployee;
+
+    public void setSessionId(int sessionId) {
+        this.sessionId = sessionId;
     }
+
+    public int getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(int employeeId) {
+        
+        this.employeeId = employeeId;
+        
+    }
+    
+    
     public String getMessage() {
         return this.message;
     }
@@ -58,7 +62,7 @@ public class Session {
     }
     @Override 
     public String toString() {
-        return "Session{" + "id=" + sessionId + ", idEmployee=" + idEmployee + ", startTime=" + startTime + ", endTime=" + endTime + ", message=" + message + "}";
+        return "Session{" + "id=" + sessionId + ", employeeId" + employeeId + ", startTime=" + startTime + ", endTime=" + endTime + ", message=" + message + "}";
     }
 
 

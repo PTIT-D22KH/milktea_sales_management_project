@@ -62,6 +62,6 @@ public class Customer extends Model{
     
     @Override
     public String toString (){
-        return "" + customerId + " " + phoneNumber + " " + name  + " " + address;
+        return name + "\nSDT:" + phoneNumber + "\nDia chi:" + address;
     }
 }

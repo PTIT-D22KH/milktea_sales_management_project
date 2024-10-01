@@ -9,13 +9,12 @@ package models;
  *
  * @author DELL
  */
-public class OderItem extends Model{
-    private int orderId,foodItemId,toppingId,quantity;
-    private int foodPrice,toppingPrice;
+public class OrderItem extends Model{
+    private int orderId, foodItemId, toppingId, quantity, foodPrice,toppingPrice;
     private String note;
     private FoodItem foodItem, toppingItem;
 
-    public OderItem() {
+    public OrderItem() {
         quantity = 1;
         toppingId = 0;
         note = "";
@@ -50,7 +49,12 @@ public class OderItem extends Model{
     }
 
     public void setQuantity(int quantity) {
-        this.quantity = quantity;
+        if (quantity >= 0) {
+            this.quantity = quantity;
+        } else {
+            this.quantity = 0;
+        }
+//        this.quantity = quantity;
     }
 
     public int getFoodPrice() {
@@ -83,6 +87,7 @@ public class OderItem extends Model{
 
     public void setFoodItem(FoodItem foodItem) {
         this.foodItem = foodItem;
+        this.foodItemId = foodItem.getFoodItemId();
     }
 
     public FoodItem getToppingItem() {
@@ -91,6 +96,7 @@ public class OderItem extends Model{
 
     public void setToppingItem(FoodItem toppingItem) {
         this.toppingItem = toppingItem;
+        this.toppingId = toppingItem.getFoodItemId();
     }
 
   

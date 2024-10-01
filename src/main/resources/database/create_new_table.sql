@@ -55,7 +55,6 @@ CREATE TABLE IF NOT EXISTS `order` (
     `orderDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `payDate` TIMESTAMP NULL DEFAULT NULL,
     `paidAmount` bigint NULL DEFAULT 0,
-    `rebate` bigint NOT NULL DEFAULT 0,
     `totalAmount` bigint NOT NULL DEFAULT 0,
     `discount` int NOT NULL DEFAULT 0,
     CHECK(discount >= 0 AND discount <= 100),
@@ -70,6 +69,7 @@ CREATE TABLE IF NOT EXISTS `shipment` (
     `customerId` int NOT NULL,
     `employeeId` int NOT NULL,
     `status` varchar(45) NOT NULL DEFAULT 'topay' COMMENT 'topay - chờ xác nhận\ntoship - chờ lấy hàng\ntoreceive - đang giao\ncompleted - hoàn thành\ncancelled - đã hủy',
+    `shipCost` int NOT NULL DEFAULT 0,
     `startDate` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
     `endDate` TIMESTAMP NULL DEFAULT NULL,
     PRIMARY KEY (`orderId`),
@@ -92,12 +92,6 @@ CREATE TABLE IF NOT EXISTS `order_item` (
     FOREIGN KEY (`orderId`) REFERENCES `order` (`orderId`)
 );
 
-CREATE TABLE IF NOT EXISTS `topping` (
-    `toppingId` int NOT NULL AUTO_INCREMENT,
-    `name` varchar(50) UNIQUE NOT NULL,
-    `price` bigint NOT NULL,
-    PRIMARY KEY (`toppingId`)
-);
 
 CREATE TABLE IF NOT EXISTS `session` (
     `sessionId` int NOT NULL AUTO_INCREMENT,

@@ -4,7 +4,7 @@
  */
 package models;
 
-import com.google.protobuf.Timestamp;
+import java.sql.Timestamp;
 import utils.ShipmentStatus;
 
 /**
@@ -12,15 +12,64 @@ import utils.ShipmentStatus;
  * @author DELL
  */
 public class Shipment extends Model{
-    private int orderId, customerId,employeeId;
+    private int orderId, customerId, employeeId;
     private ShipmentStatus status;
-    private Timestamp startDate,endDate;
-    
+    private Timestamp startDate, endDate;
+    private Order order;
+    private Customer customer;
+    private Employee employee;
+    private int shipCost;
     
 
     public Shipment() {
     }
 
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        
+        this.order = order;
+        if (order != null) {
+            this.orderId = order.getOrderId();
+        }
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        
+        this.customer = customer;
+        if (customer != null) {
+            this.customerId = customer.getCustomerId();
+        }
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        
+        this.employee = employee;
+        if (employee != null) {
+            this.employeeId = employee.getEmployeeId();
+        }
+    }
+
+    public int getShipCost() {
+        return shipCost;
+    }
+
+    public void setShipCost(int shipCost) {
+        this.shipCost = shipCost;
+    }
+
+    
+    
     public int getOrderId() {
         return orderId;
     }

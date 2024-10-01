@@ -5,61 +5,73 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class FoodItem extends Model {
-    private int foodItemId;
+    private int foodItemId, unitPrice, categoryId;
     private String name, description, imagePath, unitName;
-    private int unitPrice, idCategory;
     DecimalFormat formatter = new DecimalFormat("###, ###,###");
 
     public FoodItem() {
     }
-    public int getID() {
-        return this.foodItemId;
+
+    public int getFoodItemId() {
+        return foodItemId;
     }
-    public void setID(int id) {
-        this.foodItemId = id;
+
+    public void setFoodItemId(int foodItemId) {
+        this.foodItemId = foodItemId;
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public String getDescription() {
-        return this.description;
+        return description;
     }
+
     public void setDescription(String description) {
         this.description = description;
     }
+
     public String getImagePath() {
-        return this.imagePath;
+        return imagePath;
     }
-    public void setImagePath(String urlImage) {
-        this.imagePath = urlImage;
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public String getUnitName() {
-        return this.unitName;
+        return unitName;
     }
-    public void setUnitName(String unitname) {
-        this.unitName = unitname;
+
+    public void setUnitName(String unitName) {
+        this.unitName = unitName;
     }
-    public Integer getUnitPrice() {
-        return this.unitPrice;
+
+    public int getUnitPrice() {
+        return unitPrice;
     }
-    public void setUnitPrice(String unitprice) {
+
+    public void setUnitPrice(int unitPrice) {
         this.unitPrice = unitPrice;
     }
-    public int getIDCategory() {
-        return this.idCategory;
+
+    public int getCategoryId() {
+        return categoryId;
     }
-    public void setIDCategory(int idCategory) {
-        this.idCategory = idCategory;
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
+    
 
     @Override
     public String toString() {
-        return String.format("%s (%s)", name, formatter.format(this.unitPrice));
+        return String.format("%s (%s)", name, formatter.format(unitPrice));
     }
 
     
