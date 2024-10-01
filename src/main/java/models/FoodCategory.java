@@ -1,5 +1,7 @@
 package models;
 
+import utils.StringToSlug;
+
 public class FoodCategory extends Model {
 
     private int foodCategoryId;
@@ -24,15 +26,17 @@ public class FoodCategory extends Model {
 
     public void setName(String name) {
         this.name = name;
+        //Set slug as well
+        this.slug = StringToSlug.convert(name);
     }
 
     public String getSlug() {
         return slug;
     }
 
-    public void setSlug(String slug) {
-        this.slug = slug;
-    }
+//    public void setSlug(String slug) {
+//        this.slug = slug;
+//    }
 
     @Override
     public String toString() {

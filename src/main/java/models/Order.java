@@ -13,11 +13,11 @@ import utils.OrderType;
  * @author DELL
  */
 public class Order extends Model{
-    private int orderId, employeeId,tableId,customerId,discount;
+    private int orderId, employeeId, tableId, customerId;
+    private int paidAmount, totalAmount, discount;
     private OrderStatus status;
     private OrderType type;
-    private Timestamp orderDate,payDate;
-    private int paidAmount,rebate,totalAmount;
+    private Timestamp orderDate, payDate;
     private Employee employee;
     private Table table;
     private Customer customer;
@@ -102,13 +102,13 @@ public class Order extends Model{
         this.paidAmount = paidAmount;
     }
 
-    public int getRebate() {
-        return rebate;
-    }
-
-    public void setRebate(int rebate) {
-        this.rebate = rebate;
-    }
+//    public int getRebate() {
+//        return rebate;
+//    }
+//
+//    public void setRebate(int rebate) {
+//        this.rebate = rebate;
+//    }
 
     public int getTotalAmount() {
         return totalAmount;
@@ -124,6 +124,7 @@ public class Order extends Model{
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
+        this.employeeId = employee.getEmployeeId();
     }
 
     public Table getTable() {
@@ -132,6 +133,7 @@ public class Order extends Model{
 
     public void setTable(Table table) {
         this.table = table;
+        this.tableId = table.getTableId();
     }
 
     public Customer getCustomer() {
@@ -140,11 +142,12 @@ public class Order extends Model{
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+        this.customerId = customer.getCustomerId();
     }
 
     @Override
     public String toString() {
-        return "Order{" + "orderId=" + orderId + ", employeeId=" + employeeId + ", tableId=" + tableId + ", customerId=" + customerId + ", discount=" + discount + ", status=" + status + ", type=" + type + ", orderDate=" + orderDate + ", payDate=" + payDate + ", paidAmount=" + paidAmount + ", rebate=" + rebate + ", totalAmount=" + totalAmount + ", employee=" + employee + ", table=" + table + ", customer=" + customer + '}';
+        return "Order{" + "orderId=" + orderId + ", employeeId=" + employeeId + ", tableId=" + tableId + ", customerId=" + customerId + ", discount=" + discount + ", status=" + status + ", type=" + type + ", orderDate=" + orderDate + ", payDate=" + payDate + ", paidAmount=" + paidAmount + ", totalAmount=" + totalAmount + ", employee=" + employee + ", table=" + table + ", customer=" + customer + '}';
     }
 
    

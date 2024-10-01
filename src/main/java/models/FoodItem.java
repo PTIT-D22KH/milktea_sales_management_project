@@ -5,9 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class FoodItem extends Model {
-    private int foodItemId;
+    private int foodItemId, unitPrice, categoryId;
     private String name, description, imagePath, unitName;
-    private int unitPrice, categoryId;
     DecimalFormat formatter = new DecimalFormat("###, ###,###");
 
     public FoodItem() {
