@@ -1,6 +1,8 @@
 package models;
 
 import utils.StringToSlug;
+import java.sql.SQLException;
+import java.sql.ResultSet;
 
 public class FoodCategory extends Model {
 
@@ -31,15 +33,24 @@ public class FoodCategory extends Model {
     }
 
     public String getSlug() {
-        return slug;
+        return StringToSlug.convert(name);
     }
 
 //    public void setSlug(String slug) {
 //        this.slug = slug;
 //    }
-
+    
+    public static FoodCategory getFromResultSet(ResultSet rs)
+            throws SQLException {
+        FoodCategory fc = new FoodCategory();
+        fc.setFoodCategoryId(rs.getInt("foodCategoryId"));
+        fc.setName(rs.getNString("name"));
+        
+        return fc;
+    }
+    
     @Override
     public String toString() {
-        return "";
+        return foodCategoryId + " " + name + " " + slug;
     }
 }
