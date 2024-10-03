@@ -154,10 +154,5 @@ public class EmployeeDao extends Dao<Employee>{
                 fileWriter.close();
             }
         }
-    }
-
-    Employee get(int employeeId) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
+    }   
 }
