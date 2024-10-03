@@ -1,6 +1,5 @@
 package dao;
 
-import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +14,7 @@ public class FoodCategoryDao extends Dao<FoodCategory> {
     }
     
     @Override
-    public ArrayList<FoodCategory> getAll() throws SQLException, IOException{
+    public ArrayList<FoodCategory> getAll() throws SQLException {
         ArrayList<FoodCategory> foodCategories = new ArrayList<>();
         Statement statement = conn.createStatement();
         String query = "SELECT * FROM `food_category`";

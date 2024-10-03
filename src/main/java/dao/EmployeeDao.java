@@ -17,7 +17,7 @@ public class EmployeeDao extends Dao<Employee>{
     }
     
     @Override
-    public ArrayList<Employee> getAll() throws SQLException, IOException {
+    public ArrayList<Employee> getAll() throws SQLException {
         ArrayList<Employee> employees = new ArrayList<>();
         Statement statement = conn.createStatement();
         String query = "SELECT * FROM employee;";

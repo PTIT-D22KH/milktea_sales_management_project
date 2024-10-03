@@ -4,7 +4,6 @@
  */
 package dao;
 
-import java.io.IOException;
 import utils.DatabaseConnector;
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -25,7 +24,7 @@ public abstract class Dao<T> {
      * @return ArrayList<T>
      * @throws SQLException 
      */
-    public abstract ArrayList<T> getAll() throws SQLException, IOException;
+    public abstract ArrayList<T> getAll() throws SQLException;
     
     /**
      * Get the object with a specific id
