@@ -4,6 +4,8 @@
  */
 package models;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import utils.ShipmentStatus;
 
@@ -117,6 +119,18 @@ public class Shipment extends Model{
     public void setEndDate(Timestamp endDate) {
         this.endDate = endDate;
     }
+    
+    public static Shipment getFromResultSet(ResultSet rs) throws SQLException {
+        Shipment shipment = new Shipment();
+        shipment.setOrderId(rs.getInt("OrderId"));
+        shipment.setCustomerId(rs.getInt("CustomerId"));
+        shipment.setEmployeeId(rs.getInt("EmployeeId"));
+        shipment.setShipCost(rs.getInt("shipCost"));
+        shipment.setStatus(ShipmentStatus.getById(rs.getNString("status")));
+        shipment.setStartDate(rs.getTimestamp("startDate"));
+        shipment.setEndDate(rs.getTimestamp("endDate"));
+        return shipment;
+    }
 
     @Override
     public String toString() {
@@ -125,6 +139,7 @@ public class Shipment extends Model{
                 ", customerId=" + customerId +
                 ", employeeId=" + employeeId +
                 ", status='" + status + '\'' +
+                ",shipCost=" + shipCost +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
                 '}';
