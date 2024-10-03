@@ -48,7 +48,7 @@ public class ShipmentDao extends Dao<Shipment> {
         stmt.setInt(2, t.getCustomerId());
         stmt.setInt(3, t.getEmployeeId());
         stmt.setInt(4, t.getShipCost());
-        stmt.setNString(6, t.getStatus().getId());
+        stmt.setNString(5, t.getStatus().getId());
         int row = stmt.executeUpdate();
     }
 
@@ -62,11 +62,11 @@ public class ShipmentDao extends Dao<Shipment> {
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setInt(1, t.getCustomerId());
         stmt.setInt(2, t.getEmployeeId());
-        stmt.setInt(4, t.getShipCost());
-        stmt.setNString(5, t.getStatus().getId());
-        stmt.setTimestamp(7, t.getStartDate());
-        stmt.setTimestamp(8, t.getEndDate());
-        stmt.setInt(9, t.getOrderId());
+        stmt.setInt(3, t.getShipCost());
+        stmt.setNString(4, t.getStatus().getId());
+        stmt.setTimestamp(5, t.getStartDate());
+        stmt.setTimestamp(6, t.getEndDate());
+        stmt.setInt(7, t.getOrderId());
         int row = stmt.executeUpdate();
     }
 

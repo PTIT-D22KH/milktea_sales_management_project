@@ -13,7 +13,7 @@ import static utils.ShipmentStatus.values;
 public enum ShipmentStatus {
     TOPAY("topay", "Chờ xác nhận"),
     TOSHIP("toship", "Chờ lấy hàng"),
-    TORECIEVE("toreceive", "Đang giao"),
+    TORECEIVE("toreceive", "Đang giao"),
     COMPLETED("completed", "Hoàn thành"),
     CANCELLED("cancelled", "Đã hủy"),;
     private String id, name;
