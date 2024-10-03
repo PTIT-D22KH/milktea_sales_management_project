@@ -65,7 +65,7 @@ public class SessionDaoTest {
         SQLException exception = assertThrows(SQLException.class, () -> {
             sessionDao.save(session);
         });
-        assertEquals("Shipment rong", exception.getMessage());
+        assertEquals("Session rong", exception.getMessage());
     }
 
     @Test
@@ -88,17 +88,17 @@ public class SessionDaoTest {
         SQLException exception = assertThrows(SQLException.class, () -> {
             sessionDao.update(session);
         });
-        assertEquals("shipment rong", exception.getMessage());
+        assertEquals("Session rong", exception.getMessage());
     }
 
     @Test
     public void testUpdateNotNull() throws SQLException {
-        Session session = sessionDao.getById(1);
-        session.setMessage("Updated message");
+        Session session = sessionDao.getById(58);
+        session.setMessage("logout");
         sessionDao.update(session);
 
-        Session updatedSession = sessionDao.getById(1);
-        assertEquals("Updated message", updatedSession.getMessage());
+        Session updatedSession = sessionDao.getById(58);
+        assertEquals("logout", updatedSession.getMessage());
     }
 
     @Test
@@ -110,7 +110,7 @@ public class SessionDaoTest {
 
     @Test
     public void testGetAllWithTimestamps() throws SQLException {
-        Timestamp start = new Timestamp(System.currentTimeMillis() - 100000);
+        Timestamp start = new Timestamp(System.currentTimeMillis() - 1000000000);
         Timestamp end = new Timestamp(System.currentTimeMillis());
         ArrayList<Session> sessions = sessionDao.getAll(start, end);
         assertNotNull(sessions);

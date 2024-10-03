@@ -68,7 +68,7 @@ public abstract class SessionDao extends Dao<Session> {
     @Override
     public void save(Session t) throws SQLException {
         if (t == null) {
-            throw new SQLException("Shipment rong");
+            throw new SQLException("Session rong");
         }
         String query = "INSERT INTO `session` (`employeeId`, `startTime`, `endTime`, `message`) VALUES (?, ?, ?, ?)";
         PreparedStatement stmt = conn.prepareStatement(query);
@@ -82,7 +82,7 @@ public abstract class SessionDao extends Dao<Session> {
     @Override
     public void update(Session t) throws SQLException {
         if (t == null) {
-            throw new SQLException("shipment rong");
+            throw new SQLException("Session rong");
         }
         String query = "UPDATE `session` SET `startTime` = ?, `endTime` = ?, `message` = ? WHERE `sessionId` = ?";
         PreparedStatement stmt = conn.prepareStatement(query);
@@ -115,9 +115,24 @@ public abstract class SessionDao extends Dao<Session> {
         return null;
     }
 
+//    public ArrayList<Session> getAll(Timestamp start, Timestamp end) throws SQLException {
+//        ArrayList<Session> sessions = new ArrayList<>();
+//        String query = "SELECT * FROM `session` WHERE `message` = ? AND DATE(`startTime`) >= DATE(?) ORDER BY `startTime` DESC";
+//        PreparedStatement statement = conn.prepareStatement(query);
+//        statement.setNString(1, "logout");
+//        statement.setTimestamp(2, start);
+//        statement.setTimestamp(3, end);
+//        ResultSet rs = statement.executeQuery();
+//        while (rs.next()) {
+//            Session session = Session.getFromResultSet(rs);
+//            session.setEmployee(employeeDao.getById(session.getEmployeeId()));
+//            sessions.add(session);
+//        }
+//        return sessions;
+//    }
     public ArrayList<Session> getAll(Timestamp start, Timestamp end) throws SQLException {
         ArrayList<Session> sessions = new ArrayList<>();
-        String query = "SELECT * FROM `session` WHERE `message` = ? AND DATE(`startTime`) >= DATE(?) ORDER BY `startTime` DESC";
+        String query = "SELECT * FROM `session` WHERE `message` = ? AND DATE(startTime) >= DATE(?) AND DATE(startTime) <= DATE(?) ORDER BY `session`.`startTime` DESC";
         PreparedStatement statement = conn.prepareStatement(query);
         statement.setNString(1, "logout");
         statement.setTimestamp(2, start);

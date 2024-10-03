@@ -27,7 +27,12 @@ public class OrderDao extends Dao<Order> {
         ResultSet rs = statement.executeQuery(query);
         while (rs.next()) {
             Order order = Order.getFromResultSet(rs);
+            if (order == null) {
+                continue;
+            }
             order.setEmployee(employeeDao.getById(order.getEmployeeId()));
+//            System.out.println(order);
+//            System.out.println(order.getTable());
             order.setTable(tableDao.getById(order.getTableId()));
             order.setCustomer(customerDao.getById(order.getCustomerId()));
             orders.add(order);

@@ -1,6 +1,7 @@
 package models;
 
 import java.sql.Date;
+import java.sql.SQLException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -59,7 +60,7 @@ public class OrderTest {
     }
 
     @Test
-    public void testSetAndGetTableId() {
+    public void testSetAndGetTableId() throws  SQLException{
         Order order = new Order();
         order.setTableId(3);
         assertEquals(3, order.getTableId());
@@ -154,7 +155,7 @@ public class OrderTest {
     }
 
     @Test
-    public void testToString() {
+    public void testToString() throws SQLException{
         Order order = new Order();
         order.setOrderId(1);
         order.setEmployeeId(2);

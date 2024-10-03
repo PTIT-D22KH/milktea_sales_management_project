@@ -60,14 +60,14 @@ public class TableDao extends Dao<Table> {
 
     @Override
     public void delete(Table t) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("DELETE FROM `table` WHERE `table`.`id` = ?");
+        PreparedStatement stmt = conn.prepareStatement("DELETE FROM `table` WHERE `table`.`tableId` = ?");
         stmt.setInt(1, t.getTableId());
         stmt.executeUpdate();
     }
 
     @Override
     public void deleteById(int id) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("DELETE FROM `table` WHERE `table`.`id` = ?");
+        PreparedStatement stmt = conn.prepareStatement("DELETE FROM `table` WHERE `table`.`tableId` = ?");
         stmt.setInt(1, id);
         stmt.executeUpdate();
     }
