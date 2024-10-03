@@ -4,6 +4,7 @@
  */
 package models;
 
+import dao.TableDao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -29,6 +30,7 @@ public class Order extends Model{
         o.setOrderId(rs.getInt("OrderId"));
         o.setEmployeeId(rs.getInt("EmployeeId"));
         o.setTableId(rs.getInt("TableId"));
+        o.setCustomerId(rs.getInt("customerId"));
         o.setType(OrderType.getById(rs.getNString("type")));
         o.setStatus(OrderStatus.getById(rs.getNString("status")));
         o.setOrderDate(rs.getTimestamp("orderDate"));
@@ -61,8 +63,10 @@ public class Order extends Model{
         return tableId;
     }
 
-    public void setTableId(int tableId) {
+    public void setTableId(int tableId) throws SQLException{
         this.tableId = tableId;
+        TableDao tableDao = new TableDao();
+        this.table = tableDao.getById(tableId);
     }
 
     public int getCustomerId() {
@@ -161,6 +165,7 @@ public class Order extends Model{
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+        
         this.customerId = customer.getCustomerId();
     }
 
