@@ -52,7 +52,7 @@ public class OrderItemDao extends Dao<OrderItem> {
         if (t == null) {
             throw new SQLException("Order Item rỗng");
         }
-        String query = "UPDATE `order_item` SET  `quantity` = ?, `foodPrice` = ?, `toppingPrice` = ?, `note` = ? WHERE `idOrder` = ? AND `idFoodItem` = ? AND `idTopping` = ?";
+        String query = "UPDATE `order_item` SET  `quantity` = ?, `foodPrice` = ?, `toppingPrice` = ?, `note` = ? WHERE `orderId` = ? AND `foodItemId` = ? AND `toppingId` = ?";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setInt(1, t.getQuantity());
         stmt.setInt(2, t.getFoodPrice());
@@ -69,7 +69,7 @@ public class OrderItemDao extends Dao<OrderItem> {
         if (t == null) {
             throw new SQLException("Order Item rỗng");
         }
-        PreparedStatement stmt = conn.prepareStatement("DELETE FROM `order_item` WHERE `idOrder` = ? AND `idFoodItem` = ? AND `idTopping` = ?");
+        PreparedStatement stmt = conn.prepareStatement("DELETE FROM `order_item` WHERE `orderId` = ? AND `foodItemId` = ? AND `toppingId` = ?");
         stmt.setInt(1, t.getOrderId());
         stmt.setInt(2, t.getFoodItemId());
         stmt.setInt(3, t.getToppingId());
