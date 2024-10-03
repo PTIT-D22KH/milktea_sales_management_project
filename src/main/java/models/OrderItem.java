@@ -117,8 +117,6 @@ public class OrderItem extends Model{
         oi.setNote(rs.getNString("note"));
         return oi;
     }
-<<<<<<< HEAD
-=======
     public static OrderItem getFromResultSet(ResultSet rs) throws SQLException {
         OrderItem oi = new OrderItem();
         oi.setFoodItemId(rs.getInt("foodItemId"));
@@ -130,5 +128,4 @@ public class OrderItem extends Model{
         oi.setNote(rs.getNString("note"));
         return oi;
     }
->>>>>>> c14c64d9b863c6042636011582fd48c4dbc17fc4
 }
