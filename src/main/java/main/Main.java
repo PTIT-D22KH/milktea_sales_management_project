@@ -15,8 +15,11 @@ import models.FoodCategory;
 import utils.EmployeePermission;
 import dao.EmployeeDao;
 import dao.FoodCategoryDao;
+import dao.ShipmentDao;
 import dao.TableDao;
+import models.Shipment;
 import models.Table;
+import utils.ShipmentStatus;
 import utils.TableStatus;
 
 /**
@@ -29,6 +32,16 @@ public class Main {
         System.out.println("Ket noi csdl thanh cong!");
 //        CustomerDao customerDao = new CustomerDao();
 //        customerDao.deleteById(1);
-        
+          ShipmentDao s = new ShipmentDao();
+          Shipment shipment = new Shipment();
+//          shipment.setOrderId(3);
+//          shipment.setCustomerId(2);
+//          shipment.setEmployeeId(2);
+//          shipment.setStatus(ShipmentStatus.TOPAY);
+//          s.save(shipment);
+          ArrayList<Shipment> shipments = s.getAll();
+          for(Shipment x : shipments){
+              System.out.println(x);
+          }
     }
 }
