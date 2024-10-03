@@ -4,6 +4,8 @@
  */
 package models;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import utils.OrderStatus;
 import utils.OrderType;
@@ -22,6 +24,20 @@ public class Order extends Model{
     private Table table;
     private Customer customer;
     
+    public static Order getFromResultSet(ResultSet rs) throws SQLException {
+        Order o = new Order();
+        o.setOrderId(rs.getInt("OrderId"));
+        o.setEmployeeId(rs.getInt("EmployeeId"));
+        o.setTableId(rs.getInt("TableId"));
+        o.setType(OrderType.getById(rs.getNString("type")));
+        o.setStatus(OrderStatus.getById(rs.getNString("status")));
+        o.setOrderDate(rs.getTimestamp("orderDate"));
+        o.setPayDate(rs.getTimestamp("payDate"));
+        o.setPaidAmount(rs.getInt("paidAmount"));
+        o.setTotalAmount(rs.getInt("totalAmount"));
+        o.setDiscount(rs.getInt("discount"));
+        return o;
+    }
     public Order() {
         status = OrderStatus.UNPAID;
     }
@@ -29,12 +45,18 @@ public class Order extends Model{
     public int getOrderId() {
         return orderId;
     }
+<<<<<<< HEAD
 
     public void setOrderId(int orderId) {
         this.orderId = orderId;
     }
     
 
+=======
+    public void setOrderId(int orderId){
+        this.orderId = orderId;
+    }
+>>>>>>> c14c64d (add 2 file dao)
     public int getEmployeeId() {
         return employeeId;
     }
