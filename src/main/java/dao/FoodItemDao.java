@@ -24,12 +24,12 @@ public abstract class FoodItemDao extends Dao<FoodItem>{
         conn = mockConnection;
     }
     @Override
-    public ArrayList <FoodItem> getAll() throws SQLException {
+    public ArrayList<FoodItem> getAll() throws SQLException {
         ArrayList<FoodItem> foodItems = new ArrayList<>();
         Statement statement = conn.createStatement();
-        String query = "SELECT * FROM 'food_item' ORDER BY 'food_item', 'idCategory' ASC, 'food_item', 'name' ASC";
+        String query = "SELECT * FROM `food_item` ORDER BY `foodCategoryId` ASC, `name` ASC";
         ResultSet rs = statement.executeQuery(query);
-        while(rs.next()) {
+        while (rs.next()) {
             FoodItem foodItem = FoodItem.getFromResultSet(rs);
             foodItems.add(foodItem);
         }
@@ -39,7 +39,7 @@ public abstract class FoodItemDao extends Dao<FoodItem>{
     public ArrayList<FoodItem> getByCategoryId (int id) throws SQLException {
         ArrayList<FoodItem> foodItems = new ArrayList<>();
         Statement statement = conn.createStatement();
-        String query = "SELECT * FROM 'food_item' WHERE 'idCategory' = " + id;
+        String query = "SELECT * FROM 'food_item' WHERE 'categoryId' = " + id;
         ResultSet rs = statement.executeQuery(query);
         while(rs.next()) {
             FoodItem foodItem = FoodItem.getFromResultSet(rs);
@@ -48,9 +48,10 @@ public abstract class FoodItemDao extends Dao<FoodItem>{
         return foodItems;
     }
     
-    public FoodItem getByID(int foodItemId) throws SQLException {
+    @Override
+    public FoodItem getById(int foodItemId) throws SQLException {
         Statement statement = conn.createStatement();
-        String query = "SELECT * FROM 'ffood_item' WHERE 'id' = " + foodItemId;
+        String query = "SELECT * FROM 'food_item' WHERE 'foodItemId' = " + foodItemId;
         ResultSet rs = statement.executeQuery(query);
         if(rs.next()) {
            FoodItem foodItem = FoodItem.getFromResultSet(rs);
@@ -64,7 +65,7 @@ public abstract class FoodItemDao extends Dao<FoodItem>{
         if(t == null) {
             throw new SQLException("Food item rong");
         }
-        String query = "INSERT INTO 'food_item' ('name', 'description', 'ImagePath', 'unitName', 'unitPrice', 'CategoryId') VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO 'food_item' ('name', 'description', 'imagePath', 'unitName', 'unitPrice', 'categoryId') VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setNString(1, t.getName());
         stmt.setNString(2, t.getDescription());
@@ -80,7 +81,7 @@ public abstract class FoodItemDao extends Dao<FoodItem>{
         if (t == null) {
             throw new SQLException("Food item rong");
         }
-        String query = "UPDATE 'food_item' SET 'name' = ?, 'description' = ?, 'ImagePath' = ?, 'unitName' = ?, 'unitPrice' = ?, 'CategoryId' = ? WHERE 'food_item'.'id' = ?";
+        String query = "UPDATE 'food_item' SET 'name' = ?, 'description' = ?, 'imagePath' = ?, 'unitName' = ?, 'unitPrice' = ?, 'categoryId' = ? WHERE 'food_item'.'id' = ?";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setNString(1, t.getName());
         stmt.setNString(2, t.getDescription());
@@ -120,7 +121,7 @@ public abstract class FoodItemDao extends Dao<FoodItem>{
     
     public FoodItem getRandom() throws SQLException {
         Statement statement = conn.createStatement();
-        String query = "SELECT * FROM 'foot_item' WHERE CategoryId != 4 ORDER BY RAND() LIMIT 1";
+        String query = "SELECT * FROM 'foot_item' WHERE categoryId != 4 ORDER BY RAND() LIMIT 1";
         ResultSet rs = statement.executeQuery(query);
         if(rs.next()) {
             FoodItem foodItem = FoodItem.getFromResultSet(rs);
@@ -131,7 +132,7 @@ public abstract class FoodItemDao extends Dao<FoodItem>{
     
     public FoodItem getRandom(int FoodItemId) throws SQLException {
         Statement statement = conn.createStatement();
-        String query = "SELECT * FROM 'food_item' WHERE 'CategoryId' = " + FoodItemId + " ORDER BY RAND() LIMIT 1";
+        String query = "SELECT * FROM 'food_item' WHERE 'categoryId' = " + FoodItemId + " ORDER BY RAND() LIMIT 1";
         ResultSet rs = statement.executeQuery(query);
         if(rs.next()) {
             FoodItem foodItem = FoodItem.getFromResultSet(rs);

@@ -13,7 +13,7 @@ import models.OrderItem;
  */
 public class OrderItemDao extends Dao<OrderItem> {
 
-    FoodItemDao foodItemDao = new FoodItemDao();
+    FoodItemDao foodItemDao = new FoodItemDao() {};
 
     @Override
     public ArrayList<OrderItem> getAll() throws SQLException {
@@ -23,8 +23,8 @@ public class OrderItemDao extends Dao<OrderItem> {
         ResultSet rs = statement.executeQuery(query);
         while (rs.next()) {
             OrderItem orderItem = OrderItem.getFromResultSet(rs);
-            orderItem.setFoodItem(foodItemDao.get(orderItem.getFoodItemId()));
-            orderItem.setToppingItem(foodItemDao.get(orderItem.getToppingId()));
+            orderItem.setFoodItem(foodItemDao.getById(orderItem.getFoodItemId()));
+            orderItem.setToppingItem(foodItemDao.getById(orderItem.getToppingId()));
             orderItems.add(orderItem);
         }
         return orderItems;
@@ -101,8 +101,8 @@ public class OrderItemDao extends Dao<OrderItem> {
         ResultSet rs = statement.executeQuery(query);
         while (rs.next()) {
             OrderItem orderItem = OrderItem.getFromResultSet(rs);
-            orderItem.setFoodItem(foodItemDao.get(orderItem.getFoodItemId()));
-            orderItem.setToppingItem(foodItemDao.get(orderItem.getToppingId()));
+            orderItem.setFoodItem(foodItemDao.getById(orderItem.getFoodItemId()));
+            orderItem.setToppingItem(foodItemDao.getById(orderItem.getToppingId()));
             orderItems.add(orderItem);
         }
         return orderItems;
@@ -118,6 +118,12 @@ public class OrderItemDao extends Dao<OrderItem> {
             orderitems.add(orderitem);
         }
         return orderitems;
+    }
+
+    @Override
+    public OrderItem getById(int id) throws SQLException {
+        
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

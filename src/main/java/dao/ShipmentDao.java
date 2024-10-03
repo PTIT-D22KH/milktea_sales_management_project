@@ -28,8 +28,8 @@ public class ShipmentDao extends Dao<Shipment> {
         ResultSet rs = statement.executeQuery(query);
         while (rs.next()) {
             Shipment shipment = Shipment.getFromResultSet(rs);
-            shipment.setCustomer(customerDao.get(shipment.getCustomerId()));
-            shipment.setOrder(orderDao.get(shipment.getOrderId()));
+            shipment.setCustomer(customerDao.getById(shipment.getCustomerId()));
+            shipment.setOrder(orderDao.getById(shipment.getOrderId()));
             shipments.add(shipment);
         }
         return shipments;
