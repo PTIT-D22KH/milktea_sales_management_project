@@ -51,7 +51,7 @@ public abstract class FoodItemDao extends Dao<FoodItem>{
     @Override
     public FoodItem getById(int foodItemId) throws SQLException {
         Statement statement = conn.createStatement();
-        String query = "SELECT * FROM 'food_item' WHERE 'foodItemId' = " + foodItemId;
+        String query = "SELECT * FROM `food_item` WHERE `foodItemId` = " + foodItemId;
         ResultSet rs = statement.executeQuery(query);
         if(rs.next()) {
            FoodItem foodItem = FoodItem.getFromResultSet(rs);

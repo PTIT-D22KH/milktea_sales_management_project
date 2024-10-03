@@ -15,20 +15,23 @@ import models.FoodCategory;
 import utils.EmployeePermission;
 import dao.EmployeeDao;
 import dao.FoodCategoryDao;
+import dao.OrderDao;
+import dao.OrderItemDao;
 import dao.TableDao;
+import models.Order;
+import models.OrderItem;
 import models.Table;
 import utils.TableStatus;
-
 /**
  *
  * @author P51
  */
 public class Main {
     public static void main(String[] args) throws SQLException {
+        
         Connection conn = DatabaseConnector.getInstance().getConn();
         System.out.println("Ket noi csdl thanh cong!");
 //        CustomerDao customerDao = new CustomerDao();
 //        customerDao.deleteById(1);
-        
     }
 }
