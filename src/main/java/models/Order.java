@@ -28,9 +28,6 @@ public class Order extends Model{
         status = OrderStatus.UNPAID;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
 
     public int getOrderId() {
         return orderId;
