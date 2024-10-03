@@ -4,6 +4,8 @@
  */
 package models;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import utils.OrderStatus;
 import utils.OrderType;
@@ -24,6 +26,10 @@ public class Order extends Model{
     
     public Order() {
         status = OrderStatus.UNPAID;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 
     public int getOrderId() {

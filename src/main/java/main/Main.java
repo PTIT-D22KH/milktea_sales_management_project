@@ -15,6 +15,9 @@ import models.FoodCategory;
 import utils.EmployeePermission;
 import dao.EmployeeDao;
 import dao.FoodCategoryDao;
+import dao.TableDao;
+import models.Table;
+import utils.TableStatus;
 
 /**
  *
@@ -24,6 +27,5 @@ public class Main {
     public static void main(String[] args) throws SQLException {
         Connection conn = DatabaseConnector.getInstance().getConn();
         System.out.println("Ket noi csdl thanh cong!");
-        
     }
 }

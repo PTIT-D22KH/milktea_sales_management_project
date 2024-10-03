@@ -116,7 +116,5 @@ public class CustomerDao extends Dao<Customer>{
         statement.executeUpdate();
         
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
-    
+    }   
 }

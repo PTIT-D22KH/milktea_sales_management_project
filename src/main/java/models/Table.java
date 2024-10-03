@@ -4,6 +4,8 @@
  */
 package models;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import utils.TableStatus;
 
 /**
@@ -42,10 +44,18 @@ public class Table extends Model{
     public void setStatus(TableStatus status) {
         this.status = status;
     }
+    
+    public static Table getFromResultSet(ResultSet rs) throws SQLException {
+        Table t = new Table();
+        t.setTableId(rs.getInt("tableId"));
+        t.setName(rs.getNString("name"));
+        t.setStatus(TableStatus.getById(rs.getNString("status")));
+        return t;
+    }
 
     @Override
     public String toString() {
-      return name;
+      return name + " " + status.getName();
     }
     
 //    @Override
