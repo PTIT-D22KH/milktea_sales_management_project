@@ -30,6 +30,11 @@ public class Order extends Model{
         return orderId;
     }
 
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+    
+
     public int getEmployeeId() {
         return employeeId;
     }
