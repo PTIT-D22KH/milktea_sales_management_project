@@ -27,15 +27,5 @@ public class Main {
     public static void main(String[] args) throws SQLException {
         Connection conn = DatabaseConnector.getInstance().getConn();
         System.out.println("Ket noi csdl thanh cong!");
-        Table table = new Table();
-        TableDao t = new TableDao();
-//        table.setName("bàn 13");
-//        table.setTableId(16);
-//        table.setStatus(TableStatus.FREE);
-//        t.save(table);
-        ArrayList<Table> a = t.getAll();
-        for(Table x : a){
-            System.out.println(x);
-        }
     }
 }
