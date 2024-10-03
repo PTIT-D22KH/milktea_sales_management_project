@@ -2,6 +2,8 @@ package models;
 
 import java.sql.Date;
 import utils.EmployeePermission;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Employee extends Model {
     
@@ -78,8 +80,21 @@ public class Employee extends Model {
         this.startDate = startDate;
     }
     
+    public static Employee getFromResultSet(ResultSet rs) throws SQLException {
+        Employee e = new Employee();
+        e.setEmployeeId(rs.getInt("employeeId"));
+        e.setUsername(rs.getNString("username"));
+        e.setPassword(rs.getNString("password"));
+        e.setName(rs.getNString("name"));
+        e.setPhoneNumber(rs.getNString("phoneNumber"));
+        e.setStartDate(rs.getDate("startDate"));
+        e.setPermission(EmployeePermission.getById(rs.getNString("permission")));
+        e.setSalary(rs.getInt("salary"));
+        return e;
+    }
+
     @Override
-    public String toString(){
-        return "";
+    public String toString() {
+        return "Employee{" + "employeeId=" + employeeId + ", salary=" + salary + ", username=" + username + ", password=" + password + ", name=" + name + ", phoneNumber=" + phoneNumber + ", permission=" + permission + ", startDate=" + startDate + '}';
     }
 }
