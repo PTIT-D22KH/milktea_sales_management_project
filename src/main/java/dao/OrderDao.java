@@ -1,3 +1,4 @@
+
 package dao;
 
 import java.sql.PreparedStatement;
@@ -44,6 +45,20 @@ public class OrderDao extends Dao<Order> {
             orders.add(order);
         }
         return orders;
+    }
+
+    @Override
+    public Order get(int id) throws SQLException {
+        Statement statement = conn.createStatement();
+        String query = "SELECT * FROM `order` WHERE `orderId` = " + id;
+        ResultSet rs = statement.executeQuery(query);
+        if (rs.next()) {
+            Order order = Order.getFromResultSet(rs);
+            order.setEmployee(employeeDao.get(order.getEmployeeId()));
+            order.setTable(tableDao.get(order.getTableId()));
+            return order;
+        }
+        return null;
     }
 
     @Override

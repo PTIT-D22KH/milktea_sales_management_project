@@ -45,20 +45,6 @@ public class Order extends Model{
     public int getOrderId() {
         return orderId;
     }
-
-
-
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
-    
-    public void setOrderId(int orderId){
-        this.orderId = orderId;
-    }
-    public void setOrderId(int orderId){
-        this.orderId = orderId;
-    }
-
     public void setOrderId(int orderId){
         this.orderId = orderId;
     }
