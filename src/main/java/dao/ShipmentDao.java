@@ -104,7 +104,16 @@ public class ShipmentDao extends Dao<Shipment> {
 
     @Override
     public Shipment getById(int id) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Statement statement = conn.createStatement();
+        String query = "SELECT * "
+                + "FROM `shipment` "
+                + "WHERE `orderId` = " + id;
+        ResultSet result = statement.executeQuery(query);
+        if (result.next()) {
+            Shipment shipment = Shipment.getFromResultSet(result);
+            return shipment;
+        }
+        return null;
     }
 
 }

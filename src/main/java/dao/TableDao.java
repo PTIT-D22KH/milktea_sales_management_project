@@ -108,11 +108,16 @@ public class TableDao extends Dao<Table> {
 
     @Override
     public Table getById(int id) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    Table get(int tableId) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       Statement statement = conn.createStatement();
+        String query = "SELECT * "
+                + "FROM `table` "
+                + "WHERE `tableId` = " + id;
+        ResultSet result = statement.executeQuery(query);
+        if (result.next()) {
+            Table table = Table.getFromResultSet(result);
+            return table;
+        }
+        return null; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
 
