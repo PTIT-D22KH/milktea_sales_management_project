@@ -20,7 +20,11 @@ import models.FoodCategory;
 import utils.EmployeePermission;
 import dao.EmployeeDao;
 import dao.FoodCategoryDao;
+import dao.FoodItemDao;
+import dao.OrderItemDao;
 import dao.TableDao;
+import models.FoodItem;
+import models.OrderItem;
 import models.Table;
 import utils.TableStatus;
 import views.LoginView;
@@ -40,6 +44,9 @@ public class Main {
             System.out.println("Set up UI Theme successfully!");
         } catch (Exception ex) {
             System.err.println("Set up UI Theme failed!");
+//        CustomerDao customerDao = new CustomerDao();
+//        customerDao.deleteById(1);
+        
         }
     }
 }
