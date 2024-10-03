@@ -46,6 +46,7 @@ public class Order extends Model{
         return orderId;
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     public void setOrderId(int orderId) {
         this.orderId = orderId;
@@ -57,6 +58,11 @@ public class Order extends Model{
         this.orderId = orderId;
     }
 >>>>>>> c14c64d (add 2 file dao)
+=======
+    public void setOrderId(int orderId){
+        this.orderId = orderId;
+    }
+>>>>>>> c14c64d9b863c6042636011582fd48c4dbc17fc4
     public int getEmployeeId() {
         return employeeId;
     }
