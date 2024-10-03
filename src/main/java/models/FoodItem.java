@@ -75,7 +75,7 @@ public class FoodItem extends Model {
     }
     public static FoodItem getFromResultSet(ResultSet rs) throws SQLException {
         FoodItem f = new FoodItem();
-        f.setCategoryId(rs.getInt("CategoryId"));
+        f.setCategoryId(rs.getInt("foodCategoryId"));
         f.setName(rs.getNString("name"));
         f.setDescription(rs.getNString("description"));
         f.setImagePath(rs.getNString("ImagePath"));

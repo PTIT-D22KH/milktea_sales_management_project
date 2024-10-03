@@ -27,5 +27,8 @@ public class Main {
     public static void main(String[] args) throws SQLException {
         Connection conn = DatabaseConnector.getInstance().getConn();
         System.out.println("Ket noi csdl thanh cong!");
+//        CustomerDao customerDao = new CustomerDao();
+//        customerDao.deleteById(1);
+        
     }
 }
