@@ -12,6 +12,8 @@ public class FoodItem extends Model {
     public FoodItem() {
     }
 
+    
+
     public int getFoodItemId() {
         return foodItemId;
     }
