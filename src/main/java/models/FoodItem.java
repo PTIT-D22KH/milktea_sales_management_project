@@ -73,6 +73,17 @@ public class FoodItem extends Model {
     public String toString() {
         return String.format("%s (%s)", name, formatter.format(unitPrice));
     }
+    public static FoodItem getFromResultSet(ResultSet rs) throws SQLException {
+        FoodItem f = new FoodItem();
+        f.setCategoryId(rs.getInt("CategoryId"));
+        f.setName(rs.getNString("name"));
+        f.setDescription(rs.getNString("description"));
+        f.setImagePath(rs.getNString("ImagePath"));
+        f.setUnitName(rs.getNString("unitName"));
+        f.setUnitPrice(rs.getInt("unitPrice"));
+        f.setCategoryId(rs.getInt("CategoryId"));
+        return f;
+    }
 
     
 
