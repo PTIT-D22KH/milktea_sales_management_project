@@ -63,7 +63,7 @@ public class Session {
     
     public static Session getFromResultSet(ResultSet rs) throws SQLException {
         Session s = new Session();
-        s.setSessionId(rs.getInt("id"));
+        s.setSessionId(rs.getInt("sessionId"));
         s.setEmployeeId(rs.getInt("EmployeeId"));
         s.setMessage(rs.getNString("message"));
         s.setStartTime(rs.getTimestamp("startTime"));
@@ -72,7 +72,7 @@ public class Session {
     }
     @Override 
     public String toString() {
-        return "Session{" + "id=" + sessionId + ", employeeId=" + employeeId + ", startTime=" + startTime + ", endTime=" + endTime + ", message=" + message + "}";
+        return "Session{" + "sessionId=" + sessionId + ", employeeId=" + employeeId + ", startTime=" + startTime + ", endTime=" + endTime + ", message=" + message + "}";
     }
     
 

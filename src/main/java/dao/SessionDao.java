@@ -4,9 +4,9 @@
  */
 package dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLDataException;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
@@ -14,115 +14,116 @@ import java.util.ArrayList;
 import models.Session;
 
 /**
- *
- * @author buiva
+ * Data Access Object for Session
  */
-public abstract class SessionDao extends Dao<Session>{
+public abstract class SessionDao extends Dao<Session> {
     public SessionDao() {
-        
     }
-    
+    public SessionDao(Connection conn) {
+        this.conn = conn;
+    }
+
     EmployeeDao employeeDao = new EmployeeDao();
-    
+
     @Override
     public ArrayList<Session> getAll() throws SQLException {
-        ArrayList <Session> sessions = new ArrayList<>();
+        ArrayList<Session> sessions = new ArrayList<>();
         Statement statement = conn.createStatement();
-        String query = "SELECT * FROM 'session' ORDER BY 'session'.'startTime' DESC";
+        String query = "SELECT * FROM `session` ORDER BY `startTime` DESC";
         ResultSet rs = statement.executeQuery(query);
-        while(rs.next()) {
+        while (rs.next()) {
             Session session = Session.getFromResultSet(rs);
             session.setEmployee(employeeDao.getById(session.getEmployeeId()));
             sessions.add(session);
         }
         return sessions;
     }
+
     @Override
     public Session getById(int id) throws SQLException {
         Statement statement = conn.createStatement();
-        String query = "SELECT * FROM 'session' WHERE 'id' = " + id;
+        String query = "SELECT * FROM `session` WHERE `sessionId` = " + id;
         ResultSet rs = statement.executeQuery(query);
-        if(rs.next()) {
+        if (rs.next()) {
             Session session = Session.getFromResultSet(rs);
             session.setEmployee(employeeDao.getById(session.getEmployeeId()));
             return session;
         }
         return null;
     }
-    
-    public ArrayList <Session> getSession(int id) throws SQLException {
-        ArrayList <Session> sessions = new ArrayList<>();
+
+    public ArrayList<Session> getSession(int id) throws SQLException {
+        ArrayList<Session> sessions = new ArrayList<>();
         Statement statement = conn.createStatement();
-        String query = "SELECT * FROM 'session' WHERE 'EmployeeId' = " + id + " ORDER BY 'session'.'startTime' DESC";
+        String query = "SELECT * FROM `session` WHERE `employeeId` = " + id + " ORDER BY `startTime` DESC";
         ResultSet rs = statement.executeQuery(query);
-        while(rs.next()) {
+        while (rs.next()) {
             Session session = Session.getFromResultSet(rs);
             session.setEmployee(employeeDao.getById(session.getEmployeeId()));
             sessions.add(session);
         }
         return sessions;
     }
-    
+
     @Override
     public void save(Session t) throws SQLException {
-        if(t == null) {
+        if (t == null) {
             throw new SQLException("Shipment rong");
         }
-        String query = "INSERT INTO 'session' ('EmployeeId', 'startTime', 'endTime', 'message') VALUES (?, ?, ?, ?)";
-        
+        String query = "INSERT INTO `session` (`employeeId`, `startTime`, `endTime`, `message`) VALUES (?, ?, ?, ?)";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setInt(1, t.getEmployeeId());
         stmt.setTimestamp(2, t.getStartTime());
         stmt.setTimestamp(3, t.getEndTime());
         stmt.setNString(4, t.getMessage());
-        int row = stmt.executeUpdate();
+        stmt.executeUpdate();
     }
-    
+
     @Override
-    public void update (Session t) throws SQLException {
-        if(t == null) {
-            throw new SQLException ("shipment rong");
+    public void update(Session t) throws SQLException {
+        if (t == null) {
+            throw new SQLException("shipment rong");
         }
-        String query = "UPDATE 'session' SET 'startTime' = ?, 'endTime' = ?, 'message' = ? WHERE 'session'.'id' = ?";
-        
+        String query = "UPDATE `session` SET `startTime` = ?, `endTime` = ?, `message` = ? WHERE `sessionId` = ?";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setTimestamp(1, t.getStartTime());
         stmt.setTimestamp(2, t.getEndTime());
         stmt.setNString(3, t.getMessage());
         stmt.setInt(4, t.getSessionId());
-        int row = stmt.executeUpdate();
+        stmt.executeUpdate();
     }
-    
+
     @Override
     public void delete(Session t) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet");
     }
-    
+
     @Override
     public void deleteById(int id) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
     public Session getLast(int EmployeeId) throws SQLException {
         Statement statement = conn.createStatement();
-        String query = "SELECT * FROM 'session' WHERE 'EmployeeId' = " + EmployeeId + " ORDER BY 'id' DESC LIMIT 1";
+        String query = "SELECT * FROM `session` WHERE `employeeId` = " + EmployeeId + " ORDER BY `sessionId` DESC LIMIT 1";
         ResultSet rs = statement.executeQuery(query);
-        if(rs.next()) {
+        if (rs.next()) {
             Session session = Session.getFromResultSet(rs);
             session.setEmployee(employeeDao.getById(session.getEmployeeId()));
             return session;
         }
         return null;
     }
-    
-    public ArrayList<Session> getAll (Timestamp start, Timestamp end) throws SQLException {
-        ArrayList <Session> sessions = new ArrayList<>();
-        String query = "SELECT * FROM 'session' WHERE 'message' = ? AND DATE(startTime) >= DATE(?) ORDER BY 'session'.'startTime' DESC";
+
+    public ArrayList<Session> getAll(Timestamp start, Timestamp end) throws SQLException {
+        ArrayList<Session> sessions = new ArrayList<>();
+        String query = "SELECT * FROM `session` WHERE `message` = ? AND DATE(`startTime`) >= DATE(?) ORDER BY `startTime` DESC";
         PreparedStatement statement = conn.prepareStatement(query);
         statement.setNString(1, "logout");
         statement.setTimestamp(2, start);
         statement.setTimestamp(3, end);
         ResultSet rs = statement.executeQuery();
-        while(rs.next()) {
+        while (rs.next()) {
             Session session = Session.getFromResultSet(rs);
             session.setEmployee(employeeDao.getById(session.getEmployeeId()));
             sessions.add(session);
