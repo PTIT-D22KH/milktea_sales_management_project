@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class FoodItem extends Model {
     private int foodItemId, unitPrice, categoryId;
     private String name, description, imagePath, unitName;
-    DecimalFormat formatter = new DecimalFormat("###, ###,###");
+    DecimalFormat formatter = new DecimalFormat("###,###,###");
 
     public FoodItem() {
     }
