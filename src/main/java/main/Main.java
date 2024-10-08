@@ -32,6 +32,5 @@ public class Main {
         System.out.println("Ket noi csdl thanh cong!");
 //        CustomerDao customerDao = new CustomerDao();
 //        customerDao.deleteById(1);
-
     }
 }
