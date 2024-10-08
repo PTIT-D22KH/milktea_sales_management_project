@@ -15,12 +15,12 @@ import models.FoodItem;
 /**
  * Data Access Object for FoodItem
  */
-public abstract class FoodItemDao extends Dao<FoodItem> {
+public class FoodItemDao extends Dao<FoodItem> {
     public FoodItemDao() {
     }
 
-    public FoodItemDao(Connection mockConnection) {
-        conn = mockConnection;
+    public FoodItemDao(Connection connection) {
+        conn = connection;
     }
 
     @Override

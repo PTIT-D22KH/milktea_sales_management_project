@@ -118,4 +118,9 @@ public class OrderItem extends Model{
         return oi;
     }
 
+    @Override
+    public Object[] toRowTable() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }

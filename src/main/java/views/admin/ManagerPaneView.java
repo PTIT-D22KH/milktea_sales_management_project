@@ -4,7 +4,17 @@
  */
 package views.admin;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.util.ArrayList;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 import models.Model;
+import utils.ErrorPopup;
 
 /**
  *
@@ -15,9 +25,132 @@ public abstract class ManagerPaneView<T extends Model> extends javax.swing.JPane
     /**
      * Creates new form ManagerPanelView
      */
+    protected DefaultTableModel tableModel = new DefaultTableModel();
+    protected ArrayList<T> tableData = new ArrayList<>();
     public ManagerPaneView() {
         initComponents();
+        dataTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+        dataTable.getTableHeader().setOpaque(false);
+        dataTable.getTableHeader().setBackground(new Color(51, 175, 255));
+        dataTable.getTableHeader().setForeground(new Color(255, 255, 255));
+        dataTable.setAutoCreateRowSorter(true);
+        dataTable.setModel(tableModel);
+        addButton.putClientProperty("JButton.buttonType", "roundRect");
+        delButton.putClientProperty("JButton.buttonType", "roundRect");
+        editButton.putClientProperty("JButton.buttonType", "roundRect");
+        syncButton.putClientProperty("JButton.buttonType", "roundRect");
     }
+
+    public JButton getAddButton() {
+        return addButton;
+    }
+
+    public void setAddButton(JButton addButton) {
+        this.addButton = addButton;
+    }
+
+    public JComboBox<String> getComboSearchField() {
+        return comboSearchField;
+    }
+
+    public void setComboSearchField(JComboBox<String> comboSearchField) {
+        this.comboSearchField = comboSearchField;
+    }
+
+    public JButton getDelButton() {
+        return delButton;
+    }
+
+    public void setDelButton(JButton delButton) {
+        this.delButton = delButton;
+    }
+
+    public JButton getEditButton() {
+        return editButton;
+    }
+
+    public void setEditButton(JButton editButton) {
+        this.editButton = editButton;
+    }
+
+    public JTextField getSearchTxt() {
+        return searchTxt;
+    }
+
+    public void setSearchTxt(JTextField searchTxt) {
+        this.searchTxt = searchTxt;
+    }
+
+    public void showError(String message) {
+        ErrorPopup.show(new Exception(message));
+    }
+
+    public void showError(Exception e) {
+        ErrorPopup.show(e);
+    }
+
+    public void showMessage(String message) {
+        JOptionPane.showMessageDialog(null, message);
+    }
+
+    public JButton getSyncButton() {
+        return syncButton;
+    }
+
+    public void setSyncButton(JButton syncButton) {
+        this.syncButton = syncButton;
+    }
+
+    public DefaultTableModel getTableModel() {
+        return tableModel;
+    }
+
+    public void setTableData(ArrayList<T> tableData) {
+        this.tableData = tableData;
+        renderTable();
+    }
+    
+    public void renderTable() {
+        tableModel.setNumRows(0);
+        try {
+            for (T item : tableData) {
+                tableModel.addRow(item.toRowTable());
+            }
+        } catch (Exception e) {
+            showError(e);
+        }
+    }
+    
+    
+    public JTable getDataTable() {
+        return dataTable;
+    }
+        
+    // Lấy id các hàng đc chọn
+    public int[] getSelectedIds() {
+
+        int selectedRows[] = dataTable.getSelectedRows();
+        int selectedIds[] = new int[selectedRows.length];
+        for (int i = 0; i < selectedRows.length; i++) {
+            int selectedRow = selectedRows[i];
+            int id = (int) dataTable.getValueAt(selectedRow, 0);
+            selectedIds[i] = id;
+        }
+        return selectedIds;
+    }
+    
+    public int getSelectedId() {
+
+        int selectedRow = dataTable.getSelectedRow();
+        if (selectedRow < 0) {
+            return -1;
+        }
+        int id = (int) dataTable.getValueAt(selectedRow, 0);
+        return id;
+    }
+    
+    public abstract void setTableModel();
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -29,21 +162,21 @@ public abstract class ManagerPaneView<T extends Model> extends javax.swing.JPane
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        searchTxt = new javax.swing.JTextField();
+        comboSearchField = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        addButton = new javax.swing.JButton();
+        editButton = new javax.swing.JButton();
+        delButton = new javax.swing.JButton();
+        syncButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        dataTable = new javax.swing.JTable();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 102));
 
-        jTextField1.setText("Search");
+        searchTxt.setText("Search");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboSearchField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -51,9 +184,9 @@ public abstract class ManagerPaneView<T extends Model> extends javax.swing.JPane
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(645, Short.MAX_VALUE)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(searchTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(comboSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(65, 65, 65))
         );
         jPanel1Layout.setVerticalGroup(
@@ -61,20 +194,20 @@ public abstract class ManagerPaneView<T extends Model> extends javax.swing.JPane
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(searchTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                    .addComponent(comboSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 102));
 
-        jButton1.setText("Thêm");
+        addButton.setText("Thêm");
 
-        jButton2.setText("Sửa");
+        editButton.setText("Sửa");
 
-        jButton3.setText("Xoá");
+        delButton.setText("Xoá");
 
-        jButton4.setText("Đồng bộ");
+        syncButton.setText("Đồng bộ");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -83,27 +216,27 @@ public abstract class ManagerPaneView<T extends Model> extends javax.swing.JPane
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(syncButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(delButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(editButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(addButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(232, 232, 232)
-                .addComponent(jButton1)
+                .addComponent(addButton)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(editButton)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
+                .addComponent(delButton)
                 .addGap(18, 18, 18)
-                .addComponent(jButton4)
+                .addComponent(syncButton)
                 .addContainerGap(257, Short.MAX_VALUE))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        dataTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -114,10 +247,10 @@ public abstract class ManagerPaneView<T extends Model> extends javax.swing.JPane
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTable1.setMinimumSize(new java.awt.Dimension(60, 120));
-        jTable1.setPreferredSize(new java.awt.Dimension(300, 120));
-        jTable1.setRowHeight(30);
-        jScrollPane1.setViewportView(jTable1);
+        dataTable.setMinimumSize(new java.awt.Dimension(60, 120));
+        dataTable.setPreferredSize(new java.awt.Dimension(300, 120));
+        dataTable.setRowHeight(30);
+        jScrollPane1.setViewportView(dataTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -145,15 +278,15 @@ public abstract class ManagerPaneView<T extends Model> extends javax.swing.JPane
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton addButton;
+    private javax.swing.JComboBox<String> comboSearchField;
+    private javax.swing.JTable dataTable;
+    private javax.swing.JButton delButton;
+    private javax.swing.JButton editButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField searchTxt;
+    private javax.swing.JButton syncButton;
     // End of variables declaration//GEN-END:variables
 }

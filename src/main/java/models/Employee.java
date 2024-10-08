@@ -97,4 +97,13 @@ public class Employee extends Model {
     public String toString() {
         return "Employee{" + "employeeId=" + employeeId + ", salary=" + salary + ", username=" + username + ", password=" + password + ", name=" + name + ", phoneNumber=" + phoneNumber + ", permission=" + permission + ", startDate=" + startDate + '}';
     }
+
+    @Override
+    public Object[] toRowTable() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    public boolean checkPassword(String password) {
+        return this.password.equals(password);
+    }
 }

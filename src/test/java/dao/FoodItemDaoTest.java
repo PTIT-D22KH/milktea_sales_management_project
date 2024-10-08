@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Test class for FoodItemDao
  */
 public class FoodItemDaoTest {
-    FoodItemDao foodItemDao = new FoodItemDao() {};
+    FoodItemDao foodItemDao = new FoodItemDao();
 
     public FoodItemDaoTest() {
     }
