@@ -64,4 +64,9 @@ public class Table extends Model{
 //            this.getTableId(), this.getName(), this.getStatus().getName()
 //        };
 //    }
+
+    @Override
+    public Object[] toRowTable() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

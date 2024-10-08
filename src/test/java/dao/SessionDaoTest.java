@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Test class for SessionDao
  */
 public class SessionDaoTest {
-    SessionDao sessionDao = new SessionDao() {};
+    SessionDao sessionDao = new SessionDao();
 
     public SessionDaoTest() {
     }

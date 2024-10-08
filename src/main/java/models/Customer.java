@@ -64,4 +64,12 @@ public class Customer extends Model{
     public String toString (){
         return name + "\nSDT:" + phoneNumber + "\nDia chi:" + address;
     }
+
+    @Override
+    public Object[] toRowTable() {
+        return new Object[] {
+            customerId, name, phoneNumber, address
+        };
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

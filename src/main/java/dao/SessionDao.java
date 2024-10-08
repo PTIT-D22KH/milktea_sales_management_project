@@ -16,7 +16,7 @@ import models.Session;
 /**
  * Data Access Object for Session
  */
-public abstract class SessionDao extends Dao<Session> {
+public class SessionDao extends Dao<Session> {
     public SessionDao() {
     }
     public SessionDao(Connection conn) {
