@@ -100,7 +100,12 @@ public class Employee extends Model {
 
     @Override
     public Object[] toRowTable() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return new Object[]{
+            employeeId, name, username, password, phoneNumber,
+        startDate, permission.getName(), salary
+        };
+        
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     public boolean checkPassword(String password) {

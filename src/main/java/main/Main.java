@@ -6,6 +6,7 @@ package main;
 
 import controllers.LoginController;
 import controllers.popup.CustomerPopupController;
+import controllers.popup.EmployeePopupController;
 import controllers.popup.ErrorCallback;
 import controllers.popup.SuccessCallback;
 import dao.CustomerDao;
@@ -24,6 +25,7 @@ import models.Table;
 import utils.TableStatus;
 import views.LoginView;
 import views.popup.CustomerPopupView;
+import views.popup.EmployeePopupView;
 
 /**
  *
@@ -50,8 +52,8 @@ public class Main {
 //        RegisterView registerView = new RegisterView();
 //        registerView.setVisible(true);
         // Initialize the CustomerPopupView and CustomerPopupController
-        CustomerPopupView view = new CustomerPopupView();
-        CustomerPopupController controller = new CustomerPopupController();
+//        CustomerPopupView view = new CustomerPopupView();
+//        CustomerPopupController controller = new CustomerPopupController();
 
         // Define success and error callbacks
         SuccessCallback successCallback = new SuccessCallback() {
@@ -69,12 +71,20 @@ public class Main {
         };
 //        // Example usage: Adding a new customer
 //        controller.add(view, successCallback, errorCallback);
-        CustomerDao customerDao = new CustomerDao();
-        Customer a = customerDao.getById(7);
-        controller.edit(view, a, successCallback, errorCallback);
+//        CustomerDao customerDao = new CustomerDao();
+//        Customer a = customerDao.getById(7);
+//        controller.edit(view, a, successCallback, errorCallback);
         
 //        CustomerManagerController controller = new CustomerManagerController();
 //        controller.actionAdd();
+
+        EmployeePopupView view = new EmployeePopupView();
+        EmployeePopupController controller = new EmployeePopupController();
+//        controller.add(view, successCallback, errorCallback);
+
+        EmployeeDao employeeDao = new EmployeeDao();
+        Employee a = employeeDao.getById(30);
+        controller.edit(view, a, successCallback, errorCallback);
         
     }
 }
