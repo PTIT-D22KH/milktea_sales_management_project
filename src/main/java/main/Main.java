@@ -4,28 +4,33 @@
  */
 package main;
 
-import controllers.LoginController;
-import controllers.popup.CustomerPopupController;
-import controllers.popup.FoodCategoryPopupController;
-import controllers.popup.ErrorCallback;
-import controllers.popup.SuccessCallback;
-import dao.CustomerDao;
-import utils.DatabaseConnector;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import controllers.LoginController;
+import controllers.popup.CustomerPopupController;
+import controllers.popup.FoodCategoryPopupController;
+import controllers.popup.FoodItemPopupController;
+import controllers.popup.ErrorCallback;
+import controllers.popup.SuccessCallback;
+import utils.DatabaseConnector;
+import utils.EmployeePermission;
+import utils.TableStatus;
 import models.Customer;
 import models.Employee;
 import models.FoodCategory;
-import utils.EmployeePermission;
+import models.Table;
+import models.FoodItem;
 import dao.EmployeeDao;
 import dao.FoodCategoryDao;
+import dao.FoodItemDao;
 import dao.TableDao;
-import models.Table;
-import utils.TableStatus;
+import dao.CustomerDao;
 import views.LoginView;
 import views.popup.CustomerPopupView;
 import views.popup.FoodCategoryPopupView;
+import views.popup.FoodItemPopupView;
+import views.ChooseImageView;
 
 /**
  *
@@ -67,6 +72,6 @@ public class Main {
                 System.out.println("That bai: " + e.getMessage());
             }
         };
-       
+        
     }
 }

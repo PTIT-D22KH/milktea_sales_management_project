@@ -87,7 +87,10 @@ public class FoodItem extends Model {
 
     @Override
     public Object[] toRowTable() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return new Object[]{
+            foodItemId, name, description, imagePath, unitName,
+            unitPrice, categoryId
+        };
     }
 
     
