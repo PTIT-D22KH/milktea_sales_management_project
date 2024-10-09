@@ -83,7 +83,7 @@ public class Main {
 //        controller.add(view, successCallback, errorCallback);
 
         EmployeeDao employeeDao = new EmployeeDao();
-        Employee a = employeeDao.getById(30);
+        Employee a = employeeDao.getById(31);
         controller.edit(view, a, successCallback, errorCallback);
         
     }
