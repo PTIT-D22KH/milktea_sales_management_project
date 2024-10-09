@@ -73,6 +73,8 @@ public class EmployeePopupController {
         });
         
         view.getLbTitle().setText("Sửa nhân viên - " + employee.getEmployeeId());
+        
+        System.out.println(employee.getEmployeeId());
         view.getUsernameTxtField().setText(employee.getUsername());
         view.getPasswordField().setText(employee.getPassword());
         view.getConfirmPassField().setText(employee.getPassword());
@@ -149,7 +151,7 @@ public class EmployeePopupController {
             throw new Exception("Bạn nhập mật khẩu xác nhận không trùng khớp");
         }
         Employee temp = employeeDao.findByUsername(username);
-        if (temp != null && temp.getEmployeeId() == e.getEmployeeId()) {
+        if (temp != null && temp.getEmployeeId() != e.getEmployeeId()) {
             throw new Exception("Tên tài khoản đã tồn tại");
         }
         e.setUsername(username);
