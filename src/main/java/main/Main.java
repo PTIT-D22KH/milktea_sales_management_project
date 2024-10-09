@@ -6,6 +6,7 @@ package main;
 
 import controllers.LoginController;
 import controllers.popup.CustomerPopupController;
+import controllers.popup.FoodCategoryPopupController;
 import controllers.popup.ErrorCallback;
 import controllers.popup.SuccessCallback;
 import dao.CustomerDao;
@@ -24,6 +25,7 @@ import models.Table;
 import utils.TableStatus;
 import views.LoginView;
 import views.popup.CustomerPopupView;
+import views.popup.FoodCategoryPopupView;
 
 /**
  *
@@ -33,8 +35,6 @@ public class Main {
     public static void main(String[] args) throws SQLException{
         Connection conn = DatabaseConnector.getInstance().getConn();
         System.out.println("Ket noi csdl thanh cong!");
-//        CustomerDao c = new CustomerDao();
-//        c.deleteById(3);
 
         try {
             javax.swing.UIManager.setLookAndFeel("com.formdev.flatlaf.FlatIntelliJLaf");
@@ -50,8 +50,8 @@ public class Main {
 //        RegisterView registerView = new RegisterView();
 //        registerView.setVisible(true);
         // Initialize the CustomerPopupView and CustomerPopupController
-        CustomerPopupView view = new CustomerPopupView();
-        CustomerPopupController controller = new CustomerPopupController();
+//        CustomerPopupView view = new CustomerPopupView();
+//        CustomerPopupController controller = new CustomerPopupController();
 
         // Define success and error callbacks
         SuccessCallback successCallback = new SuccessCallback() {
@@ -67,14 +67,6 @@ public class Main {
                 System.out.println("That bai: " + e.getMessage());
             }
         };
-//        // Example usage: Adding a new customer
-//        controller.add(view, successCallback, errorCallback);
-        CustomerDao customerDao = new CustomerDao();
-        Customer a = customerDao.getById(7);
-        controller.edit(view, a, successCallback, errorCallback);
-        
-//        CustomerManagerController controller = new CustomerManagerController();
-//        controller.actionAdd();
-        
+       
     }
 }
