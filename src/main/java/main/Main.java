@@ -19,8 +19,11 @@ import models.FoodCategory;
 import utils.EmployeePermission;
 import dao.EmployeeDao;
 import dao.FoodCategoryDao;
+import dao.ShipmentDao;
 import dao.TableDao;
+import models.Shipment;
 import models.Table;
+import utils.ShipmentStatus;
 import utils.TableStatus;
 import views.LoginView;
 import views.popup.CustomerPopupView;
@@ -33,5 +36,10 @@ public class Main {
     public static void main(String[] args) throws SQLException{
         Connection conn = DatabaseConnector.getInstance().getConn();
         System.out.println("Ket noi csdl thanh cong!");
+
+//        CustomerDao customerDao = new CustomerDao();
+//        customerDao.deleteById(1);
+
+          
     }
 }
