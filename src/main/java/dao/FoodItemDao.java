@@ -39,7 +39,7 @@ public class FoodItemDao extends Dao<FoodItem> {
     public ArrayList<FoodItem> getByCategoryId(int id) throws SQLException {
         ArrayList<FoodItem> foodItems = new ArrayList<>();
         Statement statement = conn.createStatement();
-        String query = "SELECT * FROM `food_item` WHERE `categoryId` = " + id;
+        String query = "SELECT * FROM `food_item` WHERE `foodCategoryId` = " + id;
         ResultSet rs = statement.executeQuery(query);
         while (rs.next()) {
             FoodItem foodItem = FoodItem.getFromResultSet(rs);

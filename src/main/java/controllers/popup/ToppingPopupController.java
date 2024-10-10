@@ -20,7 +20,7 @@ public class ToppingPopupController {
     private DecimalFormat formatter = new DecimalFormat("###,###,###");
     private JFrame previousView;
 
-    interface Event {
+    private interface Event {
 
         public abstract void onSelect(OrderItem item);
     }
@@ -77,7 +77,7 @@ public class ToppingPopupController {
         view.getLbAmount().setText(formatter.format(amount));
     }
 
-    public OrderItem addItem(FoodItem foodItem, ToppingPopupView view) {
+    private OrderItem addItem(FoodItem foodItem, ToppingPopupView view) {
         OrderItem orderItem = new OrderItem();
         try {
             orderItem.setFoodItem(foodItem);
