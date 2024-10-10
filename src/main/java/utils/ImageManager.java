@@ -26,7 +26,7 @@ public class ImageManager {
             URL pathImage = getClass().getResource(imagesPath + name);
             return new ImageIcon(pathImage);
         } catch (Exception e) {
-            return new ImageIcon(getClass().getResource(imagesPath + "tra-hoa-hong-da.png"));
+            return new ImageIcon(getClass().getResource(imagesPath + "tra_sua_default.png"));
         }
     }   
     
