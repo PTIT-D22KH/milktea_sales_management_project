@@ -13,11 +13,12 @@ import javax.swing.ImageIcon;
 import org.imgscalr.Scalr;
 
 public class ImageManager {
-    public static String resourcesPath = "/";
-    public static String imagesPath = resourcesPath + "images/";
+    private static String resourcesPath;
+    private static String imagesPath;
     
     public ImageManager(){
-        
+        resourcesPath = "/";
+        imagesPath = resourcesPath + "images/";
     }
     
     public ImageIcon getImage(String name) {
@@ -44,7 +45,7 @@ public class ImageManager {
         return out.getName();
     }
     
-    public BufferedImage resizeImage(BufferedImage source, int targetWidth) {
+    private BufferedImage resizeImage(BufferedImage source, int targetWidth) {
         try {
             return Scalr.resize(source, targetWidth);
         } catch (Exception e) {
@@ -52,7 +53,7 @@ public class ImageManager {
         }
     }
 
-    public String getUniqueNameFile(String name) {
+    private String getUniqueNameFile(String name) {
         String timeStamp = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Timestamp(System.currentTimeMillis()));
         String fileName = String.format("%s-%s.%s", name.length() > 35 ? name.substring(0, 35) : name, timeStamp, "png");
         return fileName;

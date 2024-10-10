@@ -51,7 +51,7 @@ public class FoodCategory extends Model {
     
     @Override
     public String toString() {
-        return foodCategoryId + " " + name + " " + slug;
+        return name;
     }
 
     @Override

@@ -73,5 +73,12 @@ public class Main {
             }
         };
         
+        FoodItemPopupController controller = new FoodItemPopupController();
+        FoodItemPopupView view = new FoodItemPopupView();
+        FoodItemDao fd = new FoodItemDao();
+        FoodItem fi = fd.getById(2);
+        controller.edit(view, fi, successCallback, errorCallback);
+        
+        
     }
 }

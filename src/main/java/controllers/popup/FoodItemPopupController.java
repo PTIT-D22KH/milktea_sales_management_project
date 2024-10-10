@@ -17,12 +17,12 @@ import views.ChooseImageView;
 import views.popup.FoodItemPopupView;
 
 public class FoodItemPopupController {
-    FoodItemDao foodItemDao = new FoodItemDao();
-    FoodCategoryDao foodCategoryDao = new FoodCategoryDao();
-    ChooseImageView chooseImageView = new ChooseImageView();
-    ImageManager imageManager = new ImageManager();
-    String resourcesPath = getClass().getResource("/images/").getPath();
-    JFrame previousView;
+    private FoodItemDao foodItemDao = new FoodItemDao();
+    private FoodCategoryDao foodCategoryDao = new FoodCategoryDao();
+    private ChooseImageView chooseImageView = new ChooseImageView();
+    private ImageManager imageManager = new ImageManager();
+    private String resourcesPath = getClass().getResource("/images/").getPath();
+    private JFrame previousView;
     
     private ActionListener eventShowChooseFileDialog(FoodItemPopupView view){
         return event -> {
@@ -90,7 +90,7 @@ public class FoodItemPopupController {
         });
     }
     
-    public boolean addFoodItem(FoodItemPopupView view) throws Exception {
+    private void addFoodItem(FoodItemPopupView view) throws Exception {
         FoodItem foodItem = new FoodItem();
         FoodCategory selectedCategory   = (FoodCategory) view.getCmbFoodCategory().getSelectedItem();
         String foodName                 = view.getTxtFoodName().getText();
@@ -110,7 +110,6 @@ public class FoodItemPopupController {
         foodItem.setDescription(description);
         foodItem.setCategoryId(selectedCategory.getFoodCategoryId());
         foodItemDao.save(foodItem);
-        return true;
     }
     
     public void edit(FoodItemPopupView view, FoodItem foodItem, SuccessCallback sc, ErrorCallback ec) {
@@ -163,7 +162,7 @@ public class FoodItemPopupController {
         });
     }
     
-    public boolean isExistsImage(String imagePath) {
+    private boolean isExistsImage(String imagePath) {
         try {
             if (imagePath.isEmpty()) {
                 return false;
@@ -176,7 +175,7 @@ public class FoodItemPopupController {
         }
     }
     
-    public boolean editFoodItem(FoodItemPopupView view, FoodItem foodItem) throws Exception {
+    private void editFoodItem(FoodItemPopupView view, FoodItem foodItem) throws Exception {
         FoodCategory selectedCategory = (FoodCategory) view.getCmbFoodCategory().getSelectedItem();
         String foodName                 = view.getTxtFoodName().getText();
         String unit                     = view.getTxtUnit().getText();
@@ -195,7 +194,6 @@ public class FoodItemPopupController {
         foodItem.setDescription(description);
         foodItem.setCategoryId(selectedCategory.getFoodCategoryId());
         foodItemDao.update(foodItem);
-        return true;
     }
     
 }

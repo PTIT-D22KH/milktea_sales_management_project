@@ -8,8 +8,8 @@ import views.popup.FoodCategoryPopupView;
 import javax.swing.JFrame;
 
 public class FoodCategoryPopupController {
-    FoodCategoryDao foodCategoryDao = new FoodCategoryDao();
-    JFrame previousView;
+    private FoodCategoryDao foodCategoryDao = new FoodCategoryDao();
+    private JFrame previousView;
     
     public void add(FoodCategoryPopupView view, SuccessCallback sc, ErrorCallback ec){
         if (previousView != null && previousView.isDisplayable()){
@@ -60,7 +60,7 @@ public class FoodCategoryPopupController {
         
     }
     
-    public void addFoodCategory(FoodCategoryPopupView view) throws Exception{
+    private void addFoodCategory(FoodCategoryPopupView view) throws Exception{
         String foodCategoryName = view.getTxtName().getText();
         if (foodCategoryName.isEmpty()){
             throw new Exception("Vui lòng điền đủ thông tin");
@@ -75,7 +75,7 @@ public class FoodCategoryPopupController {
         foodCategoryDao.save(fc);
     }
     
-    public void editFoodCategory(FoodCategoryPopupView view, FoodCategory fc) throws Exception {
+    private void editFoodCategory(FoodCategoryPopupView view, FoodCategory fc) throws Exception {
         String foodCategoryName = view.getTxtName().getText();
         if (foodCategoryName.isEmpty()){
             throw new Exception("Vui lòng điền tên loại món");
