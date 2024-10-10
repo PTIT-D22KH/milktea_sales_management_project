@@ -165,7 +165,6 @@ public class Order extends Model{
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
-        
         this.customerId = customer.getCustomerId();
     }
 
