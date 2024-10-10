@@ -41,6 +41,5 @@ public class Main {
         } catch (Exception ex) {
             System.err.println("Set up UI Theme failed!");
         }
-
     }
 }
