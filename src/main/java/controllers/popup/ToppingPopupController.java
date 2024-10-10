@@ -20,7 +20,7 @@ public class ToppingPopupController {
     private DecimalFormat formatter = new DecimalFormat("###,###,###");
     private JFrame previousView;
 
-    public interface Event {
+    private interface Event {
 
         public abstract void onSelect(OrderItem item);
     }
