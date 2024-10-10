@@ -100,7 +100,10 @@ public class OrderItem extends Model{
         this.toppingItem = toppingItem;
         this.toppingId = toppingItem.getFoodItemId();
     }
-
+    
+    public int getAmount() {
+        return quantity * (foodPrice + toppingPrice);
+    }
   
     @Override
     public String toString() {
