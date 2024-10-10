@@ -4,8 +4,15 @@
  */
 package views.popup;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import models.FoodCategory;
+import utils.ErrorPopup;
 
 /**
  *
@@ -13,11 +20,12 @@ import javax.swing.JLabel;
  */
 public class FoodItemPopupView extends javax.swing.JFrame implements PopupView{
 
-    /**
-     * Creates new form FoodItemPopupView
-     */
+    DefaultComboBoxModel<FoodCategory> foodCategoryComboBoxModel = new DefaultComboBoxModel<>();
+    
     public FoodItemPopupView() {
         initComponents();
+        setLocationRelativeTo(null);
+        cmbFoodCategory.setModel(foodCategoryComboBoxModel);
     }
 
     /**
@@ -32,21 +40,21 @@ public class FoodItemPopupView extends javax.swing.JFrame implements PopupView{
         jPanel1 = new javax.swing.JPanel();
         lbTitle = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        lbFoodName = new javax.swing.JLabel();
+        txtFoodName = new javax.swing.JTextField();
+        lbDescription = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        txtDescription = new javax.swing.JTextArea();
+        lbImage = new javax.swing.JLabel();
+        txtImagePath = new javax.swing.JTextField();
+        btnChooseImage = new javax.swing.JButton();
+        lbPreviewImage = new javax.swing.JLabel();
+        lbUnit = new javax.swing.JLabel();
+        txtUnit = new javax.swing.JTextField();
+        lbPrice = new javax.swing.JLabel();
+        txtUnitPrice = new javax.swing.JTextField();
+        lbFoodCategory = new javax.swing.JLabel();
+        cmbFoodCategory = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         btnOK = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
@@ -73,23 +81,23 @@ public class FoodItemPopupView extends javax.swing.JFrame implements PopupView{
                 .addContainerGap())
         );
 
-        jLabel2.setText("Tên món:");
+        lbFoodName.setText("Tên món:");
 
-        jLabel3.setText("Mô tả:");
+        lbDescription.setText("Mô tả:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtDescription.setColumns(20);
+        txtDescription.setRows(5);
+        jScrollPane1.setViewportView(txtDescription);
 
-        jLabel4.setText("Hình ảnh:");
+        lbImage.setText("Hình ảnh:");
 
-        jButton1.setText("Chọn ảnh");
+        btnChooseImage.setText("Chọn ảnh");
 
-        jLabel6.setText("Đơn vị:");
+        lbUnit.setText("Đơn vị:");
 
-        jLabel7.setText("Giá:");
+        lbPrice.setText("Giá:");
 
-        jLabel8.setText("Loại món:");
+        lbFoodCategory.setText("Loại món:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -98,24 +106,24 @@ public class FoodItemPopupView extends javax.swing.JFrame implements PopupView{
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel4))
+                    .addComponent(lbFoodCategory)
+                    .addComponent(lbPrice)
+                    .addComponent(lbUnit)
+                    .addComponent(lbDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbFoodName)
+                    .addComponent(lbImage))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jTextField3)
+                        .addComponent(txtImagePath)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
-                    .addComponent(jTextField1)
+                        .addComponent(btnChooseImage))
+                    .addComponent(txtFoodName)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2)
-                    .addComponent(jTextField4)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lbPreviewImage, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUnit)
+                    .addComponent(txtUnitPrice)
+                    .addComponent(cmbFoodCategory, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(51, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -123,33 +131,33 @@ public class FoodItemPopupView extends javax.swing.JFrame implements PopupView{
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbFoodName)
+                    .addComponent(txtFoodName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
-                        .addComponent(jLabel3)))
+                        .addComponent(lbDescription)))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(lbImage)
+                    .addComponent(txtImagePath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnChooseImage))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
+                .addComponent(lbPreviewImage, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtUnit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbUnit))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbPrice)
+                    .addComponent(txtUnitPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbFoodCategory)
+                    .addComponent(cmbFoodCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -237,55 +245,91 @@ public class FoodItemPopupView extends javax.swing.JFrame implements PopupView{
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnChooseImage;
     private javax.swing.JButton btnOK;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JComboBox<FoodCategory> cmbFoodCategory;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JLabel lbDescription;
+    private javax.swing.JLabel lbFoodCategory;
+    private javax.swing.JLabel lbFoodName;
+    private javax.swing.JLabel lbImage;
+    private javax.swing.JLabel lbPreviewImage;
+    private javax.swing.JLabel lbPrice;
     private javax.swing.JLabel lbTitle;
+    private javax.swing.JLabel lbUnit;
+    private javax.swing.JTextArea txtDescription;
+    private javax.swing.JTextField txtFoodName;
+    private javax.swing.JTextField txtImagePath;
+    private javax.swing.JTextField txtUnit;
+    private javax.swing.JTextField txtUnitPrice;
     // End of variables declaration//GEN-END:variables
+    
+    public DefaultComboBoxModel<FoodCategory> getFoodCategoryComboBoxModel(){
+        return foodCategoryComboBoxModel;
+    }
+    
+    public JComboBox<FoodCategory> getCmbFoodCategory(){
+        return cmbFoodCategory;
+    }
+    
+    public JButton getBtnChooseImage(){
+        return btnChooseImage;
+    }
+    
+    public JTextArea getTxtDescription() {
+        return txtDescription;
+    }
 
+    public JTextField getTxtFoodName() {
+        return txtFoodName;
+    }
+
+    public JTextField getTxtImagePath() {
+        return txtImagePath;
+    }
+
+    public JTextField getTxtUnitPrice() {
+        return txtUnitPrice;
+    }
+    
+    public JTextField getTxtUnit() {
+        return txtUnit;
+    }
+    
+    public JLabel getLbPreviewImage(){
+        return lbPreviewImage;
+    }
+    
     @Override
     public JButton getBtnOK() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return btnOK;
     }
 
     @Override
     public JButton getBtnCancel() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return btnCancel;
     }
 
     @Override
     public JLabel getLbTitle() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return lbTitle;
     }
 
     @Override
     public void showError(String message) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ErrorPopup.show(new Exception(message));
     }
 
     @Override
     public void showError(Exception e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ErrorPopup.show(e);
     }
 
     @Override
     public void showMessage(String message) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        JOptionPane.showMessageDialog(null, message);
     }
 }

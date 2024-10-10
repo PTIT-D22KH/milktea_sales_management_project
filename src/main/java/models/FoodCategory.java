@@ -51,11 +51,13 @@ public class FoodCategory extends Model {
     
     @Override
     public String toString() {
-        return foodCategoryId + " " + name + " " + slug;
+        return name;
     }
 
     @Override
     public Object[] toRowTable() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return new Object[]{
+            foodCategoryId, name
+        };
     }
 }
