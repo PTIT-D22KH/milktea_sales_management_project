@@ -39,7 +39,5 @@ public class Main {
 
 //        CustomerDao customerDao = new CustomerDao();
 //        customerDao.deleteById(1);
-
-          
     }
 }
