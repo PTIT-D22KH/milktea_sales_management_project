@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
+import models.FoodItem;
 
 /**
  *
@@ -31,7 +32,7 @@ public class ToppingPopupView extends javax.swing.JFrame {
         return btnOK;
     }
 
-    public JComboBox<String> getCboTopping() {
+    public JComboBox<FoodItem> getCboTopping() {
         return cboTopping;
     }
 
@@ -99,12 +100,6 @@ public class ToppingPopupView extends javax.swing.JFrame {
         jLabel5.setText("Giá món:");
 
         lbTopping.setText("Topping:");
-
-        cboTopping.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboToppingActionPerformed(evt);
-            }
-        });
 
         jLabel7.setText("Tổng tiền:");
 
@@ -236,10 +231,6 @@ public class ToppingPopupView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cboToppingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboToppingActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cboToppingActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -278,7 +269,7 @@ public class ToppingPopupView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnOK;
-    private javax.swing.JComboBox<String> cboTopping;
+    private javax.swing.JComboBox<FoodItem> cboTopping;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
