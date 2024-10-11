@@ -86,6 +86,11 @@ public class RegisterView extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         confirmPassField = new javax.swing.JPasswordField();
         registerButton = new javax.swing.JButton();
+<<<<<<< HEAD
+=======
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+>>>>>>> 6d6342f (Edit Register and ForgotPasswordView as well as Add RegisterController and ForgotPasswordController)
 
         jPanel1.setBackground(new java.awt.Color(236, 245, 71));
 
