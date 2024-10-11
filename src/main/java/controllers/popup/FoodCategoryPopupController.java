@@ -8,8 +8,12 @@ import views.popup.FoodCategoryPopupView;
 import javax.swing.JFrame;
 
 public class FoodCategoryPopupController {
-    private FoodCategoryDao foodCategoryDao = new FoodCategoryDao();
+    private FoodCategoryDao foodCategoryDao;
     private JFrame previousView;
+    
+    public FoodCategoryPopupController(){
+        this.foodCategoryDao = new FoodCategoryDao();
+    }
     
     public void add(FoodCategoryPopupView view, SuccessCallback sc, ErrorCallback ec){
         if (previousView != null && previousView.isDisplayable()){
@@ -40,7 +44,12 @@ public class FoodCategoryPopupController {
         
         previousView = view;
         view.setVisible(true);
-        view.getBtnCancel().addActionListener(event -> view.dispose());
+        view.getBtnCancel().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                view.dispose();
+            }
+        });
         view.getLbTitle().setText("Sửa loại món - " + fc.getFoodCategoryId());
         view.getTxtName().setText(fc.getName());
         view.getBtnOK().setText("Cập nhật");
@@ -62,9 +71,7 @@ public class FoodCategoryPopupController {
     
     private void addFoodCategory(FoodCategoryPopupView view) throws Exception{
         String foodCategoryName = view.getTxtName().getText();
-        if (foodCategoryName.isEmpty()){
-            throw new Exception("Vui lòng điền đủ thông tin");
-        }
+        validateFoodCategoryName(foodCategoryName);
         
         if (foodCategoryDao.findByName(foodCategoryName) != null){
             throw new Exception("Tên món đã tồn tại");
@@ -77,9 +84,8 @@ public class FoodCategoryPopupController {
     
     private void editFoodCategory(FoodCategoryPopupView view, FoodCategory fc) throws Exception {
         String foodCategoryName = view.getTxtName().getText();
-        if (foodCategoryName.isEmpty()){
-            throw new Exception("Vui lòng điền tên loại món");
-        }
+        validateFoodCategoryName(foodCategoryName);
+
         
         FoodCategory tmp = foodCategoryDao.findByName(foodCategoryName);
         if (tmp != null && tmp.getFoodCategoryId() != fc.getFoodCategoryId()){
@@ -88,6 +94,11 @@ public class FoodCategoryPopupController {
         
         fc.setName(foodCategoryName);
         foodCategoryDao.update(fc);
+    }
+    private void validateFoodCategoryName(String foodCategoryName) throws Exception {
+        if (foodCategoryName.isEmpty()) {
+            throw new Exception("Vui lòng điền tên loại món");
+        }
     }
     
 }

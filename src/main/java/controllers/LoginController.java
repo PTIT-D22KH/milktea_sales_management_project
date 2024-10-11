@@ -20,7 +20,7 @@ import views.admin.HomeView;
 public class LoginController {
 
     private LoginView view;
-    EmployeeDao employeeDao = new EmployeeDao();
+    private EmployeeDao employeeDao = new EmployeeDao();
 
     
     public LoginController(LoginView view) {
@@ -84,7 +84,7 @@ public class LoginController {
     }
 
     // Tạo sự kiện
-    public void addEvent() {
+    private void addEvent() {
         //Sự kiện login
         view.getPasswordField().addKeyListener(new java.awt.event.KeyAdapter() {
             @Override

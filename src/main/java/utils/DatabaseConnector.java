@@ -9,26 +9,22 @@ import utils.ConfigLoader;
  * DatabaseConnector class for managing database connections.
  */
 public class DatabaseConnector {
-    private static ConfigLoader cfgLoader = ConfigLoader.getInstance();
+    private static final ConfigLoader cfgLoader = ConfigLoader.getInstance();
     private static DatabaseConnector instance = null;
     private Connection conn = null;
 
-    // Constructor for production use
-    private DatabaseConnector() {
-        this(cfgLoader);
-    }
 
-    // Constructor for testing purposes
-    DatabaseConnector(ConfigLoader configLoader) {
+
+    private DatabaseConnector() {
         try {
             String connectionProperty = "useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-            String host = configLoader.getProperty("database.host"),
-                    port = configLoader.getProperty("database.port"),
-                    user = configLoader.getProperty("database.username"),
-                    password = configLoader.getProperty("database.password"),
-                    name = configLoader.getProperty("database.name");
-            Class.forName(configLoader.getProperty("database.driver_class"));
-            String url = String.format("jdbc:%s://%s:%s/%s?%s", configLoader.getProperty("database.jdbc"), host, port, name, connectionProperty);
+            String host = cfgLoader.getProperty("database.host"),
+                    port = cfgLoader.getProperty("database.port"),
+                    user = cfgLoader.getProperty("database.username"),
+                    password = cfgLoader.getProperty("database.password"),
+                    name = cfgLoader.getProperty("database.name");
+            Class.forName(cfgLoader.getProperty("database.driver_class"));
+            String url = String.format("jdbc:%s://%s:%s/%s?%s", cfgLoader.getProperty("database.jdbc"), host, port, name, connectionProperty);
             this.conn = DriverManager.getConnection(url, user, password);
             System.out.println("Connect to database successfully!");
         } catch (ClassNotFoundException e) {
@@ -53,8 +49,5 @@ public class DatabaseConnector {
         return conn;
     }
 
-    // Method to reset the singleton instance for testing purposes
-    static void resetInstance() {
-        instance = null;
-    }
+
 }

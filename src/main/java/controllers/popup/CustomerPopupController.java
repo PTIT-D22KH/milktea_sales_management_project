@@ -5,6 +5,8 @@
 package controllers.popup;
 
 import dao.CustomerDao;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import models.Customer;
 import views.popup.CustomerPopupView;
@@ -14,9 +16,12 @@ import views.popup.CustomerPopupView;
  * @author P51
  */
 public class CustomerPopupController {
-    CustomerDao customerDao = new CustomerDao();
-    JFrame previousView;
+    private CustomerDao customerDao;
+    private JFrame previousView;
     
+    public CustomerPopupController() {
+        this.customerDao = new CustomerDao();
+    }
     
     
     public void add(CustomerPopupView view, SuccessCallback sc, ErrorCallback ec) {
@@ -26,34 +31,37 @@ public class CustomerPopupController {
         }
         previousView = view;
         view.setVisible(true);
-        view.getBtnCancel().addActionListener(event -> view.dispose());
-        view.getBtnOK().addActionListener(event -> {
-            try {
-                addCustomer(view);
+        view.getBtnCancel().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
                 view.dispose();
-                view.showMessage("Thêm khách hàng thành công");
-                sc.onSuccess();
-                
-            } catch (Exception exception) {
-                ec.onError(exception);
-//                System.out.println("That bai");
+            }
+        });
+        view.getBtnOK().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                try {
+                    addCustomer(view);
+                    view.dispose();
+                    view.showMessage("Thêm khách hàng thành công");
+                    sc.onSuccess();
+                } catch (Exception exception) {
+                    ec.onError(exception);
+                }
             }
         });
     }
     
-    public boolean addCustomer(CustomerPopupView view) throws Exception {
+    private void addCustomer(CustomerPopupView view) throws Exception {
         String name = view.getNameText().getText();
         String address = view.getAddressText().getText();
         String phoneNumber = view.getPhoneNumberText().getText();
-        if (name.isEmpty() || address.isEmpty() || phoneNumber.isEmpty()) {
-            throw new Exception("Vui lòng điền đầy đủ thông tin");
-        }
+        validateCustomerData(name, address, phoneNumber);
         Customer customer = new Customer();
         customer.setAddress(address);
         customer.setName(name);
         customer.setPhoneNumber(phoneNumber);
         customerDao.save(customer);
-        return true;
     }
     
     public void edit(CustomerPopupView view, Customer customer, SuccessCallback sc, ErrorCallback ec) {
@@ -63,40 +71,48 @@ public class CustomerPopupController {
         }
         previousView = view;
         view.setVisible(true);
-        view.getBtnCancel().addActionListener(event -> view.dispose());
+        view.getBtnCancel().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                view.dispose();
+            }
+        });
         view.getLbTitle().setText("Sửa khách hàng - " + customer.getCustomerId());
         view.getNameText().setText(customer.getName());
         view.getPhoneNumberText().setText(customer.getPhoneNumber());
         view.getAddressText().setText(customer.getAddress());
         
         view.getBtnOK().setText("Cập nhật");
-        view.getBtnOK().addActionListener(event -> {
-            try {
-                editCustomer(view, customer);
-                view.dispose();
-                view.showMessage("Sửa thông tin khách hàng thành công");
-                sc.onSuccess();
-            } catch (Exception ex){
-                ec.onError(ex);
+        view.getBtnOK().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                try {
+                    editCustomer(view, customer);
+                    view.dispose();
+                    view.showMessage("Sửa thông tin khách hàng thành công");
+                    sc.onSuccess();
+                } catch (Exception ex) {
+                    ec.onError(ex);
+                }
             }
-                    
         });
         
     }
     
-    public boolean editCustomer(CustomerPopupView view, Customer customer) throws Exception {
+    private void editCustomer(CustomerPopupView view, Customer customer) throws Exception {
         String name = view.getNameText().getText();
         String address = view.getAddressText().getText();
         String phoneNumber = view.getPhoneNumberText().getText();
-        if (name.isEmpty() || address.isEmpty() || phoneNumber.isEmpty()) {
-            throw new Exception("Vui lòng điền đầy đủ thông tin");
-        }
+        validateCustomerData(name, address, phoneNumber);
         customer.setAddress(address);
         customer.setName(name);
         customer.setPhoneNumber(phoneNumber);
         customerDao.update(customer);
-        return true;
     }
-    
+    private void validateCustomerData(String name, String address, String phoneNumber) throws Exception {
+        if (name.isEmpty() || address.isEmpty() || phoneNumber.isEmpty()) {
+            throw new Exception("Vui lòng điền đầy đủ thông tin");
+        }
+    }
     
 }
