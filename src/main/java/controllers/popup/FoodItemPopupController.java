@@ -2,6 +2,7 @@ package controllers.popup;
 
 import dao.FoodCategoryDao;
 import dao.FoodItemDao;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -18,34 +19,45 @@ import views.popup.FoodItemPopupView;
 
 public class FoodItemPopupController {
     private FoodItemDao foodItemDao = new FoodItemDao();
-    private FoodCategoryDao foodCategoryDao = new FoodCategoryDao();
-    private ChooseImageView chooseImageView = new ChooseImageView();
-    private ImageManager imageManager = new ImageManager();
-    private String resourcesPath = getClass().getResource("/images/").getPath();
+    private FoodCategoryDao foodCategoryDao;
+    private ChooseImageView chooseImageView;
+    private ImageManager imageManager;
+    private String resourcesPath;
     private JFrame previousView;
     
+    public FoodItemPopupController() {
+        foodItemDao = new FoodItemDao();
+        foodCategoryDao = new FoodCategoryDao();
+        chooseImageView = new ChooseImageView();
+        imageManager = new ImageManager();
+        resourcesPath = getClass().getResource("/images/").getPath();
+        
+    }
+    
     private ActionListener eventShowChooseFileDialog(FoodItemPopupView view){
-        return event -> {
-            int otp = chooseImageView.showOpenDialog(view);
-            switch (otp){
-                case JFileChooser.APPROVE_OPTION:
-                    File file = chooseImageView.getSelectedFile();
-                    BufferedImage bi;
-                    
-                    try {
-                        bi = ImageIO.read(file);
-                        String name = StringToSlug.convert(view.getTxtFoodName().getText());
-                        String pth = imageManager.saveImage(bi, name);
-                        view.getTxtImagePath().setText(pth);
-                        renderPreviewImage(view);
-                    } catch (Exception e) {
-                        view.showError(e);
-                    }
-                    break;
-                case JFileChooser.CANCEL_OPTION:
-                    view.getTxtImagePath().setText("");
-                    break;
+        return new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                int otp = chooseImageView.showOpenDialog(view);
+                switch (otp) {
+                    case JFileChooser.APPROVE_OPTION:
+                        File file = chooseImageView.getSelectedFile();
+                        BufferedImage bi;
 
+                        try {
+                            bi = ImageIO.read(file);
+                            String name = StringToSlug.convert(view.getTxtFoodName().getText());
+                            String pth = imageManager.saveImage(bi, name);
+                            view.getTxtImagePath().setText(pth);
+                            renderPreviewImage(view);
+                        } catch (Exception e) {
+                            view.showError(e);
+                        }
+                        break;
+                    case JFileChooser.CANCEL_OPTION:
+                        view.getTxtImagePath().setText("");
+                        break;
+                }
             }
         };
     }
@@ -75,17 +87,25 @@ public class FoodItemPopupController {
         }
         previousView = view;
         view.setVisible(true);
-        view.getBtnCancel().addActionListener(evt -> view.dispose());
+        view.getBtnCancel().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                view.dispose();
+            }
+        });
         initComboBox(view);
         view.getBtnChooseImage().addActionListener(eventShowChooseFileDialog(view));
-        view.getBtnOK().addActionListener(evt -> {
-            try {
-                addFoodItem(view);
-                view.dispose();
-                view.showMessage("Thêm món ăn thành công!");
-                sc.onSuccess();
-            } catch (Exception ex) {
-                ec.onError(ex);
+        view.getBtnOK().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                try {
+                    addFoodItem(view);
+                    view.dispose();
+                    view.showMessage("Thêm món ăn thành công!");
+                    sc.onSuccess();
+                } catch (Exception ex) {
+                    ec.onError(ex);
+                }
             }
         });
     }
@@ -99,9 +119,7 @@ public class FoodItemPopupController {
         String description              = view.getTxtDescription().getText();
         String imagePath                = view.getTxtImagePath().getText();
         
-        if (foodName.isEmpty() || unit.isEmpty() || unitPrice.isEmpty() || selectedCategory == null){
-            throw new Exception("Vui lòng điền đầy đủ thông tin");
-        }
+        validateFoodItemData(foodName, unit, unitPrice, selectedCategory);
         
         foodItem.setName(foodName);
         foodItem.setUnitName(unit);
@@ -150,14 +168,17 @@ public class FoodItemPopupController {
             ec.onError(e);
         }
         view.getBtnChooseImage().addActionListener(eventShowChooseFileDialog(view));
-        view.getBtnOK().addActionListener(evt -> {
-            try {
-                editFoodItem(view, foodItem);
-                view.dispose();
-                view.showMessage("Sửa món ăn thành công!");
-                sc.onSuccess();
-            } catch (Exception ex) {
-                ec.onError(ex);
+        view.getBtnOK().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                try {
+                    editFoodItem(view, foodItem);
+                    view.dispose();
+                    view.showMessage("Sửa món ăn thành công!");
+                    sc.onSuccess();
+                } catch (Exception ex) {
+                    ec.onError(ex);
+                }
             }
         });
     }
@@ -183,9 +204,7 @@ public class FoodItemPopupController {
         String description              = view.getTxtDescription().getText();
         String imagePath                = view.getTxtImagePath().getText();
         
-        if (foodName.isEmpty() || unit.isEmpty() || unitPrice.isEmpty() || selectedCategory == null){
-            throw new Exception("Vui lòng điền đầy đủ thông tin");
-        }
+        validateFoodItemData(foodName, unit, unitPrice, selectedCategory);
         
         foodItem.setName(foodName);
         foodItem.setUnitName(unit);
@@ -194,6 +213,11 @@ public class FoodItemPopupController {
         foodItem.setDescription(description);
         foodItem.setCategoryId(selectedCategory.getFoodCategoryId());
         foodItemDao.update(foodItem);
+    }
+    private void validateFoodItemData(String foodName, String unit, String unitPrice, FoodCategory selectedCategory) throws Exception {
+        if (foodName.isEmpty() || unit.isEmpty() || unitPrice.isEmpty() || selectedCategory == null) {
+            throw new Exception("Vui lòng điền đầy đủ thông tin");
+        }
     }
     
 }

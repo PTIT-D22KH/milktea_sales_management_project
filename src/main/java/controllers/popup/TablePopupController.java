@@ -17,14 +17,16 @@ import views.popup.TablePopupView;
  * @author namle
  */
 public class TablePopupController {
-    private TableDao tableDao = new TableDao();
+    private TableDao tableDao;
     private JFrame previousView;
+    
+    public TablePopupController() {
+        this.tableDao = new TableDao();
+    }
 
     private void addTable(TablePopupView view) throws Exception {
         String name = view.getTbNameField().getText();
-        if (name.isEmpty()) {
-            throw new Exception("Vui lòng điền đủ thông tin");
-        }
+        validateTableName(name);
         if (tableDao.findByName(name) != null) {
             throw new Exception("Tên bàn đã được sử dụng");
         }
@@ -36,9 +38,7 @@ public class TablePopupController {
 
     private void editTable(TablePopupView view, Table t) throws Exception {
         String tableName = view.getTbNameField().getText();
-        if (tableName.isEmpty()) {
-            throw new Exception("Điền tên bàn");
-        }
+        validateTableName(tableName);
         Table temp = tableDao.findByName(tableName);
         if (temp != null && temp.getTableId() != t.getTableId()) {
             throw new Exception("Tên bàn đã được sử dụng");
@@ -54,15 +54,24 @@ public class TablePopupController {
         }
         previousView = view;
         view.setVisible(true);
-        view.getBtnCancel().addActionListener(evt -> view.dispose());
-        view.getBtnOK().addActionListener(evt -> {
-            try {
-                addTable(view);
+        view.getBtnCancel().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
                 view.dispose();
-                view.showMessage("Thêm bàn thành công!");
-                sc.onSuccess();
-            } catch (Exception ex) {
-                ec.onError(ex);
+//                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            }
+        });
+        view.getBtnOK().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                try {
+                    addTable(view);
+                    view.dispose();
+                    view.showMessage("Thêm bàn thành công!");
+                    sc.onSuccess();
+                } catch (Exception ex) {
+                    ec.onError(ex);
+                }
             }
         });
 
@@ -75,7 +84,12 @@ public class TablePopupController {
         }
         previousView = view;
         view.setVisible(true);
-        view.getBtnCancel().addActionListener(evt -> view.dispose());
+        view.getBtnCancel().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                view.dispose();
+            }
+        });
         view.getLbTitle().setText("Sửa bàn - " + table.getTableId());
         view.getTbNameField().setText(table.getName());
         view.getBtnOK().setText("Cập nhật");
@@ -93,5 +107,10 @@ public class TablePopupController {
             }
         });
 
+    }
+    private void validateTableName(String name) throws Exception {
+        if (name.isEmpty()) {
+            throw new Exception("Vui lòng điền đủ thông tin");
+        }
     }
 }
