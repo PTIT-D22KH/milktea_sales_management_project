@@ -21,24 +21,23 @@ import views.RegisterView;
  *
  * @author P51
  */
-public class LoginController {
-    private LoginView view;
-    private EmployeeDao employeeDao;
+public class LoginController extends AuthenticationController<LoginView>{
+    private ForgotPasswordController forgotPasswordController;
+    private RegisterController registerController;
     
-    public LoginController(LoginView view) {
-        this.employeeDao = new EmployeeDao();
-        this.view = view;
-        view.setVisible(true);
-        addEvent();
+    public LoginController(LoginView view, EmployeeDao employeeDao, ForgotPasswordView forgotPasswordView, RegisterView registerView) {
+        super(view, employeeDao);
+        this.forgotPasswordController = new ForgotPasswordController(forgotPasswordView, employeeDao);
+        this.registerController = new RegisterController(registerView, employeeDao);
     }
-
-    public LoginView getView() {
-        return view;
-    }
-
-    public void setView(LoginView view) {
-        this.view = view;
-    }
+    
+//    public LoginView getView() {
+//        return view;
+//    }
+//
+//    public void setView(LoginView view) {
+//        this.view = view;
+//    }
     
     public void login() {
         String username = view.getUsernameTextField().getText();
@@ -61,7 +60,8 @@ public class LoginController {
         }
     }
 
-    private void addEvent() {
+    @Override
+    protected void addEvent() {
         //login event
         view.getPasswordField().addKeyListener(new java.awt.event.KeyAdapter() {
             @Override
@@ -79,17 +79,14 @@ public class LoginController {
         });
         view.getForgotPassLabel().addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ForgotPasswordController controller = new ForgotPasswordController(new ForgotPasswordView());
-//                view.showMessage("Chưa hỗ trợ!");
+                forgotPasswordController.showView();
             }
         });
         view.getRegisterLabel().addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                RegisterController controller  = new RegisterController(new RegisterView());
-//                view.showMessage("Chưa hỗ trợ!");
+                registerController.showView();
             }
         });
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     

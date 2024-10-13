@@ -19,18 +19,13 @@ import views.RegisterView;
  *
  * @author P51
  */
-public class RegisterController {
-    private RegisterView view;
-    private EmployeeDao employeeDao;
-
-    public RegisterController(RegisterView view){
-        this.view = view;
-        this.employeeDao = new EmployeeDao();
-        view.setVisible(true);
-        addEvent();
+public class RegisterController extends AuthenticationController<RegisterView>{
+    public RegisterController(RegisterView view, EmployeeDao employeeDao) {
+        super(view, employeeDao);
     }
     
-    private void addEvent(){
+    @Override
+    protected void addEvent(){
         view.getRegisterButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)  {
@@ -48,17 +43,17 @@ public class RegisterController {
         String confirmPassword = new String(view.getConfirmPassField().getPassword());
         
         if (name.isEmpty() || phoneNumber.isEmpty() || username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-            view.showError("Hãy điền đầy đủ thông tin");
+            view.showMessage("Hãy điền đầy đủ thông tin");
             return;
         }
         
         if (!password.equals(confirmPassword)) {
-            view.showError("Mật khẩu xác nhận không trùng khớp");
+            view.showMessage("Mật khẩu xác nhận không trùng khớp");
             return;
         }
         try {
             if (employeeDao.findByUsername(username) != null) {
-                view.showError("Username đã có người sử dụng");
+                view.showMessage("Username đã có người sử dụng");
                 return;
             }
         } catch (Exception e) {
