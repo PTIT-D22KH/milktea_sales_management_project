@@ -16,64 +16,27 @@ import views.popup.EmployeePopupView;
  *
  * @author P51
  */
-public class EmployeePopupController {
+public class EmployeePopupController extends PopupController<EmployeePopupView, Employee>{
     private EmployeeDao employeeDao;
-    private JFrame previousView;
-
     public EmployeePopupController() {
         this.employeeDao = new EmployeeDao();
     }
 
+    public EmployeePopupController(EmployeeDao employeeDao) {
+        this.employeeDao = employeeDao;
+    }
+    
+    @Override
     public void add(EmployeePopupView view, SuccessCallback sc, ErrorCallback ec) {
-        if (previousView != null && previousView.isDisplayable()) {
-            previousView.requestFocus();
-            return;
-        }
-        previousView = view;
-        view.setVisible(true);
-
-        view.getBtnCancel().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                view.dispose();
-            }
-        });
-
+        super.add(view, sc, ec);
         for (EmployeePermission permission : EmployeePermission.values()) {
             view.getPermissionCbo().addItem(permission.getName());
         }
-        view.getBtnOK().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    addEmployee(view);
-                    view.dispose();
-                    view.showMessage("Thêm nhân viên mới thành công!");
-                    sc.onSuccess();
-                } catch (Exception exception) {
-                    ec.onError(exception);
-                }
-            }
-        });
     }
-
+    @Override
     public void edit(EmployeePopupView view, Employee employee, SuccessCallback sc, ErrorCallback ec) {
-        if (previousView != null && previousView.isDisplayable()) {
-            previousView.requestFocus();
-            return;
-        }
-        previousView = view;
-        view.setVisible(true);
-
-        view.getBtnCancel().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                view.dispose();
-            }
-        });
-
+        super.edit(view, employee, sc, ec);
         view.getLbTitle().setText("Sửa nhân viên - " + employee.getEmployeeId());
-
         view.getUsernameTxtField().setText(employee.getUsername());
         view.getPasswordField().setText(employee.getPassword());
         view.getConfirmPassField().setText(employee.getPassword());
@@ -84,23 +47,10 @@ public class EmployeePopupController {
             view.getPermissionCbo().addItem(permission.getName());
         }
         view.getSalarySpinner().setValue(employee.getSalary());
-        view.getBtnOK().setText("Cập nhật");
-        view.getBtnOK().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    editEmployee(view, employee);
-                    view.dispose();
-                    view.showMessage("Sửa nhân viên thành công !");
-                    sc.onSuccess();
-                } catch (Exception exception) {
-                    ec.onError(exception);
-                }
-            }
-        });
     }
 
-    private void addEmployee(EmployeePopupView view) throws Exception {
+    @Override
+    protected void addEntity(EmployeePopupView view) throws Exception {
         String username = view.getUsernameTxtField().getText();
         String password = new String(view.getPasswordField().getPassword());
         String confirmPassword = new String(view.getConfirmPassField().getPassword());
@@ -121,7 +71,8 @@ public class EmployeePopupController {
         employeeDao.save(e);
     }
 
-    private void editEmployee(EmployeePopupView view, Employee e) throws Exception {
+    @Override
+    protected void editEntity(EmployeePopupView view, Employee e) throws Exception {
         String username = view.getUsernameTxtField().getText();
         String password = new String(view.getPasswordField().getPassword());
         String confirmPassword = new String(view.getConfirmPassField().getPassword());

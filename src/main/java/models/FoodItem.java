@@ -95,6 +95,10 @@ public class FoodItem extends Model {
         };
     }
 
+    @Override
+    public String getClassName() {
+        return "món ăn";
+    }
     
 
 }

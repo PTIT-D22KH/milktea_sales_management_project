@@ -17,17 +17,25 @@ import utils.StringToSlug;
 import views.ChooseImageView;
 import views.popup.FoodItemPopupView;
 
-public class FoodItemPopupController {
-    private FoodItemDao foodItemDao = new FoodItemDao();
+public class FoodItemPopupController extends PopupController<FoodItemPopupView, FoodItem>{
+    private FoodItemDao foodItemDao;
     private FoodCategoryDao foodCategoryDao;
     private ChooseImageView chooseImageView;
     private ImageManager imageManager;
     private String resourcesPath;
-    private JFrame previousView;
     
     public FoodItemPopupController() {
         foodItemDao = new FoodItemDao();
         foodCategoryDao = new FoodCategoryDao();
+        chooseImageView = new ChooseImageView();
+        imageManager = new ImageManager();
+        resourcesPath = getClass().getResource("/images/").getPath();
+        
+    }
+    
+    public FoodItemPopupController(FoodItemDao foodItemDao, FoodCategoryDao foodCategoryDao) {
+        this.foodItemDao = foodItemDao;
+        this.foodCategoryDao = foodCategoryDao;
         chooseImageView = new ChooseImageView();
         imageManager = new ImageManager();
         resourcesPath = getClass().getResource("/images/").getPath();
@@ -81,36 +89,13 @@ public class FoodItemPopupController {
     }
     
     public void add(FoodItemPopupView view, SuccessCallback sc, ErrorCallback ec) {
-        if (previousView != null && previousView.isDisplayable()) {
-            previousView.requestFocus();
-            return;
-        }
-        previousView = view;
-        view.setVisible(true);
-        view.getBtnCancel().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                view.dispose();
-            }
-        });
+        super.add(view, sc, ec);
         initComboBox(view);
         view.getBtnChooseImage().addActionListener(eventShowChooseFileDialog(view));
-        view.getBtnOK().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                try {
-                    addFoodItem(view);
-                    view.dispose();
-                    view.showMessage("Thêm món ăn thành công!");
-                    sc.onSuccess();
-                } catch (Exception ex) {
-                    ec.onError(ex);
-                }
-            }
-        });
     }
     
-    private void addFoodItem(FoodItemPopupView view) throws Exception {
+    @Override
+    protected void addEntity(FoodItemPopupView view) throws Exception {
         FoodItem foodItem = new FoodItem();
         FoodCategory selectedCategory   = (FoodCategory) view.getCmbFoodCategory().getSelectedItem();
         String foodName                 = view.getTxtFoodName().getText();
@@ -130,30 +115,19 @@ public class FoodItemPopupController {
         foodItemDao.save(foodItem);
     }
     
+    @Override
     public void edit(FoodItemPopupView view, FoodItem foodItem, SuccessCallback sc, ErrorCallback ec) {
-        
-        if (previousView != null && previousView.isDisplayable()) {
-            previousView.requestFocus();
-            return;
-        }
-        
+        super.edit(view, foodItem, sc, ec);
         if (foodItem == null) {
             view.showError("Món không tồn tại");
         }
-        
-        previousView = view;
-        view.setVisible(true);
-        view.getBtnCancel().addActionListener(evt -> view.dispose());
-        
         initComboBox(view);
         view.getLbTitle().setText("Sửa món ăn - " + foodItem.getFoodItemId());
-        view.getBtnOK().setText("Cập nhật");
         view.getTxtFoodName().setText(foodItem.getName());
         view.getTxtDescription().setText(foodItem.getDescription());
         view.getTxtImagePath().setText(foodItem.getImagePath());
         view.getTxtUnit().setText(foodItem.getUnitName());
         view.getTxtUnitPrice().setText(foodItem.getUnitPrice() + "");
-
         FoodCategory fc = new FoodCategory();
         fc.setFoodCategoryId(foodItem.getCategoryId());
         view.getCmbFoodCategory().setSelectedItem(fc);
@@ -168,19 +142,6 @@ public class FoodItemPopupController {
             ec.onError(e);
         }
         view.getBtnChooseImage().addActionListener(eventShowChooseFileDialog(view));
-        view.getBtnOK().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                try {
-                    editFoodItem(view, foodItem);
-                    view.dispose();
-                    view.showMessage("Sửa món ăn thành công!");
-                    sc.onSuccess();
-                } catch (Exception ex) {
-                    ec.onError(ex);
-                }
-            }
-        });
     }
     
     private boolean isExistsImage(String imagePath) {
@@ -196,7 +157,8 @@ public class FoodItemPopupController {
         }
     }
     
-    private void editFoodItem(FoodItemPopupView view, FoodItem foodItem) throws Exception {
+    @Override
+    protected void editEntity(FoodItemPopupView view, FoodItem foodItem) throws Exception {
         FoodCategory selectedCategory = (FoodCategory) view.getCmbFoodCategory().getSelectedItem();
         String foodName                 = view.getTxtFoodName().getText();
         String unit                     = view.getTxtUnit().getText();

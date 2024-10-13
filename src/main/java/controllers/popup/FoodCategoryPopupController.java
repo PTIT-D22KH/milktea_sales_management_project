@@ -7,69 +7,25 @@ import java.awt.event.ActionListener;
 import views.popup.FoodCategoryPopupView;
 import javax.swing.JFrame;
 
-public class FoodCategoryPopupController {
+public class FoodCategoryPopupController extends PopupController<FoodCategoryPopupView, FoodCategory>{
     private FoodCategoryDao foodCategoryDao;
-    private JFrame previousView;
     
     public FoodCategoryPopupController(){
         this.foodCategoryDao = new FoodCategoryDao();
     }
-    
-    public void add(FoodCategoryPopupView view, SuccessCallback sc, ErrorCallback ec){
-        if (previousView != null && previousView.isDisplayable()){
-            previousView.requestFocus();
-            return;
-        }
-        previousView = view;
-        view.setVisible(true);
-        view.getBtnCancel().addActionListener(event -> view.dispose());
-        view.getBtnOK().addActionListener(event -> {
-            try {
-                addFoodCategory(view);
-                view.dispose();
-                view.showMessage("Thêm loại món thành công");
-                sc.onSuccess();
-            }
-            catch (Exception ex){
-                ec.onError(ex);
-            }
-        });
+
+    public FoodCategoryPopupController(FoodCategoryDao foodCategoryDao) {
+        this.foodCategoryDao = foodCategoryDao;
     }
     
+    @Override
     public void edit(FoodCategoryPopupView view, FoodCategory fc, SuccessCallback sc, ErrorCallback ec){
-        if (previousView != null && previousView.isDisplayable()){
-            previousView.requestFocus();
-            return;
-        }
-        
-        previousView = view;
-        view.setVisible(true);
-        view.getBtnCancel().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent event) {
-                view.dispose();
-            }
-        });
+        super.edit(view, fc, sc, ec);
         view.getLbTitle().setText("Sửa loại món - " + fc.getFoodCategoryId());
         view.getTxtName().setText(fc.getName());
-        view.getBtnOK().setText("Cập nhật");
-        view.getBtnOK().addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent event){
-                try{
-                    editFoodCategory(view, fc);
-                    view.dispose();
-                    view.showMessage("Sửa món thành công");
-                    sc.onSuccess();
-                } catch (Exception ex) {
-                    ec.onError(ex);
-                }
-            }
-        });
-        
     }
-    
-    private void addFoodCategory(FoodCategoryPopupView view) throws Exception{
+    @Override
+    protected void addEntity(FoodCategoryPopupView view) throws Exception{
         String foodCategoryName = view.getTxtName().getText();
         validateFoodCategoryName(foodCategoryName);
         
@@ -81,8 +37,8 @@ public class FoodCategoryPopupController {
         fc.setName(foodCategoryName);
         foodCategoryDao.save(fc);
     }
-    
-    private void editFoodCategory(FoodCategoryPopupView view, FoodCategory fc) throws Exception {
+    @Override
+    protected void editEntity(FoodCategoryPopupView view, FoodCategory fc) throws Exception {
         String foodCategoryName = view.getTxtName().getText();
         validateFoodCategoryName(foodCategoryName);
 

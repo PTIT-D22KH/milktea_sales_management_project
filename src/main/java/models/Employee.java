@@ -111,4 +111,9 @@ public class Employee extends Model {
     public boolean checkPassword(String password) {
         return this.password.equals(password);
     }
+
+    @Override
+    public String getClassName() {
+        return "nhân viên";
+    }
 }
