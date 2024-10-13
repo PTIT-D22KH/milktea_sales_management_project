@@ -167,7 +167,9 @@ public class Order extends Model{
         this.customer = customer;
         this.customerId = customer.getCustomerId();
     }
-
+    public int getFinalAmount() {
+        return totalAmount - (int) totalAmount * discount / 100;
+    }
     @Override
     public String toString() {
         return "Order{" + "orderId=" + orderId + ", employeeId=" + employeeId + ", tableId=" + tableId + ", customerId=" + customerId + ", discount=" + discount + ", status=" + status + ", type=" + type + ", orderDate=" + orderDate + ", payDate=" + payDate + ", paidAmount=" + paidAmount + ", totalAmount=" + totalAmount + ", employee=" + employee + ", table=" + table + ", customer=" + customer + '}';
@@ -175,7 +177,11 @@ public class Order extends Model{
 
     @Override
     public Object[] toRowTable() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return new Object[]{
+            this.orderId, this.employee.getName(), this.table.getName(),
+            this.type.getName(), this.status.getName(), this.orderDate, this.payDate,
+            String.format("%d/%d", this.paidAmount, this.getFinalAmount())
+        };
     }
 
    
