@@ -45,8 +45,7 @@ public class Main {
         } catch (Exception ex) {
             System.err.println("Set up UI Theme failed!");
 //        CustomerDao customerDao = new CustomerDao();
-//        customerDao.deleteById(1);
-        
+//        customerDao.deleteById(1);   
         }
     }
 }
