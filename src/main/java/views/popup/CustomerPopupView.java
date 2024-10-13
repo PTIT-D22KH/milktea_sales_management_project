@@ -51,7 +51,10 @@ public class CustomerPopupView extends javax.swing.JFrame implements PopupView{
         return lbTitle;
     }
     
-    
+    @Override
+    public String getClassName() {
+        return "khách hàng";
+    }
     
 
     /**

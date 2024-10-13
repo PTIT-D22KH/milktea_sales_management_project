@@ -7,7 +7,6 @@ package controllers.popup;
 import dao.CustomerDao;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JFrame;
 import models.Customer;
 import views.popup.CustomerPopupView;
 
@@ -15,44 +14,19 @@ import views.popup.CustomerPopupView;
  *
  * @author P51
  */
-public class CustomerPopupController {
+public class CustomerPopupController extends PopupController<CustomerPopupView, Customer>{
     private CustomerDao customerDao;
-    private JFrame previousView;
     
     public CustomerPopupController() {
         this.customerDao = new CustomerDao();
     }
-    
-    
-    public void add(CustomerPopupView view, SuccessCallback sc, ErrorCallback ec) {
-        if (previousView != null && previousView.isDisplayable()) {
-            previousView.requestFocus();
-            return;
-        }
-        previousView = view;
-        view.setVisible(true);
-        view.getBtnCancel().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent event) {
-                view.dispose();
-            }
-        });
-        view.getBtnOK().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent event) {
-                try {
-                    addCustomer(view);
-                    view.dispose();
-                    view.showMessage("Thêm khách hàng thành công");
-                    sc.onSuccess();
-                } catch (Exception exception) {
-                    ec.onError(exception);
-                }
-            }
-        });
+
+    public CustomerPopupController(CustomerDao customerDao) {
+        this.customerDao = customerDao;
     }
     
-    private void addCustomer(CustomerPopupView view) throws Exception {
+    @Override
+    protected void addEntity(CustomerPopupView view) throws Exception {
         String name = view.getNameText().getText();
         String address = view.getAddressText().getText();
         String phoneNumber = view.getPhoneNumberText().getText();
@@ -64,42 +38,17 @@ public class CustomerPopupController {
         customerDao.save(customer);
     }
     
+    @Override
     public void edit(CustomerPopupView view, Customer customer, SuccessCallback sc, ErrorCallback ec) {
-        if (previousView != null && previousView.isDisplayable()) {
-            previousView.requestFocus();
-            return;
-        }
-        previousView = view;
-        view.setVisible(true);
-        view.getBtnCancel().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent event) {
-                view.dispose();
-            }
-        });
+        super.edit(view, customer, sc, ec);
         view.getLbTitle().setText("Sửa khách hàng - " + customer.getCustomerId());
         view.getNameText().setText(customer.getName());
         view.getPhoneNumberText().setText(customer.getPhoneNumber());
         view.getAddressText().setText(customer.getAddress());
-        
-        view.getBtnOK().setText("Cập nhật");
-        view.getBtnOK().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent event) {
-                try {
-                    editCustomer(view, customer);
-                    view.dispose();
-                    view.showMessage("Sửa thông tin khách hàng thành công");
-                    sc.onSuccess();
-                } catch (Exception ex) {
-                    ec.onError(ex);
-                }
-            }
-        });
-        
     }
     
-    private void editCustomer(CustomerPopupView view, Customer customer) throws Exception {
+    @Override
+    protected void editEntity(CustomerPopupView view, Customer customer) throws Exception {
         String name = view.getNameText().getText();
         String address = view.getAddressText().getText();
         String phoneNumber = view.getPhoneNumberText().getText();
@@ -114,5 +63,7 @@ public class CustomerPopupController {
             throw new Exception("Vui lòng điền đầy đủ thông tin");
         }
     }
+
+
     
 }

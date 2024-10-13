@@ -149,6 +149,11 @@ public class Shipment extends Model{
     public Object[] toRowTable() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    @Override
+    public String getClassName() {
+        return "đơn giao hàng";
+    }
     
    
 }

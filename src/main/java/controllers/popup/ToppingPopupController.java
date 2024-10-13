@@ -33,6 +33,10 @@ public class ToppingPopupController {
         this.foodItemDao = new FoodItemDao();
         this.formatter = new DecimalFormat("###,###,###");
     }
+    public ToppingPopupController(FoodItemDao foodItemDao) {
+        this.foodItemDao = foodItemDao;
+        this.formatter = new DecimalFormat("###,###,###");
+    }
     public void add(ToppingPopupView view, FoodItem foodItem, Event event) {
         if (previousView != null && previousView.isDisplayable()) {
             previousView.requestFocus();

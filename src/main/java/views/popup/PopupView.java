@@ -26,4 +26,6 @@ public interface PopupView {
     public abstract void showError(Exception e);
 
     public abstract void showMessage(String message);
+    
+    public abstract String getClassName();
 }
