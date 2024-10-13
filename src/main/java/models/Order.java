@@ -188,12 +188,5 @@ public class Order extends Model{
     public String getClassName() {
         return "hoá đơn";
     }
-
-    @Override
-    public String getClassName() {
-        return "hoá đơn";
-    }
-
-   
     
 }
