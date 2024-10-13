@@ -7,6 +7,7 @@ package controllers;
 import dao.EmployeeDao;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JFrame;
 import models.Employee;
 import views.ForgotPasswordView;
 
@@ -14,23 +15,16 @@ import views.ForgotPasswordView;
  *
  * @author P51
  */
-public class ForgotPasswordController {
-    private ForgotPasswordView view;
-    private EmployeeDao employeeDao;
-    
-    public ForgotPasswordController(ForgotPasswordView view) {
-        this.view = view;
-        this.employeeDao = new EmployeeDao();
-        view.setVisible(true);
-        addEvent();
+public class ForgotPasswordController extends AuthenticationController<ForgotPasswordView>{
+    public ForgotPasswordController(ForgotPasswordView view, EmployeeDao employeeDao) {
+        super(view, employeeDao);
     }
-    
-    private void addEvent() {
+    @Override
+    protected void addEvent() {
         view.getConfirmButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 resetPassword();
-//                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
             }
             
         });
@@ -43,18 +37,18 @@ public class ForgotPasswordController {
         String confirmPassword = new String(view.getConfirmPassField().getPassword());
         
         if (username.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
-            view.showError("Hãy điền đầy đủ thông tin");
+            view.showMessage("Hãy điền đầy đủ thông tin");
             return;
         }
         
         if (!newPassword.equals(confirmPassword)) {
-            view.showError("Xác nhận mật khẩu không trùng khớp");
+            view.showMessage("Xác nhận mật khẩu không trùng khớp");
             return;
         }
         try {
             Employee employee = employeeDao.findByUsername(username);
             if (employee == null) {
-                view.showError("Username không tồn tại!");
+                view.showMessage("Username không tồn tại!");
                 return;
             }
 

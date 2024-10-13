@@ -87,8 +87,6 @@ public class RegisterView extends javax.swing.JFrame {
         confirmPassField = new javax.swing.JPasswordField();
         registerButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         jPanel1.setBackground(new java.awt.Color(236, 245, 71));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
