@@ -10,8 +10,9 @@ import javax.swing.JFrame;
 /**
  *
  * @author P51
+ * @param <T>
  */
-public abstract class AuthenticationController<T extends JFrame> {
+public abstract class AuthenticationController<T extends JFrame> implements  AuthenticationBase{
     protected T view;
     protected EmployeeDao employeeDao;
     
@@ -26,6 +27,7 @@ public abstract class AuthenticationController<T extends JFrame> {
 //    public T getView() {
 //        return view;
 //    }
+    @Override
     public void showView(){
         view.setVisible(true);
     }

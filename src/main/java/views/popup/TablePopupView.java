@@ -191,6 +191,11 @@ public class TablePopupView extends javax.swing.JFrame implements PopupView{
     public void showMessage(String message) {
         JOptionPane.showMessageDialog(null, message);
     }
+
+    @Override
+    public String getClassName() {
+        return "bàn";
+    }
     
     
    
