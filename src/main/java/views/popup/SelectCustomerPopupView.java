@@ -4,6 +4,16 @@
  */
 package views.popup;
 
+
+import java.awt.Dimension;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JList;
+import javax.swing.JTextField;
+import models.Customer;
+import utils.ErrorPopup;
+import views.CustomerRenderList;
 /**
  *
  * @author P51
@@ -13,8 +23,45 @@ public class SelectCustomerPopupView extends javax.swing.JFrame {
     /**
      * Creates new form SelectCustomerPopupView
      */
+    DefaultListModel<Customer> customerListModel = new DefaultListModel<>();
+    
     public SelectCustomerPopupView() {
         initComponents();
+    }
+    
+    public JButton getBtnCancel() {
+        return btnCancel;
+    }
+    
+    public JButton getBtnOK() {
+        return btnOK;
+    }
+    
+    public JButton getBtnSearch() {
+        return btnSearch;
+    }
+    
+    public JList<Customer> getListCustomer() {
+        return listCustomer;
+    }
+    
+    public void renderCustomer(ArrayList<Customer> customers) {
+        customerListModel.removeAllElements();
+        for (Customer customer : customers) {
+            customerListModel.addElement(customer);
+        }
+    }
+    
+    public JTextField getTxtCustomerName() {
+        return txtCustomerName;
+    }
+    
+    public void showError(String message) {
+        ErrorPopup.show(new Exception(message));
+    }
+
+    public void showError(Exception message) {
+        ErrorPopup.show(message);
     }
 
     /**
@@ -29,13 +76,13 @@ public class SelectCustomerPopupView extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtCustomerName = new javax.swing.JTextField();
+        btnSearch = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        listCustomer = new javax.swing.JList<>();
         jPanel3 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnOK = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,7 +106,7 @@ public class SelectCustomerPopupView extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton1.setText("Tìm");
+        btnSearch.setText("Tìm");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -67,9 +114,9 @@ public class SelectCustomerPopupView extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(17, Short.MAX_VALUE)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCustomerName, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(btnSearch)
                 .addGap(12, 12, 12))
         );
         jPanel2Layout.setVerticalGroup(
@@ -77,16 +124,16 @@ public class SelectCustomerPopupView extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(txtCustomerName, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearch))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(listCustomer);
 
-        jButton2.setText("OK");
+        btnOK.setText("OK");
 
-        jButton3.setText("Huỷ");
+        btnCancel.setText("Huỷ");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -94,9 +141,9 @@ public class SelectCustomerPopupView extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(67, 67, 67)
-                .addComponent(jButton2)
+                .addComponent(btnOK)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3)
+                .addComponent(btnCancel)
                 .addGap(74, 74, 74))
         );
         jPanel3Layout.setVerticalGroup(
@@ -104,8 +151,8 @@ public class SelectCustomerPopupView extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(16, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(btnOK)
+                    .addComponent(btnCancel))
                 .addGap(14, 14, 14))
         );
 
@@ -172,15 +219,15 @@ public class SelectCustomerPopupView extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnOK;
+    private javax.swing.JButton btnSearch;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JList<Customer> listCustomer;
+    private javax.swing.JTextField txtCustomerName;
     // End of variables declaration//GEN-END:variables
 }
