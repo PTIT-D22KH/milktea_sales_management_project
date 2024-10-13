@@ -72,8 +72,6 @@ public class ForgotPasswordView extends javax.swing.JFrame {
         confirmPassField = new javax.swing.JPasswordField();
         confirmButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         jPanel1.setBackground(new java.awt.Color(255, 255, 102));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
