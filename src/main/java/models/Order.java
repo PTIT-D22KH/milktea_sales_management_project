@@ -189,6 +189,11 @@ public class Order extends Model{
         return "hoá đơn";
     }
 
+    @Override
+    public String getClassName() {
+        return "hoá đơn";
+    }
+
    
     
 }
