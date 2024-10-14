@@ -4,55 +4,50 @@
  */
 package controllers.admin;
 
-import controllers.popup.CustomerPopupController;
 import controllers.ManagerController;
-import controllers.ManagerController;
-import controllers.popup.CustomerPopupController;
 import controllers.popup.ErrorCallback;
 import controllers.popup.SuccessCallback;
-import dao.CustomerDao;
-import dao.ShipmentDao;
-//import dao.ShipmentDao;
+import controllers.popup.TablePopupController;
+import dao.TableDao;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.YES_OPTION;
-import models.Customer;
-import views.popup.CustomerPopupView;
-//import models.Customer;
+import models.Table;
+import views.admin.ManagerPaneView;
+import views.admin.TableManagerView;
+import views.popup.TablePopupView;
 
 /**
  *
  * @author P51
  */
-public class CustomerManagerController extends ManagerController{
+public class TableManagerController extends ManagerController{
+
+    private TableDao tableDao;
+    private TablePopupController popupController;
     
-    private CustomerDao customerDao;
-    private ShipmentDao shipmentDao;
-    private CustomerPopupController popupController;
-    private CustomerPopupController customerPopupController;
-    
-    public CustomerManagerController(){ 
-        
+    public TableManagerController() {
         super();
-        customerDao = new CustomerDao();
-        shipmentDao = new ShipmentDao();
-        popupController = new CustomerPopupController();
-        customerPopupController = new CustomerPopupController();
+        tableDao = new TableDao();
+        popupController = new TablePopupController();
     }
 
-    //Test only
-    public CustomerManagerController(CustomerDao customerDao, ShipmentDao shipmentDao, CustomerPopupController popupController, CustomerPopupController customerPopupController) {
-        this.customerDao = customerDao;
-        this.shipmentDao = shipmentDao;
+    public TableManagerController(TableDao tableDao, TablePopupController popupController) {
+        this.tableDao = tableDao;
         this.popupController = popupController;
-        this.customerPopupController = customerPopupController;
     }
 
+    
+
+    public void setView(TableManagerView view) {
+        super.setView(view); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+    
+    
     
     @Override
     public void actionAdd() {
-        
         SuccessCallback successCallback = new SuccessCallback() {
             @Override
             public void onSuccess() {
@@ -66,15 +61,15 @@ public class CustomerManagerController extends ManagerController{
                 view.showError(e);
             }
         };
-
-        customerPopupController.add(new CustomerPopupView(), successCallback, errorCallback);
+        popupController.add(new TablePopupView(), successCallback, errorCallback);
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void actionSearch() {
         try {
-            ArrayList<Customer> customers = customerDao.searchByKey(view.getComboSearchField().getSelectedItem().toString(), String.valueOf(view.getSearchTxt().getText()));
-            view.setTableData(customers);
+            ArrayList<Table> tables = tableDao.searchByKey(view.getComboSearchField().getSelectedItem().toString(), view.getSearchTxt().getText());
+            view.setTableData(tables);
         } catch (Exception e) {
             view.showError(e);
         }
@@ -85,13 +80,11 @@ public class CustomerManagerController extends ManagerController{
     public void actionDelete() {
         int selectedIds[] = view.getSelectedIds();
         try {
-            if (JOptionPane.showConfirmDialog(null, "Xác nhận xóa hàng loạt?", "Xóa khách hàng", ERROR_MESSAGE) != YES_OPTION) {
+            if (JOptionPane.showConfirmDialog(null, "Xác nhận xóa hàng loạt?", "Xóa bàn", ERROR_MESSAGE) != YES_OPTION) {
                 return;
             }
             for (int i = 0; i < selectedIds.length; i++) {
-                int id = selectedIds[i];
-                shipmentDao.deleteByIdCustomer(id);
-                customerDao.deleteById(id);
+                tableDao.deleteById(selectedIds[i]);
                 updateData();
             }
         } catch (Exception e) {
@@ -105,11 +98,11 @@ public class CustomerManagerController extends ManagerController{
         try {
             int selectedId = view.getSelectedId();
             if (selectedId < 0) {
-                throw new Exception("Chọn khách hàng cần edit");
+                throw new Exception("Chọn bàn cần edit");
             } else {
-                Customer c = customerDao.getById(selectedId);
-                if (c == null) {
-                    throw new Exception("Khách hàng bạn chọn không hợp lệ");
+                Table t = tableDao.getById(selectedId);
+                if (t == null) {
+                    throw new Exception("Bàn bạn chọn không hợp lệ");
                 }
                 SuccessCallback successCallback = new SuccessCallback() {
                     @Override
@@ -124,7 +117,7 @@ public class CustomerManagerController extends ManagerController{
                         view.showError(e);
                     }
                 };
-                popupController.edit(new CustomerPopupView(), c, successCallback, errorCallback);
+                popupController.edit(new TablePopupView(), t, successCallback, errorCallback);
             }
         } catch (Exception e) {
             view.showError(e);
@@ -135,9 +128,9 @@ public class CustomerManagerController extends ManagerController{
     @Override
     public void updateData() {
         try {
-            ArrayList<Customer> customers = customerDao.getAll();
-            view.setTableData(customers);
-        } catch (Exception e){
+            ArrayList<Table> tables = tableDao.getAll();
+            view.setTableData(tables);
+        } catch (Exception e) {
             view.showError(e);
         }
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

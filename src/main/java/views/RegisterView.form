@@ -5,9 +5,6 @@
     <Component class="javax.swing.JSeparator" name="jSeparator1">
     </Component>
   </NonVisualComponents>
-  <Properties>
-    <Property name="defaultCloseOperation" type="int" value="3"/>
-  </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
@@ -105,17 +102,17 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jPasswordField1" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jTextField3" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jTextField2" max="32767" attributes="0"/>
-                      <Component id="jTextField1" max="32767" attributes="0"/>
-                      <Component id="jPasswordField2" alignment="0" max="32767" attributes="0"/>
+                      <Component id="passwordField" alignment="0" max="32767" attributes="0"/>
+                      <Component id="usernameTxtField" alignment="0" max="32767" attributes="0"/>
+                      <Component id="phoneNumberTxtField" max="32767" attributes="0"/>
+                      <Component id="nameTxtField" max="32767" attributes="0"/>
+                      <Component id="confirmPassField" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace pref="229" max="32767" attributes="0"/>
-                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                  <Component id="registerButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="203" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -126,30 +123,30 @@
                   <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="nameTxtField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="phoneNumberTxtField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="usernameTxtField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                      <Component id="jPasswordField1" min="-2" max="-2" attributes="0"/>
+                      <Component id="passwordField" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jPasswordField2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="confirmPassField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="20" max="32767" attributes="0"/>
-                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                  <Component id="registerButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -164,13 +161,13 @@
             <Property name="text" type="java.lang.String" value="H&#x1ecd; v&#xe0; t&#xea;n:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField1">
+        <Component class="javax.swing.JTextField" name="nameTxtField">
           <AccessibilityProperties>
             <Property name="AccessibleContext.accessibleName" type="java.lang.String" value=""/>
             <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value=""/>
           </AccessibilityProperties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nameTxtFieldActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
@@ -181,7 +178,7 @@
             <Property name="text" type="java.lang.String" value="S&#x110;T:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField2">
+        <Component class="javax.swing.JTextField" name="phoneNumberTxtField">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
@@ -191,9 +188,9 @@
             <Property name="text" type="java.lang.String" value="Username:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField3">
+        <Component class="javax.swing.JTextField" name="usernameTxtField">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField3ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="usernameTxtFieldActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
@@ -204,9 +201,9 @@
             <Property name="text" type="java.lang.String" value="M&#x1ead;t kh&#x1ea9;u:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JPasswordField" name="jPasswordField1">
+        <Component class="javax.swing.JPasswordField" name="passwordField">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jPasswordField1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="passwordFieldActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
@@ -217,17 +214,17 @@
             <Property name="text" type="java.lang.String" value="Nh&#x1ead;p l&#x1ea1;i m&#x1ead;t kh&#x1ea9;u:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JPasswordField" name="jPasswordField2">
+        <Component class="javax.swing.JPasswordField" name="confirmPassField">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jPasswordField2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="confirmPassFieldActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="registerButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x110;&#x103;ng k&#xfd;"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="registerButtonActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

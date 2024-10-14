@@ -4,6 +4,12 @@
  */
 package views;
 
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import utils.ErrorPopup;
+
 /**
  *
  * @author P51
@@ -16,6 +22,44 @@ public class RegisterView extends javax.swing.JFrame {
     public RegisterView() {
         initComponents();
         setLocationRelativeTo(null);
+    }
+
+    public JButton getRegisterButton() {
+        return registerButton;
+    }
+
+    public JPasswordField getConfirmPassField() {
+        return confirmPassField;
+    }
+
+    public JTextField getNameTxtField() {
+        return nameTxtField;
+    }
+
+    public JPasswordField getPasswordField() {
+        return passwordField;
+    }
+
+    public JTextField getPhoneNumberTxtField() {
+        return phoneNumberTxtField;
+    }
+
+    public JTextField getUsernameTxtField() {
+        return usernameTxtField;
+    }
+    
+    public void showError(String message) {
+        ErrorPopup.show(new Exception(message));
+    }
+
+
+    public void showError(Exception e) {
+        ErrorPopup.show(e);
+    }
+
+
+    public void showMessage(String message) {
+        JOptionPane.showMessageDialog(null, message);
     }
 
     /**
@@ -32,18 +76,16 @@ public class RegisterView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        nameTxtField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        phoneNumberTxtField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        usernameTxtField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        passwordField = new javax.swing.JPasswordField();
         jLabel6 = new javax.swing.JLabel();
-        jPasswordField2 = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        confirmPassField = new javax.swing.JPasswordField();
+        registerButton = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(236, 245, 71));
 
@@ -72,9 +114,9 @@ public class RegisterView extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel2.setText("Họ và tên:");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        nameTxtField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                nameTxtFieldActionPerformed(evt);
             }
         });
 
@@ -84,34 +126,34 @@ public class RegisterView extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setText("Username:");
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        usernameTxtField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                usernameTxtFieldActionPerformed(evt);
             }
         });
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setText("Mật khẩu:");
 
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+        passwordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
+                passwordFieldActionPerformed(evt);
             }
         });
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel6.setText("Nhập lại mật khẩu:");
 
-        jPasswordField2.addActionListener(new java.awt.event.ActionListener() {
+        confirmPassField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField2ActionPerformed(evt);
+                confirmPassFieldActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Đăng ký");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        registerButton.setText("Đăng ký");
+        registerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                registerButtonActionPerformed(evt);
             }
         });
 
@@ -129,15 +171,15 @@ public class RegisterView extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField2)
-                    .addComponent(jTextField1)
-                    .addComponent(jPasswordField2, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(passwordField, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(usernameTxtField, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(phoneNumberTxtField)
+                    .addComponent(nameTxtField)
+                    .addComponent(confirmPassField, javax.swing.GroupLayout.Alignment.LEADING))
                 .addGap(35, 35, 35))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(229, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(registerButton)
                 .addGap(203, 203, 203))
         );
         jPanel2Layout.setVerticalGroup(
@@ -146,30 +188,30 @@ public class RegisterView extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nameTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(phoneNumberTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(usernameTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(confirmPassField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(registerButton)
                 .addContainerGap())
         );
 
-        jTextField1.getAccessibleContext().setAccessibleName("");
-        jTextField1.getAccessibleContext().setAccessibleDescription("");
+        nameTxtField.getAccessibleContext().setAccessibleName("");
+        nameTxtField.getAccessibleContext().setAccessibleDescription("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -191,25 +233,25 @@ public class RegisterView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void usernameTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameTxtFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_usernameTxtFieldActionPerformed
 
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+    private void passwordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
+    }//GEN-LAST:event_passwordFieldActionPerformed
 
-    private void jPasswordField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField2ActionPerformed
+    private void confirmPassFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmPassFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField2ActionPerformed
+    }//GEN-LAST:event_confirmPassFieldActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_registerButtonActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void nameTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameTxtFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_nameTxtFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -247,7 +289,7 @@ public class RegisterView extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JPasswordField confirmPassField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -256,11 +298,11 @@ public class RegisterView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField nameTxtField;
+    private javax.swing.JPasswordField passwordField;
+    private javax.swing.JTextField phoneNumberTxtField;
+    private javax.swing.JButton registerButton;
+    private javax.swing.JTextField usernameTxtField;
     // End of variables declaration//GEN-END:variables
 }

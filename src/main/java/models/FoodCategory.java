@@ -60,4 +60,9 @@ public class FoodCategory extends Model {
             foodCategoryId, name
         };
     }
+
+    @Override
+    public String getClassName() {
+        return "loại món";
+    }
 }

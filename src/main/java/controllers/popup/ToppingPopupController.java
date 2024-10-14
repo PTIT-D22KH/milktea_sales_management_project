@@ -5,8 +5,12 @@
 package controllers.popup;
 
 import dao.FoodItemDao;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import javax.swing.JFrame;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import models.FoodItem;
 import models.OrderItem;
 import views.popup.ToppingPopupView;
@@ -16,8 +20,8 @@ import views.popup.ToppingPopupView;
  * @author namle
  */
 public class ToppingPopupController {
-    private FoodItemDao foodItemDao = new FoodItemDao();
-    private DecimalFormat formatter = new DecimalFormat("###,###,###");
+    private FoodItemDao foodItemDao;
+    private DecimalFormat formatter;
     private JFrame previousView;
 
     private interface Event {
@@ -25,6 +29,14 @@ public class ToppingPopupController {
         public abstract void onSelect(OrderItem item);
     }
 
+    public ToppingPopupController() {
+        this.foodItemDao = new FoodItemDao();
+        this.formatter = new DecimalFormat("###,###,###");
+    }
+    public ToppingPopupController(FoodItemDao foodItemDao) {
+        this.foodItemDao = foodItemDao;
+        this.formatter = new DecimalFormat("###,###,###");
+    }
     public void add(ToppingPopupView view, FoodItem foodItem, Event event) {
         if (previousView != null && previousView.isDisplayable()) {
             previousView.requestFocus();
@@ -48,21 +60,36 @@ public class ToppingPopupController {
             e.printStackTrace();
         }
         updateAmount(view);
-        view.getBtnOK().addActionListener(evt -> {
-            event.onSelect(addItem(foodItem, view));
-            view.dispose();
+        view.getBtnOK().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                event.onSelect(addItem(foodItem, view));
+                view.dispose();
+            }
         });
-        view.getBtnCancel().addActionListener(evt -> {
-            view.dispose();
+        view.getBtnCancel().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                view.dispose();
+            }
         });
-        view.getSpnFoodPrice().addChangeListener(evt -> {
-            updateAmount(view);
+        view.getSpnFoodPrice().addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent evt) {
+                updateAmount(view);
+            }
         });
-        view.getSpnQuantity().addChangeListener(evt -> {
-            updateAmount(view);
+        view.getSpnQuantity().addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent evt) {
+                updateAmount(view);
+            }
         });
-        view.getCboTopping().addActionListener(evt -> {
-            updateAmount(view);
+        view.getCboTopping().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                updateAmount(view);
+            }
         });
     }
 
@@ -96,4 +123,5 @@ public class ToppingPopupController {
             return orderItem;
         }
     }
+    
 }

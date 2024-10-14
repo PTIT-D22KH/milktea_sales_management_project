@@ -5,7 +5,8 @@
 package controllers.popup;
 
 import dao.CustomerDao;
-import javax.swing.JFrame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import models.Customer;
 import views.popup.CustomerPopupView;
 
@@ -13,90 +14,56 @@ import views.popup.CustomerPopupView;
  *
  * @author P51
  */
-public class CustomerPopupController {
-    CustomerDao customerDao = new CustomerDao();
-    JFrame previousView;
+public class CustomerPopupController extends PopupController<CustomerPopupView, Customer>{
+    private CustomerDao customerDao;
     
-    
-    
-    public void add(CustomerPopupView view, SuccessCallback sc, ErrorCallback ec) {
-        if (previousView != null && previousView.isDisplayable()) {
-            previousView.requestFocus();
-            return;
-        }
-        previousView = view;
-        view.setVisible(true);
-        view.getBtnCancel().addActionListener(event -> view.dispose());
-        view.getBtnOK().addActionListener(event -> {
-            try {
-                addCustomer(view);
-                view.dispose();
-                view.showMessage("Thêm khách hàng thành công");
-                sc.onSuccess();
-                
-            } catch (Exception exception) {
-                ec.onError(exception);
-//                System.out.println("That bai");
-            }
-        });
+    public CustomerPopupController() {
+        this.customerDao = new CustomerDao();
+    }
+
+    public CustomerPopupController(CustomerDao customerDao) {
+        this.customerDao = customerDao;
     }
     
-    public boolean addCustomer(CustomerPopupView view) throws Exception {
+    @Override
+    protected void addEntity(CustomerPopupView view) throws Exception {
         String name = view.getNameText().getText();
         String address = view.getAddressText().getText();
         String phoneNumber = view.getPhoneNumberText().getText();
-        if (name.isEmpty() || address.isEmpty() || phoneNumber.isEmpty()) {
-            throw new Exception("Vui lòng điền đầy đủ thông tin");
-        }
+        validateCustomerData(name, address, phoneNumber);
         Customer customer = new Customer();
         customer.setAddress(address);
         customer.setName(name);
         customer.setPhoneNumber(phoneNumber);
         customerDao.save(customer);
-        return true;
     }
     
+    @Override
     public void edit(CustomerPopupView view, Customer customer, SuccessCallback sc, ErrorCallback ec) {
-        if (previousView != null && previousView.isDisplayable()) {
-            previousView.requestFocus();
-            return;
-        }
-        previousView = view;
-        view.setVisible(true);
-        view.getBtnCancel().addActionListener(event -> view.dispose());
+        super.edit(view, customer, sc, ec);
         view.getLbTitle().setText("Sửa khách hàng - " + customer.getCustomerId());
         view.getNameText().setText(customer.getName());
         view.getPhoneNumberText().setText(customer.getPhoneNumber());
         view.getAddressText().setText(customer.getAddress());
-        
-        view.getBtnOK().setText("Cập nhật");
-        view.getBtnOK().addActionListener(event -> {
-            try {
-                editCustomer(view, customer);
-                view.dispose();
-                view.showMessage("Sửa thông tin khách hàng thành công");
-                sc.onSuccess();
-            } catch (Exception ex){
-                ec.onError(ex);
-            }
-                    
-        });
-        
     }
     
-    public boolean editCustomer(CustomerPopupView view, Customer customer) throws Exception {
+    @Override
+    protected void editEntity(CustomerPopupView view, Customer customer) throws Exception {
         String name = view.getNameText().getText();
         String address = view.getAddressText().getText();
         String phoneNumber = view.getPhoneNumberText().getText();
-        if (name.isEmpty() || address.isEmpty() || phoneNumber.isEmpty()) {
-            throw new Exception("Vui lòng điền đầy đủ thông tin");
-        }
+        validateCustomerData(name, address, phoneNumber);
         customer.setAddress(address);
         customer.setName(name);
         customer.setPhoneNumber(phoneNumber);
         customerDao.update(customer);
-        return true;
     }
-    
+    private void validateCustomerData(String name, String address, String phoneNumber) throws Exception {
+        if (name.isEmpty() || address.isEmpty() || phoneNumber.isEmpty()) {
+            throw new Exception("Vui lòng điền đầy đủ thông tin");
+        }
+    }
+
+
     
 }

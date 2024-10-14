@@ -4,6 +4,8 @@
  */
 package controllers;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
@@ -46,7 +48,7 @@ public abstract class ManagerController {
     public abstract void updateData();
     
     private void addEvent() {
-        
+        // display place holder
         view.getSearchTxt().addFocusListener(new FocusAdapter() {
             public void focusGained(FocusEvent event) {
                 if (view.getSearchTxt().getText().equals("Search")) {
@@ -72,10 +74,30 @@ public abstract class ManagerController {
         });
         
         
-        view.getAddButton().addActionListener(event -> actionAdd());
-        view.getEditButton().addActionListener(event -> actionEdit());
-        view.getDelButton().addActionListener(event -> actionDelete());
-        view.getSyncButton().addActionListener(event -> updateData());
+        view.getAddButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                actionAdd();
+            }
+        });
+        view.getEditButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                actionEdit();
+            }
+        });
+        view.getDelButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                actionDelete();
+            }
+        });
+        view.getSyncButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                updateData();
+            }
+        });
         
     }
     

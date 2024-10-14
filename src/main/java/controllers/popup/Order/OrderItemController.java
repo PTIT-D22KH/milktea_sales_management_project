@@ -6,6 +6,8 @@ package controllers.popup.Order;
 
 import java.util.ArrayList;
 import javax.swing.JPanel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import models.OrderItem;
 import views.popup.order.OrderItemPane;
 
@@ -15,48 +17,53 @@ import views.popup.order.OrderItemPane;
  */
 public class OrderItemController {
     private ArrayList<OrderItem> orderItems;
-    private JPanel panelOrderItem;
-    private int idOrder;
+    private JPanel orderItemPanel;
+    private int orderId;
 
     public interface Event {
 
         public abstract void onChange();
     }
-    Event onQuantityChange;
+    private Event onQuantityChange;
 
     public OrderItemController() {
     }
 
-
-    public JPanel getPanelOrderItem() {
-        return panelOrderItem;
+    public JPanel getOrderItemPanel() {
+        return orderItemPanel;
     }
 
-    public void setPanelOrderItem(JPanel panelOrderItem) {
-        this.panelOrderItem = panelOrderItem;
+    public void setOrderItemPanel(JPanel orderItemPanel) {
+        this.orderItemPanel = orderItemPanel;
     }
 
-    public int getIdOrder() {
-        return idOrder;
+    public int getOrderId() {
+        return orderId;
     }
 
-    public void setIdOrder(int idOrder) {
-        this.idOrder = idOrder;
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
+
+    
 
     public void renderOrderItem() {
-        panelOrderItem.removeAll();
+        orderItemPanel.removeAll();
         for (OrderItem orderItem : orderItems) {
             OrderItemPane pane = new OrderItemPane(orderItem);
-            pane.getSpnQuantity().addChangeListener(evt -> {
-                orderItem.setQuantity((int) pane.getSpnQuantity().getValue());
-                if (onQuantityChange != null) {
-                    onQuantityChange.onChange();// Gọi hàm update amount
+            pane.getSpnQuantity().addChangeListener(new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent e) {
+                    orderItem.setQuantity((int) pane.getSpnQuantity().getValue());
+                    if (onQuantityChange != null) {
+                        onQuantityChange.onChange(); // Gọi hàm update amount
+                    }
                 }
-            });
-            panelOrderItem.add(pane);
+            }
+            );
+            orderItemPanel.add(pane);
         }
-        panelOrderItem.updateUI();
+        orderItemPanel.updateUI();
     }
 
     public ArrayList<OrderItem> getOrderItems() {
@@ -80,7 +87,7 @@ public class OrderItemController {
         if (item == null) {
             return;
         }
-        item.setOrderId(idOrder);
+        item.setOrderId(orderId);
         for (OrderItem orderItem : orderItems) {
             if (item.equals(orderItem)) {
                 orderItem.setQuantity(orderItem.getQuantity() + item.getQuantity());

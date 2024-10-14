@@ -4,6 +4,8 @@
  */
 package views.popup.order;
 
+import models.FoodCategory;
+
 /**
  *
  * @author P51
@@ -13,9 +15,17 @@ public class FoodCategoryPane extends javax.swing.JPanel {
     /**
      * Creates new form FoodCategoryPane
      */
-    public FoodCategoryPane() {
+    private FoodCategory foodCategory;
+    public FoodCategoryPane(FoodCategory foodCategory) {
+        this.foodCategory = foodCategory;
         initComponents();
+        nameLabel.setText(foodCategory.getName());
     }
+
+    public FoodCategory getFoodCategory() {
+        return foodCategory;
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,10 +36,10 @@ public class FoodCategoryPane extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        nameLabel = new javax.swing.JLabel();
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setText("Topping");
+        nameLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        nameLabel.setText("Topping");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -37,20 +47,20 @@ public class FoodCategoryPane extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(45, 45, 45)
-                .addComponent(jLabel1)
+                .addComponent(nameLabel)
                 .addContainerGap(47, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(16, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addComponent(nameLabel)
                 .addGap(14, 14, 14))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel nameLabel;
     // End of variables declaration//GEN-END:variables
 }

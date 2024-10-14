@@ -1,91 +1,68 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package controllers;
 
 import dao.EmployeeDao;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import javax.swing.JOptionPane;
-import utils.SessionManager;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.Employee;
-import views.AdminDashboardView;
-import views.EmployeeDashboardView;
+import utils.SessionManager;
+import views.ForgotPasswordView;
 import views.LoginView;
-import views.admin.HomeView;
+import views.RegisterView;
 
 /**
- * createAt Dec 15, 2020
  *
- * @author Đỗ Tuấn Anh <daclip26@gmail.com>
+ * @author P51
  */
-public class LoginController {
-
-    private LoginView view;
-    EmployeeDao employeeDao = new EmployeeDao();
-
+public class LoginController extends AuthenticationController<LoginView>{
+    private ForgotPasswordController forgotPasswordController;
+    private RegisterController registerController;
     
-    public LoginController(LoginView view) {
-        this.view = view;
-        view.setVisible(true);
-        addEvent();
+    public LoginController(LoginView view, EmployeeDao employeeDao, ForgotPasswordView forgotPasswordView, RegisterView registerView) {
+        super(view, employeeDao);
+        this.forgotPasswordController = new ForgotPasswordController(forgotPasswordView, employeeDao);
+        this.registerController = new RegisterController(registerView, employeeDao);
     }
-
-    public LoginView getView() {
-        return view;
-    }
-
-    public void setView(LoginView view) {
-        this.view = view;
-        view.setVisible(true);
-    }
-
+    
+//    public LoginView getView() {
+//        return view;
+//    }
+//
+//    public void setView(LoginView view) {
+//        this.view = view;
+//    }
+    
     public void login() {
         String username = view.getUsernameTextField().getText();
         String password = new String(view.getPasswordField().getPassword());
         try {
             Employee employee = employeeDao.findByUsername(username);
             if (employee == null) {
-                view.showError("Không tồn tại tài khoản!");
+                view.showError("Không tồn tại tài khoản");
                 return;
             }
             if (!employee.checkPassword(password)) {
                 view.showError("Mật khẩu sai");
                 return;
             }
-            SessionManager.create(employee);//Khởi tạo session
-            JOptionPane.showMessageDialog(null, "Dang nhap thanh cong");
-            
-//            switch (employee.getPermission()) {
-//                case MANAGER:
-//                    //Admin controller
-//                    AdminDashboardController controller = new AdminDashboardController(new AdminDashboardView());
-//                    controller.getView().setPanel(new HomeView());
-//                    view.dispose();// Tắt form đăng nhập
-//                    break;
-//                case STAFF:
-//                    EmployeeDashboardController controller1 = new EmployeeDashboardController(new EmployeeDashboardView());
-//                    controller1.getView().setPanel(new HomeView());
-//                    view.dispose();// Tắt form đăng nhập                    
-//                    break;
-//                //Seller Controller
-//                case INACTIVE:
-//                    view.showError("Tài khoản của bạn đã bị khóa.\nVui lòng liên hệ admin để biết thêm chi tiết");
-//                    SessionManager.update();
-//                    view.dispose();
-//                    break;
-//                default:
-//                    view.showError("Vui lòng liên hệ admin để biết thêm chi tiết");
-//                    SessionManager.update();
-//                    view.dispose();
-//                    break;
-//            }
+            SessionManager.create(employee);
+            System.out.println("Đăng nhập thành công!");
+                   
         } catch (Exception e) {
             view.showError(e);
         }
     }
 
-    // Tạo sự kiện
-    public void addEvent() {
-        //Sự kiện login
+    @Override
+    protected void addEvent() {
+        //login event
         view.getPasswordField().addKeyListener(new java.awt.event.KeyAdapter() {
             @Override
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -102,14 +79,15 @@ public class LoginController {
         });
         view.getForgotPassLabel().addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                view.showMessage("Chưa hỗ trợ!");
+                forgotPasswordController.showView();
             }
         });
         view.getRegisterLabel().addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                view.showMessage("Chưa hỗ trợ!");
+                registerController.showView();
             }
         });
     }
-
+    
+    
 }
