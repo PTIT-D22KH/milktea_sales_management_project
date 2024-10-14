@@ -19,11 +19,11 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel3" max="32767" attributes="0"/>
+                  <Component id="addressLabel" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Component id="jLabel1" min="-2" pref="245" max="-2" attributes="0"/>
+                      <Component id="nameLabel" min="-2" pref="245" max="-2" attributes="0"/>
                       <EmptySpace pref="56" max="32767" attributes="0"/>
-                      <Component id="jLabel2" min="-2" pref="87" max="-2" attributes="0"/>
+                      <Component id="phoneNumberLabel" min="-2" pref="87" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -35,18 +35,18 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="nameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="phoneNumberLabel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+              <Component id="addressLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="21" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="nameLabel">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="1"/>
@@ -57,7 +57,7 @@
         <Property name="text" type="java.lang.String" value="V&#x169; C&#xf4;ng Tu&#x1ea5;n D&#x1b0;&#x1a1;ng"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel2">
+    <Component class="javax.swing.JLabel" name="phoneNumberLabel">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="12" style="1"/>
@@ -65,7 +65,7 @@
         <Property name="text" type="java.lang.String" value="(S&#x110;T)"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel3">
+    <Component class="javax.swing.JLabel" name="addressLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#x110;&#x1ecb;a ch&#x1ec9;"/>
       </Properties>

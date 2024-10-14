@@ -4,7 +4,9 @@
  */
 package views;
 
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 import models.Customer;
@@ -13,13 +15,14 @@ import models.Customer;
  *
  * @author P51
  */
-public class CustomerRenderList extends javax.swing.JPanel implements ListCellRenderer<Customer>{
+public class CustomerRenderList extends EntityRenderList<Customer>{
 
     /**
      * Creates new form CustomerRenderList
      */
     public CustomerRenderList() {
         initComponents();
+        setPreferredSize(new Dimension(400, 75));
     }
 
     /**
@@ -31,18 +34,18 @@ public class CustomerRenderList extends javax.swing.JPanel implements ListCellRe
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        nameLabel = new javax.swing.JLabel();
+        phoneNumberLabel = new javax.swing.JLabel();
+        addressLabel = new javax.swing.JLabel();
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 0, 51));
-        jLabel1.setText("Vũ Công Tuấn Dương");
+        nameLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        nameLabel.setForeground(new java.awt.Color(255, 0, 51));
+        nameLabel.setText("Vũ Công Tuấn Dương");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel2.setText("(SĐT)");
+        phoneNumberLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        phoneNumberLabel.setText("(SĐT)");
 
-        jLabel3.setText("Địa chỉ");
+        addressLabel.setText("Địa chỉ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -51,11 +54,11 @@ public class CustomerRenderList extends javax.swing.JPanel implements ListCellRe
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(addressLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(phoneNumberLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -63,23 +66,31 @@ public class CustomerRenderList extends javax.swing.JPanel implements ListCellRe
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                    .addComponent(nameLabel)
+                    .addComponent(phoneNumberLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
+                .addComponent(addressLabel)
                 .addContainerGap(21, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     @Override
-    public Component getListCellRendererComponent(JList<? extends Customer> list, Customer value, int index, boolean isSelected, boolean cellHasFocus) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Component getListCellRendererComponent(JList<? extends Customer> list, Customer customer, int index, boolean isSelected, boolean cellHasFocus) {
+        nameLabel.setText(customer.getName());
+        addressLabel.setText(customer.getAddress());
+        phoneNumberLabel.setText(String.format("(%s)", customer.getPhoneNumber()));
+        if (cellHasFocus) {
+            setBackground(Color.LIGHT_GRAY);
+        } else {
+            setBackground(new Color(242, 242, 242));
+        }
+        return this;
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel addressLabel;
+    private javax.swing.JLabel nameLabel;
+    private javax.swing.JLabel phoneNumberLabel;
     // End of variables declaration//GEN-END:variables
 }
