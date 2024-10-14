@@ -298,7 +298,7 @@
                                   </Group>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="jLabel24" pref="101" max="32767" attributes="0"/>
+                                          <Component id="rebateAmountLabel" pref="101" max="32767" attributes="0"/>
                                           <Component id="lbPaidAmount" max="32767" attributes="0"/>
                                           <Component id="lbFinalAmount" max="32767" attributes="0"/>
                                       </Group>
@@ -355,7 +355,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel24" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="rebateAmountLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel25" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="7" max="32767" attributes="0"/>
@@ -481,7 +481,7 @@
                 <Property name="text" type="java.lang.String" value="VN&#x110;"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel24">
+            <Component class="javax.swing.JLabel" name="rebateAmountLabel">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="12" style="1"/>

@@ -62,7 +62,7 @@ public class EditOrderPopupView extends javax.swing.JFrame implements PopupView{
         jLabel21 = new javax.swing.JLabel();
         lbPaidAmount = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
+        rebateAmountLabel = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
@@ -220,9 +220,9 @@ public class EditOrderPopupView extends javax.swing.JFrame implements PopupView{
         jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel23.setText("VNĐ");
 
-        jLabel24.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(255, 0, 51));
-        jLabel24.setText("100,000");
+        rebateAmountLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        rebateAmountLabel.setForeground(new java.awt.Color(255, 0, 51));
+        rebateAmountLabel.setText("100,000");
 
         jLabel25.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel25.setText("VNĐ");
@@ -258,7 +258,7 @@ public class EditOrderPopupView extends javax.swing.JFrame implements PopupView{
                                 .addComponent(jLabel17))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+                                    .addComponent(rebateAmountLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
                                     .addComponent(lbPaidAmount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(lbFinalAmount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -301,7 +301,7 @@ public class EditOrderPopupView extends javax.swing.JFrame implements PopupView{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
-                    .addComponent(jLabel24)
+                    .addComponent(rebateAmountLabel)
                     .addComponent(jLabel25))
                 .addContainerGap(7, Short.MAX_VALUE))
         );
@@ -639,6 +639,11 @@ public class EditOrderPopupView extends javax.swing.JFrame implements PopupView{
     public JLabel getLbTotalAmount() {
         return lbTotalAmount;
     }
+
+    public JLabel getRebateAmountLabel() {
+        return rebateAmountLabel;
+    }
+    
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -660,7 +665,6 @@ public class EditOrderPopupView extends javax.swing.JFrame implements PopupView{
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
@@ -694,6 +698,7 @@ public class EditOrderPopupView extends javax.swing.JFrame implements PopupView{
     private javax.swing.JLabel lbStatus;
     private javax.swing.JLabel lbTitle;
     private javax.swing.JLabel lbTotalAmount;
+    private javax.swing.JLabel rebateAmountLabel;
     // End of variables declaration//GEN-END:variables
 
     @Override

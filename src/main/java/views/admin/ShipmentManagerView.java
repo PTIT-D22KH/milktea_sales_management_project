@@ -27,8 +27,7 @@ public class ShipmentManagerView extends ManagerPaneView<Shipment>{
         tableModel.addColumn("Mã hoá đơn");
         tableModel.addColumn("Tên khách hàng");
         tableModel.addColumn("Địa chỉ");
-        tableModel.addColumn("Tên shipper");
-        tableModel.addColumn("SĐT shipper");
+        tableModel.addColumn("Tên nhân viên ship");
         tableModel.addColumn("Giá ship");
         tableModel.addColumn("Trạng thái");
         tableModel.addColumn("Ngày bắt đầu");
