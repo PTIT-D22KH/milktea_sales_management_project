@@ -1,7 +1,9 @@
 package controllers.admin;
 
 import controllers.ManagerController;
+import controllers.popup.ErrorCallback;
 import controllers.popup.FoodCategoryPopupController;
+import controllers.popup.SuccessCallback;
 import dao.FoodCategoryDao;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -32,7 +34,20 @@ public class FoodCategoryManagerController extends ManagerController {
     
     @Override
     public void actionAdd(){
-        foodCategoryPopupController.add(new FoodCategoryPopupView(), this::updateData, view::showError);
+        SuccessCallback successCallback = new SuccessCallback() {
+            @Override
+            public void onSuccess() {
+                updateData();
+            }
+        };
+
+        ErrorCallback errorCallback = new ErrorCallback() {
+            @Override
+            public void onError(Exception e) {
+                view.showError(e);
+            }
+        };
+        foodCategoryPopupController.add(new FoodCategoryPopupView(), successCallback, errorCallback);
     }
     
     @Override
@@ -40,8 +55,8 @@ public class FoodCategoryManagerController extends ManagerController {
         try {
             ArrayList<FoodCategory> foodCategories = foodCategoryDao.searchByKey(view.getComboSearchField().getSelectedItem().toString(), String.valueOf(view.getSearchTxt().getText()));
             view.setTableData(foodCategories);
-        } catch (SQLException ex) {
-            Logger.getLogger(FoodCategoryManagerController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            //Logger.getLogger(FoodCategoryManagerController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -72,10 +87,24 @@ public class FoodCategoryManagerController extends ManagerController {
                 if (foodCategory == null) {
                     throw new Exception("Loại món bạn chọn không hợp lệ");
                 }
-                foodCategoryPopupController.edit(new FoodCategoryPopupView(), foodCategory, this::updateData, view::showError);
+                SuccessCallback successCallback = new SuccessCallback() {
+                @Override
+                    public void onSuccess() {
+                        updateData();
+                    }
+                };
+
+                ErrorCallback errorCallback = new ErrorCallback() {
+                    @Override
+                    public void onError(Exception e) {
+                        view.showError(e);
+                    }
+                };
+                
+                foodCategoryPopupController.edit(new FoodCategoryPopupView(), foodCategory, successCallback, errorCallback);
             }
         } catch (Exception e) {
-            view.showError(e);
+            //view.showError(e);
         }
     }
 
