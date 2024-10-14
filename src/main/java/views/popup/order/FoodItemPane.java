@@ -4,6 +4,9 @@
  */
 package views.popup.order;
 
+import java.text.DecimalFormat;
+import models.FoodItem;
+
 /**
  *
  * @author P51
@@ -13,9 +16,23 @@ public class FoodItemPane extends javax.swing.JPanel {
     /**
      * Creates new form FoodItemPane
      */
-    public FoodItemPane() {
+    private DecimalFormat formatter;
+    private FoodItem foodItem;
+    public FoodItemPane(FoodItem foodItem) {
+        
         initComponents();
+        this.foodItem = foodItem;
+        if (foodItem != null) {
+            nameLabel.setText(foodItem.getName());
+            priceLabel.setText(formatter.format(foodItem.getUnitPrice()) + "VNĐ / " + foodItem.getUnitName());
+        }
+ 
     }
+
+    public FoodItem getFoodItem() {
+        return foodItem;
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,15 +43,15 @@ public class FoodItemPane extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        nameLabel = new javax.swing.JLabel();
+        priceLabel = new javax.swing.JLabel();
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel1.setText("Trà Sữa Trân Châu Đường Đen (500ml)");
+        nameLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        nameLabel.setText("Trà Sữa Trân Châu Đường Đen (500ml)");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 0, 51));
-        jLabel2.setText("50,000 VNĐ / Ly");
+        priceLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        priceLabel.setForeground(new java.awt.Color(255, 0, 51));
+        priceLabel.setText("50,000 VNĐ / Ly");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -43,24 +60,24 @@ public class FoodItemPane extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                    .addComponent(nameLabel)
+                    .addComponent(priceLabel))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(nameLabel)
                 .addGap(30, 30, 30)
-                .addComponent(jLabel2)
+                .addComponent(priceLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel nameLabel;
+    private javax.swing.JLabel priceLabel;
     // End of variables declaration//GEN-END:variables
 }
