@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import javax.swing.JFrame;
+import models.Customer;
 import models.Employee;
 import models.Order;
 import models.Table;
@@ -19,6 +20,7 @@ import utils.OrderType;
 import utils.SessionManager;
 import utils.TableStatus;
 import views.popup.AddOrderPopupView;
+import views.popup.SelectCustomerPopupView;
 /**
  *
  * @author P51
@@ -29,6 +31,7 @@ public class AddOrderPopupController extends PopupController<AddOrderPopupView, 
     private ShipmentDao shipmentDao;
     private TableDao tableDao;
     private DecimalFormat formatter;
+    private Order order;
 
     public AddOrderPopupController() {
         this.orderDao = new OrderDao();
@@ -48,7 +51,7 @@ public class AddOrderPopupController extends PopupController<AddOrderPopupView, 
 
     @Override
     protected void addEntity(AddOrderPopupView view) throws Exception {
-        Order order = new Order();
+        order = new Order();
         Table table = (Table) view.getTbComboBoxModel().getSelectedItem();
         OrderType type = OrderType.getByName(view.getCboType().getSelectedItem().toString());
         Employee employee = SessionManager.getSession().getEmployee();
@@ -74,6 +77,8 @@ public class AddOrderPopupController extends PopupController<AddOrderPopupView, 
         order.setStatus(OrderStatus.UNPAID);
         order.setType(type);
         order.setDiscount(discount);
+        order.setCustomerId(1);
+        System.out.println(order);
         orderDao.save(order);
         tableDao.update(table);
     }
@@ -81,25 +86,20 @@ public class AddOrderPopupController extends PopupController<AddOrderPopupView, 
     @Override
     public void add(AddOrderPopupView view, SuccessCallback sc, ErrorCallback ec) {
         super.add(view, sc, ec);
-        view.getBtnCancel().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    for (Table table : tableDao.getAll()) {
-                        if (table.getStatus() == TableStatus.FREE) {
-                            view.getTbComboBoxModel().addElement(table);
-                        }
-                    }
-                    for (OrderType ot : OrderType.values()) {
-                        view.getCboType().addItem(ot.getName());
-                    }
-                } catch (Exception exception) {
-                    view.dispose();
-                    ec.onError(exception);
-                    return;
+        try {
+            for (Table table : tableDao.getAll()) {
+                if (table.getStatus() == TableStatus.FREE) {
+                    view.getTbComboBoxModel().addElement(table);
                 }
             }
-        });
+            for (OrderType ot : OrderType.values()) {
+                view.getCboType().addItem(ot.getName());
+            }
+        } catch (Exception exception) {
+            view.dispose();
+            ec.onError(exception);
+            return;
+        }
     }
 
     @Override

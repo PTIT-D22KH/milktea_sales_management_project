@@ -127,6 +127,28 @@ public class OrderPrintController {
         run.setFontSize(fontSize);
         run.setColor("FF0000");
         run.addBreak();
+        
+        // Add customer name
+        run = paragraph.createRun();
+        run.setText("Tên khách hàng: ");
+        run.setFontSize(fontSize);
+        run = paragraph.createRun();
+        run.setBold(true);
+        run.setText(order.getCustomer().getName());
+        run.setFontSize(fontSize);
+        run.setColor("FF0000");
+        run.addBreak();
+
+        // Add customer phone number
+        run = paragraph.createRun();
+        run.setText("Số điện thoại khách hàng: ");
+        run.setFontSize(fontSize);
+        run = paragraph.createRun();
+        run.setBold(true);
+        run.setText(order.getCustomer().getPhoneNumber());
+        run.setFontSize(fontSize);
+        run.setColor("FF0000");
+        run.addBreak();
     }
 
     public void createOrderInfo(ArrayList<OrderItem> orderItems) {
@@ -208,6 +230,9 @@ public class OrderPrintController {
     }
 
     public void print(Order order, ArrayList<OrderItem> orderItems) throws Exception {
+        // Initialize a new document for each print operation
+        document = new XWPFDocument();
+
         FileOutputStream out = new FileOutputStream(orderFile, false);
         createHeader();
         createHeaderInfo(order);

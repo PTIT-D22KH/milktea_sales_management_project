@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package views.admin;
 
 import java.awt.Color;
@@ -9,32 +5,42 @@ import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import models.Model;
 import utils.ErrorPopup;
+import utils.IconManager;
 
 /**
  *
  * @author P51
  */
-public abstract class ManagerPaneView<T extends Model> extends javax.swing.JPanel {
+public abstract class ManagerPaneView<T extends Model> extends JPanel {
 
-    /**
-     * Creates new form ManagerPanelView
-     */
-    protected DefaultTableModel tableModel = new DefaultTableModel();
-    protected ArrayList<T> tableData = new ArrayList<>();
+    DefaultTableModel tableModel = new DefaultTableModel();
+    IconManager im = new IconManager();
+    ArrayList<T> tableData = new ArrayList<>();
+
     public ManagerPaneView() {
         initComponents();
         dataTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
         dataTable.getTableHeader().setOpaque(false);
         dataTable.getTableHeader().setBackground(new Color(51, 175, 255));
         dataTable.getTableHeader().setForeground(new Color(255, 255, 255));
+        ((DefaultTableCellRenderer) dataTable.getTableHeader().getDefaultRenderer())
+                .setHorizontalAlignment(JLabel.LEFT);
         dataTable.setAutoCreateRowSorter(true);
+        addButton.setIcon(im.getIcon("add_25px.png"));
+        editButton.setIcon(im.getIcon("edit_25px.png"));
+        delButton.setIcon(im.getIcon("delete_25px.png"));
+        syncButton.setIcon(im.getIcon("sync_25px.png"));
         dataTable.setModel(tableModel);
+//        cbx_list.putClientProperty("JButton.buttonType", "roundRect");
         addButton.putClientProperty("JButton.buttonType", "roundRect");
         delButton.putClientProperty("JButton.buttonType", "roundRect");
         editButton.putClientProperty("JButton.buttonType", "roundRect");
@@ -45,41 +51,31 @@ public abstract class ManagerPaneView<T extends Model> extends javax.swing.JPane
         return addButton;
     }
 
-    public void setAddButton(JButton addButton) {
-        this.addButton = addButton;
-    }
-
     public JComboBox<String> getComboSearchField() {
         return comboSearchField;
     }
 
-    public void setComboSearchField(JComboBox<String> comboSearchField) {
-        this.comboSearchField = comboSearchField;
+    public JTable getDataTable() {
+        return dataTable;
     }
 
     public JButton getDelButton() {
         return delButton;
     }
 
-    public void setDelButton(JButton delButton) {
-        this.delButton = delButton;
-    }
-
     public JButton getEditButton() {
         return editButton;
-    }
-
-    public void setEditButton(JButton editButton) {
-        this.editButton = editButton;
     }
 
     public JTextField getSearchTxt() {
         return searchTxt;
     }
 
-    public void setSearchTxt(JTextField searchTxt) {
-        this.searchTxt = searchTxt;
+    public JButton getSyncButton() {
+        return syncButton;
     }
+
+    
 
     public void showError(String message) {
         ErrorPopup.show(new Exception(message));
@@ -93,39 +89,36 @@ public abstract class ManagerPaneView<T extends Model> extends javax.swing.JPane
         JOptionPane.showMessageDialog(null, message);
     }
 
-    public JButton getSyncButton() {
+    //Lấy các nút để set event
+    public JButton getBtnAdd() {
+        return addButton;
+    }
+
+    public JButton getBtnDelete() {
+        return delButton;
+    }
+
+    public JButton getBtnEdit() {
+        return editButton;
+    }
+
+    public JButton getBtnSync() {
         return syncButton;
     }
 
-    public void setSyncButton(JButton syncButton) {
-        this.syncButton = syncButton;
-    }
-
-    public DefaultTableModel getTableModel() {
-        return tableModel;
+    public ArrayList<T> getTableData() {
+        return tableData;
     }
 
     public void setTableData(ArrayList<T> tableData) {
         this.tableData = tableData;
         renderTable();
     }
-    
-    public void renderTable() {
-        tableModel.setNumRows(0);
-        try {
-            for (T item : tableData) {
-                tableModel.addRow(item.toRowTable());
-            }
-        } catch (Exception e) {
-            showError(e);
-        }
-    }
-    
-    
-    public JTable getDataTable() {
+
+    public JTable getTblData() {
         return dataTable;
     }
-        
+
     // Lấy id các hàng đc chọn
     public int[] getSelectedIds() {
 
@@ -138,7 +131,8 @@ public abstract class ManagerPaneView<T extends Model> extends javax.swing.JPane
         }
         return selectedIds;
     }
-    
+
+    // Lấy id hàng chọn đầu
     public int getSelectedId() {
 
         int selectedRow = dataTable.getSelectedRow();
@@ -148,9 +142,19 @@ public abstract class ManagerPaneView<T extends Model> extends javax.swing.JPane
         int id = (int) dataTable.getValueAt(selectedRow, 0);
         return id;
     }
-    
+
+    public void renderTable() {
+        tableModel.setNumRows(0);
+        try {
+            for (T item : tableData) {
+                tableModel.addRow(item.toRowTable());
+            }
+        } catch (Exception e) {
+            showError(e);
+        }
+    }
+
     public abstract void setTableModel();
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -160,81 +164,26 @@ public abstract class ManagerPaneView<T extends Model> extends javax.swing.JPane
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
-        jPanel1 = new javax.swing.JPanel();
-        searchTxt = new javax.swing.JTextField();
-        comboSearchField = new javax.swing.JComboBox<>();
-        jPanel2 = new javax.swing.JPanel();
-        addButton = new javax.swing.JButton();
-        editButton = new javax.swing.JButton();
-        delButton = new javax.swing.JButton();
-        syncButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         dataTable = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        delButton = new javax.swing.JButton();
+        syncButton = new javax.swing.JButton();
+        editButton = new javax.swing.JButton();
+        addButton = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        searchTxt = new javax.swing.JTextField();
+        comboSearchField = new javax.swing.JComboBox<>();
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 102));
+        setBackground(new java.awt.Color(255, 255, 102));
+        setAlignmentX(0.0F);
+        setAlignmentY(0.0F);
+        setPreferredSize(new java.awt.Dimension(1008, 680));
+        setLayout(new java.awt.BorderLayout());
 
-        searchTxt.setText("Search");
-
-        comboSearchField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(645, Short.MAX_VALUE)
-                .addComponent(searchTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(comboSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(65, 65, 65))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(searchTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
-                    .addComponent(comboSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-
-        jPanel2.setBackground(new java.awt.Color(255, 255, 102));
-
-        addButton.setText("Thêm");
-
-        editButton.setText("Sửa");
-
-        delButton.setText("Xoá");
-
-        syncButton.setText("Đồng bộ");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(syncButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(delButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(editButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(addButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(23, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(232, 232, 232)
-                .addComponent(addButton)
-                .addGap(18, 18, 18)
-                .addComponent(editButton)
-                .addGap(18, 18, 18)
-                .addComponent(delButton)
-                .addGap(18, 18, 18)
-                .addComponent(syncButton)
-                .addContainerGap(257, Short.MAX_VALUE))
-        );
+        jScrollPane1.setOpaque(false);
 
         dataTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -247,35 +196,76 @@ public abstract class ManagerPaneView<T extends Model> extends javax.swing.JPane
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        dataTable.setMinimumSize(new java.awt.Dimension(60, 120));
-        dataTable.setPreferredSize(new java.awt.Dimension(300, 120));
+        dataTable.setFocusable(false);
         dataTable.setRowHeight(30);
+        dataTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(dataTable);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
-                        .addGap(0, 0, 0)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 635, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-    }// </editor-fold>//GEN-END:initComponents
+        add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
+        jPanel1.setOpaque(false);
+        jPanel1.setLayout(new java.awt.GridBagLayout());
+
+        delButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        delButton.setText("Xóa");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 42;
+        gridBagConstraints.insets = new java.awt.Insets(15, 5, 15, 5);
+        jPanel1.add(delButton, gridBagConstraints);
+
+        syncButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        syncButton.setText("Cập nhật");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 42;
+        gridBagConstraints.insets = new java.awt.Insets(15, 5, 15, 5);
+        jPanel1.add(syncButton, gridBagConstraints);
+
+        editButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        editButton.setText("Sửa");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 42;
+        gridBagConstraints.insets = new java.awt.Insets(15, 5, 15, 5);
+        jPanel1.add(editButton, gridBagConstraints);
+
+        addButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        addButton.setText("Thêm");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 42;
+        gridBagConstraints.insets = new java.awt.Insets(15, 5, 15, 5);
+        jPanel1.add(addButton, gridBagConstraints);
+
+        add(jPanel1, java.awt.BorderLayout.LINE_END);
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 10));
+        jPanel2.setOpaque(false);
+        jPanel2.setPreferredSize(new java.awt.Dimension(1008, 40));
+        jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+
+        searchTxt.setText("Search");
+        searchTxt.setAlignmentX(0.0F);
+        searchTxt.setAlignmentY(0.0F);
+        searchTxt.setBorder(null);
+        searchTxt.setPreferredSize(new java.awt.Dimension(200, 25));
+        jPanel2.add(searchTxt);
+
+        comboSearchField.setMinimumSize(new java.awt.Dimension(100, 25));
+        comboSearchField.setPreferredSize(new java.awt.Dimension(100, 25));
+        jPanel2.add(comboSearchField);
+
+        add(jPanel2, java.awt.BorderLayout.PAGE_START);
+    }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;

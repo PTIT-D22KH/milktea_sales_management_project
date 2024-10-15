@@ -11,15 +11,27 @@ import dao.OrderDao;
 import dao.OrderItemDao;
 import dao.ShipmentDao;
 import dao.TableDao;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import models.Customer;
+import models.Employee;
 import models.Order;
 import models.OrderItem;
+import models.Shipment;
+import models.Table;
 import utils.OrderStatus;
 import utils.OrderType;
+import utils.SessionManager;
+import utils.ShipmentStatus;
 import utils.TableStatus;
 import views.popup.EditOrderPopupView;
+import views.popup.SelectCustomerPopupView;
+import views.popup.ShipmentPopupView;
+import views.popup.ToppingPopupView;
 /**
  *
  * @author P51
@@ -72,7 +84,11 @@ public class EditOrderPopupController extends PopupController<EditOrderPopupView
         view.getLbPaidAmount().setText(formatter.format(order.getPaidAmount()));
         view.getLbFinalAmount().setText(formatter.format(order.getFinalAmount()));
         view.getLbTotalAmount().setText(formatter.format(order.getTotalAmount()));
-        view.getRebateAmountLabel().setText(formatter.format(order.getFinalAmount() - order.getPaidAmount()));
+        int rebate = order.getPaidAmount()- order.getFinalAmount();
+        if (rebate < 0) {
+            rebate = 0;
+        }
+        view.getRebateAmountLabel().setText(formatter.format(rebate));
     }
 
     @Override
@@ -121,5 +137,174 @@ public class EditOrderPopupController extends PopupController<EditOrderPopupView
         if (order.getType() != OrderType.ONLINE) {
             shipmentDao.deleteById(order.getOrderId()); // Xóa đơn ship
         }
+    }
+    
+    @Override
+    public void edit(EditOrderPopupView view, Order order, SuccessCallback sc, ErrorCallback ec) {
+        if (previousView != null && previousView.isDisplayable()) {
+            previousView.requestFocus();
+            return;
+        }
+        previousView = view;
+        Employee currentLogin = SessionManager.getSession().getEmployee();
+        if (order.getEmployee() == null) {
+            order.setEmployee(currentLogin);
+        }
+        if (!order.getEmployee().equals(currentLogin) && order.getEmployee().getPermission().compare(currentLogin.getPermission()) > 0) {
+            ec.onError(new Exception("Bạn không có quyền sửa hóa đơn này"));
+            view.dispose();
+            return;
+        }
+        view.setVisible(true);
+        
+        if (order.getCustomer() != null) {
+            view.getCustomerNameLabel().setText(order.getCustomer().getName());
+        }
+        
+        view.getBtnSelectCustomer().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SelectCustomerPopupController selectCustomerPopupController = new SelectCustomerPopupController();
+                selectCustomerPopupController.select(new SelectCustomerPopupView(), new SelectCustomerPopupController.Callback<Customer>(){
+                    @Override
+                    public void run(Customer customer) {
+                        order.setCustomer(customer);
+                        view.getCustomerNameLabel().setText(customer.getName());
+                    }
+                    
+                });
+                
+            }
+            
+        });
+        view.getBtnCancel().addActionListener(evt -> view.dispose());
+        orderItemController.setOrderItemPanel(view.getOrderItemPanel());
+        orderItemController.setOrderId(order.getOrderId());
+        orderItemController.setOnQuantityChange(() -> {
+            updateAmount(view, order);
+        });
+        foodItemController.setFoodCategoryPanel(view.getFoodCategoryPanel());
+        foodItemController.setFoodItemPanel(view.getFoodItemPanel());
+
+        if (order.getEmployee() != null) {
+            view.getEmployeeNameLabel().setText(order.getEmployee().getName());
+        }
+        view.getOrderIdLabel().setText(order.getOrderId()+ "");
+        try {
+            for (Table table : tableDao.getAll()) { // Hiển thị danh sách bàn
+                if (table.getStatus() == TableStatus.FREE || table.getTableId()== order.getTableId()) {
+                    view.getTbComboBoxModel().addElement(table);
+                }
+            }
+            for (OrderType ot : OrderType.values()) { // Hiển thị loại hóa đơn
+                view.getTypeCboBox().addItem(ot.getName());
+            }
+            orderItemController.setOrderItems(orderItemDao.getByIdOrder(order.getOrderId()));
+            foodItemController.renderCategory(foodItem -> {//Hiển thị danh sách món ăn
+                toppingPopupController.add(new ToppingPopupView(), foodItem, orderItem -> {
+                    orderItemController.addOrderItem(orderItem);// Thêm vào danh sách order
+                    updateAmount(view, order);
+                });
+            });
+            view.getTbComboBoxModel().setSelectedItem(order.getTable());
+            view.getDiscountSpinner().setValue(order.getDiscount());
+            view.getTypeCboBox().setSelectedItem(order.getType().getName());
+            view.getLbDiscount().setText(order.getDiscount() + "");
+
+        } catch (Exception e) {
+            view.dispose();
+            ec.onError(e);
+            return;
+        }
+        updateAmount(view, order);
+        view.getBtnOK().setText("Cập nhật");
+        view.getTypeCboBox().addActionListener(evt -> {
+            order.setType(OrderType.getByName(view.getTypeCboBox().getSelectedItem().toString()));
+        });
+        view.getDiscountSpinner().addChangeListener(evt -> { // Thay giá trị
+            order.setDiscount((int) view.getDiscountSpinner().getValue());
+            updateAmount(view, order);
+        });
+        view.getTableComboBox().addActionListener(evt -> { // Thay bàn
+            try {
+                Table nTable = (Table) view.getTbComboBoxModel().getSelectedItem(),
+                        cTable = order.getTable();
+                if (nTable == null || (cTable != null && nTable.getTableId()== cTable.getTableId())) {
+                    return;
+                }
+                cTable.setStatus(TableStatus.FREE);
+                nTable.setStatus(TableStatus.SERVING);
+                order.setTable(nTable);
+                tableDao.update(cTable);
+                tableDao.update(nTable);
+            } catch (Exception ex) {
+                ec.onError(ex);
+            }
+        });
+        view.getBtnOK().addActionListener(evt -> {
+            try {
+                editEntity(view, order);
+//                view.dispose();
+                view.showMessage("Sửa hóa đơn thành công!");
+                updateAmount(view, order);
+                sc.onSuccess();
+            } catch (Exception ex) {
+                ec.onError(ex);
+            }
+        });
+
+        view.getPaidButton().addActionListener(evt -> {
+            try {
+                String rawInput = JOptionPane.showInputDialog(null, "Nhập số tiền thanh toán!", order.getPaidAmount());
+                if (rawInput == null) {
+                    return;
+                }
+                int paidAmount = Integer.parseInt(rawInput);
+                if (order.getFinalAmount() > paidAmount) {
+                    JOptionPane.showMessageDialog(null, "Bạn còn phải thanh toán " + formatter.format(order.getFinalAmount() - paidAmount) + " VND");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Bạn đã thanh toán xong");
+                }
+                order.setPaidAmount(paidAmount);
+                updateAmount(view, order);
+            } catch (Exception e) {
+                ec.onError(e);
+            }
+        });
+        view.getShipManagerButton().addActionListener(evt -> {
+            if (order.getType() != OrderType.ONLINE) {
+                view.showError("Bạn chỉ có thể ship đơn online");
+                return;
+            }
+            shipmentPopupControler.add(new ShipmentPopupView(), order.getOrderId(), () -> view.showMessage("Tạo / sửa đơn ship thành công!"), view::showError);
+        });
+        view.getPrintOrderButton().addActionListener(evt -> {
+            try {
+                orderPrintController.print(order.getOrderId());
+            } catch (Exception e) {
+                view.showError("Không thể in hóa đơn");
+            }
+        });
+        view.getCancelOrderButton().addActionListener(evt -> {
+            try {
+                int value = JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn hủy hóa đơn?");
+                if (value != JOptionPane.YES_OPTION) {
+                    return;
+                }
+                order.setStatus(OrderStatus.CANCEL);
+                Shipment shipment = shipmentDao.getById(order.getOrderId());
+                if (shipment != null) {
+                    shipment.setStatus(ShipmentStatus.CANCELLED);
+                    shipmentDao.update(shipment); // Hủy đơn ship
+                }
+                order.getTable().setStatus(TableStatus.FREE);
+                orderDao.update(order);
+                tableDao.update(order.getTable());
+                view.dispose();
+                sc.onSuccess();
+            } catch (Exception e) {
+                view.showError(e);
+            }
+        });
     }
 }

@@ -4,6 +4,7 @@
  */
 package models;
 
+import dao.EmployeeDao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -147,7 +148,9 @@ public class Shipment extends Model{
 
     @Override
     public Object[] toRowTable() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return new Object[]{
+            orderId, customer.getName(), customer.getAddress(), employee.getName(), shipCost, status.getName(), startDate, endDate
+        };
     }
 
     @Override

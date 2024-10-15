@@ -19,6 +19,7 @@ public class ShipmentDao extends Dao<Shipment> {
 
     CustomerDao customerDao = new CustomerDao();
     OrderDao orderDao = new OrderDao();
+    private EmployeeDao employeeDao = new EmployeeDao();
 
     @Override
     public ArrayList<Shipment> getAll() throws SQLException {
@@ -29,7 +30,8 @@ public class ShipmentDao extends Dao<Shipment> {
         while (rs.next()) {
             Shipment shipment = Shipment.getFromResultSet(rs);
             shipment.setCustomer(customerDao.getById(shipment.getCustomerId()));
-//            shipment.setOrder(orderDao.getById(shipment.getOrderId()));
+            shipment.setOrder(orderDao.getById(shipment.getOrderId()));
+            shipment.setEmployee(employeeDao.getById(shipment.getEmployeeId()));
             shipments.add(shipment);
         }
         return shipments;

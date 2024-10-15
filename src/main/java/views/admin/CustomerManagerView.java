@@ -22,6 +22,11 @@ public class CustomerManagerView extends ManagerPaneView<Customer>{
         "name",
         "address"
     };
+    public CustomerManagerView() {
+        super();
+        setTableModel();
+        renderTable();
+    }
     
     @Override
     public void setTableModel(){ 
