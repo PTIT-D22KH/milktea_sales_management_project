@@ -20,7 +20,7 @@ public class SidebarController {
     private ArrayList<MenuItemView> menuItems = new ArrayList<>();
     private MenuItemView activeMenuItemView = null; //item vừa chọn
     
-    private interface MenuBarEvent {
+    interface MenuBarEvent {
         public abstract void onSelectMenuItem(MenuItemView item);
     }
     public SidebarController() {
@@ -51,9 +51,11 @@ public class SidebarController {
     public void addMenu(MenuItemView... menu) {
         for (int i = 0; i < menu.length; i++) {
             MenuItemView item = menu[i];
+            
             menuItems.add(item);
             item.setActive(false);
             sidebarPanel.add(item);
+            sidebarPanel.setVisible(true);
             ArrayList<MenuItemView> subMenus = item.getSubMenu();
             for (MenuItemView subMenu : subMenus) {
                 addMenu(subMenu);

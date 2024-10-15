@@ -38,6 +38,8 @@ public class FoodCategoryPane extends javax.swing.JPanel {
 
         nameLabel = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(153, 255, 255));
+
         nameLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         nameLabel.setText("Topping");
 

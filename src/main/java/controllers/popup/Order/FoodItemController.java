@@ -26,6 +26,8 @@ public class FoodItemController {
         public abstract void onChange(FoodItem panel);
     }
     public FoodItemController() {
+        this.foodCategoryDao = new FoodCategoryDao();
+        this.foodItemDao = new FoodItemDao();
         
     }
 

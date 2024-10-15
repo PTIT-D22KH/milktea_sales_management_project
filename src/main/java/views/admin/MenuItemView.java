@@ -33,13 +33,21 @@ public class MenuItemView extends javax.swing.JPanel {
         menuNameLabel.setText(menuName);
         
     }
+    public MenuItemView(String id, String menuName, MenuItem... subMenu) {
+        initComponents();
+        this.id = id;
+        menuNameLabel.setText(menuName);
+        
+    }
 
     public ArrayList<MenuItemView> getSubMenu() {
         return subMenu;
     }
     
     public void addSubMenu(MenuItemView item) {
-        
+        item.setParentMenu(this);
+        item.setLevel(this.level + 1);
+        this.subMenu.add(item);
     }
 
     public String getId() {
@@ -76,15 +84,15 @@ public class MenuItemView extends javax.swing.JPanel {
         this.active = active;
         if (active) {
             if (hasSubMenu()) {
-                iconLabel.setIcon(im.getIcon("opened_menu_25px.png"));
+                openLabel.setIcon(im.getIcon("opened_menu_25px.png"));
             }
         } else {
             if (hasSubMenu()) {
-                iconLabel.setIcon(im.getIcon("closed_menu_25px.png"));
+                openLabel.setIcon(im.getIcon("closed_menu_25px.png"));
             }
         }
         if (!hasSubMenu()) {
-            iconLabel.setVisible(false);
+            openLabel.setVisible(false);
             this.updateUI();
         }
     }
@@ -111,11 +119,11 @@ public class MenuItemView extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        iconLabel = new javax.swing.JLabel();
+        openLabel = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         menuNameLabel = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        iconLabel = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -123,14 +131,14 @@ public class MenuItemView extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(15, Short.MAX_VALUE)
-                .addComponent(iconLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(openLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(iconLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(openLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -160,14 +168,14 @@ public class MenuItemView extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(iconLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(15, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(iconLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -197,10 +205,10 @@ public class MenuItemView extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel iconLabel;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel menuNameLabel;
+    private javax.swing.JLabel openLabel;
     // End of variables declaration//GEN-END:variables
 }

@@ -19,7 +19,7 @@ public class FoodItemPane extends javax.swing.JPanel {
     private DecimalFormat formatter;
     private FoodItem foodItem;
     public FoodItemPane(FoodItem foodItem) {
-        
+        this.formatter = new DecimalFormat("###,###,###");
         initComponents();
         this.foodItem = foodItem;
         if (foodItem != null) {
@@ -45,6 +45,8 @@ public class FoodItemPane extends javax.swing.JPanel {
 
         nameLabel = new javax.swing.JLabel();
         priceLabel = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(255, 255, 153));
 
         nameLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         nameLabel.setText("Trà Sữa Trân Châu Đường Đen (500ml)");

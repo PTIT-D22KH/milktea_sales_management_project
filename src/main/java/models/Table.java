@@ -55,7 +55,7 @@ public class Table extends Model{
 
     @Override
     public String toString() {
-      return name + " " + status.getName();
+      return name;
     }
     
 //    @Override

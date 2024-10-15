@@ -13,9 +13,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Employee;
 import utils.SessionManager;
+import views.EmployeeDashboardView;
 import views.ForgotPasswordView;
 import views.LoginView;
 import views.RegisterView;
+import views.admin.HomeView;
 
 /**
  *
@@ -54,6 +56,11 @@ public class LoginController extends AuthenticationController<LoginView>{
             }
             SessionManager.create(employee);
             System.out.println("Đăng nhập thành công!");
+            EmployeeDashboardController controller = new EmployeeDashboardController(new EmployeeDashboardView());
+            controller.getView().setPanel(new HomeView());
+            controller.getView().setVisible(true);
+            view.dispose();
+           
                    
         } catch (Exception e) {
             view.showError(e);
