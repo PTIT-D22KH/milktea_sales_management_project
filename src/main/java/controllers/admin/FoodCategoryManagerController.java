@@ -56,7 +56,7 @@ public class FoodCategoryManagerController extends ManagerController {
             ArrayList<FoodCategory> foodCategories = foodCategoryDao.searchByKey(view.getComboSearchField().getSelectedItem().toString(), String.valueOf(view.getSearchTxt().getText()));
             view.setTableData(foodCategories);
         } catch (Exception ex) {
-            //Logger.getLogger(FoodCategoryManagerController.class.getName()).log(Level.SEVERE, null, ex);
+//            view.showError(ex);
         }
     }
     
@@ -64,8 +64,16 @@ public class FoodCategoryManagerController extends ManagerController {
     public void actionDelete(){
         int selectedIds[] = view.getSelectedIds();
         try {
-            if (JOptionPane.showConfirmDialog(null, "Xác nhận xóa hàng loạt?", "Xóa", ERROR_MESSAGE) != YES_OPTION) {
-                return;
+            if (selectedIds.length > 1) {
+                if (JOptionPane.showConfirmDialog(null, "Xác nhận xóa hàng loạt?", "Xóa", ERROR_MESSAGE) != YES_OPTION) {
+                    return;
+                }
+            } else if (selectedIds.length == 1){
+                if (JOptionPane.showConfirmDialog(null, "Xác nhận xóa loại món?", "Xóa", ERROR_MESSAGE) != YES_OPTION) {
+                    return;
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Vui lòng chọn loại món cần xoá!");
             }
             for (int i = 0; i < selectedIds.length; i++) {
                 foodCategoryDao.deleteById(selectedIds[i]);
@@ -104,7 +112,7 @@ public class FoodCategoryManagerController extends ManagerController {
                 foodCategoryPopupController.edit(new FoodCategoryPopupView(), foodCategory, successCallback, errorCallback);
             }
         } catch (Exception e) {
-            //view.showError(e);
+            view.showError(e);
         }
     }
 

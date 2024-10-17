@@ -1,21 +1,80 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package views;
+
+import java.util.ArrayList;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import utils.ErrorPopup;
+import views.admin.MenuItemView;
 
 /**
  *
  * @author P51
  */
-public class EmployeeDashboardView extends javax.swing.JFrame {
+public class EmployeeDashboardView extends DashboardView {
 
     /**
      * Creates new form EmployeeDashboardView
      */
+//    private JPanel[] cards;
+//    private ArrayList<MenuItemView> menuItems = new ArrayList<>();
+
     public EmployeeDashboardView() {
         initComponents();
+        setSize(1208, 680);
+        setLocationRelativeTo(null);
+        logoutButton.putClientProperty("JButton.buttonType", "roundRect");
     }
+    @Override
+    public JButton getBtnLogout() {
+        return logoutButton;
+    }
+
+    @Override
+    public JLabel getLbName() {
+        return nameLabel;
+    }
+
+    // Thêm dropdown menu
+    @Override
+    public void addMenu(MenuItemView... menu) {
+        for (int i = 0; i < menu.length; i++) {
+            MenuItemView item = menu[i];
+            menuItems.add(item);
+            sidebarPanel.add(item);
+            ArrayList<MenuItemView> subMenus = item.getSubMenu();
+            for (MenuItemView subMenu : subMenus) {
+                addMenu(subMenu);
+                subMenu.setVisible(false);
+            }
+        }
+    }
+
+    // Thêm các pane vào cardlayout
+    @Override
+    public void initLayout() {
+        layoutPanel.removeAll();
+        for (JPanel card : cards) {
+            layoutPanel.add(card);
+        }
+        layoutPanel.updateUI();
+    }
+
+    @Override
+    public JPanel getPanelLayout() {
+        return layoutPanel;
+    }
+
+    @Override
+    public JPanel getPanelSideBar() {
+        return sidebarPanel;
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -25,127 +84,66 @@ public class EmployeeDashboardView extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        leftPanel = new javax.swing.JPanel();
+        panelHeader = new javax.swing.JPanel();
         nameLabel = new javax.swing.JLabel();
-        logOutButton = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
+        logoutButton = new javax.swing.JButton();
+        sidebarPanel = new javax.swing.JPanel();
+        layoutPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(1208, 680));
+        setResizable(false);
 
-        jPanel2.setBackground(new java.awt.Color(102, 255, 102));
+        leftPanel.setMinimumSize(new java.awt.Dimension(200, 680));
+        leftPanel.setPreferredSize(new java.awt.Dimension(200, 680));
+        leftPanel.setLayout(new java.awt.BorderLayout());
+
+        panelHeader.setBackground(new java.awt.Color(34, 153, 84));
+        panelHeader.setPreferredSize(new java.awt.Dimension(200, 50));
+        panelHeader.setLayout(new java.awt.GridBagLayout());
 
         nameLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        nameLabel.setForeground(new java.awt.Color(255, 255, 255));
         nameLabel.setText("Vũ Công Tuấn Dương");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelHeader.add(nameLabel, gridBagConstraints);
 
-        logOutButton.setText("Thoát");
+        logoutButton.setText("Thoát");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 5);
+        panelHeader.add(logoutButton, gridBagConstraints);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(nameLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(logOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                    .addComponent(logOutButton))
-                .addContainerGap())
-        );
+        leftPanel.add(panelHeader, java.awt.BorderLayout.PAGE_START);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 638, Short.MAX_VALUE))
-        );
+        sidebarPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
+        leftPanel.add(sidebarPanel, java.awt.BorderLayout.CENTER);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 977, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        getContentPane().add(leftPanel, java.awt.BorderLayout.LINE_START);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        layoutPanel.setMaximumSize(new java.awt.Dimension(1008, 680));
+        layoutPanel.setMinimumSize(new java.awt.Dimension(1008, 680));
+        layoutPanel.setPreferredSize(new java.awt.Dimension(1008, 680));
+        layoutPanel.setLayout(new java.awt.CardLayout());
+        getContentPane().add(layoutPanel, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(EmployeeDashboardView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(EmployeeDashboardView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(EmployeeDashboardView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(EmployeeDashboardView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new EmployeeDashboardView().setVisible(true);
-//            }
-//        });
-//    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JButton logOutButton;
+    private javax.swing.JPanel layoutPanel;
+    private javax.swing.JPanel leftPanel;
+    private javax.swing.JButton logoutButton;
     private javax.swing.JLabel nameLabel;
+    private javax.swing.JPanel panelHeader;
+    private javax.swing.JPanel sidebarPanel;
     // End of variables declaration//GEN-END:variables
+
 }

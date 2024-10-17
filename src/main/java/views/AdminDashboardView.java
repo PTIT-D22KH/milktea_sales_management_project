@@ -4,17 +4,69 @@
  */
 package views;
 
+import java.util.ArrayList;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import views.admin.MenuItemView;
+
 /**
  *
  * @author P51
  */
-public class AdminDashboardView extends javax.swing.JFrame {
+public class AdminDashboardView extends DashboardView {
 
     /**
      * Creates new form AdminDashboardView
      */
     public AdminDashboardView() {
         initComponents();
+        setLocationRelativeTo(null);
+        logoutButton.putClientProperty("JButton.buttonType", "roundRect");
+    }
+    @Override
+    public JButton getBtnLogout() {
+        return logoutButton;
+    }
+
+    @Override
+    public JLabel getLbName() {
+        return nameLabel;
+    }
+
+    // Thêm dropdown menu
+    @Override
+    public void addMenu(MenuItemView... menu) {
+        for (int i = 0; i < menu.length; i++) {
+            MenuItemView item = menu[i];
+            menuItems.add(item);
+            sidebarPanel.add(item);
+            ArrayList<MenuItemView> subMenus = item.getSubMenu();
+            for (MenuItemView subMenu : subMenus) {
+                addMenu(subMenu);
+                subMenu.setVisible(false);
+            }
+        }
+    }
+
+    // Thêm các pane vào cardlayout
+    @Override
+    public void initLayout() {
+        layoutPanel.removeAll();
+        for (JPanel card : cards) {
+            layoutPanel.add(card);
+        }
+        layoutPanel.updateUI();
+    }
+
+    @Override
+    public JPanel getPanelLayout() {
+        return layoutPanel;
+    }
+
+    @Override
+    public JPanel getPanelSideBar() {
+        return sidebarPanel;
     }
 
     /**
@@ -25,84 +77,53 @@ public class AdminDashboardView extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
-        sideBarPanel = new javax.swing.JPanel();
-        headerPanel = new javax.swing.JPanel();
-        nameLabel = new javax.swing.JLabel();
-        logOutButton = new javax.swing.JButton();
         layoutPanel = new javax.swing.JPanel();
+        leftPanel = new javax.swing.JPanel();
+        panelHeader = new javax.swing.JPanel();
+        nameLabel = new javax.swing.JLabel();
+        logoutButton = new javax.swing.JButton();
+        sidebarPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        headerPanel.setBackground(new java.awt.Color(102, 255, 102));
+        layoutPanel.setMaximumSize(new java.awt.Dimension(1008, 680));
+        layoutPanel.setMinimumSize(new java.awt.Dimension(1008, 680));
+        layoutPanel.setPreferredSize(new java.awt.Dimension(1008, 680));
+        layoutPanel.setLayout(new java.awt.CardLayout());
+        getContentPane().add(layoutPanel, java.awt.BorderLayout.CENTER);
+
+        leftPanel.setMinimumSize(new java.awt.Dimension(200, 680));
+        leftPanel.setPreferredSize(new java.awt.Dimension(200, 680));
+        leftPanel.setLayout(new java.awt.BorderLayout());
+
+        panelHeader.setBackground(new java.awt.Color(34, 153, 84));
+        panelHeader.setPreferredSize(new java.awt.Dimension(200, 50));
+        panelHeader.setLayout(new java.awt.GridBagLayout());
 
         nameLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        nameLabel.setForeground(new java.awt.Color(255, 255, 255));
         nameLabel.setText("Vũ Công Tuấn Dương");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelHeader.add(nameLabel, gridBagConstraints);
 
-        logOutButton.setText("Thoát");
+        logoutButton.setText("Thoát");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 5);
+        panelHeader.add(logoutButton, gridBagConstraints);
 
-        javax.swing.GroupLayout headerPanelLayout = new javax.swing.GroupLayout(headerPanel);
-        headerPanel.setLayout(headerPanelLayout);
-        headerPanelLayout.setHorizontalGroup(
-            headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(headerPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(nameLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(logOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        headerPanelLayout.setVerticalGroup(
-            headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(headerPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                    .addComponent(logOutButton))
-                .addContainerGap())
-        );
+        leftPanel.add(panelHeader, java.awt.BorderLayout.PAGE_START);
 
-        javax.swing.GroupLayout sideBarPanelLayout = new javax.swing.GroupLayout(sideBarPanel);
-        sideBarPanel.setLayout(sideBarPanelLayout);
-        sideBarPanelLayout.setHorizontalGroup(
-            sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(sideBarPanelLayout.createSequentialGroup()
-                .addComponent(headerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        sideBarPanelLayout.setVerticalGroup(
-            sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(sideBarPanelLayout.createSequentialGroup()
-                .addComponent(headerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 626, Short.MAX_VALUE))
-        );
+        sidebarPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
+        leftPanel.add(sidebarPanel, java.awt.BorderLayout.CENTER);
 
-        javax.swing.GroupLayout layoutPanelLayout = new javax.swing.GroupLayout(layoutPanel);
-        layoutPanel.setLayout(layoutPanelLayout);
-        layoutPanelLayout.setHorizontalGroup(
-            layoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 978, Short.MAX_VALUE)
-        );
-        layoutPanelLayout.setVerticalGroup(
-            layoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(sideBarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(layoutPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(sideBarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(layoutPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        getContentPane().add(leftPanel, java.awt.BorderLayout.LINE_START);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -143,10 +164,11 @@ public class AdminDashboardView extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel headerPanel;
     private javax.swing.JPanel layoutPanel;
-    private javax.swing.JButton logOutButton;
+    private javax.swing.JPanel leftPanel;
+    private javax.swing.JButton logoutButton;
     private javax.swing.JLabel nameLabel;
-    private javax.swing.JPanel sideBarPanel;
+    private javax.swing.JPanel panelHeader;
+    private javax.swing.JPanel sidebarPanel;
     // End of variables declaration//GEN-END:variables
 }

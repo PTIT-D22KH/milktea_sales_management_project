@@ -16,6 +16,9 @@ import views.ForgotPasswordView;
  * @author P51
  */
 public class ForgotPasswordController extends AuthenticationController<ForgotPasswordView>{
+    public ForgotPasswordController(ForgotPasswordView view) {
+        super(view);
+    }
     public ForgotPasswordController(ForgotPasswordView view, EmployeeDao employeeDao) {
         super(view, employeeDao);
     }
@@ -42,7 +45,7 @@ public class ForgotPasswordController extends AuthenticationController<ForgotPas
         }
         
         if (!newPassword.equals(confirmPassword)) {
-            view.showMessage("Xác nhận mật khẩu không trùng khớp");
+            view.showMessage("Xác nhận mật khẩu sai");
             return;
         }
         try {

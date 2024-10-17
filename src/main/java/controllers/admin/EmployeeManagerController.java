@@ -11,6 +11,8 @@ import controllers.popup.SuccessCallback;
 import dao.EmployeeDao;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.ERROR_MESSAGE;
+import static javax.swing.JOptionPane.YES_OPTION;
 import models.Employee;
 import utils.EmployeePermission;
 import views.popup.EmployeePopupView;
@@ -70,8 +72,16 @@ public class EmployeeManagerController extends ManagerController{
     public void actionDelete() {
         int selectedIds[] = view.getSelectedIds();
         try {
-            if (JOptionPane.showConfirmDialog(null, "Xác nhận xoá hàng loạt?", "Xoá nhân viên", JOptionPane.ERROR_MESSAGE) != JOptionPane.YES_OPTION) {
-                return;
+            if (selectedIds.length > 1) {
+                if (JOptionPane.showConfirmDialog(null, "Xác nhận xóa hàng loạt?", "Xóa nhân viên", ERROR_MESSAGE) != YES_OPTION) {
+                    return;
+                }
+            } else if (selectedIds.length == 1){
+                if (JOptionPane.showConfirmDialog(null, "Xác nhận xóa nhân viên?", "Xóa nhân viên", ERROR_MESSAGE) != YES_OPTION) {
+                    return;
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Vui lòng chọn nhân viên cần xoá!");
             }
             for (int i = 0; i < selectedIds.length; i++) {
                 employeeDao.deleteById(selectedIds[i]);

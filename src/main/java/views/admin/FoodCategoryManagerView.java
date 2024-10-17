@@ -13,7 +13,7 @@ import models.FoodCategory;
  */
 public class FoodCategoryManagerView extends ManagerPaneView<FoodCategory>{
     private String list[] = {
-        "ID", "Tên loại"
+        "FoodCategoryId", "Name"
     };
     
     public FoodCategoryManagerView() {

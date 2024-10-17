@@ -18,51 +18,61 @@ import views.CustomerRenderList;
  *
  * @author P51
  */
-public class SelectCustomerPopupView extends javax.swing.JFrame {
+public class SelectCustomerPopupView extends SelectEntityPopupView<Customer> {
 
     /**
      * Creates new form SelectCustomerPopupView
+     * @return 
      */
-    DefaultListModel<Customer> customerListModel = new DefaultListModel<>();
-    
+//    private DefaultListModel<Customer> customerListModel;
+//    
     public SelectCustomerPopupView() {
-        initComponents();
+        super();
+        mineInitComponents();
     }
     
+    @Override
     public JButton getBtnCancel() {
         return btnCancel;
     }
-    
+    @Override
     public JButton getBtnOK() {
         return btnOK;
     }
-    
+    @Override
     public JButton getBtnSearch() {
         return btnSearch;
     }
     
-    public JList<Customer> getListCustomer() {
-        return listCustomer;
+    @Override
+    public JList<Customer> getEntityList() {
+        return entityList;
     }
     
-    public void renderCustomer(ArrayList<Customer> customers) {
-        customerListModel.removeAllElements();
-        for (Customer customer : customers) {
-            customerListModel.addElement(customer);
-        }
+    @Override
+    public JTextField getEntityNameTxtField() {
+        return entityNameTxtField;
     }
     
-    public JTextField getTxtCustomerName() {
-        return txtCustomerName;
-    }
     
-    public void showError(String message) {
-        ErrorPopup.show(new Exception(message));
-    }
-
-    public void showError(Exception message) {
-        ErrorPopup.show(message);
-    }
+//    
+//    @Override
+//    public void renderEntity(ArrayList<Customer> customers) {
+//        entityListModel.removeAllElements();
+//        for (Customer customer : customers) {
+//            entityListModel.addElement(customer);
+//        }
+//    }
+//    
+//    
+//    @Override
+//    public void showError(String message) {
+//        ErrorPopup.show(new Exception(message));
+//    }
+//
+//    public void showError(Exception message) {
+//        ErrorPopup.show(message);
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -76,15 +86,15 @@ public class SelectCustomerPopupView extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        txtCustomerName = new javax.swing.JTextField();
+        entityNameTxtField = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listCustomer = new javax.swing.JList<>();
+        entityList = new javax.swing.JList<>();
         jPanel3 = new javax.swing.JPanel();
         btnOK = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("Chọn khách hàng");
@@ -114,7 +124,7 @@ public class SelectCustomerPopupView extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(17, Short.MAX_VALUE)
-                .addComponent(txtCustomerName, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(entityNameTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSearch)
                 .addGap(12, 12, 12))
@@ -124,12 +134,12 @@ public class SelectCustomerPopupView extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCustomerName, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(entityNameTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSearch))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jScrollPane1.setViewportView(listCustomer);
+        jScrollPane1.setViewportView(entityList);
 
         btnOK.setText("OK");
 
@@ -222,12 +232,21 @@ public class SelectCustomerPopupView extends javax.swing.JFrame {
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnOK;
     private javax.swing.JButton btnSearch;
+    private javax.swing.JList<Customer> entityList;
+    private javax.swing.JTextField entityNameTxtField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList<Customer> listCustomer;
-    private javax.swing.JTextField txtCustomerName;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    protected void mineInitComponents() {
+        this.initComponents();
+        entityList.setModel(entityListModel);
+        entityList.setCellRenderer(new CustomerRenderList());
+        getRootPane().setDefaultButton(btnSearch);
+        setLocationRelativeTo(null);
+    }
 }

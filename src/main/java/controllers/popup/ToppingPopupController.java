@@ -24,7 +24,7 @@ public class ToppingPopupController {
     private DecimalFormat formatter;
     private JFrame previousView;
 
-    private interface Event {
+    interface Event {
 
         public abstract void onSelect(OrderItem item);
     }

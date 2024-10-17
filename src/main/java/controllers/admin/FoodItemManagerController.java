@@ -61,9 +61,18 @@ public class FoodItemManagerController extends ManagerController {
     public void actionDelete(){
         int selectedIds[] = view.getSelectedIds();
         try {
-            if (JOptionPane.showConfirmDialog(null, "Xác nhận xóa hàng loạt?", "Xóa", ERROR_MESSAGE) != YES_OPTION) {
-                return;
+            if (selectedIds.length > 1) {
+                if (JOptionPane.showConfirmDialog(null, "Xác nhận xóa hàng loạt?", "Xóa", ERROR_MESSAGE) != YES_OPTION) {
+                    return;
+                }
+            } else if (selectedIds.length == 1){
+                if (JOptionPane.showConfirmDialog(null, "Xác nhận xóa món?", "Xóa", ERROR_MESSAGE) != YES_OPTION) {
+                    return;
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Vui lòng chọn món cần xoá!");
             }
+            
             for (int i = 0; i < selectedIds.length; i++) {
                 foodItemDao.deleteById(selectedIds[i]);
             }
@@ -102,7 +111,7 @@ public class FoodItemManagerController extends ManagerController {
                 popupController.edit(new FoodItemPopupView(), foodItem, successCallback, errorCallback);
             }
         } catch (Exception e) {
-            //view.showError(e);
+            view.showError(e);
         }
     }
 

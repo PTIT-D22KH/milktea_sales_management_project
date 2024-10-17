@@ -4,6 +4,8 @@
  */
 package views.employee;
 
+import javax.swing.JLabel;
+
 /**
  *
  * @author P51
@@ -15,7 +17,22 @@ public class SessionLoginView extends javax.swing.JFrame {
      */
     public SessionLoginView() {
         initComponents();
+        setLocationRelativeTo(null);
     }
+
+    public JLabel getEndTimeLabel() {
+        return endTimeLabel;
+    }
+
+    public JLabel getStartTimeLabel() {
+        return startTimeLabel;
+    }
+
+    public JLabel getStatusLabel() {
+        return statusLabel;
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,20 +43,20 @@ public class SessionLoginView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        startTimeLabel = new javax.swing.JLabel();
+        endTimeLabel = new javax.swing.JLabel();
+        statusLabel = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setText("Giờ bắt đầu");
+        startTimeLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        startTimeLabel.setText("Giờ bắt đầu");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setText("Giờ kết thúc");
+        endTimeLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        endTimeLabel.setText("Giờ kết thúc");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setText("Trạng thái");
+        statusLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        statusLabel.setText("Trạng thái");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -47,13 +64,13 @@ public class SessionLoginView extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(startTimeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(endTimeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(statusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22))
         );
         layout.setVerticalGroup(
@@ -61,10 +78,10 @@ public class SessionLoginView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                    .addComponent(startTimeLabel)
+                    .addComponent(endTimeLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
+                .addComponent(statusLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -107,8 +124,8 @@ public class SessionLoginView extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel endTimeLabel;
+    private javax.swing.JLabel startTimeLabel;
+    private javax.swing.JLabel statusLabel;
     // End of variables declaration//GEN-END:variables
 }

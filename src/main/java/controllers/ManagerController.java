@@ -4,6 +4,7 @@
  */
 package controllers;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
@@ -50,16 +51,19 @@ public abstract class ManagerController {
     private void addEvent() {
         // display place holder
         view.getSearchTxt().addFocusListener(new FocusAdapter() {
+            @Override
             public void focusGained(FocusEvent event) {
                 if (view.getSearchTxt().getText().equals("Search")) {
                     view.getSearchTxt().setText("");
-                    
+                    view.getSearchTxt().setForeground(Color.BLACK);
                 }
             }
             
+            @Override
             public void focusLost(FocusEvent event) {
                 if (view.getSearchTxt().getText().equals("") || view.getSearchTxt().getText().equals("Search")) {
                     view.getSearchTxt().setText("Search");
+                    view.getSearchTxt().setForeground(new Color(153, 153, 153));
                 }
             }
         });

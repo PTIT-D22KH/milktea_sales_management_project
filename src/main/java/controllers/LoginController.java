@@ -13,9 +13,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Employee;
 import utils.SessionManager;
+import views.AdminDashboardView;
+import views.EmployeeDashboardView;
 import views.ForgotPasswordView;
 import views.LoginView;
 import views.RegisterView;
+import views.admin.HomeView;
 
 /**
  *
@@ -25,19 +28,16 @@ public class LoginController extends AuthenticationController<LoginView>{
     private ForgotPasswordController forgotPasswordController;
     private RegisterController registerController;
     
+    public LoginController(LoginView view, ForgotPasswordView forgotPasswordView, RegisterView registerView) {
+        super(view);
+        this.forgotPasswordController = new ForgotPasswordController(forgotPasswordView);
+        this.registerController = new RegisterController(registerView);
+    }
     public LoginController(LoginView view, EmployeeDao employeeDao, ForgotPasswordView forgotPasswordView, RegisterView registerView) {
         super(view, employeeDao);
         this.forgotPasswordController = new ForgotPasswordController(forgotPasswordView, employeeDao);
         this.registerController = new RegisterController(registerView, employeeDao);
     }
-    
-//    public LoginView getView() {
-//        return view;
-//    }
-//
-//    public void setView(LoginView view) {
-//        this.view = view;
-//    }
     
     public void login() {
         String username = view.getUsernameTextField().getText();
@@ -53,7 +53,32 @@ public class LoginController extends AuthenticationController<LoginView>{
                 return;
             }
             SessionManager.create(employee);
-            System.out.println("Đăng nhập thành công!");
+            switch (employee.getPermission()) {
+                case MANAGER:
+                    //Admin controller
+                    AdminDashboardController controller = new AdminDashboardController(new AdminDashboardView());
+                    controller.getView().setPanel(new HomeView());
+                    view.dispose();
+                    break;
+                case STAFF:
+                    EmployeeDashboardController controller1 = new EmployeeDashboardController(new EmployeeDashboardView());
+                    controller1.getView().setPanel(new HomeView());
+                    controller1.getView().setVisible(true);
+                    view.dispose();
+                    break;
+                case INACTIVE:
+                    view.showError("Tài khoản của bạn đã bị khóa.\nVui lòng liên hệ admin để biết thêm chi tiết");
+                    SessionManager.update();
+//                    view.dispose();
+                    break;
+                default:
+                    view.showError("Vui lòng liên hệ admin để biết thêm chi tiết");
+                    SessionManager.update();
+//                    view.dispose();
+                    break;
+            }
+            
+           
                    
         } catch (Exception e) {
             view.showError(e);

@@ -4,7 +4,9 @@
  */
 package views;
 
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 import models.Employee;
@@ -12,13 +14,15 @@ import models.Employee;
  *
  * @author buiva
  */
-public class EmployeeRenderList extends javax.swing.JPanel {
+public class EmployeeRenderList extends EntityRenderList<Employee>{
 
     /**
      * Creates new form EmployeeRenderList
      */
     public EmployeeRenderList() {
         initComponents();
+        setPreferredSize(new Dimension(400, 75));
+
     }
 
     /**
@@ -35,9 +39,9 @@ public class EmployeeRenderList extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        phoneNumberLabel = new javax.swing.JLabel();
+        nameLabel = new javax.swing.JLabel();
+        roleLabel = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 0, 51));
@@ -78,25 +82,24 @@ public class EmployeeRenderList extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(400, 75));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setText("(SĐT)");
-        jLabel4.setMaximumSize(new java.awt.Dimension(31, 16));
-        jLabel4.setMinimumSize(new java.awt.Dimension(31, 16));
-        jLabel4.setPreferredSize(new java.awt.Dimension(31, 16));
+        phoneNumberLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        phoneNumberLabel.setText("(SĐT)");
+        phoneNumberLabel.setMaximumSize(new java.awt.Dimension(31, 16));
+        phoneNumberLabel.setMinimumSize(new java.awt.Dimension(31, 16));
+        phoneNumberLabel.setPreferredSize(new java.awt.Dimension(31, 16));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 140, 0));
-        jLabel5.setText("Bui Mau Van");
-        jLabel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jLabel5.setMaximumSize(new java.awt.Dimension(141, 20));
-        jLabel5.setMinimumSize(new java.awt.Dimension(141, 20));
-        jLabel5.setPreferredSize(new java.awt.Dimension(141, 20));
+        nameLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        nameLabel.setForeground(new java.awt.Color(255, 140, 0));
+        nameLabel.setText("Bui Mau Van");
+        nameLabel.setMaximumSize(new java.awt.Dimension(141, 20));
+        nameLabel.setMinimumSize(new java.awt.Dimension(141, 20));
+        nameLabel.setPreferredSize(new java.awt.Dimension(141, 20));
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel6.setText("Địa chỉ ");
-        jLabel6.setMaximumSize(new java.awt.Dimension(36, 16));
-        jLabel6.setMinimumSize(new java.awt.Dimension(36, 16));
-        jLabel6.setPreferredSize(new java.awt.Dimension(36, 16));
+        roleLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        roleLabel.setText("Chức vụ");
+        roleLabel.setMaximumSize(new java.awt.Dimension(36, 16));
+        roleLabel.setMinimumSize(new java.awt.Dimension(36, 16));
+        roleLabel.setPreferredSize(new java.awt.Dimension(36, 16));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -105,11 +108,11 @@ public class EmployeeRenderList extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(roleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(phoneNumberLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -117,10 +120,10 @@ public class EmployeeRenderList extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(nameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(phoneNumberLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(roleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(15, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -130,10 +133,23 @@ public class EmployeeRenderList extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel nameLabel;
+    private javax.swing.JLabel phoneNumberLabel;
+    private javax.swing.JLabel roleLabel;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public Component getListCellRendererComponent(JList<? extends Employee> list, Employee employee, int index, boolean isSelected, boolean cellHasFocus) {
+        nameLabel.setText(employee.getName());
+        roleLabel.setText(employee.getPermission().getName());
+        phoneNumberLabel.setText(String.format("(%s)", employee.getPhoneNumber()));
+        if (cellHasFocus) {
+            setBackground(Color.LIGHT_GRAY);
+        } else {
+            setBackground(new Color(242, 242, 242));
+        }
+        return this;
+    }
 }
