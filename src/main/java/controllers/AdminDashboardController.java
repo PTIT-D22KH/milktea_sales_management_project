@@ -5,6 +5,7 @@
 package controllers;
 
 import controllers.admin.EmployeeManagerController;
+import controllers.employee.EmployeeInformationController;
 import javax.swing.JPanel;
 import models.Employee;
 import utils.SessionManager;
@@ -18,6 +19,7 @@ import views.admin.ManagerPaneView;
 import views.admin.MenuItemView;
 import views.admin.ShipmentManagerView;
 import views.admin.TableManagerView;
+import views.employee.EmployeeInformationView;
 
 /**
  *
@@ -29,10 +31,12 @@ public class AdminDashboardController extends DashboardController<AdminDashboard
     private ManagerPaneView tableManagerView = new TableManagerView(); 
     private ManagerPaneView foodCategoryManagerView= new FoodCategoryManagerView();
     private ManagerPaneView foodItemManagerView = new FoodItemManagerView();
+    private EmployeeInformationController informationController = new EmployeeInformationController();
+    private EmployeeInformationView informationView = new EmployeeInformationView();
     private JPanel[] cards = {
         homeView, employeeManagerView, tableManagerView, customerManagerView,
         foodCategoryManagerView, orderManagerView, foodItemManagerView, shipmentManagerView,
-        aboutView
+        aboutView, informationView
     };
 
     public AdminDashboardController(AdminDashboardView view) {
@@ -91,6 +95,10 @@ public class AdminDashboardController extends DashboardController<AdminDashboard
                 break;
             case "TT":
                 view.setPanel(aboutView);
+                break;
+            case "TTCN":
+                view.setPanel(informationView);
+                informationController.setView(informationView);
                 break;
             default:
                 view.setPanel(homeView);

@@ -47,7 +47,7 @@ public class SessionLoginView extends javax.swing.JFrame {
         endTimeLabel = new javax.swing.JLabel();
         statusLabel = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         startTimeLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         startTimeLabel.setText("Giờ bắt đầu");

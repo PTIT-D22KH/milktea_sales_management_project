@@ -43,7 +43,7 @@ public class EmployeeInformationController {
             TimeCounterController.start(new TimeCounterController.Callback() {
                 @Override
                 public void onTick(int second) {
-                    view.GetTimeSessionLabel().setText(secondToHours(second));
+                    view.getTimeSessionLabel().setText(secondToHours(second));
                 }
             });
             addEvent(view);

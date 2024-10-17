@@ -39,14 +39,6 @@ public class LoginController extends AuthenticationController<LoginView>{
         this.registerController = new RegisterController(registerView, employeeDao);
     }
     
-//    public LoginView getView() {
-//        return view;
-//    }
-//
-//    public void setView(LoginView view) {
-//        this.view = view;
-//    }
-    
     public void login() {
         String username = view.getUsernameTextField().getText();
         String password = new String(view.getPasswordField().getPassword());
@@ -77,12 +69,12 @@ public class LoginController extends AuthenticationController<LoginView>{
                 case INACTIVE:
                     view.showError("Tài khoản của bạn đã bị khóa.\nVui lòng liên hệ admin để biết thêm chi tiết");
                     SessionManager.update();
-                    view.dispose();
+//                    view.dispose();
                     break;
                 default:
                     view.showError("Vui lòng liên hệ admin để biết thêm chi tiết");
                     SessionManager.update();
-                    view.dispose();
+//                    view.dispose();
                     break;
             }
             
