@@ -13,7 +13,7 @@ import models.Employee;
  */
 public class EmployeeManagerView extends ManagerPaneView<Employee>{
     private String list[] = {
-      "ID", "Tên", "SĐT"
+      "EmployeeId", "Name", "PhoneNumber"
     };
     public EmployeeManagerView() {
         super();

@@ -13,7 +13,7 @@ import models.Table;
  */
 public class TableManagerView extends ManagerPaneView<Table>{
     private String list[] = {
-        "ID", "Tên bàn"
+        "TableId", "Name"
     };
     
     public TableManagerView() {

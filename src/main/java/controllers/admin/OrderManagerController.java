@@ -155,6 +155,7 @@ public class OrderManagerController extends ManagerController{
             editOrderPopupController.edit(new EditOrderPopupView(), order, successCallback, errorCallback);
             
         } catch (Exception e) {
+            view.showError(e); 
         }
     }
 

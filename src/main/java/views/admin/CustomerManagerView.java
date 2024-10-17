@@ -17,10 +17,10 @@ import views.admin.ManagerPaneView;
 public class CustomerManagerView extends ManagerPaneView<Customer>{
     
     String list[] = {
-        "customerId",
-        "phoneNumber",
-        "name",
-        "address"
+        "CustomerId",
+        "PhoneNumber",
+        "Name",
+        "Address"
     };
     public CustomerManagerView() {
         super();

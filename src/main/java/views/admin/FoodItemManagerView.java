@@ -14,7 +14,7 @@ import models.FoodItem;
 public class FoodItemManagerView extends ManagerPaneView<FoodItem>{
     
     private String list[] = {
-      "ID", "Tên món", "Mã loại món"
+      "FoodItemId", "Name", "FoodCategoryId"
     };
     
     public FoodItemManagerView() {

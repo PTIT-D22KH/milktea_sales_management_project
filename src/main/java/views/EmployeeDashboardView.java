@@ -16,13 +16,13 @@ import views.admin.MenuItemView;
  *
  * @author P51
  */
-public class EmployeeDashboardView extends javax.swing.JFrame {
+public class EmployeeDashboardView extends DashboardView {
 
     /**
      * Creates new form EmployeeDashboardView
      */
-    JPanel[] cards;
-    ArrayList<MenuItemView> menuItems = new ArrayList<>();
+//    private JPanel[] cards;
+//    private ArrayList<MenuItemView> menuItems = new ArrayList<>();
 
     public EmployeeDashboardView() {
         initComponents();
@@ -30,28 +30,18 @@ public class EmployeeDashboardView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         logoutButton.putClientProperty("JButton.buttonType", "roundRect");
     }
-
-    public void showError(String message) {
-        ErrorPopup.show(new Exception(message));
-    }
-
-    public void showError(Exception e) {
-        ErrorPopup.show(e);
-    }
-
-    public void showMessage(String message) {
-        JOptionPane.showMessageDialog(this, message);
-    }
-
+    @Override
     public JButton getBtnLogout() {
         return logoutButton;
     }
 
+    @Override
     public JLabel getLbName() {
         return nameLabel;
     }
 
     // Thêm dropdown menu
+    @Override
     public void addMenu(MenuItemView... menu) {
         for (int i = 0; i < menu.length; i++) {
             MenuItemView item = menu[i];
@@ -65,38 +55,26 @@ public class EmployeeDashboardView extends javax.swing.JFrame {
         }
     }
 
-    public ArrayList<MenuItemView> getMenuItems() {
-        return menuItems;
-    }
-
-    public void setCards(JPanel[] cards) {
-        this.cards = cards;
-        initLayout();
-    }
-
     // Thêm các pane vào cardlayout
+    @Override
     public void initLayout() {
         layoutPanel.removeAll();
-        for (int i = 0; i < cards.length; i++) {
-            layoutPanel.add(cards[i]);
+        for (JPanel card : cards) {
+            layoutPanel.add(card);
         }
         layoutPanel.updateUI();
     }
 
+    @Override
     public JPanel getPanelLayout() {
         return layoutPanel;
     }
 
+    @Override
     public JPanel getPanelSideBar() {
         return sidebarPanel;
     }
 
-    public void setPanel(JPanel panel) {
-        for (JPanel card : cards) {
-            card.setVisible(false);
-        }
-        panel.setVisible(true);
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
