@@ -26,7 +26,7 @@ public class EmployeeInformationView extends javax.swing.JPanel {
         return changePassButton;
     }
 
-    public JLabel GetTimeSessionLabel() {
+    public JLabel getTimeSessionLabel() {
         return TimeSessionLabel;
     }
 

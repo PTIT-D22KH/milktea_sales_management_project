@@ -7,6 +7,7 @@ package controllers;
 import controllers.admin.CustomerManagerController;
 import controllers.admin.OrderManagerController;
 import controllers.admin.ShipmentManagerController;
+import controllers.employee.EmployeeInformationController;
 import dao.EmployeeDao;
 import java.awt.Color;
 import java.awt.Component;
@@ -29,24 +30,17 @@ import views.admin.ManagerPaneView;
 import views.admin.MenuItemView;
 import views.admin.OrderManagerView;
 import views.admin.ShipmentManagerView;
+import views.employee.EmployeeInformationView;
 
 /**
  *
  * @author P51
  */
 public class EmployeeDashboardController extends DashboardController<EmployeeDashboardView>{
-//    private EmployeeDashboardView view;
-//    ManagerController orderManagerController = new OrderManagerController(),
-//            shipmentManagerController = new ShipmentManagerController(),
-//            customerManagerController = new CustomerManagerController();
-//    ManagerPaneView orderManagerView = new OrderManagerView(),
-//            shipmentManagerView = new ShipmentManagerView(),
-//            customerManagerView = new CustomerManagerView();
-//    HomeView homeView = new HomeView();
-//    AboutView aboutView = new AboutView();
-//    SidebarController sideBarController = new SidebarController();
+    private EmployeeInformationController informationController = new EmployeeInformationController();
+    private EmployeeInformationView informationView = new EmployeeInformationView();
     private JPanel[] cards = {homeView, orderManagerView, customerManagerView,
-        shipmentManagerView, aboutView};
+        shipmentManagerView, aboutView, informationView};
 
     /**
      *
@@ -104,6 +98,10 @@ public class EmployeeDashboardController extends DashboardController<EmployeeDas
                 break;
             case "TT":
                 view.setPanel(aboutView);
+                break;
+            case "TTCN":
+                view.setPanel(informationView);
+                informationController.setView(informationView);
                 break;
             default:
                 view.setPanel(homeView);
