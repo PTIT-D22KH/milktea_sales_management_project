@@ -5,6 +5,9 @@
 package controllers;
 
 import controllers.admin.EmployeeManagerController;
+import controllers.admin.FoodCategoryManagerController;
+import controllers.admin.FoodItemManagerController;
+import controllers.admin.TableManagerController;
 import controllers.employee.EmployeeInformationController;
 import javax.swing.JPanel;
 import models.Employee;
@@ -26,12 +29,18 @@ import views.employee.EmployeeInformationView;
  * @author P51
  */
 public class AdminDashboardController extends DashboardController<AdminDashboardView>{
+    
     private ManagerController employeeManagerController = new EmployeeManagerController();
+    private ManagerController tableManagerController = new TableManagerController();
+    private ManagerController foodCategoryManagerController = new FoodCategoryManagerController();
+    private ManagerController foodItemManagerController = new FoodItemManagerController();
+    private EmployeeInformationController informationController = new EmployeeInformationController();
+
     private ManagerPaneView employeeManagerView = new EmployeeManagerView();
     private ManagerPaneView tableManagerView = new TableManagerView(); 
     private ManagerPaneView foodCategoryManagerView= new FoodCategoryManagerView();
     private ManagerPaneView foodItemManagerView = new FoodItemManagerView();
-    private EmployeeInformationController informationController = new EmployeeInformationController();
+    
     private EmployeeInformationView informationView = new EmployeeInformationView();
     private JPanel[] cards = {
         homeView, employeeManagerView, tableManagerView, customerManagerView,
@@ -57,16 +66,26 @@ public class AdminDashboardController extends DashboardController<AdminDashboard
 
     @Override
     protected void initMenu() {
-        MenuItemView menuKH = new MenuItemView("QLKH", "Quản lý khách hàng");
-        menuKH.setVisible(true);
-        MenuItemView menuQLDDH = new MenuItemView("QLDDH","Quản lý đơn đặt hàng");
-        MenuItemView menuQLGH = new MenuItemView("QLGH", "Quản lý giao hàng");
+        
+//        menuQLKH.setVisible(true);
+        MenuItemView menuQLKH = new MenuItemView("QLKH", "Quản lý khách hàng");
+        MenuItemView menuQLNV = new MenuItemView("QLNV", "Quản lý nhân viên");
+        MenuItemView menuQLHH = new MenuItemView("QLHH", "Quản lý hàng hóa");
+        MenuItemView menuQLDH = new MenuItemView("QLDH", "Quản lý đặt hàng");
+        menuQLHH.addSubMenu(new MenuItemView("QLLM", null, "Quản lý loại món"));
+        menuQLHH.addSubMenu(new MenuItemView("QLMA", "Quản lý món ăn"));
+        menuQLDH.addSubMenu(new MenuItemView("QLB", "Quản lý bàn"));
+        menuQLDH.addSubMenu(new MenuItemView("QLKH", "Quản lý khách hàng"));
+        menuQLDH.addSubMenu(new MenuItemView("QLDDH", "Quản lý đơn đặt hàng"));
+        menuQLDH.addSubMenu(new MenuItemView("QLGH", "Quản lý giao hàng"));
+//        MenuItemView menuQLDDH = new MenuItemView("QLDDH","Quản lý đơn đặt hàng");
+//        MenuItemView menuQLGH = new MenuItemView("QLGH", "Quản lý giao hàng");
         MenuItemView menuTL = new MenuItemView("TL", "Thiết lập");
         menuTL.addSubMenu(new MenuItemView("TTCN", "Thông tin cá nhân"));
         menuTL.addSubMenu(new MenuItemView("TLGD", "Giao diện"));
         menuTL.addSubMenu(new MenuItemView("TT", "About us"));
-        MenuItemView menuQLNV = new MenuItemView("QLNV", "Quản lý nhân viên");
-        sidebarController.addMenu(menuQLNV, menuKH, menuQLDDH, menuQLGH, menuTL);
+        
+        sidebarController.addMenu(menuQLNV, menuQLHH, menuQLDH, menuTL);
         sidebarController.addMenuEvent(this::onMenuChange);
     }
 
@@ -82,6 +101,21 @@ public class AdminDashboardController extends DashboardController<AdminDashboard
                 view.setPanel(orderManagerView);
                 orderManagerController.setView(orderManagerView);
                 orderManagerController.updateData();
+                break;
+            case "QLB"://Quản lý bàn
+                view.setPanel(tableManagerView);
+                tableManagerController.setView(tableManagerView);
+                tableManagerController.updateData();
+                break;
+            case "QLLM"://Quản lý loại món
+                view.setPanel(foodCategoryManagerView);
+                foodCategoryManagerController.setView(foodCategoryManagerView);
+                foodCategoryManagerController.updateData();
+                break;
+            case "QLMA"://Quản lý món ăn
+                view.setPanel(foodItemManagerView);
+                foodItemManagerController.setView(foodItemManagerView);
+                foodItemManagerController.updateData();
                 break;
             case "QLKH"://Quản lý khách hàng
                 view.setPanel(customerManagerView);

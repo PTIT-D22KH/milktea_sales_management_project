@@ -163,11 +163,11 @@ public class OrderPrintController {
 
         // Create header row
         XWPFTableRow headerRow = table.getRow(0);
-        createTableCell(headerRow.getCell(0), "Food Item", fontSize, true);
+        createTableCell(headerRow.getCell(0), "Tên món", fontSize, true);
         createTableCell(headerRow.addNewTableCell(), "Topping", fontSize, true);
-        createTableCell(headerRow.addNewTableCell(), "Quantity", fontSize, true);
-        createTableCell(headerRow.addNewTableCell(), "Unit", fontSize, true);
-        createTableCell(headerRow.addNewTableCell(), "Amount (VND)", fontSize, true);
+        createTableCell(headerRow.addNewTableCell(), "Số lượng", fontSize, true);
+        createTableCell(headerRow.addNewTableCell(), "Đơn vị", fontSize, true);
+        createTableCell(headerRow.addNewTableCell(), "Thành tiền (VNĐ)", fontSize, true);
 
         // Add order items to the table
         for (OrderItem orderItem : orderItems) {
@@ -199,7 +199,7 @@ public class OrderPrintController {
         addTableRow(table, "Giảm giá:", order.getDiscount() + "%", fontSize);
         addTableRow(table, "Phải thanh toán:", formatter.format(order.getFinalAmount()), fontSize);
         addTableRow(table, "Đã thanh toán:", formatter.format(order.getPaidAmount()), fontSize);
-        addTableRow(table, "Tiền thừa:", formatter.format(order.getFinalAmount() - order.getPaidAmount()), fontSize);
+        addTableRow(table, "Tiền thừa:", formatter.format(order.getPaidAmount()  - order.getFinalAmount()), fontSize);
         addTableRow(table, "Ngày thanh toán:", dateFormat.format(new Date(order.getPayDate().getTime())), fontSize);
     }
     

@@ -67,7 +67,10 @@ public class Table extends Model{
 
     @Override
     public Object[] toRowTable() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return new Object[] {
+            tableId, name, status.getName()
+        };
+        
     }
 
     @Override

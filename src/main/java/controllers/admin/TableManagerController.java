@@ -80,8 +80,16 @@ public class TableManagerController extends ManagerController{
     public void actionDelete() {
         int selectedIds[] = view.getSelectedIds();
         try {
-            if (JOptionPane.showConfirmDialog(null, "Xác nhận xóa hàng loạt?", "Xóa bàn", ERROR_MESSAGE) != YES_OPTION) {
-                return;
+            if (selectedIds.length > 1) {
+                if (JOptionPane.showConfirmDialog(null, "Xác nhận xóa hàng loạt?", "Xóa", ERROR_MESSAGE) != YES_OPTION) {
+                    return;
+                }
+            } else if (selectedIds.length == 1){
+                if (JOptionPane.showConfirmDialog(null, "Xác nhận xóa bàn?", "Xóa", ERROR_MESSAGE) != YES_OPTION) {
+                    return;
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Vui lòng chọn bàn cần xoá!");
             }
             for (int i = 0; i < selectedIds.length; i++) {
                 tableDao.deleteById(selectedIds[i]);
@@ -90,7 +98,6 @@ public class TableManagerController extends ManagerController{
         } catch (Exception e) {
             view.showError(e);
         }
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
