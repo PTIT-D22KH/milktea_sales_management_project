@@ -27,7 +27,9 @@ import models.FoodItem;
 import models.OrderItem;
 import models.Table;
 import utils.TableStatus;
+import views.ForgotPasswordView;
 import views.LoginView;
+import views.RegisterView;
 import views.popup.CustomerPopupView;
 import views.popup.EmployeePopupView;
 
@@ -43,9 +45,9 @@ public class Main {
             javax.swing.UIManager.setLookAndFeel("com.formdev.flatlaf.FlatIntelliJLaf");
             System.out.println("Set up UI Theme successfully!");
         } catch (Exception ex) {
-            System.err.println("Set up UI Theme failed!");
-//        CustomerDao customerDao = new CustomerDao();
-//        customerDao.deleteById(1);   
+            System.err.println("Set up UI Theme failed!");   
         }
+        LoginController controller = new LoginController(new LoginView(), new ForgotPasswordView(), new RegisterView());
+        controller.showView();
     }
 }
