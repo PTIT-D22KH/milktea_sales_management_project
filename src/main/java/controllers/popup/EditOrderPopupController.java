@@ -150,6 +150,7 @@ public class EditOrderPopupController extends PopupController<EditOrderPopupView
         if (order.getEmployee() == null) {
             order.setEmployee(currentLogin);
         }
+        
         if (!order.getEmployee().equals(currentLogin) && order.getEmployee().getPermission().compare(currentLogin.getPermission()) > 0) {
             ec.onError(new Exception("Bạn không có quyền sửa hóa đơn này"));
             view.dispose();
@@ -160,6 +161,7 @@ public class EditOrderPopupController extends PopupController<EditOrderPopupView
         if (order.getCustomer() != null) {
             view.getCustomerNameLabel().setText(order.getCustomer().getName());
         }
+        
         
         view.getBtnSelectCustomer().addActionListener(new ActionListener(){
             @Override

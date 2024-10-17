@@ -20,6 +20,9 @@ import views.RegisterView;
  * @author P51
  */
 public class RegisterController extends AuthenticationController<RegisterView>{
+    public RegisterController(RegisterView view) {
+        super(view);
+    }
     public RegisterController(RegisterView view, EmployeeDao employeeDao) {
         super(view, employeeDao);
     }
@@ -48,7 +51,7 @@ public class RegisterController extends AuthenticationController<RegisterView>{
         }
         
         if (!password.equals(confirmPassword)) {
-            view.showMessage("Mật khẩu xác nhận không trùng khớp");
+            view.showMessage("Xác nhận mật khẩu sai");
             return;
         }
         try {

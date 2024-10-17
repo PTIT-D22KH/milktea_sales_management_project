@@ -4,59 +4,41 @@
  */
 package controllers;
 
-import controllers.admin.CustomerManagerController;
-import controllers.admin.OrderManagerController;
-import controllers.admin.ShipmentManagerController;
-import dao.EmployeeDao;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.sql.SQLException;
-import javax.swing.JOptionPane;
+import controllers.admin.EmployeeManagerController;
 import javax.swing.JPanel;
-import utils.SessionManager;
 import models.Employee;
-import utils.IconManager;
-import views.EmployeeDashboardView;
-import views.ForgotPasswordView;
-import views.LoginView;
-import views.RegisterView;
-import views.admin.AboutView;
+import utils.SessionManager;
+import views.AdminDashboardView;
+import views.DashboardView;
 import views.admin.CustomerManagerView;
-import views.admin.HomeView;
+import views.admin.EmployeeManagerView;
+import views.admin.FoodCategoryManagerView;
+import views.admin.FoodItemManagerView;
 import views.admin.ManagerPaneView;
 import views.admin.MenuItemView;
-import views.admin.OrderManagerView;
 import views.admin.ShipmentManagerView;
+import views.admin.TableManagerView;
 
 /**
  *
  * @author P51
  */
-public class EmployeeDashboardController extends DashboardController<EmployeeDashboardView>{
-//    private EmployeeDashboardView view;
-//    ManagerController orderManagerController = new OrderManagerController(),
-//            shipmentManagerController = new ShipmentManagerController(),
-//            customerManagerController = new CustomerManagerController();
-//    ManagerPaneView orderManagerView = new OrderManagerView(),
-//            shipmentManagerView = new ShipmentManagerView(),
-//            customerManagerView = new CustomerManagerView();
-//    HomeView homeView = new HomeView();
-//    AboutView aboutView = new AboutView();
-//    SidebarController sideBarController = new SidebarController();
-    private JPanel[] cards = {homeView, orderManagerView, customerManagerView,
-        shipmentManagerView, aboutView};
+public class AdminDashboardController extends DashboardController<AdminDashboardView>{
+    private ManagerController employeeManagerController = new EmployeeManagerController();
+    private ManagerPaneView employeeManagerView = new EmployeeManagerView();
+    private ManagerPaneView tableManagerView = new TableManagerView(); 
+    private ManagerPaneView foodCategoryManagerView= new FoodCategoryManagerView();
+    private ManagerPaneView foodItemManagerView = new FoodItemManagerView();
+    private JPanel[] cards = {
+        homeView, employeeManagerView, tableManagerView, customerManagerView,
+        foodCategoryManagerView, orderManagerView, foodItemManagerView, shipmentManagerView,
+        aboutView
+    };
 
-    /**
-     *
-     * @param view
-     */
-    public EmployeeDashboardController(EmployeeDashboardView view) {
+    public AdminDashboardController(AdminDashboardView view) {
         this.view = view;
         sidebarController.setSidebarPanel(view.getPanelSideBar());
         view.setVisible(true);
-        System.out.println("Visible");
         initMenu();
         addEvent();
         Employee session = SessionManager.getSession().getEmployee();
@@ -69,10 +51,8 @@ public class EmployeeDashboardController extends DashboardController<EmployeeDas
         view.setCards(cards);
     }
 
-
     @Override
     protected void initMenu() {
-        IconManager im = new IconManager();
         MenuItemView menuKH = new MenuItemView("QLKH", "Quản lý khách hàng");
         menuKH.setVisible(true);
         MenuItemView menuQLDDH = new MenuItemView("QLDDH","Quản lý đơn đặt hàng");
@@ -81,12 +61,19 @@ public class EmployeeDashboardController extends DashboardController<EmployeeDas
         menuTL.addSubMenu(new MenuItemView("TTCN", "Thông tin cá nhân"));
         menuTL.addSubMenu(new MenuItemView("TLGD", "Giao diện"));
         menuTL.addSubMenu(new MenuItemView("TT", "About us"));
-        sidebarController.addMenu(menuKH, menuQLDDH, menuQLGH, menuTL);
+        MenuItemView menuQLNV = new MenuItemView("QLNV", "Quản lý nhân viên");
+        sidebarController.addMenu(menuQLNV, menuKH, menuQLDDH, menuQLGH, menuTL);
         sidebarController.addMenuEvent(this::onMenuChange);
     }
+
     @Override
     public void onMenuChange(MenuItemView item) {
         switch (item.getId()) {
+            case "QLNV": // Quản lý nhân viên
+                view.setPanel(employeeManagerView);
+                employeeManagerController.setView(employeeManagerView);
+                employeeManagerController.updateData();
+                break;
             case "QLDDH"://Đơn đặt hàng
                 view.setPanel(orderManagerView);
                 orderManagerController.setView(orderManagerView);
@@ -109,4 +96,5 @@ public class EmployeeDashboardController extends DashboardController<EmployeeDas
                 view.setPanel(homeView);
         }
     }
+    
 }

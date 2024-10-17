@@ -16,6 +16,11 @@ public abstract class AuthenticationController<T extends JFrame> implements  Aut
     protected T view;
     protected EmployeeDao employeeDao;
     
+    public AuthenticationController(T view) {
+        this.view = view;
+        this.employeeDao = new EmployeeDao();
+        addEvent();
+    }
     public AuthenticationController(T view, EmployeeDao employeeDao) {
         this.view = view;
         this.employeeDao = employeeDao;
