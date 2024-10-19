@@ -27,32 +27,23 @@ import views.popup.CustomerPopupView;
  */
 public class CustomerManagerController extends ManagerController{
     
-    private CustomerDao customerDao;
-    private ShipmentDao shipmentDao;
-    private CustomerPopupController popupController;
-    private CustomerPopupController customerPopupController;
+    private final CustomerDao customerDao;
+    private final ShipmentDao shipmentDao;
+    private final CustomerPopupController popupController;
+//    private final CustomerPopupController customerPopupController;
     
-    public CustomerManagerController(){ 
-        
-        super();
-        customerDao = new CustomerDao();
-        shipmentDao = new ShipmentDao();
-        popupController = new CustomerPopupController();
-        customerPopupController = new CustomerPopupController();
+    public CustomerManagerController() {
+        this.customerDao = new CustomerDao();
+        this.shipmentDao = new ShipmentDao();
+        this.popupController = new CustomerPopupController();
     }
-
-    //Test only
-    public CustomerManagerController(CustomerDao customerDao, ShipmentDao shipmentDao, CustomerPopupController popupController, CustomerPopupController customerPopupController) {
+    public CustomerManagerController(CustomerDao customerDao, ShipmentDao shipmentDao, CustomerPopupController popupController) {
         this.customerDao = customerDao;
         this.shipmentDao = shipmentDao;
         this.popupController = popupController;
-        this.customerPopupController = customerPopupController;
     }
-
-    
     @Override
     public void actionAdd() {
-        
         SuccessCallback successCallback = new SuccessCallback() {
             @Override
             public void onSuccess() {
@@ -63,57 +54,54 @@ public class CustomerManagerController extends ManagerController{
         ErrorCallback errorCallback = new ErrorCallback() {
             @Override
             public void onError(Exception e) {
-                view.showError(e);
+                getView().showError(e);
             }
         };
 
-        customerPopupController.add(new CustomerPopupView(), successCallback, errorCallback);
+        popupController.add(new CustomerPopupView(), successCallback, errorCallback);
     }
 
     @Override
     public void actionSearch() {
         try {
-            ArrayList<Customer> customers = customerDao.searchByKey(view.getComboSearchField().getSelectedItem().toString(), String.valueOf(view.getSearchTxt().getText()));
-            view.setTableData(customers);
+            ArrayList<Customer> customers = customerDao.searchByKey(getView().getComboSearchField().getSelectedItem().toString(), String.valueOf(getView().getSearchTxt().getText()));
+            getView().setTableData(customers);
         } catch (Exception e) {
-            view.showError(e);
+            getView().showError(e);
         }
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void actionDelete() {
-        int selectedIds[] = view.getSelectedIds();
+        int selectedIds[] = getView().getSelectedIds();
         try {
             if (selectedIds.length > 1) {
                 if (JOptionPane.showConfirmDialog(null, "Xác nhận xóa hàng loạt?", "Xóa", ERROR_MESSAGE) != YES_OPTION) {
                     return;
                 }
-            } else if (selectedIds.length == 1){
+            } else if (selectedIds.length == 1) {
                 if (JOptionPane.showConfirmDialog(null, "Xác nhận xóa khách hàng?", "Xóa", ERROR_MESSAGE) != YES_OPTION) {
                     return;
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Vui lòng chọn khách hàng cần xoá!");
             }
-            for (int i = 0; i < selectedIds.length; i++) {
-                int id = selectedIds[i];
+            for (int id : selectedIds) {
                 shipmentDao.deleteByIdCustomer(id);
                 customerDao.deleteById(id);
                 updateData();
             }
         } catch (Exception e) {
-            view.showError(e);
+            getView().showError(e);
         }
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void actionEdit() {
         try {
-            int selectedId = view.getSelectedId();
+            int selectedId = getView().getSelectedId();
             if (selectedId < 0) {
-                throw new Exception("Chọn khách hàng cần edit");
+                throw new Exception("Chọn khách hàng cần chỉnh sửa!");
             } else {
                 Customer c = customerDao.getById(selectedId);
                 if (c == null) {
@@ -129,26 +117,24 @@ public class CustomerManagerController extends ManagerController{
                 ErrorCallback errorCallback = new ErrorCallback() {
                     @Override
                     public void onError(Exception e) {
-                        view.showError(e);
+                        getView().showError(e);
                     }
                 };
                 popupController.edit(new CustomerPopupView(), c, successCallback, errorCallback);
             }
         } catch (Exception e) {
-            view.showError(e);
+            getView().showError(e);
         }
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void updateData() {
         try {
             ArrayList<Customer> customers = customerDao.getAll();
-            view.setTableData(customers);
-        } catch (Exception e){
-            view.showError(e);
+            getView().setTableData(customers);
+        } catch (Exception e) {
+            getView().showError(e);
         }
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }

@@ -9,6 +9,7 @@ import dao.ShipmentDao;
 import dao.TableDao;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import javax.swing.JFrame;
 import models.Customer;
@@ -26,32 +27,31 @@ import views.popup.SelectCustomerPopupView;
  * @author P51
  */
 public class AddOrderPopupController extends PopupController<AddOrderPopupView, Order> {
-    private OrderDao orderDao;
-    private EmployeeDao employeeDao;
-    private ShipmentDao shipmentDao;
-    private TableDao tableDao;
-    private DecimalFormat formatter;
-    private Order order;
+    private final OrderDao orderDao;
+//    private final EmployeeDao employeeDao;
+//    private final ShipmentDao shipmentDao;
+    private final TableDao tableDao;
+//    private final DecimalFormat formatter;
 
     public AddOrderPopupController() {
         this.orderDao = new OrderDao();
-        this.employeeDao = new EmployeeDao();
-        this.shipmentDao = new ShipmentDao();
+//        this.employeeDao = new EmployeeDao();
+//        this.shipmentDao = new ShipmentDao();
         this.tableDao = new TableDao();
-        this.formatter = new DecimalFormat("###,###,###");
+//        this.formatter = new DecimalFormat("###,###,###");
     }
 
     public AddOrderPopupController(OrderDao orderDao, EmployeeDao employeeDao, ShipmentDao shipmentDao, TableDao tableDao) {
         this.orderDao = orderDao;
-        this.employeeDao = employeeDao;
-        this.shipmentDao = shipmentDao;
+//        this.employeeDao = employeeDao;
+//        this.shipmentDao = shipmentDao;
         this.tableDao = tableDao;
-        this.formatter = new DecimalFormat("###,###,###");
+//        this.formatter = new DecimalFormat("###,###,###");
     }
 
     @Override
     protected void addEntity(AddOrderPopupView view) throws Exception {
-        order = new Order();
+        Order order = new Order();
         Table table = (Table) view.getTbComboBoxModel().getSelectedItem();
         OrderType type = OrderType.getByName(view.getCboType().getSelectedItem().toString());
         Employee employee = SessionManager.getSession().getEmployee();
@@ -78,7 +78,6 @@ public class AddOrderPopupController extends PopupController<AddOrderPopupView, 
         order.setType(type);
         order.setDiscount(discount);
         order.setCustomerId(1);
-        System.out.println(order);
         orderDao.save(order);
         tableDao.update(table);
     }
@@ -95,10 +94,9 @@ public class AddOrderPopupController extends PopupController<AddOrderPopupView, 
             for (OrderType ot : OrderType.values()) {
                 view.getCboType().addItem(ot.getName());
             }
-        } catch (Exception exception) {
+        } catch (SQLException exception) {
             view.dispose();
             ec.onError(exception);
-            return;
         }
     }
 

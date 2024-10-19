@@ -24,11 +24,11 @@ import views.popup.TablePopupView;
  */
 public class TableManagerController extends ManagerController{
 
-    private TableDao tableDao;
-    private TablePopupController popupController;
+    private final TableDao tableDao;
+    private final TablePopupController popupController;
     
     public TableManagerController() {
-        super();
+//        super();
         tableDao = new TableDao();
         popupController = new TablePopupController();
     }
@@ -41,11 +41,9 @@ public class TableManagerController extends ManagerController{
     
 
     public void setView(TableManagerView view) {
-        super.setView(view); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        super.setView(view);
     }
-    
-    
-    
+
     @Override
     public void actionAdd() {
         SuccessCallback successCallback = new SuccessCallback() {
@@ -58,54 +56,52 @@ public class TableManagerController extends ManagerController{
         ErrorCallback errorCallback = new ErrorCallback() {
             @Override
             public void onError(Exception e) {
-                view.showError(e);
+                getView().showError(e);
             }
         };
         popupController.add(new TablePopupView(), successCallback, errorCallback);
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void actionSearch() {
         try {
-            ArrayList<Table> tables = tableDao.searchByKey(view.getComboSearchField().getSelectedItem().toString(), view.getSearchTxt().getText());
-            view.setTableData(tables);
+            ArrayList<Table> tables = tableDao.searchByKey(getView().getComboSearchField().getSelectedItem().toString(), getView().getSearchTxt().getText());
+            getView().setTableData(tables);
         } catch (Exception e) {
-            view.showError(e);
+            getView().showError(e);
         }
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void actionDelete() {
-        int selectedIds[] = view.getSelectedIds();
+        int selectedIds[] = getView().getSelectedIds();
         try {
             if (selectedIds.length > 1) {
                 if (JOptionPane.showConfirmDialog(null, "Xác nhận xóa hàng loạt?", "Xóa", ERROR_MESSAGE) != YES_OPTION) {
                     return;
                 }
-            } else if (selectedIds.length == 1){
+            } else if (selectedIds.length == 1) {
                 if (JOptionPane.showConfirmDialog(null, "Xác nhận xóa bàn?", "Xóa", ERROR_MESSAGE) != YES_OPTION) {
                     return;
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Vui lòng chọn bàn cần xoá!");
             }
-            for (int i = 0; i < selectedIds.length; i++) {
-                tableDao.deleteById(selectedIds[i]);
+            for (int id : selectedIds) {
+                tableDao.deleteById(id);
                 updateData();
             }
         } catch (Exception e) {
-            view.showError(e);
+            getView().showError(e);
         }
     }
 
     @Override
     public void actionEdit() {
         try {
-            int selectedId = view.getSelectedId();
+            int selectedId = getView().getSelectedId();
             if (selectedId < 0) {
-                throw new Exception("Chọn bàn cần edit");
+                throw new Exception("Chọn bàn cần chỉnh sửa");
             } else {
                 Table t = tableDao.getById(selectedId);
                 if (t == null) {
@@ -121,26 +117,24 @@ public class TableManagerController extends ManagerController{
                 ErrorCallback errorCallback = new ErrorCallback() {
                     @Override
                     public void onError(Exception e) {
-                        view.showError(e);
+                        getView().showError(e);
                     }
                 };
                 popupController.edit(new TablePopupView(), t, successCallback, errorCallback);
             }
         } catch (Exception e) {
-            view.showError(e);
+            getView().showError(e);
         }
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void updateData() {
         try {
             ArrayList<Table> tables = tableDao.getAll();
-            view.setTableData(tables);
+            getView().setTableData(tables);
         } catch (Exception e) {
-            view.showError(e);
+            getView().showError(e);
         }
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }

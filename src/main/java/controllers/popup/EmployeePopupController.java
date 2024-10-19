@@ -17,7 +17,7 @@ import views.popup.EmployeePopupView;
  * @author P51
  */
 public class EmployeePopupController extends PopupController<EmployeePopupView, Employee>{
-    private EmployeeDao employeeDao;
+    private final EmployeeDao employeeDao;
     public EmployeePopupController() {
         this.employeeDao = new EmployeeDao();
     }

@@ -18,10 +18,9 @@ import views.admin.ManagerPaneView;
  * @author P51
  */
 public abstract class ManagerController {
-    protected ManagerPaneView view = null;
-    
+    private ManagerPaneView view = null;
+
     public ManagerController() {
-        
     }
 
     public ManagerPaneView getView() {
@@ -35,7 +34,6 @@ public abstract class ManagerController {
         } else {
             this.view = view;
         }
-        
     }
 
     public abstract void actionAdd();
@@ -47,7 +45,7 @@ public abstract class ManagerController {
     public abstract void actionEdit();
 
     public abstract void updateData();
-    
+
     private void addEvent() {
         // display place holder
         view.getSearchTxt().addFocusListener(new FocusAdapter() {
@@ -58,7 +56,7 @@ public abstract class ManagerController {
                     view.getSearchTxt().setForeground(Color.BLACK);
                 }
             }
-            
+
             @Override
             public void focusLost(FocusEvent event) {
                 if (view.getSearchTxt().getText().equals("") || view.getSearchTxt().getText().equals("Search")) {
@@ -67,7 +65,7 @@ public abstract class ManagerController {
                 }
             }
         });
-        
+
         view.getSearchTxt().addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent event) {
@@ -76,8 +74,7 @@ public abstract class ManagerController {
                 }
             }
         });
-        
-        
+
         view.getAddButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
@@ -102,7 +99,6 @@ public abstract class ManagerController {
                 updateData();
             }
         });
-        
     }
     
     

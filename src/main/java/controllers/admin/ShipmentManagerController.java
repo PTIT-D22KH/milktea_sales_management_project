@@ -9,6 +9,7 @@ import controllers.popup.ErrorCallback;
 import controllers.popup.ShipmentPopupControler;
 import controllers.popup.SuccessCallback;
 import dao.ShipmentDao;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
@@ -21,70 +22,70 @@ import views.popup.ShipmentPopupView;
  * @author P51
  */
 public class ShipmentManagerController extends ManagerController{
-    private ShipmentDao shipmentDao;
-    private ShipmentPopupControler popupController;
+    private final ShipmentDao shipmentDao;
+    private final ShipmentPopupControler popupController;
     
     public ShipmentManagerController() {
-        super();
+//        super();
         this.shipmentDao = new ShipmentDao();
         this.popupController = new ShipmentPopupControler();
     }
 
     public ShipmentManagerController(ShipmentDao shipmentDao, ShipmentPopupControler popupController) {
-        super();
+//        super();
         this.shipmentDao = shipmentDao;
         this.popupController = popupController;
     }
     
     @Override
     public void actionAdd() {
-       view.showMessage("Vui lòng thao tác ở giao diện chỉnh sửa hóa đơn!");
+        getView().showMessage("Vui lòng thao tác ở giao diện chỉnh sửa hóa đơn!");
     }
 
     @Override
     public void actionSearch() {
         try {
-            ArrayList<Shipment> shipments = shipmentDao.searchByKey(view.getComboSearchField().getSelectedItem().toString(), String.valueOf(view.getSearchTxt().getText()));
-            view.setTableData(shipments);
-        } catch (Exception e) {
-            view.showError(e);
+            ArrayList<Shipment> shipments = shipmentDao.searchByKey(getView().getComboSearchField().getSelectedItem().toString(), String.valueOf(getView().getSearchTxt().getText()));
+            getView().setTableData(shipments);
+        } catch (SQLException e) {
+            getView().showError(e);
         }
     }
 
     @Override
     public void actionDelete() {
-        int selectedIds[] = view.getSelectedIds();
+        int selectedIds[] = getView().getSelectedIds();
         try {
             if (selectedIds.length > 1) {
                 if (JOptionPane.showConfirmDialog(null, "Xác nhận xóa hàng loạt?", "Xóa", ERROR_MESSAGE) != YES_OPTION) {
                     return;
                 }
-            } else if (selectedIds.length == 1){
+            } else if (selectedIds.length == 1) {
                 if (JOptionPane.showConfirmDialog(null, "Xác nhận xóa đơn ship?", "Xóa", ERROR_MESSAGE) != YES_OPTION) {
                     return;
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Vui lòng chọn đơn ship cần xoá!");
             }
-            for (int i = 0; i < selectedIds.length; i++) {
-                shipmentDao.deleteById(selectedIds[i]);
+            for (int id : selectedIds) {
+                shipmentDao.deleteById(id);
                 updateData();
             }
         } catch (Exception e) {
-            view.showError(e);
+            getView().showError(e);
         }
     }
 
     @Override
     public void actionEdit() {
         try {
-            int selectedId = view.getSelectedId();
+            int selectedId = getView().getSelectedId();
             if (selectedId < 0) {
-                throw  new Exception("Chọn đơn ship cần chỉnh sửa!");
+                throw new Exception("Chọn đơn ship cần chỉnh sửa!");
             } else {
                 Shipment e = shipmentDao.getById(selectedId);
                 if (e == null) {
-                    throw  new Exception("Đơn ship bạn chọn không hợp lê");
+                    throw new Exception("Đơn ship bạn chọn không hợp lệ");
                 }
                 // Declare the success callback
                 SuccessCallback successCallback = new SuccessCallback() {
@@ -98,14 +99,14 @@ public class ShipmentManagerController extends ManagerController{
                 ErrorCallback errorCallback = new ErrorCallback() {
                     @Override
                     public void onError(Exception ex) {
-                        view.showError(ex);
+                        getView().showError(ex);
                     }
                 };
                 popupController.edit(new ShipmentPopupView(), e.getOrderId(), successCallback, errorCallback);
             }
-                   
+
         } catch (Exception e) {
-            view.showError(e);
+            getView().showError(e);
         }
     }
 
@@ -113,10 +114,10 @@ public class ShipmentManagerController extends ManagerController{
     public void updateData() {
         try {
             ArrayList<Shipment> shipments = shipmentDao.getAll();
-            view.setTableData(shipments);
-            
-        } catch (Exception e) {
-            view.showError(e);
+            getView().setTableData(shipments);
+
+        } catch (SQLException e) {
+            getView().showError(e);
         }
     }
     

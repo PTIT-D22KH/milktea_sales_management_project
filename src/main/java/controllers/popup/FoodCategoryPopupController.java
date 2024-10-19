@@ -8,7 +8,7 @@ import views.popup.FoodCategoryPopupView;
 import javax.swing.JFrame;
 
 public class FoodCategoryPopupController extends PopupController<FoodCategoryPopupView, FoodCategory>{
-    private FoodCategoryDao foodCategoryDao;
+    private final FoodCategoryDao foodCategoryDao;
     
     public FoodCategoryPopupController(){
         this.foodCategoryDao = new FoodCategoryDao();

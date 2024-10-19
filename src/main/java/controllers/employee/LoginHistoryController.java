@@ -8,6 +8,7 @@ import dao.SessionDao;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import models.Session;
+import utils.SessionManager;
 import views.employee.LoginHistoryView;
 import views.employee.SessionLoginView;
 
@@ -20,6 +21,9 @@ public class LoginHistoryController {
     private LoginHistoryView view;
     private final SessionDao sessionDao = new SessionDao();
     private int employeeId;
+    public LoginHistoryController() {
+        employeeId = SessionManager.getSession().getEmployeeId();
+    }
     public void show(LoginHistoryView view) {
         if (previousView != null && previousView.isDisplayable()) {
             previousView.requestFocus();

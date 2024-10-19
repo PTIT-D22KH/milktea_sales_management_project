@@ -6,14 +6,17 @@ package controllers.popup;
 
 import dao.CustomerDao;
 import dao.EmployeeDao;
+import dao.OrderDao;
 import dao.ShipmentDao;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import models.Customer;
 import models.Employee;
+import models.Order;
 import models.Shipment;
 import utils.ShipmentStatus;
 import views.popup.SelectCustomerPopupView;
@@ -24,23 +27,20 @@ import views.popup.ShipmentPopupView;
  * @author buiva
  */
 public class ShipmentPopupControler{
-    private ShipmentDao shipmentDao;
-    private CustomerDao customerDao;
-    private EmployeeDao employeeDao;
+    private final ShipmentDao shipmentDao; 
+    private final CustomerDao customerDao;
+    private final EmployeeDao employeeDao;
+    private final OrderDao orderDao;
+    private boolean isEmployeeChosen;
     private JFrame previousView;
     
-    public ShipmentPopupControler() {
-        shipmentDao = new ShipmentDao();
-        customerDao = new CustomerDao();
-        employeeDao = new EmployeeDao();
-    }
-
-    public ShipmentPopupControler(ShipmentDao shipmentDao, CustomerDao customerDao, EmployeeDao employeeDao) {
-        this.shipmentDao = shipmentDao;
-        this.customerDao = customerDao;
-        this.employeeDao = employeeDao;
-    }
-    
+    public ShipmentPopupControler(){ 
+        isEmployeeChosen = false;
+        this.shipmentDao = new ShipmentDao();
+        this.customerDao = new CustomerDao();
+        this.employeeDao = new EmployeeDao();
+        this.orderDao = new OrderDao();
+    }    
     public void add(ShipmentPopupView view, int orderId, SuccessCallback sc, ErrorCallback ec) {
         if (previousView != null && previousView.isDisplayable()) {
             previousView.requestFocus();
@@ -86,8 +86,11 @@ public class ShipmentPopupControler{
         }
         try {
             Shipment shipment = shipmentDao.getById(orderId);
-            if (shipment.getCustomer() != null) {
-                view.getLbCustomerName().setText(shipment.getCustomer().getName());
+            Order order = orderDao.getById(orderId);
+            if (order.getCustomerId() != 0) {
+                Customer customer = customerDao.getById(order.getCustomerId());
+                shipment.setCustomer(customer);
+                view.getLbCustomerName().setText(customer.getName());
             } else {
                 view.getLbCustomerName().setText("<Chưa chọn>");
             }
@@ -100,6 +103,7 @@ public class ShipmentPopupControler{
                         public void run(Employee employee) {
                             shipment.setEmployee(employee);
                             view.getLbEmployeeName().setText(employee.getName());
+                            isEmployeeChosen = true;
                         }
                     });
                 }
@@ -126,20 +130,24 @@ public class ShipmentPopupControler{
                 @Override
                 public void actionPerformed(ActionEvent evt) {
                     try {
+                        if (!isEmployeeChosen) {
+                            JOptionPane.showMessageDialog(null, "Bạn chưa chọn nhân viên giao hàng!");
+                            return;
+                        }
                         editShipment(view, shipment);
+                        isEmployeeChosen = false;
                         view.dispose();
                         view.showMessage("Tạo / sửa đơn ship thành công!");
                         sc.onSuccess();
                     } catch (SQLException e) {
                         ec.onError(e);
                     }
-                    
                 }
             });
         } catch (Exception e) {
             ec.onError(e);
             view.dispose();
-        }
+            }
     }
     
     public void editShipment(ShipmentPopupView view, Shipment shipment) throws SQLException {

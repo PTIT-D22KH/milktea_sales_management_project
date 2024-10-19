@@ -16,8 +16,15 @@ import views.popup.PopupView;
  * @param <T>
  * @param <M>
  */
-public abstract class PopupController<T extends JFrame & PopupView, M extends Model> implements BasePopupController<T, M> {
-    protected JFrame previousView;
+/**
+ * Abstract controller for managing popups.
+ * Adheres to SRP by focusing only on popup management.
+ * 
+ * @param <T> The type of PopupView
+ * @param <M> The type of Model
+ */
+public abstract class PopupController<T extends JFrame & PopupView, S extends Model> implements BasePopupController<T, S> {
+    private JFrame previousView;
 
     @Override
     public void add(T view, SuccessCallback sc, ErrorCallback ec) {
@@ -27,12 +34,33 @@ public abstract class PopupController<T extends JFrame & PopupView, M extends Mo
         }
         previousView = view;
         view.setVisible(true);
+        addCancelListener(view);
+        addOkListener(view, sc, ec);
+    }
+
+    @Override
+    public void edit(T view, S model, SuccessCallback sc, ErrorCallback ec) {
+        if (previousView != null && previousView.isDisplayable()) {
+            previousView.requestFocus();
+            return;
+        }
+        previousView = view;
+        view.setVisible(true);
+        addCancelListener(view);
+        addEditListener(view, model, sc, ec);
+        view.getBtnOK().setText("Cập nhật");
+    }
+
+    private void addCancelListener(T view) {
         view.getBtnCancel().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 view.dispose();
             }
         });
+    }
+
+    private void addOkListener(T view, SuccessCallback sc, ErrorCallback ec) {
         view.getBtnOK().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
@@ -48,38 +76,31 @@ public abstract class PopupController<T extends JFrame & PopupView, M extends Mo
         });
     }
 
-    @Override
-    public void edit(T view, M model, SuccessCallback sc, ErrorCallback ec) {
-        if (previousView != null && previousView.isDisplayable()) {
-            previousView.requestFocus();
-            return;
-        }
-        previousView = view;
-        view.setVisible(true);
-        view.getBtnCancel().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent event) {
-                view.dispose();
-            }
-        });
-
+    private void addEditListener(T view, S model, SuccessCallback sc, ErrorCallback ec) {
         view.getBtnOK().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
                 try {
                     editEntity(view, model);
                     view.dispose();
-                    view.showMessage("Sửa " + model.getClassName() +" thành công!");
+                    view.showMessage("Sửa " + model.getClassName() + " thành công!");
                     sc.onSuccess();
                 } catch (Exception ex) {
                     ec.onError(ex);
                 }
             }
         });
-        view.getBtnOK().setText("Cập nhật");
     }
 
     protected abstract void addEntity(T view) throws Exception;
 
-    protected abstract void editEntity(T view, M model) throws Exception;
+    protected abstract void editEntity(T view, S model) throws Exception;
+    
+    protected JFrame getPreviousView() {
+        return previousView;
+    }
+
+    protected void setPreviousView(JFrame previousView) {
+        this.previousView = previousView;
+    }
 }

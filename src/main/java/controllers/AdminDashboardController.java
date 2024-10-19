@@ -13,7 +13,6 @@ import javax.swing.JPanel;
 import models.Employee;
 import utils.SessionManager;
 import views.AdminDashboardView;
-import views.DashboardView;
 import views.admin.CustomerManagerView;
 import views.admin.EmployeeManagerView;
 import views.admin.FoodCategoryManagerView;
@@ -24,50 +23,60 @@ import views.admin.ShipmentManagerView;
 import views.admin.TableManagerView;
 import views.employee.EmployeeInformationView;
 
+
 /**
  *
  * @author P51
  */
 public class AdminDashboardController extends DashboardController<AdminDashboardView>{
     
-    private ManagerController employeeManagerController = new EmployeeManagerController();
-    private ManagerController tableManagerController = new TableManagerController();
-    private ManagerController foodCategoryManagerController = new FoodCategoryManagerController();
-    private ManagerController foodItemManagerController = new FoodItemManagerController();
-    private EmployeeInformationController informationController = new EmployeeInformationController();
+    private final ManagerController employeeManagerController;
+    private final ManagerController tableManagerController;
+    private final ManagerController foodCategoryManagerController;
+    private final ManagerController foodItemManagerController;
+    private final EmployeeInformationController informationController;
 
-    private ManagerPaneView employeeManagerView = new EmployeeManagerView();
-    private ManagerPaneView tableManagerView = new TableManagerView(); 
-    private ManagerPaneView foodCategoryManagerView= new FoodCategoryManagerView();
-    private ManagerPaneView foodItemManagerView = new FoodItemManagerView();
-    
-    private EmployeeInformationView informationView = new EmployeeInformationView();
-    private JPanel[] cards = {
-        homeView, employeeManagerView, tableManagerView, customerManagerView,
-        foodCategoryManagerView, orderManagerView, foodItemManagerView, shipmentManagerView,
-        aboutView, informationView
-    };
+    private final ManagerPaneView employeeManagerView;
+    private final ManagerPaneView tableManagerView;
+    private final ManagerPaneView foodCategoryManagerView;
+    private final ManagerPaneView foodItemManagerView;
+    private final EmployeeInformationView informationView;
+    private final JPanel[] cards;
 
     public AdminDashboardController(AdminDashboardView view) {
         this.view = view;
+        this.employeeManagerController = new EmployeeManagerController();
+        this.tableManagerController = new TableManagerController();
+        this.foodCategoryManagerController = new FoodCategoryManagerController();
+        this.foodItemManagerController = new FoodItemManagerController();
+        this.informationController = new EmployeeInformationController();
+
+        this.employeeManagerView = new EmployeeManagerView();
+        this.tableManagerView = new TableManagerView();
+        this.foodCategoryManagerView = new FoodCategoryManagerView();
+        this.foodItemManagerView = new FoodItemManagerView();
+        this.informationView = new EmployeeInformationView();
+
+        this.cards = new JPanel[]{
+            homeView, employeeManagerView, tableManagerView, customerManagerView,
+            foodCategoryManagerView, orderManagerView, foodItemManagerView, shipmentManagerView,
+            aboutView, informationView
+        };
+
         sidebarController.setSidebarPanel(view.getPanelSideBar());
         view.setVisible(true);
         initMenu();
         addEvent();
         Employee session = SessionManager.getSession().getEmployee();
-        System.out.println(session);
         if (session != null) {
             view.getLbName().setText(session.getName());
         }
         view.setCards(cards);
         view.setPanel(homeView);
-        view.setCards(cards);
     }
 
     @Override
     protected void initMenu() {
-        
-//        menuQLKH.setVisible(true);
         MenuItemView menuQLKH = new MenuItemView("QLKH", "Quản lý khách hàng");
         MenuItemView menuQLNV = new MenuItemView("QLNV", "Quản lý nhân viên");
         MenuItemView menuQLHH = new MenuItemView("QLHH", "Quản lý hàng hóa");
@@ -78,13 +87,11 @@ public class AdminDashboardController extends DashboardController<AdminDashboard
         menuQLDH.addSubMenu(new MenuItemView("QLKH", "Quản lý khách hàng"));
         menuQLDH.addSubMenu(new MenuItemView("QLDDH", "Quản lý đơn đặt hàng"));
         menuQLDH.addSubMenu(new MenuItemView("QLGH", "Quản lý giao hàng"));
-//        MenuItemView menuQLDDH = new MenuItemView("QLDDH","Quản lý đơn đặt hàng");
-//        MenuItemView menuQLGH = new MenuItemView("QLGH", "Quản lý giao hàng");
         MenuItemView menuTL = new MenuItemView("TL", "Thiết lập");
         menuTL.addSubMenu(new MenuItemView("TTCN", "Thông tin cá nhân"));
         menuTL.addSubMenu(new MenuItemView("TLGD", "Giao diện"));
         menuTL.addSubMenu(new MenuItemView("TT", "About us"));
-        
+
         sidebarController.addMenu(menuQLNV, menuQLHH, menuQLDH, menuTL);
         sidebarController.addMenuEvent(this::onMenuChange);
     }
@@ -97,32 +104,32 @@ public class AdminDashboardController extends DashboardController<AdminDashboard
                 employeeManagerController.setView(employeeManagerView);
                 employeeManagerController.updateData();
                 break;
-            case "QLDDH"://Đơn đặt hàng
+            case "QLDDH": // Đơn đặt hàng
                 view.setPanel(orderManagerView);
                 orderManagerController.setView(orderManagerView);
                 orderManagerController.updateData();
                 break;
-            case "QLB"://Quản lý bàn
+            case "QLB": // Quản lý bàn
                 view.setPanel(tableManagerView);
                 tableManagerController.setView(tableManagerView);
                 tableManagerController.updateData();
                 break;
-            case "QLLM"://Quản lý loại món
+            case "QLLM": // Quản lý loại món
                 view.setPanel(foodCategoryManagerView);
                 foodCategoryManagerController.setView(foodCategoryManagerView);
                 foodCategoryManagerController.updateData();
                 break;
-            case "QLMA"://Quản lý món ăn
+            case "QLMA": // Quản lý món ăn
                 view.setPanel(foodItemManagerView);
                 foodItemManagerController.setView(foodItemManagerView);
                 foodItemManagerController.updateData();
                 break;
-            case "QLKH"://Quản lý khách hàng
+            case "QLKH": // Quản lý khách hàng
                 view.setPanel(customerManagerView);
                 customerManagerController.setView(customerManagerView);
                 customerManagerController.updateData();
                 break;
-            case "QLGH"://Quản lý giao hàng
+            case "QLGH": // Quản lý giao hàng
                 view.setPanel(shipmentManagerView);
                 shipmentManagerController.setView(shipmentManagerView);
                 shipmentManagerController.updateData();

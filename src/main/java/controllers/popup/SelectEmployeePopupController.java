@@ -17,21 +17,32 @@ import views.popup.SelectEntityPopupView;
  *
  * @author buiva
  */
+/**
+ * Controller for managing employee selection popups.
+ * Adheres to SRP by focusing only on employee selection popup management.
+ */
 public class SelectEmployeePopupController extends SelectEntityPopupController<SelectEmployeePopupView, EmployeeDao, Employee>{
 //    private EmployeeDao employeeDao;
 //    private JFrame previousView;
-    public SelectEmployeePopupController() {
-        this.entityDao = new EmployeeDao();
-    }
-//
-    
-    public SelectEmployeePopupController(EmployeeDao employeeDao) {
-        this.entityDao = employeeDao;
-    }
+//    public SelectEmployeePopupController() {
+//        this.entityDao = new EmployeeDao();
+//    }
+////
+//    
+//    public SelectEmployeePopupController(EmployeeDao employeeDao) {
+//        this.entityDao = employeeDao;
+//    }
 //    
 //    public interface Callback {
 //        public abstract void run(Employee employee);
 //    }
+    public SelectEmployeePopupController() {
+        super(new EmployeeDao());
+    }
+
+    public SelectEmployeePopupController(EmployeeDao employeeDao) {
+        super(employeeDao);
+    }
     @Override
     public void select(SelectEmployeePopupView view, Callback<Employee> callback) {
         super.select(view, callback);
@@ -53,7 +64,7 @@ public class SelectEmployeePopupController extends SelectEntityPopupController<S
             public void actionPerformed(ActionEvent e) {
                 String txtSearch = view.getEntityNameTxtField().getText();
                 try {
-                    view.renderEntity(entityDao.searchByKey("name", txtSearch));          
+                    view.renderEntity(getEntityDao().searchByKey("name", txtSearch));          
                 }
                 catch (Exception exception) {
                     view.showError(exception);

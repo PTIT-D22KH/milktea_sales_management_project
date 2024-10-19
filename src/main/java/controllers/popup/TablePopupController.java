@@ -16,7 +16,7 @@ import views.popup.TablePopupView;
  * @author namle
  */
 public class TablePopupController extends PopupController<TablePopupView, Table>{
-    private TableDao tableDao;
+    private final TableDao tableDao;
     
     public TablePopupController() {
         this.tableDao = new TableDao();

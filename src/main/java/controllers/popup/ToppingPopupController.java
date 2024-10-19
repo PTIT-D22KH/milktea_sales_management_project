@@ -20,7 +20,7 @@ import views.popup.ToppingPopupView;
  * @author namle
  */
 public class ToppingPopupController {
-    private FoodItemDao foodItemDao;
+    private final FoodItemDao foodItemDao;
     private DecimalFormat formatter;
     private JFrame previousView;
 

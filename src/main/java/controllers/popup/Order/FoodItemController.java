@@ -18,8 +18,8 @@ import views.popup.order.FoodItemPane;
  * @author P51
  */
 public class FoodItemController {
-    private FoodCategoryDao foodCategoryDao;
-    private FoodItemDao foodItemDao;
+    private final FoodCategoryDao foodCategoryDao;
+    private final FoodItemDao foodItemDao;
     private JPanel foodCategoryPanel, foodItemPanel;
     
     public interface Event {

@@ -13,8 +13,8 @@ import javax.swing.JFrame;
  * @param <T>
  */
 public abstract class AuthenticationController<T extends JFrame> implements  AuthenticationBase{
-    protected T view;
-    protected EmployeeDao employeeDao;
+    protected final T view;
+    protected final EmployeeDao employeeDao;
     
     public AuthenticationController(T view) {
         this.view = view;
@@ -26,12 +26,6 @@ public abstract class AuthenticationController<T extends JFrame> implements  Aut
         this.employeeDao = employeeDao;
         addEvent();
     }
-//    public void setView(T view) {
-//        this.view = view;
-//    }
-//    public T getView() {
-//        return view;
-//    }
     @Override
     public void showView(){
         view.setVisible(true);

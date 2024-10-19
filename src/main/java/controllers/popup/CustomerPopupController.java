@@ -5,8 +5,6 @@
 package controllers.popup;
 
 import dao.CustomerDao;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import models.Customer;
 import views.popup.CustomerPopupView;
 
@@ -15,7 +13,7 @@ import views.popup.CustomerPopupView;
  * @author P51
  */
 public class CustomerPopupController extends PopupController<CustomerPopupView, Customer>{
-    private CustomerDao customerDao;
+    private final CustomerDao customerDao;
     
     public CustomerPopupController() {
         this.customerDao = new CustomerDao();

@@ -4,7 +4,7 @@
  */
 package controllers.popup;
 import controllers.OrderPrintController;
-import controllers.popup.Order.OrderItemController;
+import controllers.popup.order.OrderItemController;
 import controllers.popup.order.FoodItemController;
 import dao.EmployeeDao;
 import dao.OrderDao;
@@ -15,7 +15,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import models.Customer;
 import models.Employee;
@@ -37,21 +36,21 @@ import views.popup.ToppingPopupView;
  * @author P51
  */
 public class EditOrderPopupController extends PopupController<EditOrderPopupView, Order> {
-    private OrderDao orderDao;
-    private EmployeeDao employeeDao;
-    private ShipmentDao shipmentDao;
-    private TableDao tableDao;
-    private OrderItemDao orderItemDao;
-    private FoodItemController foodItemController;
-    private OrderItemController orderItemController;    
-    private ToppingPopupController toppingPopupController;
-    private ShipmentPopupControler shipmentPopupControler;
-    private OrderPrintController orderPrintController;
-    private DecimalFormat formatter;
+    private final OrderDao orderDao;
+//    private final EmployeeDao employeeDao;
+    private final ShipmentDao shipmentDao;
+    private final TableDao tableDao;
+    private final OrderItemDao orderItemDao;
+    private final FoodItemController foodItemController;
+    private final OrderItemController orderItemController;    
+    private final ToppingPopupController toppingPopupController;
+    private final ShipmentPopupControler shipmentPopupControler;
+    private final OrderPrintController orderPrintController;
+    private final DecimalFormat formatter;
 
     public EditOrderPopupController() {
         this.orderDao = new OrderDao();
-        this.employeeDao = new EmployeeDao();
+//        this.employeeDao = new EmployeeDao();
         this.shipmentDao = new ShipmentDao();
         this.tableDao = new TableDao();
         this.orderItemDao = new OrderItemDao();
@@ -65,7 +64,7 @@ public class EditOrderPopupController extends PopupController<EditOrderPopupView
 
     public EditOrderPopupController(OrderDao orderDao, EmployeeDao employeeDao, ShipmentDao shipmentDao, TableDao tableDao, OrderItemDao orderItemDao, FoodItemController foodItemController, OrderItemController orderItemController, ToppingPopupController toppingPopupController, ShipmentPopupControler shipmentPopupControler, OrderPrintController orderPrintController) {
         this.orderDao = orderDao;
-        this.employeeDao = employeeDao;
+//        this.employeeDao = employeeDao;
         this.shipmentDao = shipmentDao;
         this.tableDao = tableDao;
         this.orderItemDao = orderItemDao;
@@ -141,11 +140,11 @@ public class EditOrderPopupController extends PopupController<EditOrderPopupView
     
     @Override
     public void edit(EditOrderPopupView view, Order order, SuccessCallback sc, ErrorCallback ec) {
-        if (previousView != null && previousView.isDisplayable()) {
-            previousView.requestFocus();
+        if (getPreviousView() != null && getPreviousView().isDisplayable()) {
+            getPreviousView().requestFocus();
             return;
         }
-        previousView = view;
+        setPreviousView(view);
         Employee currentLogin = SessionManager.getSession().getEmployee();
         if (order.getEmployee() == null) {
             order.setEmployee(currentLogin);
