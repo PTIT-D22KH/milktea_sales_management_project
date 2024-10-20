@@ -4,6 +4,13 @@
  */
 package views.employee;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import utils.ErrorPopup;
+
 /**
  *
  * @author TP
@@ -15,6 +22,7 @@ public class CalendarView extends javax.swing.JPanel {
      */
     public CalendarView() {
         initComponents();
+        setSize(738, 578);
     }
 
     /**
@@ -28,17 +36,42 @@ public class CalendarView extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel2 = new javax.swing.JPanel();
-        panel_Title = new javax.swing.JPanel();
-        label_Title = new javax.swing.JLabel();
-        panel_Static = new javax.swing.JPanel();
-        panel_FullCalendar = new javax.swing.JPanel();
-        panel_Month = new javax.swing.JPanel();
-        panel_Day = new javax.swing.JPanel();
-        panel_Selection = new javax.swing.JPanel();
+        panelTitle = new javax.swing.JPanel();
+        labelTitle = new javax.swing.JLabel();
+        panelStatic = new javax.swing.JPanel();
+        panelTotalBills = new javax.swing.JPanel();
+        panelImage = new javax.swing.JPanel();
+        panelBill = new javax.swing.JPanel();
+        labelTotalBills = new javax.swing.JLabel();
+        labelNumberOfBills = new javax.swing.JLabel();
+        panelTotalSales = new javax.swing.JPanel();
+        panelSaleImage = new javax.swing.JPanel();
+        panelSale = new javax.swing.JPanel();
+        labelTotalSales = new javax.swing.JLabel();
+        labelSale = new javax.swing.JLabel();
+        panelTotalWorkingTime = new javax.swing.JPanel();
+        panelTimeImage = new javax.swing.JPanel();
+        panelWorkingTime = new javax.swing.JPanel();
+        labelTotalWorkingTime = new javax.swing.JLabel();
+        labelWorkingTime = new javax.swing.JLabel();
+        panelTotalWorkingDays = new javax.swing.JPanel();
+        panelDayImage = new javax.swing.JPanel();
+        panelWorkingDay = new javax.swing.JPanel();
+        labelTotalWorkingDays = new javax.swing.JLabel();
+        labelWorkingDay = new javax.swing.JLabel();
+        panelTotalBonus = new javax.swing.JPanel();
+        panelBonusImage = new javax.swing.JPanel();
+        panelBonus = new javax.swing.JPanel();
+        labelTotalBonus = new javax.swing.JLabel();
+        labelBonus = new javax.swing.JLabel();
+        panelFullCalendar = new javax.swing.JPanel();
+        panelMonth = new javax.swing.JPanel();
+        panelDay = new javax.swing.JPanel();
+        panelSelection = new javax.swing.JPanel();
         btnEnter = new javax.swing.JButton();
         txtYear = new javax.swing.JTextField();
         cmbMonth = new javax.swing.JComboBox<>();
-        panel_DayOfWeek = new javax.swing.JPanel();
+        panelDayOfWeek = new javax.swing.JPanel();
         panel_Sunday = new javax.swing.JPanel();
         label_Sunday = new javax.swing.JLabel();
         panel_Monday = new javax.swing.JPanel();
@@ -72,49 +105,303 @@ public class CalendarView extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(725, 578));
         setLayout(new java.awt.BorderLayout());
 
-        panel_Title.setBackground(new java.awt.Color(255, 255, 153));
-        panel_Title.setMaximumSize(new java.awt.Dimension(470, 32));
-        panel_Title.setMinimumSize(new java.awt.Dimension(470, 32));
-        panel_Title.setPreferredSize(new java.awt.Dimension(470, 32));
-        panel_Title.setLayout(new java.awt.GridBagLayout());
+        panelTitle.setBackground(new java.awt.Color(51, 255, 255));
+        panelTitle.setMaximumSize(new java.awt.Dimension(470, 32));
+        panelTitle.setMinimumSize(new java.awt.Dimension(470, 32));
+        panelTitle.setPreferredSize(new java.awt.Dimension(470, 32));
+        panelTitle.setLayout(new java.awt.GridBagLayout());
 
-        label_Title.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        label_Title.setForeground(new java.awt.Color(0, 0, 0));
-        label_Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        label_Title.setText("Lịch công");
-        label_Title.setAlignmentY(0.0F);
+        labelTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        labelTitle.setForeground(new java.awt.Color(0, 0, 0));
+        labelTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelTitle.setText("Lịch công");
+        labelTitle.setAlignmentY(0.0F);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        panel_Title.add(label_Title, gridBagConstraints);
+        panelTitle.add(labelTitle, gridBagConstraints);
 
-        add(panel_Title, java.awt.BorderLayout.PAGE_START);
+        add(panelTitle, java.awt.BorderLayout.PAGE_START);
 
-        panel_Static.setBackground(new java.awt.Color(51, 255, 51));
-        panel_Static.setAlignmentX(0.0F);
-        panel_Static.setAlignmentY(0.0F);
-        panel_Static.setMinimumSize(new java.awt.Dimension(255, 500));
-        panel_Static.setPreferredSize(new java.awt.Dimension(255, 500));
-        add(panel_Static, java.awt.BorderLayout.CENTER);
+        panelStatic.setAlignmentX(0.0F);
+        panelStatic.setAlignmentY(0.0F);
+        panelStatic.setMinimumSize(new java.awt.Dimension(255, 500));
+        panelStatic.setPreferredSize(new java.awt.Dimension(255, 500));
 
-        panel_FullCalendar.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        panel_FullCalendar.setMinimumSize(new java.awt.Dimension(60, 70));
-        panel_FullCalendar.setPreferredSize(new java.awt.Dimension(470, 512));
-        panel_FullCalendar.setLayout(new java.awt.BorderLayout());
+        panelTotalBills.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        panelTotalBills.setMinimumSize(new java.awt.Dimension(84, 40));
+        panelTotalBills.setPreferredSize(new java.awt.Dimension(245, 100));
+        panelTotalBills.setLayout(new java.awt.BorderLayout());
 
-        panel_Month.setBackground(new java.awt.Color(204, 209, 209));
-        panel_Month.setAlignmentX(0.0F);
-        panel_Month.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        panel_Month.setMinimumSize(new java.awt.Dimension(10, 10));
-        panel_Month.setPreferredSize(new java.awt.Dimension(372, 434));
-        panel_FullCalendar.add(panel_Month, java.awt.BorderLayout.CENTER);
+        panelImage.setBackground(new java.awt.Color(0, 153, 204));
+        panelImage.setMaximumSize(new java.awt.Dimension(100, 100));
+        panelImage.setMinimumSize(new java.awt.Dimension(0, 0));
+        panelImage.setPreferredSize(new java.awt.Dimension(100, 100));
 
-        panel_Day.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        panel_Day.setMinimumSize(new java.awt.Dimension(60, 60));
-        panel_Day.setPreferredSize(new java.awt.Dimension(483, 79));
-        panel_Day.setLayout(new java.awt.BorderLayout());
+        javax.swing.GroupLayout panelImageLayout = new javax.swing.GroupLayout(panelImage);
+        panelImage.setLayout(panelImageLayout);
+        panelImageLayout.setHorizontalGroup(
+            panelImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        panelImageLayout.setVerticalGroup(
+            panelImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
-        panel_Selection.setPreferredSize(new java.awt.Dimension(483, 39));
+        panelTotalBills.add(panelImage, java.awt.BorderLayout.LINE_START);
+
+        panelBill.setBackground(new java.awt.Color(255, 255, 255));
+        panelBill.setMinimumSize(new java.awt.Dimension(84, 40));
+        panelBill.setPreferredSize(new java.awt.Dimension(84, 40));
+        panelBill.setLayout(new java.awt.GridBagLayout());
+
+        labelTotalBills.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labelTotalBills.setText("Số hóa đơn");
+        labelTotalBills.setMaximumSize(new java.awt.Dimension(74, 20));
+        labelTotalBills.setMinimumSize(new java.awt.Dimension(74, 20));
+        labelTotalBills.setPreferredSize(new java.awt.Dimension(74, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        panelBill.add(labelTotalBills, gridBagConstraints);
+
+        labelNumberOfBills.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labelNumberOfBills.setText("14");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        panelBill.add(labelNumberOfBills, gridBagConstraints);
+
+        panelTotalBills.add(panelBill, java.awt.BorderLayout.CENTER);
+
+        panelStatic.add(panelTotalBills);
+
+        panelTotalSales.setPreferredSize(new java.awt.Dimension(245, 100));
+        panelTotalSales.setLayout(new java.awt.BorderLayout());
+
+        panelSaleImage.setBackground(new java.awt.Color(221, 75, 57));
+        panelSaleImage.setMaximumSize(new java.awt.Dimension(100, 100));
+        panelSaleImage.setPreferredSize(new java.awt.Dimension(100, 100));
+
+        javax.swing.GroupLayout panelSaleImageLayout = new javax.swing.GroupLayout(panelSaleImage);
+        panelSaleImage.setLayout(panelSaleImageLayout);
+        panelSaleImageLayout.setHorizontalGroup(
+            panelSaleImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        panelSaleImageLayout.setVerticalGroup(
+            panelSaleImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        panelTotalSales.add(panelSaleImage, java.awt.BorderLayout.LINE_START);
+
+        panelSale.setBackground(new java.awt.Color(255, 255, 255));
+        panelSale.setLayout(new java.awt.GridBagLayout());
+
+        labelTotalSales.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labelTotalSales.setText("Số tiền bán hàng");
+        labelTotalSales.setMaximumSize(new java.awt.Dimension(120, 20));
+        labelTotalSales.setMinimumSize(new java.awt.Dimension(120, 20));
+        labelTotalSales.setPreferredSize(new java.awt.Dimension(120, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        panelSale.add(labelTotalSales, gridBagConstraints);
+
+        labelSale.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labelSale.setText("14");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        panelSale.add(labelSale, gridBagConstraints);
+
+        panelTotalSales.add(panelSale, java.awt.BorderLayout.CENTER);
+
+        panelStatic.add(panelTotalSales);
+
+        panelTotalWorkingTime.setPreferredSize(new java.awt.Dimension(245, 100));
+        panelTotalWorkingTime.setLayout(new java.awt.BorderLayout());
+
+        panelTimeImage.setBackground(new java.awt.Color(102, 102, 255));
+        panelTimeImage.setMaximumSize(new java.awt.Dimension(100, 100));
+        panelTimeImage.setPreferredSize(new java.awt.Dimension(100, 100));
+
+        javax.swing.GroupLayout panelTimeImageLayout = new javax.swing.GroupLayout(panelTimeImage);
+        panelTimeImage.setLayout(panelTimeImageLayout);
+        panelTimeImageLayout.setHorizontalGroup(
+            panelTimeImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        panelTimeImageLayout.setVerticalGroup(
+            panelTimeImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        panelTotalWorkingTime.add(panelTimeImage, java.awt.BorderLayout.LINE_START);
+
+        panelWorkingTime.setBackground(new java.awt.Color(255, 255, 255));
+        panelWorkingTime.setLayout(new java.awt.GridBagLayout());
+
+        labelTotalWorkingTime.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labelTotalWorkingTime.setText("Tổng thời gian LV");
+        labelTotalWorkingTime.setMaximumSize(new java.awt.Dimension(120, 20));
+        labelTotalWorkingTime.setMinimumSize(new java.awt.Dimension(120, 20));
+        labelTotalWorkingTime.setPreferredSize(new java.awt.Dimension(120, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        panelWorkingTime.add(labelTotalWorkingTime, gridBagConstraints);
+
+        labelWorkingTime.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labelWorkingTime.setText("14");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        panelWorkingTime.add(labelWorkingTime, gridBagConstraints);
+
+        panelTotalWorkingTime.add(panelWorkingTime, java.awt.BorderLayout.CENTER);
+
+        panelStatic.add(panelTotalWorkingTime);
+
+        panelTotalWorkingDays.setPreferredSize(new java.awt.Dimension(245, 100));
+        panelTotalWorkingDays.setLayout(new java.awt.BorderLayout());
+
+        panelDayImage.setBackground(new java.awt.Color(0, 153, 51));
+        panelDayImage.setMaximumSize(new java.awt.Dimension(100, 100));
+        panelDayImage.setPreferredSize(new java.awt.Dimension(100, 100));
+
+        javax.swing.GroupLayout panelDayImageLayout = new javax.swing.GroupLayout(panelDayImage);
+        panelDayImage.setLayout(panelDayImageLayout);
+        panelDayImageLayout.setHorizontalGroup(
+            panelDayImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        panelDayImageLayout.setVerticalGroup(
+            panelDayImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        panelTotalWorkingDays.add(panelDayImage, java.awt.BorderLayout.LINE_START);
+
+        panelWorkingDay.setBackground(new java.awt.Color(255, 255, 255));
+        panelWorkingDay.setLayout(new java.awt.GridBagLayout());
+
+        labelTotalWorkingDays.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labelTotalWorkingDays.setText("Số ngày làm việc");
+        labelTotalWorkingDays.setMaximumSize(new java.awt.Dimension(120, 20));
+        labelTotalWorkingDays.setMinimumSize(new java.awt.Dimension(120, 20));
+        labelTotalWorkingDays.setPreferredSize(new java.awt.Dimension(120, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        panelWorkingDay.add(labelTotalWorkingDays, gridBagConstraints);
+
+        labelWorkingDay.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labelWorkingDay.setText("14");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        panelWorkingDay.add(labelWorkingDay, gridBagConstraints);
+
+        panelTotalWorkingDays.add(panelWorkingDay, java.awt.BorderLayout.CENTER);
+
+        panelStatic.add(panelTotalWorkingDays);
+
+        panelTotalBonus.setPreferredSize(new java.awt.Dimension(245, 100));
+        panelTotalBonus.setLayout(new java.awt.BorderLayout());
+
+        panelBonusImage.setBackground(new java.awt.Color(102, 153, 0));
+        panelBonusImage.setMaximumSize(new java.awt.Dimension(100, 100));
+        panelBonusImage.setPreferredSize(new java.awt.Dimension(100, 100));
+
+        javax.swing.GroupLayout panelBonusImageLayout = new javax.swing.GroupLayout(panelBonusImage);
+        panelBonusImage.setLayout(panelBonusImageLayout);
+        panelBonusImageLayout.setHorizontalGroup(
+            panelBonusImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        panelBonusImageLayout.setVerticalGroup(
+            panelBonusImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        panelTotalBonus.add(panelBonusImage, java.awt.BorderLayout.LINE_START);
+
+        panelBonus.setBackground(new java.awt.Color(255, 255, 255));
+        panelBonus.setLayout(new java.awt.GridBagLayout());
+
+        labelTotalBonus.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labelTotalBonus.setText("Bonus");
+        labelTotalBonus.setMaximumSize(new java.awt.Dimension(74, 20));
+        labelTotalBonus.setMinimumSize(new java.awt.Dimension(74, 20));
+        labelTotalBonus.setPreferredSize(new java.awt.Dimension(74, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        panelBonus.add(labelTotalBonus, gridBagConstraints);
+
+        labelBonus.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labelBonus.setText("14");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        panelBonus.add(labelBonus, gridBagConstraints);
+
+        panelTotalBonus.add(panelBonus, java.awt.BorderLayout.CENTER);
+
+        panelStatic.add(panelTotalBonus);
+
+        add(panelStatic, java.awt.BorderLayout.CENTER);
+
+        panelFullCalendar.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        panelFullCalendar.setMinimumSize(new java.awt.Dimension(60, 70));
+        panelFullCalendar.setPreferredSize(new java.awt.Dimension(470, 512));
+        panelFullCalendar.setLayout(new java.awt.BorderLayout());
+
+        panelMonth.setBackground(new java.awt.Color(204, 209, 209));
+        panelMonth.setAlignmentX(0.0F);
+        panelMonth.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        panelMonth.setPreferredSize(new java.awt.Dimension(372, 434));
+        panelFullCalendar.add(panelMonth, java.awt.BorderLayout.CENTER);
+
+        panelDay.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        panelDay.setMinimumSize(new java.awt.Dimension(60, 60));
+        panelDay.setPreferredSize(new java.awt.Dimension(483, 79));
+        panelDay.setLayout(new java.awt.BorderLayout());
+
+        panelSelection.setPreferredSize(new java.awt.Dimension(483, 39));
 
         btnEnter.setText("Enter");
         btnEnter.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -132,11 +419,11 @@ public class CalendarView extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout panel_SelectionLayout = new javax.swing.GroupLayout(panel_Selection);
-        panel_Selection.setLayout(panel_SelectionLayout);
-        panel_SelectionLayout.setHorizontalGroup(
-            panel_SelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_SelectionLayout.createSequentialGroup()
+        javax.swing.GroupLayout panelSelectionLayout = new javax.swing.GroupLayout(panelSelection);
+        panelSelection.setLayout(panelSelectionLayout);
+        panelSelectionLayout.setHorizontalGroup(
+            panelSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSelectionLayout.createSequentialGroup()
                 .addContainerGap(252, Short.MAX_VALUE)
                 .addComponent(cmbMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -145,26 +432,26 @@ public class CalendarView extends javax.swing.JPanel {
                 .addComponent(btnEnter)
                 .addContainerGap())
         );
-        panel_SelectionLayout.setVerticalGroup(
-            panel_SelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel_SelectionLayout.createSequentialGroup()
+        panelSelectionLayout.setVerticalGroup(
+            panelSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSelectionLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panel_SelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelSelectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEnter)
                     .addComponent(txtYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panel_Day.add(panel_Selection, java.awt.BorderLayout.PAGE_START);
+        panelDay.add(panelSelection, java.awt.BorderLayout.PAGE_START);
 
-        panel_DayOfWeek.setBackground(new java.awt.Color(255, 255, 255));
-        panel_DayOfWeek.setAlignmentX(0.0F);
-        panel_DayOfWeek.setAlignmentY(0.0F);
-        panel_DayOfWeek.setMinimumSize(new java.awt.Dimension(60, 60));
-        panel_DayOfWeek.setPreferredSize(new java.awt.Dimension(460, 40));
-        panel_DayOfWeek.setRequestFocusEnabled(false);
-        panel_DayOfWeek.setVerifyInputWhenFocusTarget(false);
+        panelDayOfWeek.setBackground(new java.awt.Color(255, 255, 255));
+        panelDayOfWeek.setAlignmentX(0.0F);
+        panelDayOfWeek.setAlignmentY(0.0F);
+        panelDayOfWeek.setMinimumSize(new java.awt.Dimension(60, 60));
+        panelDayOfWeek.setPreferredSize(new java.awt.Dimension(460, 40));
+        panelDayOfWeek.setRequestFocusEnabled(false);
+        panelDayOfWeek.setVerifyInputWhenFocusTarget(false);
 
         panel_Sunday.setAlignmentY(0.0F);
         panel_Sunday.setPreferredSize(new java.awt.Dimension(60, 30));
@@ -192,7 +479,7 @@ public class CalendarView extends javax.swing.JPanel {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        panel_DayOfWeek.add(panel_Sunday);
+        panelDayOfWeek.add(panel_Sunday);
 
         panel_Monday.setAlignmentY(0.0F);
         panel_Monday.setMinimumSize(new java.awt.Dimension(0, 0));
@@ -221,7 +508,7 @@ public class CalendarView extends javax.swing.JPanel {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        panel_DayOfWeek.add(panel_Monday);
+        panelDayOfWeek.add(panel_Monday);
 
         panel_Tuesday.setAlignmentY(0.0F);
         panel_Tuesday.setPreferredSize(new java.awt.Dimension(60, 30));
@@ -249,7 +536,7 @@ public class CalendarView extends javax.swing.JPanel {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        panel_DayOfWeek.add(panel_Tuesday);
+        panelDayOfWeek.add(panel_Tuesday);
 
         panel_Wednesday.setAlignmentY(0.0F);
         panel_Wednesday.setPreferredSize(new java.awt.Dimension(60, 30));
@@ -277,7 +564,7 @@ public class CalendarView extends javax.swing.JPanel {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        panel_DayOfWeek.add(panel_Wednesday);
+        panelDayOfWeek.add(panel_Wednesday);
 
         panel_Thursday.setAlignmentY(0.0F);
         panel_Thursday.setPreferredSize(new java.awt.Dimension(60, 30));
@@ -305,7 +592,7 @@ public class CalendarView extends javax.swing.JPanel {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        panel_DayOfWeek.add(panel_Thursday);
+        panelDayOfWeek.add(panel_Thursday);
 
         panel_Friday.setAlignmentY(0.0F);
         panel_Friday.setPreferredSize(new java.awt.Dimension(60, 30));
@@ -333,7 +620,7 @@ public class CalendarView extends javax.swing.JPanel {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        panel_DayOfWeek.add(panel_Friday);
+        panelDayOfWeek.add(panel_Friday);
 
         panel_Saturday.setAlignmentY(0.0F);
         panel_Saturday.setPreferredSize(new java.awt.Dimension(60, 30));
@@ -361,13 +648,13 @@ public class CalendarView extends javax.swing.JPanel {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
-        panel_DayOfWeek.add(panel_Saturday);
+        panelDayOfWeek.add(panel_Saturday);
 
-        panel_Day.add(panel_DayOfWeek, java.awt.BorderLayout.CENTER);
+        panelDay.add(panelDayOfWeek, java.awt.BorderLayout.CENTER);
 
-        panel_FullCalendar.add(panel_Day, java.awt.BorderLayout.PAGE_START);
+        panelFullCalendar.add(panelDay, java.awt.BorderLayout.PAGE_START);
 
-        add(panel_FullCalendar, java.awt.BorderLayout.WEST);
+        add(panelFullCalendar, java.awt.BorderLayout.WEST);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnterActionPerformed
@@ -383,28 +670,81 @@ public class CalendarView extends javax.swing.JPanel {
     private javax.swing.JButton btnEnter;
     private javax.swing.JComboBox<String> cmbMonth;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel labelBonus;
+    private javax.swing.JLabel labelNumberOfBills;
+    private javax.swing.JLabel labelSale;
+    private javax.swing.JLabel labelTitle;
+    private javax.swing.JLabel labelTotalBills;
+    private javax.swing.JLabel labelTotalBonus;
+    private javax.swing.JLabel labelTotalSales;
+    private javax.swing.JLabel labelTotalWorkingDays;
+    private javax.swing.JLabel labelTotalWorkingTime;
+    private javax.swing.JLabel labelWorkingDay;
+    private javax.swing.JLabel labelWorkingTime;
     private javax.swing.JLabel label_Friday;
     private javax.swing.JLabel label_Monday;
     private javax.swing.JLabel label_Saturday;
     private javax.swing.JLabel label_Sunday;
     private javax.swing.JLabel label_Thursday;
-    private javax.swing.JLabel label_Title;
     private javax.swing.JLabel label_Tuesday;
     private javax.swing.JLabel label_Wednesday;
-    private javax.swing.JPanel panel_Day;
-    private javax.swing.JPanel panel_DayOfWeek;
+    private javax.swing.JPanel panelBill;
+    private javax.swing.JPanel panelBonus;
+    private javax.swing.JPanel panelBonusImage;
+    private javax.swing.JPanel panelDay;
+    private javax.swing.JPanel panelDayImage;
+    private javax.swing.JPanel panelDayOfWeek;
+    private javax.swing.JPanel panelFullCalendar;
+    private javax.swing.JPanel panelImage;
+    private javax.swing.JPanel panelMonth;
+    private javax.swing.JPanel panelSale;
+    private javax.swing.JPanel panelSaleImage;
+    private javax.swing.JPanel panelSelection;
+    private javax.swing.JPanel panelStatic;
+    private javax.swing.JPanel panelTimeImage;
+    private javax.swing.JPanel panelTitle;
+    private javax.swing.JPanel panelTotalBills;
+    private javax.swing.JPanel panelTotalBonus;
+    private javax.swing.JPanel panelTotalSales;
+    private javax.swing.JPanel panelTotalWorkingDays;
+    private javax.swing.JPanel panelTotalWorkingTime;
+    private javax.swing.JPanel panelWorkingDay;
+    private javax.swing.JPanel panelWorkingTime;
     private javax.swing.JPanel panel_Friday;
-    private javax.swing.JPanel panel_FullCalendar;
     private javax.swing.JPanel panel_Monday;
-    private javax.swing.JPanel panel_Month;
     private javax.swing.JPanel panel_Saturday;
-    private javax.swing.JPanel panel_Selection;
-    private javax.swing.JPanel panel_Static;
     private javax.swing.JPanel panel_Sunday;
     private javax.swing.JPanel panel_Thursday;
-    private javax.swing.JPanel panel_Title;
     private javax.swing.JPanel panel_Tuesday;
     private javax.swing.JPanel panel_Wednesday;
     private javax.swing.JTextField txtYear;
     // End of variables declaration//GEN-END:variables
+    
+    public JButton getBtnEnter() {
+        return btnEnter;
+    }
+
+    public JComboBox<String> getCmbMonth() {
+        return cmbMonth;
+    }
+
+    public JPanel getPanelMonth() {
+        return panelMonth;
+    }
+
+    public JTextField getTxtYear() {
+        return txtYear;
+    }
+    
+    public void showError(String message) {
+        ErrorPopup.show(new Exception(message));
+    }
+    
+    public void showError(Exception e) {
+        ErrorPopup.show(e);
+    }
+
+    public void showMessage(String message) {
+        JOptionPane.showMessageDialog(this, message);
+    }
 }
