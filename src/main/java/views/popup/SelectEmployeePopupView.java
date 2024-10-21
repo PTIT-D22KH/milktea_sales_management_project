@@ -19,11 +19,16 @@ import views.EmployeeRenderList;
  *
  * @author buiva
  */
+<<<<<<< HEAD
 public class SelectEmployeePopupView extends SelectEntityPopupView<Employee> {
+=======
+public class SelectEmployeePopupView extends javax.swing.JFrame {
+>>>>>>> 65a0478 (done)
 
     /**
      * Creates new form SelectEmployeePopupView
      */
+<<<<<<< HEAD
 //    DefaultListModel<Employee> employeeListModel = new DefaultListModel<>();
 //    
 //    public SelectEmployeePopupView() {
@@ -34,21 +39,35 @@ public class SelectEmployeePopupView extends SelectEntityPopupView<Employee> {
 //        initComponents();
         super();
         mineInitComponents();
+=======
+    DefaultListModel<Employee> employeeListModel = new DefaultListModel<>();
+    
+    public SelectEmployeePopupView() {
+        initComponents();
+>>>>>>> 65a0478 (done)
     }
     
     
     
     
+<<<<<<< HEAD
     @Override
+=======
+    
+>>>>>>> 65a0478 (done)
     public JButton getBtnCancel() {
         return btnCancel;
     }
     
+<<<<<<< HEAD
     @Override
+=======
+>>>>>>> 65a0478 (done)
     public JButton getBtnOK() {
         return btnOK;
     }
     
+<<<<<<< HEAD
     @Override
     public JButton getBtnSearch() {
         return btnSearch;
@@ -86,6 +105,34 @@ public class SelectEmployeePopupView extends SelectEntityPopupView<Employee> {
 //    public void showError(Exception message) {
 //        ErrorPopup.show(message);
 //    }
+=======
+    public JButton getBtnSearch() {
+        return btnSearch;
+    }
+    
+    public JList<Employee> getListEmployee() {
+        return listEmployee;
+    }
+    
+    public void renderEmployee(ArrayList<Employee> employees) {
+        employeeListModel.removeAllElements();
+        for (Employee employee : employees) {
+            employeeListModel.addElement(employee);
+        }
+    }
+    
+    public JTextField getTxtEmployeeName() {
+        return txtEmployeeName;
+    }
+    
+    public void showError(String message) {
+        ErrorPopup.show(new Exception(message));
+    }
+
+    public void showError(Exception message) {
+        ErrorPopup.show(message);
+    }
+>>>>>>> 65a0478 (done)
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -96,6 +143,7 @@ public class SelectEmployeePopupView extends SelectEntityPopupView<Employee> {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+<<<<<<< HEAD
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -183,12 +231,45 @@ public class SelectEmployeePopupView extends SelectEntityPopupView<Employee> {
         );
 
         jScrollPane1.setViewportView(entityList);
+=======
+        jLabel1 = new javax.swing.JLabel();
+        txtEmployeeName = new javax.swing.JTextField();
+        btnSearch = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listEmployee = new javax.swing.JList<>();
+        btnOK = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(418, 372));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Chọn Nhân Viên ");
+        jLabel1.setMaximumSize(new java.awt.Dimension(118, 20));
+        jLabel1.setMinimumSize(new java.awt.Dimension(118, 20));
+        jLabel1.setPreferredSize(new java.awt.Dimension(118, 20));
+
+        txtEmployeeName.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+
+        btnSearch.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnSearch.setText("Tìm\n");
+
+        listEmployee.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jScrollPane1.setViewportView(listEmployee);
+
+        btnOK.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnOK.setText("OK\n");
+
+        btnCancel.setText("Hủy\n");
+>>>>>>> 65a0478 (done)
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+<<<<<<< HEAD
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -200,10 +281,32 @@ public class SelectEmployeePopupView extends SelectEntityPopupView<Employee> {
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jScrollPane1))
                 .addGap(0, 0, 0))
+=======
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtEmployeeName, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 14, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(64, 64, 64))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(109, 109, 109)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+>>>>>>> 65a0478 (done)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+<<<<<<< HEAD
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -211,11 +314,27 @@ public class SelectEmployeePopupView extends SelectEntityPopupView<Employee> {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+=======
+                .addGap(17, 17, 17)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtEmployeeName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearch))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancel)
+                    .addComponent(btnOK))
+                .addContainerGap(18, Short.MAX_VALUE))
+>>>>>>> 65a0478 (done)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+<<<<<<< HEAD
     private void btnOKMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOKMouseClicked
         // TODO add your handling code here:
         System.out.println(entityNameTxtField.getText());
@@ -255,11 +374,48 @@ public class SelectEmployeePopupView extends SelectEntityPopupView<Employee> {
 //            }
 //        });
 //    }
+=======
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(SelectEmployeePopupView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(SelectEmployeePopupView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(SelectEmployeePopupView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(SelectEmployeePopupView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new SelectEmployeePopupView().setVisible(true);
+            }
+        });
+    }
+>>>>>>> 65a0478 (done)
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnOK;
     private javax.swing.JButton btnSearch;
+<<<<<<< HEAD
     private javax.swing.JList<Employee> entityList;
     private javax.swing.JTextField entityNameTxtField;
     private javax.swing.JLabel jLabel1;
@@ -283,4 +439,11 @@ public class SelectEmployeePopupView extends SelectEntityPopupView<Employee> {
         setLocationRelativeTo(null);
 //        System.out.println("OK");
     }
+=======
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<Employee> listEmployee;
+    private javax.swing.JTextField txtEmployeeName;
+    // End of variables declaration//GEN-END:variables
+>>>>>>> 65a0478 (done)
 }
