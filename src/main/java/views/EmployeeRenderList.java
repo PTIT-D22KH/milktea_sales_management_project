@@ -22,7 +22,6 @@ public class EmployeeRenderList extends EntityRenderList<Employee>{
     public EmployeeRenderList() {
         initComponents();
         setPreferredSize(new Dimension(400, 75));
-
     }
 
     /**
@@ -82,6 +81,7 @@ public class EmployeeRenderList extends EntityRenderList<Employee>{
 
         setPreferredSize(new java.awt.Dimension(400, 75));
 
+
         phoneNumberLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         phoneNumberLabel.setText("(SĐT)");
         phoneNumberLabel.setMaximumSize(new java.awt.Dimension(31, 16));
@@ -101,6 +101,7 @@ public class EmployeeRenderList extends EntityRenderList<Employee>{
         roleLabel.setMinimumSize(new java.awt.Dimension(36, 16));
         roleLabel.setPreferredSize(new java.awt.Dimension(36, 16));
 
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -108,6 +109,7 @@ public class EmployeeRenderList extends EntityRenderList<Employee>{
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+
                     .addComponent(roleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)

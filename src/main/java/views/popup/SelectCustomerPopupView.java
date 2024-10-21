@@ -31,6 +31,7 @@ public class SelectCustomerPopupView extends SelectEntityPopupView<Customer> {
         mineInitComponents();
     }
     
+
     @Override
     public JButton getBtnCancel() {
         return btnCancel;
@@ -86,6 +87,7 @@ public class SelectCustomerPopupView extends SelectEntityPopupView<Customer> {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+
         entityNameTxtField = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -239,6 +241,8 @@ public class SelectCustomerPopupView extends SelectEntityPopupView<Customer> {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<Customer> listCustomer;
+    private javax.swing.JTextField txtCustomerName;
     // End of variables declaration//GEN-END:variables
 
     @Override

@@ -54,6 +54,7 @@ public class ShipmentPopupControler{
             }
             shipment = new Shipment();
             shipment.setShipCost(0);
+
             shipment.setOrderId(orderId);
             shipment.setCustomer(customerDao.getAll().get(0));
             shipment.setEmployee(employeeDao.getAll().get(0));

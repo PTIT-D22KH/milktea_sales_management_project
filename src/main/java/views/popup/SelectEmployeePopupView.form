@@ -176,6 +176,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
+
         <Component class="javax.swing.JList" name="entityList">
           <Properties>
             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
@@ -188,5 +189,6 @@
         </Component>
       </SubComponents>
     </Container>
+
   </SubComponents>
 </Form>

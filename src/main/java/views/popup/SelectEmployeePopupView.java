@@ -37,8 +37,6 @@ public class SelectEmployeePopupView extends SelectEntityPopupView<Employee> {
     }
     
     
-    
-    
     @Override
     public JButton getBtnCancel() {
         return btnCancel;
@@ -95,7 +93,6 @@ public class SelectEmployeePopupView extends SelectEntityPopupView<Employee> {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -183,6 +180,8 @@ public class SelectEmployeePopupView extends SelectEntityPopupView<Employee> {
         );
 
         jScrollPane1.setViewportView(entityList);
+
+
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
