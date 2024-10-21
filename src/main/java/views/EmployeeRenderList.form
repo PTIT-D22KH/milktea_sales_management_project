@@ -92,19 +92,11 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-<<<<<<< HEAD
-                  <Component id="roleLabel" max="32767" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <Component id="nameLabel" min="-2" pref="245" max="-2" attributes="0"/>
-                      <EmptySpace pref="19" max="32767" attributes="0"/>
-                      <Component id="phoneNumberLabel" min="-2" pref="124" max="-2" attributes="0"/>
-=======
                   <Component id="jLabel6" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="jLabel5" min="-2" pref="245" max="-2" attributes="0"/>
                       <EmptySpace pref="19" max="32767" attributes="0"/>
                       <Component id="jLabel4" min="-2" pref="124" max="-2" attributes="0"/>
->>>>>>> 65a0478 (done)
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -116,30 +108,18 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-<<<<<<< HEAD
-                  <Component id="nameLabel" max="32767" attributes="0"/>
-                  <Component id="phoneNumberLabel" max="32767" attributes="0"/>
-              </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="roleLabel" min="-2" pref="22" max="-2" attributes="0"/>
-=======
                   <Component id="jLabel5" max="32767" attributes="0"/>
                   <Component id="jLabel4" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jLabel6" min="-2" pref="22" max="-2" attributes="0"/>
->>>>>>> 65a0478 (done)
               <EmptySpace pref="15" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-<<<<<<< HEAD
-    <Component class="javax.swing.JLabel" name="phoneNumberLabel">
-=======
     <Component class="javax.swing.JLabel" name="jLabel4">
->>>>>>> 65a0478 (done)
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="1"/>
@@ -156,11 +136,7 @@
         </Property>
       </Properties>
     </Component>
-<<<<<<< HEAD
-    <Component class="javax.swing.JLabel" name="nameLabel">
-=======
     <Component class="javax.swing.JLabel" name="jLabel5">
->>>>>>> 65a0478 (done)
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="1"/>
@@ -169,14 +145,11 @@
           <Color blue="0" green="8c" red="ff" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Bui Mau Van"/>
-<<<<<<< HEAD
-=======
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
             <LineBorder/>
           </Border>
         </Property>
->>>>>>> 65a0478 (done)
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[141, 20]"/>
         </Property>
@@ -188,20 +161,12 @@
         </Property>
       </Properties>
     </Component>
-<<<<<<< HEAD
-    <Component class="javax.swing.JLabel" name="roleLabel">
-=======
     <Component class="javax.swing.JLabel" name="jLabel6">
->>>>>>> 65a0478 (done)
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="1"/>
         </Property>
-<<<<<<< HEAD
-        <Property name="text" type="java.lang.String" value="Ch&#x1ee9;c v&#x1ee5;"/>
-=======
         <Property name="text" type="java.lang.String" value="&#x110;&#x1ecb;a ch&#x1ec9; "/>
->>>>>>> 65a0478 (done)
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[36, 16]"/>
         </Property>

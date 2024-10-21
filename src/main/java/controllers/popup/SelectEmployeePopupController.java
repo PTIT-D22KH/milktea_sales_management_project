@@ -5,25 +5,18 @@
 package controllers.popup;
 
 import dao.EmployeeDao;
-<<<<<<< HEAD
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-=======
->>>>>>> 65a0478 (done)
 import java.sql.SQLException;
 import javax.swing.JFrame;
 import models.Employee;
 import views.popup.SelectEmployeePopupView;
-<<<<<<< HEAD
 import views.popup.SelectEntityPopupView;
-=======
->>>>>>> 65a0478 (done)
 
 /**
  *
  * @author buiva
  */
-<<<<<<< HEAD
 public class SelectEmployeePopupController extends SelectEntityPopupController<SelectEmployeePopupView, EmployeeDao, Employee>{
 //    private EmployeeDao employeeDao;
 //    private JFrame previousView;
@@ -67,49 +60,6 @@ public class SelectEmployeePopupController extends SelectEntityPopupController<S
                 }
             }
             
-=======
-public class SelectEmployeePopupController {
-    EmployeeDao employeeDao = new EmployeeDao();
-    JFrame previousView;
-    
-    public interface Callback {
-        public abstract void run(Employee employee);
-    }
-    
-    public void select(SelectEmployeePopupView view, Callback callback) {
-        if(previousView != null && previousView.isDisplayable()) {
-            previousView.requestFocus();
-            return;
-        }
-        previousView = view;
-        view.setVisible(true);
-        try {         
-            view.renderEmployee(employeeDao.getAll());
-        }
-        catch (SQLException e) {
-            view.showError(e);
-        }
-        view.getBtnOK().addActionListener(evt -> {
-            Employee c = view.getListEmployee().getSelectedValue();
-            if(c == null) {
-                view.showError("Ban chua chon nhan vien nao");
-                return;
-            }
-            callback.run(c);
-            view.dispose();
-        });
-        view.getBtnSearch().addActionListener(evt -> {
-            String txtSearch = view.getTxtEmployeeName().getText();
-            try {
-                view.renderEmployee(employeeDao.searchByKey("name", txtSearch));          
-            }
-            catch (Exception e) {
-                view.showError(e);
-            }
-        });
-        view.getBtnCancel().addActionListener(evt -> {
-            view.dispose();
->>>>>>> 65a0478 (done)
         });
     }
 }
