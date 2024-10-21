@@ -45,6 +45,7 @@ public class Main {
             javax.swing.UIManager.setLookAndFeel("com.formdev.flatlaf.FlatIntelliJLaf");
             System.out.println("Set up UI Theme successfully!");
         } catch (Exception ex) {
+          
         }
     }
 }
