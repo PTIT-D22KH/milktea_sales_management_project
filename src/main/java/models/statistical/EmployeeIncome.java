@@ -34,13 +34,12 @@ public class EmployeeIncome {
         this.totalIncome = totalIncome;
         this.date = date;
     }
-    
-    
-    
-    
-    
-    
+
     public boolean equalDate(Date date) {
         return date.equals(this.date);
+    }
+    @Override
+    public String toString() {
+        return "EmployeeIncome{" + "employee=" + employee + ", totalIncome=" + totalIncome + ", totalOrder=" + totalOrder + ", date=" + date + '}';
     }
 }

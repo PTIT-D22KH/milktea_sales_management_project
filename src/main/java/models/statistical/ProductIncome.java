@@ -36,6 +36,11 @@ public class ProductIncome {
         this.id = id;
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "ProductIncome{" + "item=" + item + ", quantity=" + quantity + ", amount=" + amount + ", id=" + id + ", name=" + name + '}';
+    }
     
     
     

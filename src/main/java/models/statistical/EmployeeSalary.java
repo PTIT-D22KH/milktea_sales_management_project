@@ -26,6 +26,11 @@ public class EmployeeSalary {
     private int calTotal() {
         return employee.getSalary() + bonus;
     }
+
+    @Override
+    public String toString() {
+        return "EmployeeSalary{" + "employee=" + employee + ", quantity=" + quantity + ", bonus=" + bonus + ", total=" + total + '}';
+    }
     
     
 }

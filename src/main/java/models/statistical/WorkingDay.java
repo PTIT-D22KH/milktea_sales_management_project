@@ -45,4 +45,10 @@ public class WorkingDay {
     public int count() {
         return dates.size();
     }
+
+    @Override
+    public String toString() {
+        return "WorkingDay{" + "dates=" + dates + '}';
+    }
+    
 }

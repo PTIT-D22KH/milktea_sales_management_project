@@ -90,6 +90,7 @@ public class WorkDayInfoView extends javax.swing.JFrame {
         totalAmountLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 204));
         jPanel1.setLayout(new java.awt.BorderLayout());

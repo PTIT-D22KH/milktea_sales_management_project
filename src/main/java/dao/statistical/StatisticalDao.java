@@ -231,7 +231,15 @@ public class StatisticalDao {
 
     public ArrayList<ProductIncome> getQuantityItemByCategory(Timestamp start, Timestamp end, int category) throws SQLException {
         ArrayList<ProductIncome> itemProducts = new ArrayList<>();
-        String query = "SELECT `name`,SUM(quantity) as sum FROM `order_item`,`food_item`,`order` WHERE `foodItemId`=food_item.foodItemId AND `foodCategoryId`= ? AND `orderId`= order.orderId AND DATE(orderDate)>= DATE(?) AND DATE(orderDate)<= DATE(?) GROUP BY foodItemId ORDER by sum DESC";
+        String query = "SELECT `name`,SUM(quantity) as sum "
+                + "FROM `order_item`,`food_item`,`order` "
+                + "WHERE `order_item`.`foodItemId`=food_item.foodItemId "
+                + "AND `foodCategoryId`= ? "
+                + "AND `order_item`.`orderId`= order.orderId "
+                + "AND DATE(orderDate)>= DATE(?) "
+                + "AND DATE(orderDate)<= DATE(?) "
+                + "GROUP BY order_item.foodItemId "
+                + "ORDER by sum DESC";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, category);
             statement.setTimestamp(2, start);
@@ -249,7 +257,15 @@ public class StatisticalDao {
 
     public ArrayList<ProductIncome> getQuantityItem(Timestamp start, Timestamp end) throws SQLException {
         ArrayList<ProductIncome> itemProducts = new ArrayList<>();
-        String query = "SELECT `foodItemId`, `name`, SUM(quantity) as sum, (foodPrice*SUM(quantity)) as amount FROM `order_item`,`food_item`,`order` WHERE `foodItemId`=food_item.foodItemId AND `orderId`= order.orderId AND DATE(orderDate)>= DATE(?) AND DATE(orderDate)<= DATE(?) AND order.status = ? GROUP BY foodItemId ORDER by sum DESC";
+        String query = "SELECT `order_item`.`foodItemId`, `name`, SUM(quantity) as sum, (foodPrice*SUM(quantity)) as amount "
+                + "FROM `order_item`,`food_item`,`order` "
+                + "WHERE `order_item`.`foodItemId`=food_item.foodItemId "
+                + "AND `order_item`.`orderId`= order.orderId "
+                + "AND DATE(orderDate)>= DATE(?) "
+                + "AND DATE(orderDate)<= DATE(?) "
+                + "AND order.status = ? "
+                + "GROUP BY `order_item`.`foodItemId`, name, foodPrice "
+                + "ORDER by sum DESC";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setTimestamp(1, start);
             statement.setTimestamp(2, end);
