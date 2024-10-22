@@ -4,8 +4,6 @@
  */
 package controllers.admin;
 
-import controllers.popup.CustomerPopupController;
-import controllers.ManagerController;
 import controllers.ManagerController;
 import controllers.popup.CustomerPopupController;
 import controllers.popup.ErrorCallback;

@@ -14,7 +14,6 @@ import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.YES_OPTION;
 import models.Table;
-import views.admin.ManagerPaneView;
 import views.admin.TableManagerView;
 import views.popup.TablePopupView;
 

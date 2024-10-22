@@ -7,7 +7,6 @@ package controllers;
 import dao.EmployeeDao;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JFrame;
 import models.Employee;
 import views.ForgotPasswordView;
 

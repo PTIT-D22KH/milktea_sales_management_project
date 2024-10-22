@@ -2,10 +2,7 @@ package controllers.popup;
 
 import models.FoodCategory;
 import dao.FoodCategoryDao;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import views.popup.FoodCategoryPopupView;
-import javax.swing.JFrame;
 
 public class FoodCategoryPopupController extends PopupController<FoodCategoryPopupView, FoodCategory>{
     private final FoodCategoryDao foodCategoryDao;

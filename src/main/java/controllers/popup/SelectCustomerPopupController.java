@@ -21,18 +21,7 @@ import views.popup.SelectCustomerPopupView;
  * Adheres to SRP by focusing only on customer selection popup management.
  */
 public class SelectCustomerPopupController extends SelectEntityPopupController<SelectCustomerPopupView, CustomerDao, Customer>{
-//    private CustomerDao customerDao;
-//    private JFrame previousView;
-//    
-//    public SelectCustomerPopupController() {
-//        this.entityDao = new CustomerDao();
-//    }
-////
-//    public SelectCustomerPopupController(CustomerDao customerDao) {
-//        this.entityDao = customerDao;
-//    }
-//    
-//    
+
     public SelectCustomerPopupController() {
         super(new CustomerDao());
     }
@@ -40,9 +29,7 @@ public class SelectCustomerPopupController extends SelectEntityPopupController<S
     public SelectCustomerPopupController(CustomerDao customerDao) {
         super(customerDao);
     }
-//    public interface Callback {
-//        public abstract void run(Customer customer);
-//    }
+
     
     @Override
     public void select(SelectCustomerPopupView view, Callback<Customer> callback) {
