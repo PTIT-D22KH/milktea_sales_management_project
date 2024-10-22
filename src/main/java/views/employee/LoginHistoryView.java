@@ -34,23 +34,21 @@ public class LoginHistoryView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
         contentPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Lịch sử đăng nhập");
+        setMaximumSize(new java.awt.Dimension(450, 600));
+        setMinimumSize(new java.awt.Dimension(450, 600));
         getContentPane().setLayout(new java.awt.CardLayout());
 
-        javax.swing.GroupLayout contentPanelLayout = new javax.swing.GroupLayout(contentPanel);
-        contentPanel.setLayout(contentPanelLayout);
-        contentPanelLayout.setHorizontalGroup(
-            contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        contentPanelLayout.setVerticalGroup(
-            contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-        getContentPane().add(contentPanel, "card2");
+        contentPanel.setLayout(new javax.swing.BoxLayout(contentPanel, javax.swing.BoxLayout.Y_AXIS));
+        jScrollPane1.setViewportView(contentPanel);
+
+        getContentPane().add(jScrollPane1, "card2");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -93,5 +91,6 @@ public class LoginHistoryView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel contentPanel;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

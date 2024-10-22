@@ -26,6 +26,7 @@ import dao.TableDao;
 import models.FoodItem;
 import models.OrderItem;
 import models.Table;
+import utils.ShutdownHook;
 import utils.TableStatus;
 import views.ForgotPasswordView;
 import views.LoginView;
@@ -49,5 +50,6 @@ public class Main {
         }
         LoginController controller = new LoginController(new LoginView(), new ForgotPasswordView(), new RegisterView());
         controller.showView();
+        Runtime.getRuntime().addShutdownHook(new ShutdownHook());
     }
 }

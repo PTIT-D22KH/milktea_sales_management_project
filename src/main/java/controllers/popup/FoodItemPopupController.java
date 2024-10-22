@@ -18,11 +18,11 @@ import views.ChooseImageView;
 import views.popup.FoodItemPopupView;
 
 public class FoodItemPopupController extends PopupController<FoodItemPopupView, FoodItem>{
-    private FoodItemDao foodItemDao;
-    private FoodCategoryDao foodCategoryDao;
-    private ChooseImageView chooseImageView;
-    private ImageManager imageManager;
-    private String resourcesPath;
+    private final FoodItemDao foodItemDao;
+    private final FoodCategoryDao foodCategoryDao;
+    private final ChooseImageView chooseImageView;
+    private final ImageManager imageManager;
+    private final String resourcesPath;
     
     public FoodItemPopupController() {
         foodItemDao = new FoodItemDao();

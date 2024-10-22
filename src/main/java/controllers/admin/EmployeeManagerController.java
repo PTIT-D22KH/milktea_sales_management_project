@@ -21,12 +21,16 @@ import views.popup.EmployeePopupView;
  *
  * @author P51
  */
+
+/**
+ * Controller for managing employee data.
+ * Adheres to SRP by focusing only on employee management.
+ */
 public class EmployeeManagerController extends ManagerController{
-    private EmployeeDao employeeDao;
-    private EmployeePopupController popupController;
+    private final EmployeeDao employeeDao;
+    private final EmployeePopupController popupController;
     
     public EmployeeManagerController() {
-        super();
         employeeDao = new EmployeeDao();
         popupController = new EmployeePopupController();
     }
@@ -40,7 +44,6 @@ public class EmployeeManagerController extends ManagerController{
     
     @Override
     public void actionAdd() {
-        
         SuccessCallback successCallback = new SuccessCallback() {
             @Override
             public void onSuccess() {
@@ -51,7 +54,7 @@ public class EmployeeManagerController extends ManagerController{
         ErrorCallback errorCallback = new ErrorCallback() {
             @Override
             public void onError(Exception e) {
-                view.showError(e);
+                getView().showError(e);
             }
         };
 
@@ -61,54 +64,51 @@ public class EmployeeManagerController extends ManagerController{
     @Override
     public void actionSearch() {
         try {
-            ArrayList<Employee> employees = employeeDao.searchByKey(view.getComboSearchField().getSelectedItem().toString(), String.valueOf(view.getSearchTxt().getText()));
-            view.setTableData(employees);
+            ArrayList<Employee> employees = employeeDao.searchByKey(getView().getComboSearchField().getSelectedItem().toString(), String.valueOf(getView().getSearchTxt().getText()));
+            getView().setTableData(employees);
         } catch (Exception e) {
+            getView().showError(e);
         }
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void actionDelete() {
-        int selectedIds[] = view.getSelectedIds();
+        int selectedIds[] = getView().getSelectedIds();
         try {
             if (selectedIds.length > 1) {
                 if (JOptionPane.showConfirmDialog(null, "Xác nhận xóa hàng loạt?", "Xóa nhân viên", ERROR_MESSAGE) != YES_OPTION) {
                     return;
                 }
-            } else if (selectedIds.length == 1){
+            } else if (selectedIds.length == 1) {
                 if (JOptionPane.showConfirmDialog(null, "Xác nhận xóa nhân viên?", "Xóa nhân viên", ERROR_MESSAGE) != YES_OPTION) {
                     return;
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Vui lòng chọn nhân viên cần xoá!");
             }
-            for (int i = 0; i < selectedIds.length; i++) {
-                employeeDao.deleteById(selectedIds[i]);
+            for (int id : selectedIds) {
+                employeeDao.deleteById(id);
                 updateData();
             }
-                    
         } catch (Exception e) {
-            view.showError(e);
-            
+            getView().showError(e);
         }
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void actionEdit() {
         try {
-            int selectedId = view.getSelectedId();
+            int selectedId = getView().getSelectedId();
             if (selectedId < 0) {
                 throw new Exception("Chọn nhân viên cần chỉnh sửa");
             }
             Employee e = employeeDao.getById(selectedId);
             if (e == null) {
-                throw  new Exception("Nhân viên bạn chọn không hợp lệ");
+                throw new Exception("Nhân viên bạn chọn không hợp lệ");
             }
             if (e.getPermission() == EmployeePermission.MANAGER) {
                 int value = JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn chỉnh sửa admin?");
-                if (value != JOptionPane.YES_OPTION) {
+                if (value != YES_OPTION) {
                     return;
                 }
             }
@@ -122,23 +122,22 @@ public class EmployeeManagerController extends ManagerController{
             ErrorCallback errorCallback = new ErrorCallback() {
                 @Override
                 public void onError(Exception e) {
-                    view.showError(e);
+                    getView().showError(e);
                 }
             };
             popupController.edit(new EmployeePopupView(), e, successCallback, errorCallback);
         } catch (Exception e) {
+            getView().showError(e);
         }
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void updateData() {
         try {
             ArrayList<Employee> employees = employeeDao.getAll();
-            view.setTableData(employees);
+            getView().setTableData(employees);
         } catch (Exception e) {
-            view.showError(e);
+            getView().showError(e);
         }
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

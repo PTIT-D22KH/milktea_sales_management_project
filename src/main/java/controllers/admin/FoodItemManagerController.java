@@ -15,11 +15,11 @@ import views.popup.FoodItemPopupView;
 
 public class FoodItemManagerController extends ManagerController {
     
-    private FoodItemDao foodItemDao;
-    private FoodItemPopupController popupController;
+    private final FoodItemDao foodItemDao;
+    private final FoodItemPopupController popupController;
     
     public FoodItemManagerController(){
-        super();
+//        super();
         foodItemDao = new FoodItemDao();
         popupController = new FoodItemPopupController();
     }
@@ -29,7 +29,7 @@ public class FoodItemManagerController extends ManagerController {
     }
     
     @Override
-    public void actionAdd(){
+    public void actionAdd() {
         SuccessCallback successCallback = new SuccessCallback() {
             @Override
             public void onSuccess() {
@@ -40,52 +40,52 @@ public class FoodItemManagerController extends ManagerController {
         ErrorCallback errorCallback = new ErrorCallback() {
             @Override
             public void onError(Exception e) {
-                view.showError(e);
+                getView().showError(e);
             }
         };
-        
+
         popupController.add(new FoodItemPopupView(), successCallback, errorCallback);
     }
-    
+
     @Override
-    public void actionSearch(){
+    public void actionSearch() {
         try {
-            ArrayList<FoodItem> foodItems = foodItemDao.searchByKey(view.getComboSearchField().getSelectedItem().toString(), String.valueOf(view.getSearchTxt().getText()));
-            view.setTableData(foodItems);
+            ArrayList<FoodItem> foodItems = foodItemDao.searchByKey(getView().getComboSearchField().getSelectedItem().toString(), String.valueOf(getView().getSearchTxt().getText()));
+            getView().setTableData(foodItems);
         } catch (Exception e) {
-            //view.showError(e);
+            getView().showError(e);
         }
     }
-    
+
     @Override
-    public void actionDelete(){
-        int selectedIds[] = view.getSelectedIds();
+    public void actionDelete() {
+        int selectedIds[] = getView().getSelectedIds();
         try {
             if (selectedIds.length > 1) {
                 if (JOptionPane.showConfirmDialog(null, "Xác nhận xóa hàng loạt?", "Xóa", ERROR_MESSAGE) != YES_OPTION) {
                     return;
                 }
-            } else if (selectedIds.length == 1){
+            } else if (selectedIds.length == 1) {
                 if (JOptionPane.showConfirmDialog(null, "Xác nhận xóa món?", "Xóa", ERROR_MESSAGE) != YES_OPTION) {
                     return;
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Vui lòng chọn món cần xoá!");
             }
-            
-            for (int i = 0; i < selectedIds.length; i++) {
-                foodItemDao.deleteById(selectedIds[i]);
+
+            for (int id : selectedIds) {
+                foodItemDao.deleteById(id);
             }
             updateData();
         } catch (Exception e) {
-            view.showError(e);
+            getView().showError(e);
         }
     }
-    
+
     @Override
-    public void actionEdit(){
+    public void actionEdit() {
         try {
-            int selectedId = view.getSelectedId();
+            int selectedId = getView().getSelectedId();
             if (selectedId < 0) {
                 throw new Exception("Chọn món cần chỉnh sửa");
             } else {
@@ -93,9 +93,9 @@ public class FoodItemManagerController extends ManagerController {
                 if (foodItem == null) {
                     throw new Exception("Món bạn chọn không hợp lệ");
                 }
-                
+
                 SuccessCallback successCallback = new SuccessCallback() {
-                @Override
+                    @Override
                     public void onSuccess() {
                         updateData();
                     }
@@ -104,24 +104,24 @@ public class FoodItemManagerController extends ManagerController {
                 ErrorCallback errorCallback = new ErrorCallback() {
                     @Override
                     public void onError(Exception e) {
-                        view.showError(e);
+                        getView().showError(e);
                     }
                 };
-                
+
                 popupController.edit(new FoodItemPopupView(), foodItem, successCallback, errorCallback);
             }
         } catch (Exception e) {
-            view.showError(e);
+            getView().showError(e);
         }
     }
 
     @Override
-    public void updateData(){
+    public void updateData() {
         try {
             ArrayList<FoodItem> foodItems = foodItemDao.getAll();
-            view.setTableData(foodItems);
+            getView().setTableData(foodItems);
         } catch (Exception e) {
-            view.showError(e);
+            getView().showError(e);
         }
     }
 }

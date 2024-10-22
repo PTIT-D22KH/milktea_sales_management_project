@@ -8,7 +8,6 @@ import controllers.ManagerController;
 import controllers.popup.AddOrderPopupController;
 import controllers.popup.EditOrderPopupController;
 import controllers.popup.ErrorCallback;
-import controllers.popup.OrderPopupController;
 import controllers.popup.SuccessCallback;
 import dao.OrderDao;
 import dao.ShipmentDao;
@@ -32,14 +31,14 @@ import views.popup.EditOrderPopupView;
  * @author P51
  */
 public class OrderManagerController extends ManagerController{
-    private OrderDao orderDao;
-    private TableDao tableDao;
-    private ShipmentDao shipmentDao;
-    private AddOrderPopupController addOrderPopupController;
-    private EditOrderPopupController editOrderPopupController;
-    private Employee sessionEmployee;
+    private final OrderDao orderDao;
+    private final TableDao tableDao;
+    private final ShipmentDao shipmentDao;
+    private final AddOrderPopupController addOrderPopupController;
+    private final EditOrderPopupController editOrderPopupController;
+    private final Employee sessionEmployee;
     public OrderManagerController() {
-        super();
+//        super();
         orderDao = new OrderDao();
         tableDao = new TableDao();
         shipmentDao = new ShipmentDao();
@@ -50,14 +49,13 @@ public class OrderManagerController extends ManagerController{
     }
 
     public OrderManagerController(OrderDao orderDao, TableDao tableDao, ShipmentDao shipmentDao, AddOrderPopupController addOrderPopupController, EditOrderPopupController editOrderPopupController) {
-        super();
+//        super();
         this.orderDao = orderDao;
         this.tableDao = tableDao;
         this.shipmentDao = shipmentDao;
         this.addOrderPopupController = addOrderPopupController;
         this.editOrderPopupController = editOrderPopupController;
         sessionEmployee = SessionManager.getSession().getEmployee();
-
     }
     
     
@@ -79,7 +77,7 @@ public class OrderManagerController extends ManagerController{
         ErrorCallback errorCallback = new ErrorCallback() {
             @Override
             public void onError(Exception ex) {
-                view.showError(ex);
+                getView().showError(ex);
             }
         };
         addOrderPopupController.add(new AddOrderPopupView(), successCallback, errorCallback);
@@ -90,36 +88,35 @@ public class OrderManagerController extends ManagerController{
         try {
             Employee employee = SessionManager.getSession().getEmployee();
             ArrayList<Order> orders;
-            String searchField = view.getComboSearchField().getSelectedItem().toString(), txtSearch = view.getSearchTxt().getText();
+            String searchField = getView().getComboSearchField().getSelectedItem().toString(), txtSearch = getView().getSearchTxt().getText();
             // quản lý có thể search được toàn bộ order, nhân viên chỉ search được order của mình
             if (employee.getPermission() == EmployeePermission.MANAGER) {
                 orders = orderDao.searchByKey(searchField, txtSearch);
             } else {
                 orders = orderDao.searchByKey(employee.getEmployeeId(), searchField, txtSearch);
             }
-            view.setTableData(orders);
+            getView().setTableData(orders);
         } catch (Exception e) {
-            view.showError(e);
+            getView().showError(e);
         }
     }
 
     @Override
     public void actionDelete() {
-        int selectedIds[] = view.getSelectedIds();
+        int selectedIds[] = getView().getSelectedIds();
         try {
             if (selectedIds.length > 1) {
                 if (JOptionPane.showConfirmDialog(null, "Không thể khôi phục\nXác nhận xóa hàng loạt?", "Xóa", ERROR_MESSAGE) != YES_OPTION) {
                     return;
                 }
-            } else if (selectedIds.length == 1){
+            } else if (selectedIds.length == 1) {
                 if (JOptionPane.showConfirmDialog(null, "Xác nhận xóa đơn?", "Xóa", ERROR_MESSAGE) != YES_OPTION) {
                     return;
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Vui lòng chọn đơn cần xoá!");
             }
-            for (int i = 0; i < selectedIds.length; i++) {
-                int id = selectedIds[i];
+            for (int id : selectedIds) {
                 Order o = orderDao.getById(id);
                 Table t = o.getTable();
                 t.setStatus(TableStatus.FREE);
@@ -130,14 +127,14 @@ public class OrderManagerController extends ManagerController{
             }
             updateData();
         } catch (Exception e) {
-            view.showError(e);
+            getView().showError(e);
         }
     }
 
     @Override
     public void actionEdit() {
         try {
-            int selectedID = view.getSelectedId();
+            int selectedID = getView().getSelectedId();
             if (selectedID < 0) {
                 throw new Exception("Chọn hoá đơn cần chỉnh sửa!");
             }
@@ -157,13 +154,13 @@ public class OrderManagerController extends ManagerController{
             ErrorCallback errorCallback = new ErrorCallback() {
                 @Override
                 public void onError(Exception ex) {
-                    view.showError(ex);
+                    getView().showError(ex);
                 }
             };
             editOrderPopupController.edit(new EditOrderPopupView(), order, successCallback, errorCallback);
-            
+
         } catch (Exception e) {
-            view.showError(e); 
+            getView().showError(e);
         }
     }
 
@@ -178,9 +175,9 @@ public class OrderManagerController extends ManagerController{
             } else {
                 orders = orderDao.getAll(employee.getEmployeeId());
             }
-            view.setTableData(orders);
+            getView().setTableData(orders);
         } catch (Exception e) {
-            view.showError(e);
+            getView().showError(e);
         }
     }
     

@@ -34,15 +34,15 @@ import views.admin.ShipmentManagerView;
  */
 public abstract class DashboardController<V extends DashboardView> {
     protected V view;
-    protected ManagerController orderManagerController = new OrderManagerController();
-    protected ManagerController shipmentManagerController = new ShipmentManagerController();
-    protected ManagerController customerManagerController = new CustomerManagerController();
-    protected ManagerPaneView orderManagerView = new OrderManagerView();
-    protected ManagerPaneView shipmentManagerView = new ShipmentManagerView();
-    protected ManagerPaneView customerManagerView = new CustomerManagerView();
-    protected HomeView homeView = new HomeView();
-    protected AboutView aboutView = new AboutView();
-    protected SidebarController sidebarController = new SidebarController();
+    protected final ManagerController orderManagerController = new OrderManagerController();
+    protected final ManagerController shipmentManagerController = new ShipmentManagerController();
+    protected final ManagerController customerManagerController = new CustomerManagerController();
+    protected final ManagerPaneView orderManagerView = new OrderManagerView();
+    protected final ManagerPaneView shipmentManagerView = new ShipmentManagerView();
+    protected final ManagerPaneView customerManagerView = new CustomerManagerView();
+    protected final HomeView homeView = new HomeView();
+    protected final AboutView aboutView = new AboutView();
+    protected final SidebarController sidebarController = new SidebarController();
 
     public V getView() {
         return view;

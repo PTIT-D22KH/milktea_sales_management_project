@@ -18,42 +18,55 @@ import views.popup.SelectEntityPopupView;
  *
  * @author P51
  */
-public abstract class SelectEntityPopupController <T extends SelectEntityPopupView, D extends Dao, M extends Model>{
-    protected JFrame previousView;
-    protected D entityDao;
-    public SelectEntityPopupController() {
-        
-    }
-    public SelectEntityPopupController(D entityDao) {
+/**
+ * Abstract controller for managing entity selection popups.
+ * Adheres to SRP by focusing only on entity selection popup management.
+ * 
+ * @param <T> The type of SelectEntityPopupView
+ * @param <S> The type of Dao
+ * @param <U> The type of Model
+ */
+public abstract class SelectEntityPopupController <T extends SelectEntityPopupView<U>, S extends Dao<U>, U extends Model>{
+    private JFrame previousView;
+    private final S entityDao;
+//    public SelectEntityPopupController() {
+//        
+//    }
+    public SelectEntityPopupController(S entityDao) {
         this.entityDao = entityDao;
     }
-    public interface Callback <M>{
-
-        /**
-         *
-         * @param model
-         * @param m
-         */
-        public abstract void run(M model);
+    public interface Callback <U>{
+        void run(U model);
     }
     
-    public void select(T view, Callback<M> callback) {
-        if(previousView != null && previousView.isDisplayable()) {
+    public void select(T view, Callback<U> callback) {
+        if (previousView != null && previousView.isDisplayable()) {
             previousView.requestFocus();
             return;
         }
         previousView = view;
         view.setVisible(true);
-        try {         
+        try {
             view.renderEntity(entityDao.getAll());
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             view.showError(e);
         }
         view.getBtnCancel().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                view.dispose();            }
+                view.dispose();
+            }
         });
+    }
+    protected JFrame getPreviousView() {
+        return previousView;
+    }
+
+    protected void setPreviousView(JFrame previousView) {
+        this.previousView = previousView;
+    }
+
+    protected S getEntityDao() {
+        return entityDao;
     }
 }
