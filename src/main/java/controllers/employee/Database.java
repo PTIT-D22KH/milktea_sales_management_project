@@ -6,10 +6,7 @@ import java.sql.SQLException;
 import utils.ConfigLoader;
 
 
-/**
- * @createAt Nov 11, 2020
- * @author Tran Duc Cuong<clonebmn2itt@gmail.com>
- */
+
 public class Database {
 
     private static final ConfigLoader cfg = ConfigLoader.getInstance();
