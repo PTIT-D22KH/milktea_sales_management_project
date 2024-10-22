@@ -21,6 +21,11 @@ public class WorkingMinus {
         this.date = date;
         this.minus = minus;
     }
+
+    @Override
+    public String toString() {
+        return "WorkingMinus{" + "employee=" + employee + ", date=" + date + ", minus=" + minus + '}';
+    }
     
     
 }
