@@ -10,65 +10,22 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.Icon;
 import utils.IconManager;
-import utils.SidebarColor;
 
 /**
  *
  * @author P51
  */
 public class MenuItemView extends javax.swing.JPanel {
-    private ArrayList<MenuItemView> subMenu = new ArrayList<>();
-    private MenuItemView parentMenu = null;
     private String id;
-    private int level;
     private boolean active;
-    private IconManager im = new IconManager();
     /**
      * Creates new form MenuItemView
      */
-//    public MenuItemView() {
-//        initComponents();
-//    }
-    public MenuItemView(String id, Icon icon, String menuName, MenuItem... subMenu) {
-        initComponents();
-        this.id = id;
-        iconLabel.setIcon(icon);
-        menuNameLabel.setText(menuName);
-        addMouseListeners(); // Added this line
-    }
     public MenuItemView(String id, String menuName, MenuItem... subMenu) {
         initComponents();
         this.id = id;
         menuNameLabel.setText(menuName);
-        addMouseListeners(); // Added this line
     }
-    private void addMouseListeners() {
-        this.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                if (!active) {
-                    setBackground(SidebarColor.getHoverColor(level));
-                }
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                if (!active) {
-                    setBackground(SidebarColor.getInactiveColor(level));
-                }
-            }
-        });
-    }
-    public ArrayList<MenuItemView> getSubMenu() {
-        return subMenu;
-    }
-    
-    public void addSubMenu(MenuItemView item) {
-        item.setParentMenu(this);
-        item.setLevel(this.level + 1);
-        this.subMenu.add(item);
-    }
-
     public String getId() {
         return id;
     }
@@ -76,59 +33,8 @@ public class MenuItemView extends javax.swing.JPanel {
     public void setId(String id) {
         this.id = id;
     }
-
-    public MenuItemView getParentMenu() {
-        return parentMenu;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
-    public void setParentMenu(MenuItemView parentMenu) {
-        this.parentMenu = parentMenu;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-    public boolean hasSubMenu() {
-        return !subMenu.isEmpty();
-    }
-    public void setActive(boolean active) {
-        this.active = active;
-        if (active) {
-            setBackground(SidebarColor.getActiveColor(level));
-            if (hasSubMenu()) {
-                openLabel.setIcon(im.getIcon("opened_menu_25px.png"));
-            }
-        } else {
-            setBackground(SidebarColor.getInactiveColor(level));
-            if (hasSubMenu()) {
-                openLabel.setIcon(im.getIcon("closed_menu_25px.png"));
-            }
-        }
-        if (!hasSubMenu()) {
-            openLabel.setVisible(false);
-            this.updateUI();
-        }
-    }
-    
     public boolean  equals(MenuItemView other) {
         return this == other;
-    }
-    public boolean hasChild(MenuItemView other) {
-        if (other == null) {
-            return false;
-        }
-        if (other.equals(this)) {
-            return true;
-        }
-        return hasChild(other.getParentMenu());
     }
     /**
      * This method is called from within the constructor to initialize the form.

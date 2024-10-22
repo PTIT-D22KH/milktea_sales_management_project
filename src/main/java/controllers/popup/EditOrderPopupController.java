@@ -37,7 +37,6 @@ import views.popup.ToppingPopupView;
  */
 public class EditOrderPopupController extends PopupController<EditOrderPopupView, Order> {
     private final OrderDao orderDao;
-//    private final EmployeeDao employeeDao;
     private final ShipmentDao shipmentDao;
     private final TableDao tableDao;
     private final OrderItemDao orderItemDao;
@@ -50,7 +49,6 @@ public class EditOrderPopupController extends PopupController<EditOrderPopupView
 
     public EditOrderPopupController() {
         this.orderDao = new OrderDao();
-//        this.employeeDao = new EmployeeDao();
         this.shipmentDao = new ShipmentDao();
         this.tableDao = new TableDao();
         this.orderItemDao = new OrderItemDao();
@@ -64,7 +62,6 @@ public class EditOrderPopupController extends PopupController<EditOrderPopupView
 
     public EditOrderPopupController(OrderDao orderDao, EmployeeDao employeeDao, ShipmentDao shipmentDao, TableDao tableDao, OrderItemDao orderItemDao, FoodItemController foodItemController, OrderItemController orderItemController, ToppingPopupController toppingPopupController, ShipmentPopupControler shipmentPopupControler, OrderPrintController orderPrintController) {
         this.orderDao = orderDao;
-//        this.employeeDao = employeeDao;
         this.shipmentDao = shipmentDao;
         this.tableDao = tableDao;
         this.orderItemDao = orderItemDao;
