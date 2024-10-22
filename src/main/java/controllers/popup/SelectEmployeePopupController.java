@@ -22,20 +22,6 @@ import views.popup.SelectEntityPopupView;
  * Adheres to SRP by focusing only on employee selection popup management.
  */
 public class SelectEmployeePopupController extends SelectEntityPopupController<SelectEmployeePopupView, EmployeeDao, Employee>{
-//    private EmployeeDao employeeDao;
-//    private JFrame previousView;
-//    public SelectEmployeePopupController() {
-//        this.entityDao = new EmployeeDao();
-//    }
-////
-//    
-//    public SelectEmployeePopupController(EmployeeDao employeeDao) {
-//        this.entityDao = employeeDao;
-//    }
-//    
-//    public interface Callback {
-//        public abstract void run(Employee employee);
-//    }
     public SelectEmployeePopupController() {
         super(new EmployeeDao());
     }

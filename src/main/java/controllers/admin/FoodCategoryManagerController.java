@@ -5,7 +5,6 @@ import controllers.popup.ErrorCallback;
 import controllers.popup.FoodCategoryPopupController;
 import controllers.popup.SuccessCallback;
 import dao.FoodCategoryDao;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;

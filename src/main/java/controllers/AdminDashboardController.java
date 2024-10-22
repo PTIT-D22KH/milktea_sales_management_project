@@ -13,13 +13,11 @@ import javax.swing.JPanel;
 import models.Employee;
 import utils.SessionManager;
 import views.AdminDashboardView;
-import views.admin.CustomerManagerView;
 import views.admin.EmployeeManagerView;
 import views.admin.FoodCategoryManagerView;
 import views.admin.FoodItemManagerView;
 import views.admin.ManagerPaneView;
 import views.admin.MenuItemView;
-import views.admin.ShipmentManagerView;
 import views.admin.TableManagerView;
 import views.employee.EmployeeInformationView;
 
