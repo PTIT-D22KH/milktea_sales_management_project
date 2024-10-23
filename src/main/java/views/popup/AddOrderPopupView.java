@@ -30,9 +30,6 @@ public class AddOrderPopupView extends javax.swing.JFrame implements PopupView{
         
     }
 
-
-    
-
     public JButton getBtnCancel() {
         return btnCancel;
     }

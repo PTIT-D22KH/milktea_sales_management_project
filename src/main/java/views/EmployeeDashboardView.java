@@ -21,9 +21,6 @@ public class EmployeeDashboardView extends DashboardView {
     /**
      * Creates new form EmployeeDashboardView
      */
-//    private JPanel[] cards;
-//    private ArrayList<MenuItemView> menuItems = new ArrayList<>();
-
     public EmployeeDashboardView() {
         initComponents();
         setSize(1208, 680);
@@ -47,11 +44,6 @@ public class EmployeeDashboardView extends DashboardView {
             MenuItemView item = menu[i];
             menuItems.add(item);
             sidebarPanel.add(item);
-//            ArrayList<MenuItemView> subMenus = item.getSubMenu();
-//            for (MenuItemView subMenu : subMenus) {
-//                addMenu(subMenu);
-//                subMenu.setVisible(false);
-//            }
         }
     }
 

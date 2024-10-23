@@ -25,15 +25,23 @@ public abstract class SelectEntityPopupView <M extends Model> extends javax.swin
      */
     public SelectEntityPopupView() {
         this.entityListModel = new DefaultListModel<>();
-//        mineInitComponents();
-//        entityList.setModel(entityListModel);
     }
     protected abstract void mineInitComponents();
 
+    @Override
     public abstract JButton getBtnCancel();
+    @Override
     public abstract JButton getBtnOK();
+    @Override
     public abstract JButton getBtnSearch();
+
+    /**
+     *
+     * @return
+     */
+    @Override
     public abstract JList<M> getEntityList();
+    @Override
     public abstract JTextField getEntityNameTxtField();
     
     @Override

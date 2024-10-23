@@ -23,21 +23,11 @@ public class SelectEmployeePopupView extends SelectEntityPopupView<Employee> {
 
     /**
      * Creates new form SelectEmployeePopupView
-     */
-//    DefaultListModel<Employee> employeeListModel = new DefaultListModel<>();
-//    
-//    public SelectEmployeePopupView() {
-//        mineInitComponents();
-//    }
-    
+     */    
     public SelectEmployeePopupView() {
-//        initComponents();
         super();
         mineInitComponents();
     }
-    
-    
-    
     
     @Override
     public JButton getBtnCancel() {
@@ -65,28 +55,6 @@ public class SelectEmployeePopupView extends SelectEntityPopupView<Employee> {
         return entityNameTxtField;
     }
     
-    
-    
-//    @Override
-//    public void renderEntity(ArrayList<Employee> employees) {
-//        entityListModel.removeAllElements();
-//        for (Employee employee : employees) {
-//            entityListModel.addElement(employee);
-//        }
-//    }
-    
-    
-    
-//    @Override
-//    public void showError(String message) {
-//        ErrorPopup.show(new Exception(message));
-//    }
-//
-//    @Override
-//    public void showError(Exception message) {
-//        ErrorPopup.show(message);
-//    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -270,17 +238,11 @@ public class SelectEmployeePopupView extends SelectEntityPopupView<Employee> {
     // End of variables declaration//GEN-END:variables
 
     @Override
-    protected void mineInitComponents() {
-        try {
-            javax.swing.UIManager.setLookAndFeel("com.formdev.flatlaf.FlatIntelliJLaf");
-        } catch (Exception ex) {
-            System.err.println("Set up UI Theme failed!");
-        }
+    protected final void mineInitComponents() {
         this.initComponents();
         entityList.setModel(entityListModel);
         entityList.setCellRenderer(new EmployeeRenderList());
         getRootPane().setDefaultButton(btnSearch);
         setLocationRelativeTo(null);
-//        System.out.println("OK");
     }
 }

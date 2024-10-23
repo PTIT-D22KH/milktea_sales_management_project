@@ -57,7 +57,7 @@ public class OrderPrintController {
         OrderDao orderDao = new OrderDao();
         OrderItemDao orderItemDao = new OrderItemDao();
         Order order = orderDao.getById(id);
-        ArrayList<OrderItem> orderItems = orderItemDao.getByIdOrder(id);
+        ArrayList<OrderItem> orderItems = orderItemDao.getByOrderId(id);
         print(order, orderItems);
     }
 

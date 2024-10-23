@@ -61,10 +61,6 @@ public class ShipmentPopupView extends javax.swing.JFrame {
         return spnShipCost;
     }
 
-//    public JTextField getTxtShipperName() {
-//        return txtShipperName;
-//    }
-
     public JLabel getLbCustomerName() {
         return lbCustomerName;
     }

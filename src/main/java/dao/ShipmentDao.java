@@ -86,9 +86,14 @@ public class ShipmentDao extends Dao<Shipment> {
         stmt.executeUpdate();
     }
 
-    public void deleteByIdCustomer(int id) throws SQLException {
+    /**
+     * delete ship from a specific customer
+     * @param customerId
+     * @throws SQLException 
+     */
+    public void deleteByCustomerId(int customerId) throws SQLException {
         PreparedStatement stmt = conn.prepareStatement("DELETE FROM `shipment` WHERE `shipment`.`CustomerId` = ?");
-        stmt.setInt(1, id);
+        stmt.setInt(1, customerId);
         stmt.executeUpdate();
     }
 

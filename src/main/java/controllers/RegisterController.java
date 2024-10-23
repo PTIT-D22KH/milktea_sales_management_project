@@ -8,6 +8,7 @@ import dao.EmployeeDao;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
+import javax.swing.JOptionPane;
 import models.Employee;
 import utils.EmployeePermission;
 import views.RegisterView;
@@ -43,7 +44,7 @@ public class RegisterController extends AuthenticationController<RegisterView>{
         String confirmPassword = new String(view.getConfirmPassField().getPassword());
         
         if (name.isEmpty() || phoneNumber.isEmpty() || username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-            view.showMessage("Hãy điền đầy đủ thông tin");
+            JOptionPane.showMessageDialog(null, "Hãy điền đầy đủ thông tin");
             return;
         }
         
