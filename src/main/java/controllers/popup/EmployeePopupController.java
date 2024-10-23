@@ -39,9 +39,13 @@ public class EmployeePopupController extends PopupController<EmployeePopupView, 
         view.getConfirmPassField().setText(employee.getPassword());
         view.getNameTxtField().setText(employee.getName());
         view.getPhoneNumberTxtField().setText(employee.getPhoneNumber());
+        String currentPermission = employee.getPermission().getName();
         view.getPermissionCbo().removeAllItems();
+        view.getPermissionCbo().addItem(currentPermission);
         for (EmployeePermission permission : EmployeePermission.values()) {
-            view.getPermissionCbo().addItem(permission.getName());
+            if (!permission.getName().equals(currentPermission)) {
+                view.getPermissionCbo().addItem(permission.getName());
+            }
         }
         view.getSalarySpinner().setValue(employee.getSalary());
     }

@@ -62,7 +62,25 @@ public class CustomerManagerController extends ManagerController{
     @Override
     public void actionSearch() {
         try {
-            ArrayList<Customer> customers = customerDao.searchByKey(getView().getComboSearchField().getSelectedItem().toString(), String.valueOf(getView().getSearchTxt().getText()));
+            String keyChoice = getView().getComboSearchField().getSelectedItem().toString();
+            String convertKeyChoice = new String();
+            switch (keyChoice) {
+                case "Mã khách hàng":
+                    convertKeyChoice = "CustomerId";
+                    break;
+                case "SĐT":
+                    convertKeyChoice = "PhoneNumber";
+                    break;
+                case "Tên khách hàng":
+                    convertKeyChoice = "Name";
+                    break;
+                case "Địa chỉ":
+                    convertKeyChoice = "Address";
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+            ArrayList<Customer> customers = customerDao.searchByKey(convertKeyChoice, String.valueOf(getView().getSearchTxt().getText()));
             getView().setTableData(customers);
         } catch (Exception e) {
             getView().showError(e);

@@ -148,6 +148,7 @@ public class Shipment extends Model{
 
     @Override
     public Object[] toRowTable() {
+        System.out.println(this.customer);
         return new Object[]{
             orderId, customer.getName(), customer.getAddress(), employee.getName(), shipCost, status.getName(), startDate, endDate
         };

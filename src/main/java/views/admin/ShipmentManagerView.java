@@ -13,7 +13,7 @@ import models.Shipment;
  */
 public class ShipmentManagerView extends ManagerPaneView<Shipment>{
     private String list[] = {
-      "OrderId"
+      "Mã đơn"
     };
     
     public ShipmentManagerView() {

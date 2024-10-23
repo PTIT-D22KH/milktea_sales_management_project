@@ -113,9 +113,7 @@ public class CustomerDao extends Dao<Customer>{
                 + "WHERE `customerId` = ?";
         PreparedStatement statement = conn.prepareStatement(query);
         statement.setInt(1, id);
-        statement.executeUpdate();
-        
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        statement.executeUpdate();        
     }   
     
     public ArrayList<Customer> searchByKey(String key, String word) throws SQLException {

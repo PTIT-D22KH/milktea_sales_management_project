@@ -51,7 +51,19 @@ public class FoodCategoryManagerController extends ManagerController {
     @Override
     public void actionSearch() {
         try {
-            ArrayList<FoodCategory> foodCategories = foodCategoryDao.searchByKey(getView().getComboSearchField().getSelectedItem().toString(), String.valueOf(getView().getSearchTxt().getText()));
+            String keyChoice = getView().getComboSearchField().getSelectedItem().toString();
+            String convertKeyChoice = new String();
+            switch (keyChoice) {
+                case "Mã loại món":
+                    convertKeyChoice = "FoodCategoryId";
+                    break;
+                case "Tên loại món":
+                    convertKeyChoice = "Name";
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+            ArrayList<FoodCategory> foodCategories = foodCategoryDao.searchByKey(convertKeyChoice, String.valueOf(getView().getSearchTxt().getText()));
             getView().setTableData(foodCategories);
         } catch (Exception ex) {
             getView().showError(ex);

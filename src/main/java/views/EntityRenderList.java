@@ -14,8 +14,8 @@ import models.Model;
  *
  * @author P51
  */
-public abstract class EntityRenderList <M extends Model> extends javax.swing.JPanel implements ListCellRenderer<M>{
+public abstract class EntityRenderList <T extends Model> extends javax.swing.JPanel implements ListCellRenderer<T>{
 
-    public abstract Component getListCellRendererComponent(JList<? extends M> list, M value, int index, boolean isSelected, boolean cellHasFocus);
+    public abstract Component getListCellRendererComponent(JList<? extends T> list, T value, int index, boolean isSelected, boolean cellHasFocus);
     
 }

@@ -14,7 +14,7 @@ import models.Order;
 public class OrderManagerView extends ManagerPaneView<Order>{
 
     private String list[] = {
-        "OrderId"
+        "Mã đơn"
     };
     public OrderManagerView() {
         super();

@@ -31,11 +31,9 @@ public class ShipmentPopupControler{
     private final CustomerDao customerDao;
     private final EmployeeDao employeeDao;
     private final OrderDao orderDao;
-    private boolean isEmployeeChosen;
     private JFrame previousView;
     
     public ShipmentPopupControler(){ 
-        isEmployeeChosen = false;
         this.shipmentDao = new ShipmentDao();
         this.customerDao = new CustomerDao();
         this.employeeDao = new EmployeeDao();
@@ -94,6 +92,7 @@ public class ShipmentPopupControler{
             } else {
                 view.getLbCustomerName().setText("<Chưa chọn>");
             }
+            view.getLbEmployeeName().setText(employeeDao.getById(shipment.getEmployeeId()).getName());
             view.getBtnSelectEmployee().addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
@@ -103,7 +102,6 @@ public class ShipmentPopupControler{
                         public void run(Employee employee) {
                             shipment.setEmployee(employee);
                             view.getLbEmployeeName().setText(employee.getName());
-                            isEmployeeChosen = true;
                         }
                     });
                 }
@@ -130,12 +128,7 @@ public class ShipmentPopupControler{
                 @Override
                 public void actionPerformed(ActionEvent evt) {
                     try {
-                        if (!isEmployeeChosen) {
-                            JOptionPane.showMessageDialog(null, "Bạn chưa chọn nhân viên giao hàng!");
-                            return;
-                        }
                         editShipment(view, shipment);
-                        isEmployeeChosen = false;
                         view.dispose();
                         view.showMessage("Tạo / sửa đơn ship thành công!");
                         sc.onSuccess();

@@ -86,9 +86,18 @@ public class OrderManagerController extends ManagerController{
     @Override
     public void actionSearch() {
         try {
+            String keyChoice = getView().getComboSearchField().getSelectedItem().toString();
+            String convertKeyChoice = new String();
+            switch (keyChoice) {
+                case "Mã đơn":
+                    convertKeyChoice = "OrderId";
+                    break;
+                default:
+                    throw new AssertionError();
+            }
             Employee employee = SessionManager.getSession().getEmployee();
             ArrayList<Order> orders;
-            String searchField = getView().getComboSearchField().getSelectedItem().toString(), txtSearch = getView().getSearchTxt().getText();
+            String searchField = convertKeyChoice, txtSearch = getView().getSearchTxt().getText();
             // quản lý có thể search được toàn bộ order, nhân viên chỉ search được order của mình
             if (employee.getPermission() == EmployeePermission.MANAGER) {
                 orders = orderDao.searchByKey(searchField, txtSearch);
