@@ -103,7 +103,7 @@ public class CustomerManagerController extends ManagerController{
                 JOptionPane.showMessageDialog(null, "Vui lòng chọn khách hàng cần xoá!");
             }
             for (int id : selectedIds) {
-                shipmentDao.deleteByIdCustomer(id);
+                shipmentDao.deleteByCustomerId(id);
                 customerDao.deleteById(id);
                 updateData();
             }

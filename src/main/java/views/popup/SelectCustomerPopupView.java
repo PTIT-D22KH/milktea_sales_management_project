@@ -21,8 +21,7 @@ import views.CustomerRenderList;
 public class SelectCustomerPopupView extends SelectEntityPopupView<Customer> {
 
     /**
-     * Creates new form SelectCustomerPopupView
-     * @return 
+     * Creates new form SelectCustomerPopupView 
      */
 //    private DefaultListModel<Customer> customerListModel;
 //    
@@ -242,7 +241,7 @@ public class SelectCustomerPopupView extends SelectEntityPopupView<Customer> {
     // End of variables declaration//GEN-END:variables
 
     @Override
-    protected void mineInitComponents() {
+    protected final void mineInitComponents() {
         this.initComponents();
         entityList.setModel(entityListModel);
         entityList.setCellRenderer(new CustomerRenderList());

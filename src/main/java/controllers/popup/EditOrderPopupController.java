@@ -197,7 +197,7 @@ public class EditOrderPopupController extends PopupController<EditOrderPopupView
             for (OrderType ot : OrderType.values()) { // Hiển thị loại hóa đơn
                 view.getTypeCboBox().addItem(ot.getName());
             }
-            orderItemController.setOrderItems(orderItemDao.getByIdOrder(order.getOrderId()));
+            orderItemController.setOrderItems(orderItemDao.getByOrderId(order.getOrderId()));
             foodItemController.renderCategory(foodItem -> {//Hiển thị danh sách món ăn
                 toppingPopupController.add(new ToppingPopupView(), foodItem, orderItem -> {
                     orderItemController.addOrderItem(orderItem);// Thêm vào danh sách order

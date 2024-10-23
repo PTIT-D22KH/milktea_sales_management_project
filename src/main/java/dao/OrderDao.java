@@ -15,10 +15,11 @@ import utils.OrderStatus;
  */
 public class OrderDao extends Dao<Order> {
 
-    EmployeeDao employeeDao = new EmployeeDao();
-    TableDao tableDao = new TableDao();
-    CustomerDao customerDao = new CustomerDao();
+    private final EmployeeDao employeeDao = new EmployeeDao();
+    private final TableDao tableDao = new TableDao();
+    private final CustomerDao customerDao = new CustomerDao();
 
+    
     @Override
     public ArrayList<Order> getAll() throws SQLException {
         ArrayList<Order> orders = new ArrayList<>();
@@ -31,8 +32,6 @@ public class OrderDao extends Dao<Order> {
                 continue;
             }
             order.setEmployee(employeeDao.getById(order.getEmployeeId()));
-//            System.out.println(order);
-//            System.out.println(order.getTable());
             order.setTable(tableDao.getById(order.getTableId()));
             order.setCustomer(customerDao.getById(order.getCustomerId()));
             orders.add(order);
@@ -40,6 +39,12 @@ public class OrderDao extends Dao<Order> {
         return orders;
     }
 
+    /**
+     * get all orders from a specific employee
+     * @param EmployeeId
+     * @return
+     * @throws SQLException 
+     */
     public ArrayList<Order> getAll(int EmployeeId) throws SQLException {
         ArrayList<Order> orders = new ArrayList<>();
         Statement statement = conn.createStatement();
@@ -102,6 +107,11 @@ public class OrderDao extends Dao<Order> {
         stmt.executeUpdate();
     }
 
+    /**
+     * delete order with specific id
+     * @param OrderId
+     * @throws SQLException 
+     */
     @Override
     public void deleteById(int OrderId) throws SQLException {
         PreparedStatement stmt = conn.prepareStatement("DELETE FROM `order` WHERE `order`.`orderId` = ?");
@@ -109,6 +119,11 @@ public class OrderDao extends Dao<Order> {
         stmt.executeUpdate();
     }
 
+    /**
+     * delete order items in a specific order
+     * @param OrderId
+     * @throws SQLException 
+     */
     public void deleteItems(int OrderId) throws SQLException {
         PreparedStatement stmt = conn.prepareStatement("DELETE FROM `order_item` WHERE `orderId` = ?");
         stmt.setInt(1, OrderId);
@@ -130,6 +145,11 @@ public class OrderDao extends Dao<Order> {
         return orders;
     }
 
+    /**
+     * create order with specific timestamp
+     * @param t
+     * @throws SQLException 
+     */
     public void create(Order t) throws SQLException {
         if (t == null) {
             throw new SQLException("Order rỗng");
@@ -166,20 +186,6 @@ public class OrderDao extends Dao<Order> {
         return orders;
     }
 
-    public Order getRandom() throws SQLException {
-        String query = "SELECT * FROM `order` WHERE status = ? ORDER BY RAND() LIMIT 1";
-        PreparedStatement statement = conn.prepareStatement(query);
-        statement.setNString(1, OrderStatus.UNPAID.getId());
-        ResultSet rs = statement.executeQuery();
-        if (rs.next()) {
-            Order order = Order.getFromResultSet(rs);
-            order.setEmployee(employeeDao.getById(order.getEmployeeId()));
-            order.setTable(tableDao.getById(order.getTableId()));
-            order.setCustomer(customerDao.getById(order.getCustomerId()));
-            return order;
-        }
-        return null;
-    }
 
     @Override
     public Order getById(int id) throws SQLException {
@@ -194,7 +200,6 @@ public class OrderDao extends Dao<Order> {
             return order;
         }
         return null;
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

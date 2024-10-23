@@ -8,6 +8,7 @@ import dao.EmployeeDao;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 import models.Employee;
 import utils.SessionManager;
 import views.AdminDashboardView;
@@ -42,11 +43,11 @@ public class LoginController extends AuthenticationController<LoginView>{
         try {
             Employee employee = employeeDao.findByUsername(username);
             if (employee == null) {
-                view.showError("Không tồn tại tài khoản");
+                view.showMessage("Không tồn tại tài khoản");
                 return;
             }
             if (!employee.checkPassword(password)) {
-                view.showError("Mật khẩu sai");
+                view.showMessage("Mật khẩu sai");
                 return;
             }
             SessionManager.create(employee);
@@ -57,19 +58,21 @@ public class LoginController extends AuthenticationController<LoginView>{
                     controller.getView().setPanel(new HomeView());
                     view.dispose();
                     break;
+                    
                 case STAFF:
+                    //employee dashboard controller
                     EmployeeDashboardController controller1 = new EmployeeDashboardController(new EmployeeDashboardView());
                     controller1.getView().setPanel(new HomeView());
                     controller1.getView().setVisible(true);
                     view.dispose();
                     break;
                 case INACTIVE:
-                    view.showError("Tài khoản của bạn đã bị khóa.\nVui lòng liên hệ admin để biết thêm chi tiết");
+                    view.showMessage("Tài khoản của bạn đã bị khóa.\nVui lòng liên hệ admin để biết thêm chi tiết");
                     SessionManager.update();
 //                    view.dispose();
                     break;
                 default:
-                    view.showError("Vui lòng liên hệ admin để biết thêm chi tiết");
+                    view.showMessage("Vui lòng liên hệ admin để biết thêm chi tiết");
                     SessionManager.update();
 //                    view.dispose();
                     break;

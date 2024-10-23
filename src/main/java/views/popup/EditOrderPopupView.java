@@ -635,6 +635,7 @@ public class EditOrderPopupView extends javax.swing.JFrame implements PopupView{
 
     /**
      * @param args the command line arguments
+     * @return 
      */
 //    public static void main(String args[]) {
 //        /* Set the Nimbus look and feel */

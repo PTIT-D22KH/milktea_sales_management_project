@@ -24,9 +24,13 @@ public class CustomerDao extends Dao<Customer>{
     
     public CustomerDao(Connection mockConnection) {
         conn = mockConnection;
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /**
+     * return all customers in database
+     * @return
+     * @throws SQLException 
+     */
     @Override
     public ArrayList<Customer> getAll() throws SQLException {
         ArrayList<Customer> customers = new ArrayList<>();
@@ -38,9 +42,14 @@ public class CustomerDao extends Dao<Customer>{
             customers.add(customer);
         } 
         return customers;
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /**
+     * return customer with the id provided
+     * @param id
+     * @return
+     * @throws SQLException 
+     */
     @Override
     public Customer getById(int id) throws SQLException {
         Statement statement = conn.createStatement();
@@ -53,9 +62,13 @@ public class CustomerDao extends Dao<Customer>{
             return customer;
         }
         return null;
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /**
+     * add a customer to the database
+     * @param t
+     * @throws SQLException 
+     */
     @Override
     public void save(Customer t) throws SQLException {
         if  (t == null) {
@@ -68,12 +81,14 @@ public class CustomerDao extends Dao<Customer>{
         statement.setNString(2, t.getName());
         statement.setNString(3, t.getAddress());
         
-        int row = statement.executeUpdate();
-        
-        
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int row = statement.executeUpdate();        
     }
 
+    /**
+     * update a customer
+     * @param t
+     * @throws SQLException 
+     */
     @Override
     public void update(Customer t) throws SQLException {
         if (t == null) {
@@ -90,11 +105,13 @@ public class CustomerDao extends Dao<Customer>{
         statement.setInt(4, t.getCustomerId());
         
         int row = statement.executeUpdate();
-
-        
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /**
+     * delete a customer
+     * @param t
+     * @throws SQLException 
+     */
     @Override
     public void delete(Customer t) throws SQLException {
         String query = "DELETE "
@@ -103,9 +120,13 @@ public class CustomerDao extends Dao<Customer>{
         PreparedStatement statement = conn.prepareStatement(query);
         statement.setInt(1, t.getCustomerId());
         statement.executeUpdate();
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /**
+     * delete the customer with the provided customerId
+     * @param id
+     * @throws SQLException 
+     */
     @Override
     public void deleteById(int id) throws SQLException {
         String query = "DELETE "
@@ -116,6 +137,13 @@ public class CustomerDao extends Dao<Customer>{
         statement.executeUpdate();        
     }   
     
+    /**
+     * Search by the column with word pattern
+     * @param key is the column of customer table in database
+     * @param word
+     * @return
+     * @throws SQLException 
+     */
     public ArrayList<Customer> searchByKey(String key, String word) throws SQLException {
         ArrayList<Customer> customers = new ArrayList<>();
         Statement statement = conn.createStatement();
