@@ -64,7 +64,22 @@ public class EmployeeManagerController extends ManagerController{
     @Override
     public void actionSearch() {
         try {
-            ArrayList<Employee> employees = employeeDao.searchByKey(getView().getComboSearchField().getSelectedItem().toString(), String.valueOf(getView().getSearchTxt().getText()));
+            String keyChoice = getView().getComboSearchField().getSelectedItem().toString();
+            String convertKeyChoice = new String();
+            switch (keyChoice) {
+                case "Mã nhân viên":
+                    convertKeyChoice = "EmployeeId";
+                    break;
+                case "SĐT":
+                    convertKeyChoice = "PhoneNumber";
+                    break;
+                case "Tên nhân viên":
+                    convertKeyChoice = "Name";
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+            ArrayList<Employee> employees = employeeDao.searchByKey(convertKeyChoice, String.valueOf(getView().getSearchTxt().getText()));
             getView().setTableData(employees);
         } catch (Exception e) {
             getView().showError(e);

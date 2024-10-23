@@ -13,7 +13,7 @@ import models.Employee;
  */
 public class EmployeeManagerView extends ManagerPaneView<Employee>{
     private String list[] = {
-      "EmployeeId", "Name", "PhoneNumber"
+      "Mã nhân viên", "SĐT", "Tên nhân viên"
     };
     public EmployeeManagerView() {
         super();
@@ -31,7 +31,6 @@ public class EmployeeManagerView extends ManagerPaneView<Employee>{
         tableModel.addColumn("Chức vụ");
         tableModel.addColumn("Lương");
         this.getComboSearchField().setModel(new DefaultComboBoxModel(list));
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     

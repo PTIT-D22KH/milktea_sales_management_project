@@ -1,8 +1,8 @@
 package utils;
 
 public enum EmployeePermission {
-    MANAGER("manager", "Quản lý", 2),
     STAFF("staff", "Nhân viên", 1),
+    MANAGER("manager", "Quản lý", 2),
     INACTIVE("inactive", "Nghỉ việc", 0);
 
     private String id, name;

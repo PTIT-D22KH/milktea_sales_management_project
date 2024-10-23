@@ -8,10 +8,8 @@ import dao.EmployeeDao;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import javax.swing.JFrame;
 import models.Employee;
 import views.popup.SelectEmployeePopupView;
-import views.popup.SelectEntityPopupView;
 
 /**
  *
@@ -31,7 +29,23 @@ public class SelectEmployeePopupController extends SelectEntityPopupController<S
     }
     @Override
     public void select(SelectEmployeePopupView view, Callback<Employee> callback) {
-        super.select(view, callback);
+        if (getPreviousView() != null && getPreviousView().isDisplayable()) {
+            getPreviousView().requestFocus();
+            return;
+        }
+        setPreviousView(view);
+        view.setVisible(true);
+        try {
+            view.renderEntity(getEntityDao().getAllActiveEmployees());
+        } catch (SQLException e) {
+            view.showError(e);
+        }
+        view.getBtnCancel().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                view.dispose();
+            }
+        });
         view.getBtnOK().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
