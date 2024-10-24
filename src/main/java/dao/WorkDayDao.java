@@ -5,7 +5,6 @@
  */
 package dao;
 
-import controllers.employee.Database;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import models.WorkDay;
+import utils.DatabaseConnector;
 import utils.OrderStatus;
 
 /**
@@ -21,7 +21,7 @@ import utils.OrderStatus;
  */
 public class WorkDayDao {
 
-    Connection conn = Database.getInstance().getConnection();
+    Connection conn = DatabaseConnector.getInstance().getConn();
 //    public ArrayList<WorkDay> getDay(int id,String month,String year) throws SQLException {
 //        ArrayList<WorkDay> workDays = new ArrayList<>();
 //        Statement statement  = conn.createStatement();
