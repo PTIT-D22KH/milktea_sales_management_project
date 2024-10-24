@@ -143,7 +143,7 @@ public class ShipmentPopupControler{
             }
     }
     
-    public void editShipment(ShipmentPopupView view, Shipment shipment, int orderId) throws SQLException {
+    private void editShipment(ShipmentPopupView view, Shipment shipment, int orderId) throws SQLException {
         shipment.setStatus(ShipmentStatus.getByName(view.getCboStatus().getSelectedItem().toString()));
         shipment.setShipCost((int) view.getSpnShipCost().getValue());
         if (shipment.getStatus() == ShipmentStatus.COMPLETED || shipment.getStatus() == ShipmentStatus.CANCELLED) {
