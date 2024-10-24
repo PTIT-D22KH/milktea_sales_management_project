@@ -61,6 +61,10 @@ public abstract class SelectEntityPopupView <M extends Model> extends javax.swin
     public void showError(Exception message) {
         ErrorPopup.show(message);
     }
+    @Override
+    public void showMessage(String message) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
