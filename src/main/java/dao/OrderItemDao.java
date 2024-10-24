@@ -13,7 +13,7 @@ import models.OrderItem;
  */
 public class OrderItemDao extends Dao<OrderItem> {
 
-    FoodItemDao foodItemDao = new FoodItemDao() {};
+    private final FoodItemDao foodItemDao = new FoodItemDao();
 
     @Override
     public ArrayList<OrderItem> getAll() throws SQLException {

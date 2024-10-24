@@ -17,9 +17,9 @@ import models.Shipment;
  */
 public class ShipmentDao extends Dao<Shipment> {
 
-    CustomerDao customerDao = new CustomerDao();
-    OrderDao orderDao = new OrderDao();
-    private EmployeeDao employeeDao = new EmployeeDao();
+    private final CustomerDao customerDao = new CustomerDao();
+    private final OrderDao orderDao = new OrderDao();
+    private final EmployeeDao employeeDao = new EmployeeDao();
 
     @Override
     public ArrayList<Shipment> getAll() throws SQLException {

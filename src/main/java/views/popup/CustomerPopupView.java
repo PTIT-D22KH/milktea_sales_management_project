@@ -248,19 +248,15 @@ public class CustomerPopupView extends javax.swing.JFrame implements PopupView{
     @Override
     public void showError(String message) {
         ErrorPopup.show(new Exception(message));
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void showError(Exception e) {
         ErrorPopup.show(e);
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void showMessage(String message) {
-//          System.out.println(message);
         JOptionPane.showMessageDialog(null, message);
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
