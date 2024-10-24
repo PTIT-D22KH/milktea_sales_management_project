@@ -21,29 +21,7 @@ import utils.OrderStatus;
  */
 public class WorkDayDao {
 
-    Connection conn = DatabaseConnector.getInstance().getConn();
-//    public ArrayList<WorkDay> getDay(int id,String month,String year) throws SQLException {
-//        ArrayList<WorkDay> workDays = new ArrayList<>();
-//        Statement statement  = conn.createStatement();
-//        String query = "SELECT DAY.(DATE(startTime)) as day "
-//                + "FROM `session` "
-//                + "WHERE `id` = "+id+"and "
-//                + "YEAR.(DATE((startTime)) = "+ year + "and "
-//                + "MONTH.(DATE(startTime)) = "+month +""
-//                + "ORDER BY day ASC";
-//        ResultSet rs = statement.executeQuery(query);
-//        while (rs.next()) {
-//            WorkDay workDay = WorkDay.getFromResultSet(rs);
-//            workDays.add(workDay);
-//        }
-//        return workDays;
-//    }
-//
-//
-//    public WorkDay get(int id,String date) throws SQLException {
-//        Statement statement = conn.createStatement();
-//        return null;
-//    }
+    private final Connection conn = DatabaseConnector.getInstance().getConn();
 
     public ArrayList<Integer> getDay(int id, int month, int year) throws SQLException {
         String query = "SELECT  DISTINCT DAY(startTime) as day FROM `session` WHERE `employeeId` = ? AND YEAR(startTime) = ? and MONTH(startTime) = ? ORDER BY day ASC";
@@ -60,40 +38,40 @@ public class WorkDayDao {
     }
 
     public WorkDay getSales(int employeeId, Timestamp date) throws SQLException {
-        System.out.println(employeeId+": ");
-        System.out.println(date);
-        String query = "SELECT DATE(orderDate) as day,"
-                + "COUNT(orderId) AS amount, SUM(totalAmount)as total,"
-                + "(COUNT(orderId)*2000) as bonus "
-                + "FROM `order` "
-                + "WHERE employeeId = ? AND DATE(orderDate) = DATE(?) AND status = ? "
-                + "GROUP BY DATE(orderDate)";
-        PreparedStatement statement = conn.prepareStatement(query);
-        statement.setInt(1, employeeId);
-        statement.setTimestamp(2, date);
-        statement.setNString(3, OrderStatus.PAID.getId());
-        ResultSet rs = statement.executeQuery();
-        if (rs.next()) {
-            System.out.println(rs.getString("day"));
-            WorkDay workDay = WorkDay.getFromResultSet(rs);
-            return workDay;
+        String query = "SELECT DATE(orderDate) as day, COUNT(orderId) AS amount, SUM(totalAmount) as total, (COUNT(orderId) * 2000) as bonus "
+                     + "FROM `order` "
+                     + "WHERE employeeId = ? AND DATE(orderDate) = DATE(?) AND status = ? "
+                     + "GROUP BY DATE(orderDate)";
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setInt(1, employeeId);
+            statement.setTimestamp(2, date);
+            statement.setNString(3, OrderStatus.PAID.getId());
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                WorkDay workDay = WorkDay.getFromResultSet(rs);
+                return workDay;
+            }
         }
-
         return null;
     }
 
     public int getBonus(int id, int month, int year) throws SQLException {
-        String query = "SELECT (COUNT(orderId)*2000) as bonus FROM `order` WHERE employeeId = ? AND YEAR(orderDate) = ? AND MONTH(orderDate)=? AND status = ?";
-        PreparedStatement statement = conn.prepareStatement(query);
-        statement.setInt(1, id);
-        statement.setInt(2, year);
-        statement.setInt(3, month);
-        statement.setNString(4, OrderStatus.PAID.getId());
-        ResultSet rs = statement.executeQuery();
-        if (rs.next()) {
-            rs.getInt("bonus");
+        String query = "SELECT (COUNT(orderId) * 2000) as bonus "
+                + "FROM `order` "
+                + "WHERE employeeId = ? "
+                + "AND YEAR(orderDate) = ? "
+                + "AND MONTH(orderDate) = ? "
+                + "AND status = ?";
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setInt(1, id);
+            statement.setInt(2, year);
+            statement.setInt(3, month);
+            statement.setNString(4, OrderStatus.PAID.getId());
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("bonus");
+            }
         }
-
         return 0;
     }
 
