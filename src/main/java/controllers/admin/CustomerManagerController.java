@@ -4,8 +4,6 @@
  */
 package controllers.admin;
 
-import controllers.popup.CustomerPopupController;
-import controllers.ManagerController;
 import controllers.ManagerController;
 import controllers.popup.CustomerPopupController;
 import controllers.popup.ErrorCallback;
@@ -64,7 +62,25 @@ public class CustomerManagerController extends ManagerController{
     @Override
     public void actionSearch() {
         try {
-            ArrayList<Customer> customers = customerDao.searchByKey(getView().getComboSearchField().getSelectedItem().toString(), String.valueOf(getView().getSearchTxt().getText()));
+            String keyChoice = getView().getComboSearchField().getSelectedItem().toString();
+            String convertKeyChoice = new String();
+            switch (keyChoice) {
+                case "Mã khách hàng":
+                    convertKeyChoice = "CustomerId";
+                    break;
+                case "SĐT":
+                    convertKeyChoice = "PhoneNumber";
+                    break;
+                case "Tên khách hàng":
+                    convertKeyChoice = "Name";
+                    break;
+                case "Địa chỉ":
+                    convertKeyChoice = "Address";
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+            ArrayList<Customer> customers = customerDao.searchByKey(convertKeyChoice, String.valueOf(getView().getSearchTxt().getText()));
             getView().setTableData(customers);
         } catch (Exception e) {
             getView().showError(e);
@@ -87,7 +103,7 @@ public class CustomerManagerController extends ManagerController{
                 JOptionPane.showMessageDialog(null, "Vui lòng chọn khách hàng cần xoá!");
             }
             for (int id : selectedIds) {
-                shipmentDao.deleteByIdCustomer(id);
+                shipmentDao.deleteByCustomerId(id);
                 customerDao.deleteById(id);
                 updateData();
             }

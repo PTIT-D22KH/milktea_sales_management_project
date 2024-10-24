@@ -13,13 +13,11 @@ import javax.swing.JPanel;
 import models.Employee;
 import utils.SessionManager;
 import views.AdminDashboardView;
-import views.admin.CustomerManagerView;
 import views.admin.EmployeeManagerView;
 import views.admin.FoodCategoryManagerView;
 import views.admin.FoodItemManagerView;
 import views.admin.ManagerPaneView;
 import views.admin.MenuItemView;
-import views.admin.ShipmentManagerView;
 import views.admin.TableManagerView;
 import views.employee.EmployeeInformationView;
 
@@ -79,20 +77,15 @@ public class AdminDashboardController extends DashboardController<AdminDashboard
     protected void initMenu() {
         MenuItemView menuQLKH = new MenuItemView("QLKH", "Quản lý khách hàng");
         MenuItemView menuQLNV = new MenuItemView("QLNV", "Quản lý nhân viên");
-        MenuItemView menuQLHH = new MenuItemView("QLHH", "Quản lý hàng hóa");
-        MenuItemView menuQLDH = new MenuItemView("QLDH", "Quản lý đặt hàng");
-        menuQLHH.addSubMenu(new MenuItemView("QLLM", null, "Quản lý loại món"));
-        menuQLHH.addSubMenu(new MenuItemView("QLMA", "Quản lý món ăn"));
-        menuQLDH.addSubMenu(new MenuItemView("QLB", "Quản lý bàn"));
-        menuQLDH.addSubMenu(new MenuItemView("QLKH", "Quản lý khách hàng"));
-        menuQLDH.addSubMenu(new MenuItemView("QLDDH", "Quản lý đơn đặt hàng"));
-        menuQLDH.addSubMenu(new MenuItemView("QLGH", "Quản lý giao hàng"));
-        MenuItemView menuTL = new MenuItemView("TL", "Thiết lập");
-        menuTL.addSubMenu(new MenuItemView("TTCN", "Thông tin cá nhân"));
-        menuTL.addSubMenu(new MenuItemView("TLGD", "Giao diện"));
-        menuTL.addSubMenu(new MenuItemView("TT", "About us"));
-
-        sidebarController.addMenu(menuQLNV, menuQLHH, menuQLDH, menuTL);
+        MenuItemView menuQLLM = new MenuItemView("QLLM","Quản lý loại món");
+        MenuItemView menuQLMA = new MenuItemView("QLMA", "Quản lý món ăn");
+        MenuItemView menuQLB = new MenuItemView("QLB", "Quản lý bàn");
+        MenuItemView menuQLDDH = new MenuItemView("QLDDH", "Quản lý đơn đặt hàng");
+        MenuItemView menuQLGH = new MenuItemView("QLGH", "Quản lý giao hàng");
+        MenuItemView menuTTCN = new MenuItemView("TTCN", "Thông tin cá nhân");
+        MenuItemView menuTLGD = new MenuItemView("TLGD", "Giao diện");
+        MenuItemView menuTT = new MenuItemView("TT", "About us");
+        sidebarController.addMenu(menuQLNV,  menuQLKH, menuQLLM, menuQLMA, menuQLB, menuQLDDH, menuQLGH,menuTTCN, menuTLGD,menuTT );
         sidebarController.addMenuEvent(this::onMenuChange);
     }
 

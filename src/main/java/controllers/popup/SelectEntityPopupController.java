@@ -29,9 +29,6 @@ import views.popup.SelectEntityPopupView;
 public abstract class SelectEntityPopupController <T extends SelectEntityPopupView<U>, S extends Dao<U>, U extends Model>{
     private JFrame previousView;
     private final S entityDao;
-//    public SelectEntityPopupController() {
-//        
-//    }
     public SelectEntityPopupController(S entityDao) {
         this.entityDao = entityDao;
     }

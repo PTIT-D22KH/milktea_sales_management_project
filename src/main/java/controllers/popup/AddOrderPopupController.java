@@ -7,12 +7,7 @@ import dao.EmployeeDao;
 import dao.OrderDao;
 import dao.ShipmentDao;
 import dao.TableDao;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
-import javax.swing.JFrame;
-import models.Customer;
 import models.Employee;
 import models.Order;
 import models.Table;
@@ -21,7 +16,6 @@ import utils.OrderType;
 import utils.SessionManager;
 import utils.TableStatus;
 import views.popup.AddOrderPopupView;
-import views.popup.SelectCustomerPopupView;
 /**
  *
  * @author P51

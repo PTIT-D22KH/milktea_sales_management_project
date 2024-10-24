@@ -23,21 +23,11 @@ public class SelectEmployeePopupView extends SelectEntityPopupView<Employee> {
 
     /**
      * Creates new form SelectEmployeePopupView
-     */
-//    DefaultListModel<Employee> employeeListModel = new DefaultListModel<>();
-//    
-//    public SelectEmployeePopupView() {
-//        mineInitComponents();
-//    }
-    
+     */    
     public SelectEmployeePopupView() {
-//        initComponents();
         super();
         mineInitComponents();
     }
-    
-    
-    
     
     @Override
     public JButton getBtnCancel() {
@@ -65,28 +55,6 @@ public class SelectEmployeePopupView extends SelectEntityPopupView<Employee> {
         return entityNameTxtField;
     }
     
-    
-    
-//    @Override
-//    public void renderEntity(ArrayList<Employee> employees) {
-//        entityListModel.removeAllElements();
-//        for (Employee employee : employees) {
-//            entityListModel.addElement(employee);
-//        }
-//    }
-    
-    
-    
-//    @Override
-//    public void showError(String message) {
-//        ErrorPopup.show(new Exception(message));
-//    }
-//
-//    @Override
-//    public void showError(Exception message) {
-//        ErrorPopup.show(message);
-//    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -221,40 +189,6 @@ public class SelectEmployeePopupView extends SelectEntityPopupView<Employee> {
         System.out.println(entityNameTxtField.getText());
     }//GEN-LAST:event_btnOKMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(SelectEmployeePopupView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(SelectEmployeePopupView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(SelectEmployeePopupView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(SelectEmployeePopupView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new SelectEmployeePopupView().setVisible(true);
-//            }
-//        });
-//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
@@ -270,17 +204,11 @@ public class SelectEmployeePopupView extends SelectEntityPopupView<Employee> {
     // End of variables declaration//GEN-END:variables
 
     @Override
-    protected void mineInitComponents() {
-        try {
-            javax.swing.UIManager.setLookAndFeel("com.formdev.flatlaf.FlatIntelliJLaf");
-        } catch (Exception ex) {
-            System.err.println("Set up UI Theme failed!");
-        }
+    protected final void mineInitComponents() {
         this.initComponents();
         entityList.setModel(entityListModel);
         entityList.setCellRenderer(new EmployeeRenderList());
         getRootPane().setDefaultButton(btnSearch);
         setLocationRelativeTo(null);
-//        System.out.println("OK");
     }
 }

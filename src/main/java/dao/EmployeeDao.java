@@ -26,7 +26,6 @@ public class EmployeeDao extends Dao<Employee>{
             Employee e = Employee.getFromResultSet(rs);
             employees.add(e);
         }
-        //exportEmployeesToFile(employees);   
         return employees;
     }
     
@@ -99,6 +98,12 @@ public class EmployeeDao extends Dao<Employee>{
         prStatement.executeUpdate();
     }
     
+    /**
+     * find an employee using the username
+     * @param username
+     * @return
+     * @throws SQLException 
+     */
     public Employee findByUsername(String username) throws SQLException{
         Statement statement = conn.createStatement();
         String query = "SELECT * FROM `employee` "
@@ -124,35 +129,22 @@ public class EmployeeDao extends Dao<Employee>{
         
         return employees;
     }
-    
-    public Employee getRandom() throws SQLException {
+       
+    /**
+     * get all active employee (staff/manager)
+     * @return
+     * @throws SQLException 
+     */
+    public ArrayList<Employee> getAllActiveEmployees() throws SQLException {
+        ArrayList<Employee> employees = new ArrayList<>();
         Statement statement = conn.createStatement();
-        String query = "SELECT * FROM employee ORDER BY RAND() LIMIT 1";
+        String query = "SELECT * FROM employee"
+                + " WHERE employee.permission <> 'inactive';";
         ResultSet rs = statement.executeQuery(query);
-        if (rs.next()) {
-            Employee employee = Employee.getFromResultSet(rs);
-            return employee;
+        while (rs.next()){
+            Employee e = Employee.getFromResultSet(rs);
+            employees.add(e);
         }
-        return null;
+        return employees;
     }
-    
-    public void exportEmployeesToFile(ArrayList<Employee> employees)
-            throws IOException{
-        FileWriter fileWriter = null;
-        PrintWriter printWriter = null;
-        try {
-            fileWriter = new FileWriter("D:/employees.txt");
-            printWriter = new PrintWriter(fileWriter);
-            for (Employee e : employees) {
-                printWriter.println(e.toString());
-            }
-        } finally {
-            if (printWriter != null) {
-                printWriter.close();
-            }
-            if (fileWriter != null) {
-                fileWriter.close();
-            }
-        }
-    }   
 }

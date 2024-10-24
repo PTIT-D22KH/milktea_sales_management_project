@@ -14,7 +14,6 @@ import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.YES_OPTION;
 import models.Table;
-import views.admin.ManagerPaneView;
 import views.admin.TableManagerView;
 import views.popup.TablePopupView;
 
@@ -65,7 +64,19 @@ public class TableManagerController extends ManagerController{
     @Override
     public void actionSearch() {
         try {
-            ArrayList<Table> tables = tableDao.searchByKey(getView().getComboSearchField().getSelectedItem().toString(), getView().getSearchTxt().getText());
+            String keyChoice = getView().getComboSearchField().getSelectedItem().toString();
+            String convertKeyChoice = new String();
+            switch (keyChoice) {
+                case "Mã bàn":
+                    convertKeyChoice = "TableId";
+                    break;
+                case "Tên bàn":
+                    convertKeyChoice = "Name";
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+            ArrayList<Table> tables = tableDao.searchByKey(convertKeyChoice, getView().getSearchTxt().getText());
             getView().setTableData(tables);
         } catch (Exception e) {
             getView().showError(e);

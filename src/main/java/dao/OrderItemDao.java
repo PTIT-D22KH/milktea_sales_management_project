@@ -13,7 +13,7 @@ import models.OrderItem;
  */
 public class OrderItemDao extends Dao<OrderItem> {
 
-    FoodItemDao foodItemDao = new FoodItemDao() {};
+    private final FoodItemDao foodItemDao = new FoodItemDao();
 
     @Override
     public ArrayList<OrderItem> getAll() throws SQLException {
@@ -94,10 +94,10 @@ public class OrderItemDao extends Dao<OrderItem> {
         stmt.setNString(5, t.getNote());
     }
 
-    public ArrayList<OrderItem> getByIdOrder(int idOrder) throws SQLException {
+    public ArrayList<OrderItem> getByOrderId(int orderId) throws SQLException {
         ArrayList<OrderItem> orderItems = new ArrayList<>();
         Statement statement = conn.createStatement();
-        String query = "SELECT * FROM `order_item`WHERE `orderId` = " + idOrder + "  ORDER BY `order_item`.`quantity` DESC";
+        String query = "SELECT * FROM `order_item`WHERE `orderId` = " + orderId + "  ORDER BY `order_item`.`quantity` DESC";
         ResultSet rs = statement.executeQuery(query);
         while (rs.next()) {
             OrderItem orderItem = OrderItem.getFromResultSet(rs);

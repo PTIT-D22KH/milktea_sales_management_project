@@ -22,9 +22,9 @@ import utils.IconManager;
  */
 public abstract class ManagerPaneView<T extends Model> extends JPanel {
 
-    DefaultTableModel tableModel = new DefaultTableModel();
-    IconManager im = new IconManager();
-    ArrayList<T> tableData = new ArrayList<>();
+    protected DefaultTableModel tableModel = new DefaultTableModel();
+    private IconManager im = new IconManager();
+    private ArrayList<T> tableData = new ArrayList<>();
 
     public ManagerPaneView() {
         initComponents();
@@ -40,7 +40,6 @@ public abstract class ManagerPaneView<T extends Model> extends JPanel {
         delButton.setIcon(im.getIcon("delete_25px.png"));
         syncButton.setIcon(im.getIcon("sync_25px.png"));
         dataTable.setModel(tableModel);
-//        cbx_list.putClientProperty("JButton.buttonType", "roundRect");
         addButton.putClientProperty("JButton.buttonType", "roundRect");
         delButton.putClientProperty("JButton.buttonType", "roundRect");
         editButton.putClientProperty("JButton.buttonType", "roundRect");
@@ -143,11 +142,13 @@ public abstract class ManagerPaneView<T extends Model> extends JPanel {
         return id;
     }
 
+    // render item to show on the table
     public void renderTable() {
         tableModel.setNumRows(0);
         try {
             System.out.println(tableData.size());
             for (T item : tableData) {
+                System.out.println(item);
                 tableModel.addRow(item.toRowTable());
             }
         } catch (Exception e) {

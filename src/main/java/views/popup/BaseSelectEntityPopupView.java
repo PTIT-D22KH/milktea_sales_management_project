@@ -15,13 +15,9 @@ import utils.ErrorPopup;
  *
  * @author P51
  */
-public interface BaseSelectEntityPopupView <M extends Model>{
-    public JButton getBtnCancel();
-    public JButton getBtnOK();
+public interface BaseSelectEntityPopupView <T extends Model> extends BasePopupView{
     public JButton getBtnSearch();
-    public JList<M> getEntityList();
-    public void renderEntity(ArrayList<M> list);
+    public JList<T> getEntityList();
+    public void renderEntity(ArrayList<T> list);
     public JTextField getEntityNameTxtField();
-    public void showError(String message);
-    public void showError(Exception message);
 }

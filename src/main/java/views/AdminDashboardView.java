@@ -41,11 +41,6 @@ public class AdminDashboardView extends DashboardView {
             MenuItemView item = menu[i];
             menuItems.add(item);
             sidebarPanel.add(item);
-            ArrayList<MenuItemView> subMenus = item.getSubMenu();
-            for (MenuItemView subMenu : subMenus) {
-                addMenu(subMenu);
-                subMenu.setVisible(false);
-            }
         }
     }
 

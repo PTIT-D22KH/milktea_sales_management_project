@@ -31,11 +31,9 @@ public class ShipmentPopupControler{
     private final CustomerDao customerDao;
     private final EmployeeDao employeeDao;
     private final OrderDao orderDao;
-    private boolean isEmployeeChosen;
     private JFrame previousView;
     
     public ShipmentPopupControler(){ 
-        isEmployeeChosen = false;
         this.shipmentDao = new ShipmentDao();
         this.customerDao = new CustomerDao();
         this.employeeDao = new EmployeeDao();
@@ -94,6 +92,7 @@ public class ShipmentPopupControler{
             } else {
                 view.getLbCustomerName().setText("<Chưa chọn>");
             }
+            view.getLbEmployeeName().setText(employeeDao.getById(shipment.getEmployeeId()).getName());
             view.getBtnSelectEmployee().addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
@@ -103,7 +102,6 @@ public class ShipmentPopupControler{
                         public void run(Employee employee) {
                             shipment.setEmployee(employee);
                             view.getLbEmployeeName().setText(employee.getName());
-                            isEmployeeChosen = true;
                         }
                     });
                 }
@@ -130,12 +128,7 @@ public class ShipmentPopupControler{
                 @Override
                 public void actionPerformed(ActionEvent evt) {
                     try {
-                        if (!isEmployeeChosen) {
-                            JOptionPane.showMessageDialog(null, "Bạn chưa chọn nhân viên giao hàng!");
-                            return;
-                        }
-                        editShipment(view, shipment);
-                        isEmployeeChosen = false;
+                        editShipment(view, shipment, orderId);
                         view.dispose();
                         view.showMessage("Tạo / sửa đơn ship thành công!");
                         sc.onSuccess();
@@ -150,7 +143,7 @@ public class ShipmentPopupControler{
             }
     }
     
-    public void editShipment(ShipmentPopupView view, Shipment shipment) throws SQLException {
+    public void editShipment(ShipmentPopupView view, Shipment shipment, int orderId) throws SQLException {
         shipment.setStatus(ShipmentStatus.getByName(view.getCboStatus().getSelectedItem().toString()));
         shipment.setShipCost((int) view.getSpnShipCost().getValue());
         if (shipment.getStatus() == ShipmentStatus.COMPLETED || shipment.getStatus() == ShipmentStatus.CANCELLED) {
@@ -159,6 +152,11 @@ public class ShipmentPopupControler{
             shipment.setEndDate(null);
         }
         shipmentDao.update(shipment);
+        
+        //update customer from order
+        Order order = orderDao.getById(orderId);
+        order.setCustomer(shipment.getCustomer());
+        orderDao.update(order);
     }
 
 }

@@ -3,29 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package controllers;
-
-import controllers.admin.CustomerManagerController;
-import controllers.admin.OrderManagerController;
-import controllers.admin.ShipmentManagerController;
 import controllers.employee.EmployeeInformationController;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import utils.SessionManager;
 import models.Employee;
-import utils.IconManager;
 import views.EmployeeDashboardView;
-import views.admin.AboutView;
-import views.admin.CustomerManagerView;
-import views.admin.HomeView;
-import views.admin.ManagerPaneView;
 import views.admin.MenuItemView;
-import views.admin.OrderManagerView;
-import views.admin.ShipmentManagerView;
 import views.employee.EmployeeInformationView;
-
-
 /**
  *
  * @author P51
@@ -51,16 +35,14 @@ public class EmployeeDashboardController extends DashboardController<EmployeeDas
 
     @Override
     protected void initMenu() {
-        IconManager im = new IconManager();
         MenuItemView menuKH = new MenuItemView("QLKH", "Quản lý khách hàng");
         menuKH.setVisible(true);
         MenuItemView menuQLDDH = new MenuItemView("QLDDH", "Quản lý đơn đặt hàng");
         MenuItemView menuQLGH = new MenuItemView("QLGH", "Quản lý giao hàng");
-        MenuItemView menuTL = new MenuItemView("TL", "Thiết lập");
-        menuTL.addSubMenu(new MenuItemView("TTCN", "Thông tin cá nhân"));
-        menuTL.addSubMenu(new MenuItemView("TLGD", "Giao diện"));
-        menuTL.addSubMenu(new MenuItemView("TT", "About us"));
-        sidebarController.addMenu(menuKH, menuQLDDH, menuQLGH, menuTL);
+        MenuItemView menuTTCN = new MenuItemView("TTCN", "Thông tin cá nhân");
+        MenuItemView menuTLGD = new MenuItemView("TLGD", "Giao diện");
+        MenuItemView menuTT = new MenuItemView("TT", "About us");
+        sidebarController.addMenu(menuKH, menuQLDDH, menuQLGH, menuTTCN, menuTLGD, menuTT);
         sidebarController.addMenuEvent(this::onMenuChange);
     }
 

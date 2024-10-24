@@ -13,7 +13,7 @@ import models.FoodCategory;
  */
 public class FoodCategoryManagerView extends ManagerPaneView<FoodCategory>{
     private String list[] = {
-        "FoodCategoryId", "Name"
+        "Mã loại món", "Tên loại món"
     };
     
     public FoodCategoryManagerView() {
@@ -26,7 +26,6 @@ public class FoodCategoryManagerView extends ManagerPaneView<FoodCategory>{
         tableModel.addColumn("ID");
         tableModel.addColumn("Tên loại");
         this.getComboSearchField().setModel(new DefaultComboBoxModel(list));
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     

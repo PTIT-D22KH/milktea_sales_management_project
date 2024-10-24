@@ -17,9 +17,9 @@ import models.Shipment;
  */
 public class ShipmentDao extends Dao<Shipment> {
 
-    CustomerDao customerDao = new CustomerDao();
-    OrderDao orderDao = new OrderDao();
-    private EmployeeDao employeeDao = new EmployeeDao();
+    private final CustomerDao customerDao = new CustomerDao();
+    private final OrderDao orderDao = new OrderDao();
+    private final EmployeeDao employeeDao = new EmployeeDao();
 
     @Override
     public ArrayList<Shipment> getAll() throws SQLException {
@@ -86,9 +86,14 @@ public class ShipmentDao extends Dao<Shipment> {
         stmt.executeUpdate();
     }
 
-    public void deleteByIdCustomer(int id) throws SQLException {
+    /**
+     * delete ship from a specific customer
+     * @param customerId
+     * @throws SQLException 
+     */
+    public void deleteByCustomerId(int customerId) throws SQLException {
         PreparedStatement stmt = conn.prepareStatement("DELETE FROM `shipment` WHERE `shipment`.`CustomerId` = ?");
-        stmt.setInt(1, id);
+        stmt.setInt(1, customerId);
         stmt.executeUpdate();
     }
 
@@ -99,6 +104,8 @@ public class ShipmentDao extends Dao<Shipment> {
         ResultSet rs = statement.executeQuery(query);
         while (rs.next()) {
             Shipment shipment = Shipment.getFromResultSet(rs);
+            shipment.setCustomer(customerDao.getById(shipment.getCustomerId()));
+            shipment.setEmployee(employeeDao.getById(shipment.getEmployeeId()));
             shipments.add(shipment);
         }
         return shipments;

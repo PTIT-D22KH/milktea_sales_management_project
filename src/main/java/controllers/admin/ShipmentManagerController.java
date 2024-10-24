@@ -45,7 +45,16 @@ public class ShipmentManagerController extends ManagerController{
     @Override
     public void actionSearch() {
         try {
-            ArrayList<Shipment> shipments = shipmentDao.searchByKey(getView().getComboSearchField().getSelectedItem().toString(), String.valueOf(getView().getSearchTxt().getText()));
+            String keyChoice = getView().getComboSearchField().getSelectedItem().toString();
+            String convertKeyChoice = new String();
+            switch (keyChoice) {
+                case "Mã đơn":
+                    convertKeyChoice = "OrderId";
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+            ArrayList<Shipment> shipments = shipmentDao.searchByKey(convertKeyChoice, String.valueOf(getView().getSearchTxt().getText()));
             getView().setTableData(shipments);
         } catch (SQLException e) {
             getView().showError(e);

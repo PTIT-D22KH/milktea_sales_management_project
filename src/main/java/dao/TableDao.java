@@ -95,17 +95,6 @@ public class TableDao extends Dao<Table> {
         return tables;
     }
 
-    public Table getRandom() throws SQLException {
-        Statement statement = conn.createStatement();
-        String query = "SELECT * FROM `table` ORDER BY RAND() LIMIT 1";
-        ResultSet rs = statement.executeQuery(query);
-        if (rs.next()) {
-            Table table = Table.getFromResultSet(rs);
-            return table;
-        }
-        return null;
-    }
-
     @Override
     public Table getById(int id) throws SQLException {
        Statement statement = conn.createStatement();
@@ -117,7 +106,7 @@ public class TableDao extends Dao<Table> {
             Table table = Table.getFromResultSet(result);
             return table;
         }
-        return null; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return null;
     }
 }
 

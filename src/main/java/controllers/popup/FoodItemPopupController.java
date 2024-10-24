@@ -9,7 +9,6 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import models.FoodCategory;
 import models.FoodItem;
 import utils.ImageManager;

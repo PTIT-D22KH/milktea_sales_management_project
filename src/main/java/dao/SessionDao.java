@@ -103,6 +103,12 @@ public class SessionDao extends Dao<Session> {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     * get latest session
+     * @param EmployeeId
+     * @return
+     * @throws SQLException 
+     */
     public Session getLast(int EmployeeId) throws SQLException {
         Statement statement = conn.createStatement();
         String query = "SELECT * FROM `session` WHERE `employeeId` = " + EmployeeId + " ORDER BY `sessionId` DESC LIMIT 1";
@@ -115,21 +121,6 @@ public class SessionDao extends Dao<Session> {
         return null;
     }
 
-//    public ArrayList<Session> getAll(Timestamp start, Timestamp end) throws SQLException {
-//        ArrayList<Session> sessions = new ArrayList<>();
-//        String query = "SELECT * FROM `session` WHERE `message` = ? AND DATE(`startTime`) >= DATE(?) ORDER BY `startTime` DESC";
-//        PreparedStatement statement = conn.prepareStatement(query);
-//        statement.setNString(1, "logout");
-//        statement.setTimestamp(2, start);
-//        statement.setTimestamp(3, end);
-//        ResultSet rs = statement.executeQuery();
-//        while (rs.next()) {
-//            Session session = Session.getFromResultSet(rs);
-//            session.setEmployee(employeeDao.getById(session.getEmployeeId()));
-//            sessions.add(session);
-//        }
-//        return sessions;
-//    }
     public ArrayList<Session> getAll(Timestamp start, Timestamp end) throws SQLException {
         ArrayList<Session> sessions = new ArrayList<>();
         String query = "SELECT * FROM `session` WHERE `message` = ? AND DATE(startTime) >= DATE(?) AND DATE(startTime) <= DATE(?) ORDER BY `session`.`startTime` DESC";

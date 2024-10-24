@@ -25,15 +25,23 @@ public abstract class SelectEntityPopupView <M extends Model> extends javax.swin
      */
     public SelectEntityPopupView() {
         this.entityListModel = new DefaultListModel<>();
-//        mineInitComponents();
-//        entityList.setModel(entityListModel);
     }
     protected abstract void mineInitComponents();
 
+    @Override
     public abstract JButton getBtnCancel();
+    @Override
     public abstract JButton getBtnOK();
+    @Override
     public abstract JButton getBtnSearch();
+
+    /**
+     *
+     * @return
+     */
+    @Override
     public abstract JList<M> getEntityList();
+    @Override
     public abstract JTextField getEntityNameTxtField();
     
     @Override
@@ -52,6 +60,10 @@ public abstract class SelectEntityPopupView <M extends Model> extends javax.swin
     @Override
     public void showError(Exception message) {
         ErrorPopup.show(message);
+    }
+    @Override
+    public void showMessage(String message) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     /**

@@ -8,10 +8,8 @@ import dao.EmployeeDao;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import javax.swing.JFrame;
 import models.Employee;
 import views.popup.SelectEmployeePopupView;
-import views.popup.SelectEntityPopupView;
 
 /**
  *
@@ -22,20 +20,6 @@ import views.popup.SelectEntityPopupView;
  * Adheres to SRP by focusing only on employee selection popup management.
  */
 public class SelectEmployeePopupController extends SelectEntityPopupController<SelectEmployeePopupView, EmployeeDao, Employee>{
-//    private EmployeeDao employeeDao;
-//    private JFrame previousView;
-//    public SelectEmployeePopupController() {
-//        this.entityDao = new EmployeeDao();
-//    }
-////
-//    
-//    public SelectEmployeePopupController(EmployeeDao employeeDao) {
-//        this.entityDao = employeeDao;
-//    }
-//    
-//    public interface Callback {
-//        public abstract void run(Employee employee);
-//    }
     public SelectEmployeePopupController() {
         super(new EmployeeDao());
     }
@@ -45,7 +29,23 @@ public class SelectEmployeePopupController extends SelectEntityPopupController<S
     }
     @Override
     public void select(SelectEmployeePopupView view, Callback<Employee> callback) {
-        super.select(view, callback);
+        if (getPreviousView() != null && getPreviousView().isDisplayable()) {
+            getPreviousView().requestFocus();
+            return;
+        }
+        setPreviousView(view);
+        view.setVisible(true);
+        try {
+            view.renderEntity(getEntityDao().getAllActiveEmployees());
+        } catch (SQLException e) {
+            view.showError(e);
+        }
+        view.getBtnCancel().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                view.dispose();
+            }
+        });
         view.getBtnOK().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
