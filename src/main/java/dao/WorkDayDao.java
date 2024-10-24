@@ -59,12 +59,17 @@ public class WorkDayDao {
         return list;
     }
 
-    public WorkDay getSales(int orderId, Timestamp date) throws SQLException {
-        System.out.println(orderId);
+    public WorkDay getSales(int employeeId, Timestamp date) throws SQLException {
+        System.out.println(employeeId+": ");
         System.out.println(date);
-        String query = "SELECT DATE(orderDate) as day,COUNT(orderId) AS amount, SUM(totalAmount)as total,(COUNT(orderId)*2000) as bonus FROM `order` WHERE employeeId = ? AND DATE(orderDate) = DATE(?) AND status = ?";
+        String query = "SELECT DATE(orderDate) as day,"
+                + "COUNT(orderId) AS amount, SUM(totalAmount)as total,"
+                + "(COUNT(orderId)*2000) as bonus "
+                + "FROM `order` "
+                + "WHERE employeeId = ? AND DATE(orderDate) = DATE(?) AND status = ? "
+                + "GROUP BY DATE(orderDate)";
         PreparedStatement statement = conn.prepareStatement(query);
-        statement.setInt(1, orderId);
+        statement.setInt(1, employeeId);
         statement.setTimestamp(2, date);
         statement.setNString(3, OrderStatus.PAID.getId());
         ResultSet rs = statement.executeQuery();
