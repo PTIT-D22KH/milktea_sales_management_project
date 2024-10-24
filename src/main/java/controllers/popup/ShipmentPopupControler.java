@@ -128,7 +128,7 @@ public class ShipmentPopupControler{
                 @Override
                 public void actionPerformed(ActionEvent evt) {
                     try {
-                        editShipment(view, shipment);
+                        editShipment(view, shipment, orderId);
                         view.dispose();
                         view.showMessage("Tạo / sửa đơn ship thành công!");
                         sc.onSuccess();
@@ -143,7 +143,7 @@ public class ShipmentPopupControler{
             }
     }
     
-    public void editShipment(ShipmentPopupView view, Shipment shipment) throws SQLException {
+    public void editShipment(ShipmentPopupView view, Shipment shipment, int orderId) throws SQLException {
         shipment.setStatus(ShipmentStatus.getByName(view.getCboStatus().getSelectedItem().toString()));
         shipment.setShipCost((int) view.getSpnShipCost().getValue());
         if (shipment.getStatus() == ShipmentStatus.COMPLETED || shipment.getStatus() == ShipmentStatus.CANCELLED) {
@@ -152,6 +152,11 @@ public class ShipmentPopupControler{
             shipment.setEndDate(null);
         }
         shipmentDao.update(shipment);
+        
+        //update customer from order
+        Order order = orderDao.getById(orderId);
+        order.setCustomer(shipment.getCustomer());
+        orderDao.update(order);
     }
 
 }
