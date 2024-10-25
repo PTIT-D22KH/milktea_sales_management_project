@@ -37,9 +37,7 @@ public class CalendarController {
         this.view = view;
         this.view.getCmbMonth().setSelectedIndex(LocalDate.now().getMonthValue() - 1);
         this.view.getTxtYear().setText(String.valueOf(LocalDate.now().getYear()));
-//        RenderCalendar(LocalDate.now().getMonthValue(), LocalDate.now().getYear());
         RenderCalendar(view, Calendar.getInstance());
-//        RenderStatistical(LocalDate.now().getMonthValue(), LocalDate.now().getYear());
         RenderStatistical(view, Calendar.getInstance());
         addEvent(view);
     }
@@ -94,7 +92,6 @@ public class CalendarController {
         view.getPanelMonth().removeAll();
         int day = LocalDate.of(year, month, 1).getDayOfWeek().getValue();
         int days = new GetDayOfMonth(month, year).getDay();
-        //System.out.println("ok1");
         if (day < 7) {
             for (int i = 0; i < day; i++) {
                 Color color = Color.decode("#F0F0F0");
@@ -103,7 +100,6 @@ public class CalendarController {
                 view.getPanelMonth().add(dayview);
             }
         }
-        //System.out.println("ok2");
         try {
             WorkDayDao workDayDao = new WorkDayDao();
             ArrayList<Integer> list = workDayDao.getDay(id, month, year);
@@ -137,7 +133,6 @@ public class CalendarController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //System.out.println("ok3");
         if (day == 7) {
             day = 0;
         }
