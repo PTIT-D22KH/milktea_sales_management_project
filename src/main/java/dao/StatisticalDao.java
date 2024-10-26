@@ -29,7 +29,7 @@ public class StatisticalDao {
     }
 
     public int getTotalOrder(Timestamp start, Timestamp end, int idEmployee) throws SQLException {
-        String query = "SELECT COUNT(*) AS totalOrder FROM `order` WHERE status = ? AND orderDate >= ? AND orderDate <= ? AND idEmployee = ?";
+        String query = "SELECT COUNT(*) AS totalOrder FROM `order` WHERE status = ? AND orderDate >= ? AND orderDate <= ? AND employeeId = ?";
         PreparedStatement statement = conn.prepareStatement(query);
         statement.setNString(1, OrderStatus.PAID.getId());
         statement.setTimestamp(2, start);
@@ -109,7 +109,7 @@ public class StatisticalDao {
 
     public ArrayList<Statistical.EmployeeIncome> getListTotalIncomeByEmployee(Timestamp start, Timestamp end) throws SQLException {
         ArrayList<Statistical.EmployeeIncome> incomes = new ArrayList<>();
-        String query = "SELECT `idEmployee`, SUM(paidAmount) AS totalIncome, COUNT(id) AS totalOrder FROM `order` WHERE status = ? AND DATE(orderDate) >= DATE(?) AND DATE(orderDate) <= DATE(?) GROUP BY `idEmployee`  ORDER BY `totalIncome` DESC";
+        String query = "SELECT `employeeId`, SUM(paidAmount) AS totalIncome, COUNT(id) AS totalOrder FROM `order` WHERE status = ? AND DATE(orderDate) >= DATE(?) AND DATE(orderDate) <= DATE(?) GROUP BY `employeeId`  ORDER BY `totalIncome` DESC";
         PreparedStatement statement = conn.prepareStatement(query);
         statement.setNString(1, OrderStatus.PAID.getId());
         statement.setTimestamp(2, start);
