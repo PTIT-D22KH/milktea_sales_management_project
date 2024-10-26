@@ -11,19 +11,22 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import models.Employee;
 import models.Session;
 
 /**
  * Data Access Object for Session
  */
 public class SessionDao extends Dao<Session> {
+    private final EmployeeDao employeeDao = new EmployeeDao();
     public SessionDao() {
+        
     }
     public SessionDao(Connection conn) {
         this.conn = conn;
     }
 
-    EmployeeDao employeeDao = new EmployeeDao();
+    
 
     @Override
     public ArrayList<Session> getAll() throws SQLException {
@@ -33,7 +36,8 @@ public class SessionDao extends Dao<Session> {
         ResultSet rs = statement.executeQuery(query);
         while (rs.next()) {
             Session session = Session.getFromResultSet(rs);
-            session.setEmployee(employeeDao.getById(session.getEmployeeId()));
+            Employee employee = employeeDao.getById(rs.getInt("employeeId"));
+            session.setEmployee(employee);
             sessions.add(session);
         }
         return sessions;
@@ -46,7 +50,8 @@ public class SessionDao extends Dao<Session> {
         ResultSet rs = statement.executeQuery(query);
         if (rs.next()) {
             Session session = Session.getFromResultSet(rs);
-            session.setEmployee(employeeDao.getById(session.getEmployeeId()));
+            Employee employee = employeeDao.getById(rs.getInt("employeeId"));
+            session.setEmployee(employee);
             return session;
         }
         return null;
@@ -59,7 +64,8 @@ public class SessionDao extends Dao<Session> {
         ResultSet rs = statement.executeQuery(query);
         while (rs.next()) {
             Session session = Session.getFromResultSet(rs);
-            session.setEmployee(employeeDao.getById(session.getEmployeeId()));
+            Employee employee = employeeDao.getById(rs.getInt("employeeId"));
+            session.setEmployee(employee);
             sessions.add(session);
         }
         return sessions;
@@ -72,7 +78,7 @@ public class SessionDao extends Dao<Session> {
         }
         String query = "INSERT INTO `session` (`employeeId`, `startTime`, `endTime`, `message`) VALUES (?, ?, ?, ?)";
         PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setInt(1, t.getEmployeeId());
+        stmt.setInt(1, t.getEmployee().getEmployeeId());
         stmt.setTimestamp(2, t.getStartTime());
         stmt.setTimestamp(3, t.getEndTime());
         stmt.setNString(4, t.getMessage());
@@ -115,7 +121,8 @@ public class SessionDao extends Dao<Session> {
         ResultSet rs = statement.executeQuery(query);
         if (rs.next()) {
             Session session = Session.getFromResultSet(rs);
-            session.setEmployee(employeeDao.getById(session.getEmployeeId()));
+            Employee employee = employeeDao.getById(rs.getInt("employeeId"));
+            session.setEmployee(employee);
             return session;
         }
         return null;
@@ -131,7 +138,8 @@ public class SessionDao extends Dao<Session> {
         ResultSet rs = statement.executeQuery();
         while (rs.next()) {
             Session session = Session.getFromResultSet(rs);
-            session.setEmployee(employeeDao.getById(session.getEmployeeId()));
+            Employee employee = employeeDao.getById(rs.getInt("employeeId"));
+            session.setEmployee(employee);
             sessions.add(session);
         }
         return sessions;

@@ -13,6 +13,7 @@ import dao.ShipmentDao;
 import dao.TableDao;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
@@ -125,7 +126,9 @@ public class EditOrderPopupController extends PopupController<EditOrderPopupView
             // Thanh toán
             order.setStatus(OrderStatus.PAID);
             order.setPayDate(new Timestamp(System.currentTimeMillis()));
+            System.out.println("Table " + order.getTable() + " of order" + order.getOrderId() + ", status: " + order.getTable().getStatus());
             order.getTable().setStatus(TableStatus.FREE); // Trả bàn
+            System.out.println("Table " + order.getTable() + " of order" + order.getOrderId() + ", status: " + order.getTable().getStatus());
         }
         order.setTotalAmount(orderItemController.getTotalAmount());
         orderDao.update(order);
@@ -190,7 +193,7 @@ public class EditOrderPopupController extends PopupController<EditOrderPopupView
         view.getOrderIdLabel().setText(order.getOrderId()+ "");
         try {
             for (Table table : tableDao.getAll()) { // Hiển thị danh sách bàn
-                if (table.getStatus() == TableStatus.FREE || table.getTableId()== order.getTableId()) {
+                if (table.getStatus() == TableStatus.FREE || table.getTableId()== order.getTable().getTableId()) {
                     view.getTbComboBoxModel().addElement(table);
                 }
             }
@@ -200,7 +203,11 @@ public class EditOrderPopupController extends PopupController<EditOrderPopupView
             orderItemController.setOrderItems(orderItemDao.getByOrderId(order.getOrderId()));
             foodItemController.renderCategory(foodItem -> {//Hiển thị danh sách món ăn
                 toppingPopupController.add(new ToppingPopupView(), foodItem, orderItem -> {
-                    orderItemController.addOrderItem(orderItem);// Thêm vào danh sách order
+                    try {
+                        orderItemController.addOrderItem(orderItem);// Thêm vào danh sách order
+                    } catch (SQLException ex) {
+                        ec.onError(ex);
+                    }
                     updateAmount(view, order);
                 });
             });
@@ -274,7 +281,7 @@ public class EditOrderPopupController extends PopupController<EditOrderPopupView
                 view.showError("Bạn chỉ có thể ship đơn online");
                 return;
             }
-            shipmentPopupControler.add(new ShipmentPopupView(), order.getOrderId(), () -> view.showMessage("Tạo / sửa đơn ship thành công!"), view::showError);
+            shipmentPopupControler.add(new ShipmentPopupView(), order, () -> view.showMessage("Tạo / sửa đơn ship thành công!"), view::showError);
         });
         view.getPrintOrderButton().addActionListener(evt -> {
             try {

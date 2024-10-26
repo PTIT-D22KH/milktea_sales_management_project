@@ -10,12 +10,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import models.FoodCategory;
 import models.FoodItem;
 
 /**
  * Data Access Object for FoodItem
  */
 public class FoodItemDao extends Dao<FoodItem> {
+    private final FoodCategoryDao foodCategoryDao = new FoodCategoryDao();
     public FoodItemDao() {
     }
 
@@ -31,6 +33,8 @@ public class FoodItemDao extends Dao<FoodItem> {
         ResultSet rs = statement.executeQuery(query);
         while (rs.next()) {
             FoodItem foodItem = FoodItem.getFromResultSet(rs);
+            FoodCategory foodCategory = foodCategoryDao.getById(rs.getInt("foodCategoryId"));
+            foodItem.setFoodCategory(foodCategory);
             foodItems.add(foodItem);
         }
         return foodItems;
@@ -43,6 +47,8 @@ public class FoodItemDao extends Dao<FoodItem> {
         ResultSet rs = statement.executeQuery(query);
         while (rs.next()) {
             FoodItem foodItem = FoodItem.getFromResultSet(rs);
+            FoodCategory foodCategory = foodCategoryDao.getById(rs.getInt("foodCategoryId"));
+            foodItem.setFoodCategory(foodCategory);
             foodItems.add(foodItem);
         }
         return foodItems;
@@ -55,6 +61,8 @@ public class FoodItemDao extends Dao<FoodItem> {
         ResultSet rs = statement.executeQuery(query);
         if (rs.next()) {
             FoodItem foodItem = FoodItem.getFromResultSet(rs);
+            FoodCategory foodCategory = foodCategoryDao.getById(rs.getInt("foodCategoryId"));
+            foodItem.setFoodCategory(foodCategory);
             return foodItem;
         }
         return null;
@@ -72,7 +80,7 @@ public class FoodItemDao extends Dao<FoodItem> {
         stmt.setNString(3, t.getImagePath());
         stmt.setNString(4, t.getUnitName());
         stmt.setInt(5, t.getUnitPrice());
-        stmt.setInt(6, t.getCategoryId());
+        stmt.setInt(6, t.getFoodCategory().getFoodCategoryId());
         stmt.executeUpdate();
     }
 
@@ -88,7 +96,7 @@ public class FoodItemDao extends Dao<FoodItem> {
         stmt.setNString(3, t.getImagePath());
         stmt.setNString(4, t.getUnitName());
         stmt.setInt(5, t.getUnitPrice());
-        stmt.setInt(6, t.getCategoryId());
+        stmt.setInt(6, t.getFoodCategory().getFoodCategoryId());
         stmt.setInt(7, t.getFoodItemId());
         stmt.executeUpdate();
     }
@@ -114,6 +122,8 @@ public class FoodItemDao extends Dao<FoodItem> {
         ResultSet rs = statement.executeQuery(query);
         while (rs.next()) {
             FoodItem foodItem = FoodItem.getFromResultSet(rs);
+            FoodCategory foodCategory = foodCategoryDao.getById(rs.getInt("foodCategoryId"));
+            foodItem.setFoodCategory(foodCategory);
             foodItems.add(foodItem);
         }
         return foodItems;

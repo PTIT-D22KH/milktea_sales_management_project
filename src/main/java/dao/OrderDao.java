@@ -6,8 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import models.Customer;
+import models.Employee;
 import models.Order;
-import utils.OrderStatus;
+import models.Table;
 
 /**
  *
@@ -31,9 +33,12 @@ public class OrderDao extends Dao<Order> {
             if (order == null) {
                 continue;
             }
-            order.setEmployee(employeeDao.getById(order.getEmployeeId()));
-            order.setTable(tableDao.getById(order.getTableId()));
-            order.setCustomer(customerDao.getById(order.getCustomerId()));
+            Employee employee = employeeDao.getById(rs.getInt("employeeId"));
+            Table table = tableDao.getById(rs.getInt("tableId"));
+            Customer customer = customerDao.getById(rs.getInt("customerId"));
+            order.setEmployee(employee);
+            order.setTable(table);
+            order.setCustomer(customer);
             orders.add(order);
         }
         return orders;
@@ -52,9 +57,12 @@ public class OrderDao extends Dao<Order> {
         ResultSet rs = statement.executeQuery(query);
         while (rs.next()) {
             Order order = Order.getFromResultSet(rs);
-            order.setEmployee(employeeDao.getById(order.getEmployeeId()));
-            order.setTable(tableDao.getById(order.getTableId()));
-            order.setCustomer(customerDao.getById(order.getCustomerId()));
+            Employee employee = employeeDao.getById(rs.getInt("employeeId"));
+            Table table = tableDao.getById(rs.getInt("tableId"));
+            Customer customer = customerDao.getById(rs.getInt("customerId"));
+            order.setEmployee(employee);
+            order.setTable(table);
+            order.setCustomer(customer);
             orders.add(order);
         }
         return orders;
@@ -68,9 +76,9 @@ public class OrderDao extends Dao<Order> {
         }
         String query = "INSERT INTO `order` (`employeeId`, `tableId`, `customerId`, `type`, `status`, `orderDate`, `payDate`, `paidAmount`, `totalAmount`, `discount`) VALUES (?, ?, ?, ?, ?, current_timestamp(), NULL, ?, ?, ?)";
         PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setInt(1, t.getEmployeeId());
-        stmt.setInt(2, t.getTableId());
-        stmt.setInt(3, t.getCustomerId());
+        stmt.setInt(1, t.getEmployee().getEmployeeId());
+        stmt.setInt(2, t.getTable().getTableId());
+        stmt.setInt(3, t.getCustomer().getCustomerId());
         stmt.setNString(4, t.getType().getId());
         stmt.setNString(5, t.getStatus().getId());
         stmt.setInt(6, t.getPaidAmount());
@@ -86,9 +94,9 @@ public class OrderDao extends Dao<Order> {
         }
         String query = "UPDATE `order` SET `employeeId` = ?, `tableId` = ?, `customerId` = ?, `type` = ?, `status` = ?, `orderDate` = ?, `payDate` = ?, `paidAmount` = ?, `totalAmount` = ?, `discount` = ? WHERE `order`.`orderId` = ?";
         PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setInt(1, t.getEmployeeId());
-        stmt.setInt(2, t.getTableId());
-        stmt.setInt(3, t.getCustomerId());
+        stmt.setInt(1, t.getEmployee().getEmployeeId());
+        stmt.setInt(2, t.getTable().getTableId());
+        stmt.setInt(3, t.getCustomer().getCustomerId());
         stmt.setNString(4, t.getType().getId());
         stmt.setNString(5, t.getStatus().getId());
         stmt.setTimestamp(6, t.getOrderDate());
@@ -137,9 +145,12 @@ public class OrderDao extends Dao<Order> {
         ResultSet rs = statement.executeQuery(query);
         while (rs.next()) {
             Order order = Order.getFromResultSet(rs);
-            order.setEmployee(employeeDao.getById(order.getEmployeeId()));
-            order.setTable(tableDao.getById(order.getTableId()));
-            order.setCustomer(customerDao.getById(order.getCustomerId()));
+            Employee employee = employeeDao.getById(rs.getInt("employeeId"));
+            Table table = tableDao.getById(rs.getInt("tableId"));
+            Customer customer = customerDao.getById(rs.getInt("customerId"));
+            order.setEmployee(employee);
+            order.setTable(table);
+            order.setCustomer(customer);
             orders.add(order);
         }
         return orders;
@@ -156,9 +167,9 @@ public class OrderDao extends Dao<Order> {
         }
         String query = "INSERT INTO `order` (`employeeId`, `tableId`, `customerId`, `type`, `status`, `orderDate`, `payDate`, `paidAmount`, `totalAmount`, `discount`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setInt(1, t.getEmployeeId());
-        stmt.setInt(2, t.getTableId());
-        stmt.setInt(3, t.getCustomerId());
+        stmt.setInt(1, t.getEmployee().getEmployeeId());
+        stmt.setInt(2, t.getTable().getTableId());
+        stmt.setInt(3, t.getCustomer().getCustomerId());
         stmt.setNString(4, t.getType().getId());
         stmt.setNString(5, t.getStatus().getId());
         stmt.setTimestamp(6, t.getOrderDate());
@@ -178,9 +189,12 @@ public class OrderDao extends Dao<Order> {
         ResultSet rs = statement.executeQuery();
         while (rs.next()) {
             Order order = Order.getFromResultSet(rs);
-            order.setEmployee(employeeDao.getById(order.getEmployeeId()));
-            order.setTable(tableDao.getById(order.getTableId()));
-            order.setCustomer(customerDao.getById(order.getCustomerId()));
+            Employee employee = employeeDao.getById(rs.getInt("employeeId"));
+            Table table = tableDao.getById(rs.getInt("tableId"));
+            Customer customer = customerDao.getById(rs.getInt("customerId"));
+            order.setEmployee(employee);
+            order.setTable(table);
+            order.setCustomer(customer);
             orders.add(order);
         }
         return orders;
@@ -194,9 +208,12 @@ public class OrderDao extends Dao<Order> {
         ResultSet rs = statement.executeQuery(query);
         if (rs.next()) {
             Order order = Order.getFromResultSet(rs);
-            order.setEmployee(employeeDao.getById(order.getEmployeeId()));
-            order.setTable(tableDao.getById(order.getTableId()));
-            order.setCustomer(customerDao.getById(order.getCustomerId()));
+            Employee employee = employeeDao.getById(rs.getInt("employeeId"));
+            Table table = tableDao.getById(rs.getInt("tableId"));
+            Customer customer = customerDao.getById(rs.getInt("customerId"));
+            order.setEmployee(employee);
+            order.setTable(table);
+            order.setCustomer(customer);
             return order;
         }
         return null;

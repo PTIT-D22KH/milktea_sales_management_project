@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import models.FoodItem;
+import models.Order;
 import models.OrderItem;
 
 /**
@@ -14,7 +16,7 @@ import models.OrderItem;
 public class OrderItemDao extends Dao<OrderItem> {
 
     private final FoodItemDao foodItemDao = new FoodItemDao();
-
+    private final OrderDao orderDao = new OrderDao();
     @Override
     public ArrayList<OrderItem> getAll() throws SQLException {
         ArrayList<OrderItem> orderItems = new ArrayList<>();
@@ -23,8 +25,12 @@ public class OrderItemDao extends Dao<OrderItem> {
         ResultSet rs = statement.executeQuery(query);
         while (rs.next()) {
             OrderItem orderItem = OrderItem.getFromResultSet(rs);
-            orderItem.setFoodItem(foodItemDao.getById(orderItem.getFoodItemId()));
-            orderItem.setToppingItem(foodItemDao.getById(orderItem.getToppingId()));
+            FoodItem foodItem = foodItemDao.getById(rs.getInt("foodItemId"));
+            FoodItem toppingItem = foodItemDao.getById(rs.getInt("toppingId"));
+            Order order = orderDao.getById(rs.getInt("orderId"));
+            orderItem.setFoodItem(foodItem);
+            orderItem.setToppingItem(toppingItem);
+            orderItem.setOrder(order);
             orderItems.add(orderItem);
         }
         return orderItems;
@@ -36,9 +42,9 @@ public class OrderItemDao extends Dao<OrderItem> {
         }
         String query = "INSERT INTO `order_item` (`orderId`, `foodItemId`, `toppingId`, `quantity`, `foodPrice`, `toppingPrice`, `note`) VALUES (?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE  `quantity` = ?";
         PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setInt(1, t.getOrderId());
-        stmt.setInt(2, t.getFoodItemId());
-        stmt.setInt(3, t.getToppingId());
+        stmt.setInt(1, t.getOrder().getOrderId());
+        stmt.setInt(2, t.getFoodItem().getFoodItemId());
+        stmt.setInt(3, t.getToppingItem().getFoodItemId());
         stmt.setInt(4, t.getQuantity());
         stmt.setInt(5, t.getFoodPrice());
         stmt.setInt(6, t.getToppingPrice());
@@ -58,9 +64,9 @@ public class OrderItemDao extends Dao<OrderItem> {
         stmt.setInt(2, t.getFoodPrice());
         stmt.setInt(3, t.getToppingPrice());
         stmt.setNString(4, t.getNote());
-        stmt.setInt(5, t.getOrderId());
-        stmt.setInt(6, t.getFoodItemId());
-        stmt.setInt(7, t.getToppingId());
+        stmt.setInt(1, t.getOrder().getOrderId());
+        stmt.setInt(2, t.getFoodItem().getFoodItemId());
+        stmt.setInt(3, t.getToppingItem().getFoodItemId());
         stmt.executeUpdate();
     }
 
@@ -70,9 +76,9 @@ public class OrderItemDao extends Dao<OrderItem> {
             throw new SQLException("Order Item rỗng");
         }
         PreparedStatement stmt = conn.prepareStatement("DELETE FROM `order_item` WHERE `orderId` = ? AND `foodItemId` = ? AND `toppingId` = ?");
-        stmt.setInt(1, t.getOrderId());
-        stmt.setInt(2, t.getFoodItemId());
-        stmt.setInt(3, t.getToppingId());
+        stmt.setInt(1, t.getOrder().getOrderId());
+        stmt.setInt(2, t.getFoodItem().getFoodItemId());
+        stmt.setInt(3, t.getToppingItem().getFoodItemId());
         stmt.executeUpdate();
     }
 
@@ -87,9 +93,9 @@ public class OrderItemDao extends Dao<OrderItem> {
         }
         String query = "CALL `addOrderItem`(?, ?, ?, ?, ?)";
         PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setInt(1, t.getOrderId());
-        stmt.setInt(2, t.getFoodItemId());
-        stmt.setInt(3, t.getToppingId());
+        stmt.setInt(1, t.getOrder().getOrderId());
+        stmt.setInt(2, t.getFoodItem().getFoodItemId());
+        stmt.setInt(3, t.getToppingItem().getFoodItemId());
         stmt.setInt(4, t.getQuantity());
         stmt.setNString(5, t.getNote());
     }
@@ -101,8 +107,12 @@ public class OrderItemDao extends Dao<OrderItem> {
         ResultSet rs = statement.executeQuery(query);
         while (rs.next()) {
             OrderItem orderItem = OrderItem.getFromResultSet(rs);
-            orderItem.setFoodItem(foodItemDao.getById(orderItem.getFoodItemId()));
-            orderItem.setToppingItem(foodItemDao.getById(orderItem.getToppingId()));
+            FoodItem foodItem = foodItemDao.getById(rs.getInt("foodItemId"));
+            FoodItem toppingItem = foodItemDao.getById(rs.getInt("toppingId"));
+            Order order = orderDao.getById(rs.getInt("orderId"));
+            orderItem.setFoodItem(foodItem);
+            orderItem.setToppingItem(toppingItem);
+            orderItem.setOrder(order);
             orderItems.add(orderItem);
         }
         return orderItems;

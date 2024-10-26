@@ -5,15 +5,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class FoodItem extends Model {
-    private int foodItemId, unitPrice, categoryId;
+    private int foodItemId, unitPrice;
     private String name, description, imagePath, unitName;
-    private DecimalFormat formatter = new DecimalFormat("###,###,###");
-
+    private final DecimalFormat formatter = new DecimalFormat("###,###,###");
+    private FoodCategory foodCategory;
     public FoodItem() {
+        foodCategory = null;
     }
-
-    
-
     public int getFoodItemId() {
         return foodItemId;
     }
@@ -62,12 +60,12 @@ public class FoodItem extends Model {
         this.unitPrice = unitPrice;
     }
 
-    public int getCategoryId() {
-        return categoryId;
+    public FoodCategory getFoodCategory() {
+        return foodCategory;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public void setFoodCategory(FoodCategory foodCategory) {
+        this.foodCategory = foodCategory;
     }
     
 
@@ -83,7 +81,7 @@ public class FoodItem extends Model {
         f.setImagePath(rs.getNString("ImagePath"));
         f.setUnitName(rs.getNString("unitName"));
         f.setUnitPrice(rs.getInt("unitPrice"));
-        f.setCategoryId(rs.getInt("foodCategoryId"));
+//        f.setCategoryId(rs.getInt("foodCategoryId"));
         return f;
     }
 
@@ -91,7 +89,7 @@ public class FoodItem extends Model {
     public Object[] toRowTable() {
         return new Object[]{
             foodItemId, name, description, imagePath, unitName,
-            unitPrice, categoryId
+            unitPrice, foodCategory.getFoodCategoryId()
         };
     }
 
