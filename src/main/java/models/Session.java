@@ -3,7 +3,7 @@ package models;
 import java.sql.*;
 
 public class Session {
-    private int sessionId, employeeId;
+    private int sessionId;
     private Timestamp startTime, endTime;
     private Employee employee;
     private String message;
@@ -30,9 +30,6 @@ public class Session {
     }
     public void setEmployee(Employee employee) {
         this.employee = employee;
-        if(employee != null) {
-            this.employeeId = employee.getEmployeeId();
-        }
     }
 
     public int getSessionId() {
@@ -43,15 +40,6 @@ public class Session {
         this.sessionId = sessionId;
     }
 
-    public int getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(int employeeId) {
-        
-        this.employeeId = employeeId;
-        
-    }
     
     
     public String getMessage() {
@@ -64,7 +52,7 @@ public class Session {
     public static Session getFromResultSet(ResultSet rs) throws SQLException {
         Session s = new Session();
         s.setSessionId(rs.getInt("sessionId"));
-        s.setEmployeeId(rs.getInt("EmployeeId"));
+//        s.setEmployeeId(rs.getInt("EmployeeId"));
         s.setMessage(rs.getNString("message"));
         s.setStartTime(rs.getTimestamp("startTime"));
         s.setEndTime(rs.getTimestamp("endTime"));
@@ -72,7 +60,7 @@ public class Session {
     }
     @Override 
     public String toString() {
-        return "Session{" + "sessionId=" + sessionId + ", employeeId=" + employeeId + ", startTime=" + startTime + ", endTime=" + endTime + ", message=" + message + "}";
+        return "Session{" + "sessionId=" + sessionId + ", employee=" + employee + ", startTime=" + startTime + ", endTime=" + endTime + ", message=" + message + "}";
     }
     
 

@@ -57,13 +57,7 @@ public class Table extends Model{
     public String toString() {
       return name;
     }
-    
-//    @Override
-//    public Object[] toRowTable() {
-//        return new Object[]{
-//            this.getTableId(), this.getName(), this.getStatus().getName()
-//        };
-//    }
+
 
     @Override
     public Object[] toRowTable() {

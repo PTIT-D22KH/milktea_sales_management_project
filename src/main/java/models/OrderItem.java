@@ -12,40 +12,16 @@ import java.sql.SQLException;
  * @author DELL
  */
 public class OrderItem extends Model{
-    private int orderId, foodItemId, toppingId, quantity, foodPrice,toppingPrice;
+    private int quantity, foodPrice,toppingPrice;
     private String note;
     private FoodItem foodItem, toppingItem;
+    private Order order;
 
     public OrderItem() {
         quantity = 1;
-        toppingId = 0;
+//        toppingId = 0;
         note = "";
     }
-
-    public int getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
-
-    public int getFoodItemId() {
-        return foodItemId;
-    }
-
-    public void setFoodItemId(int foodItemId) {
-        this.foodItemId = foodItemId;
-    }
-
-    public int getToppingId() {
-        return toppingId;
-    }
-
-    public void setToppingId(int toppingId) {
-        this.toppingId = toppingId;
-    }
-
     public int getQuantity() {
         return quantity;
     }
@@ -58,6 +34,15 @@ public class OrderItem extends Model{
         }
 //        this.quantity = quantity;
     }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+    
 
     public int getFoodPrice() {
         return foodPrice;
@@ -89,7 +74,6 @@ public class OrderItem extends Model{
 
     public void setFoodItem(FoodItem foodItem) {
         this.foodItem = foodItem;
-        this.foodItemId = foodItem.getFoodItemId();
     }
 
     public FoodItem getToppingItem() {
@@ -98,22 +82,23 @@ public class OrderItem extends Model{
 
     public void setToppingItem(FoodItem toppingItem) {
         this.toppingItem = toppingItem;
-        this.toppingId = toppingItem.getFoodItemId();
     }
     
     public int getAmount() {
         return quantity * (foodPrice + toppingPrice);
     }
-  
+
     @Override
     public String toString() {
-        return "OrderItem{" + "orderId=" + orderId + ", foodItemId=" + foodItemId + ", toppingId=" + toppingId + ", quantity=" + quantity + ", foodPrice=" + foodPrice + ", toppingPrice=" + toppingPrice + ", note=" + note + ", foodItem=" + foodItem + ", toppingItem=" + toppingItem + '}';
+        return "OrderItem{" + "quantity=" + quantity + ", foodPrice=" + foodPrice + ", toppingPrice=" + toppingPrice + ", note=" + note + ", foodItem=" + foodItem + ", toppingItem=" + toppingItem + ", order=" + order + '}';
     }
+  
+    
     public static OrderItem getFromResultSet(ResultSet rs) throws SQLException {
         OrderItem oi = new OrderItem();
-        oi.setFoodItemId(rs.getInt("foodItemId"));
-        oi.setOrderId(rs.getInt("orderId"));
-        oi.setToppingId(rs.getInt("toppingId"));
+//        oi.setFoodItemId(rs.getInt("foodItemId"));
+//        oi.setOrderId(rs.getInt("orderId"));
+//        oi.setToppingId(rs.getInt("toppingId"));
         oi.setQuantity(rs.getInt("quantity"));
         oi.setFoodPrice(rs.getInt("foodPrice"));
         oi.setToppingPrice(rs.getInt("toppingPrice"));

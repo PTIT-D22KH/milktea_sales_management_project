@@ -15,7 +15,6 @@ import utils.ShipmentStatus;
  * @author DELL
  */
 public class Shipment extends Model{
-    private int orderId, customerId, employeeId;
     private ShipmentStatus status;
     private Timestamp startDate, endDate;
     private Order order;
@@ -34,9 +33,6 @@ public class Shipment extends Model{
     public void setOrder(Order order) {
         
         this.order = order;
-        if (order != null) {
-            this.orderId = order.getOrderId();
-        }
     }
 
     public Customer getCustomer() {
@@ -44,11 +40,7 @@ public class Shipment extends Model{
     }
 
     public void setCustomer(Customer customer) {
-        
         this.customer = customer;
-        if (customer != null) {
-            this.customerId = customer.getCustomerId();
-        }
     }
 
     public Employee getEmployee() {
@@ -58,9 +50,6 @@ public class Shipment extends Model{
     public void setEmployee(Employee employee) {
         
         this.employee = employee;
-        if (employee != null) {
-            this.employeeId = employee.getEmployeeId();
-        }
     }
 
     public int getShipCost() {
@@ -69,32 +58,6 @@ public class Shipment extends Model{
 
     public void setShipCost(int shipCost) {
         this.shipCost = shipCost;
-    }
-
-    
-    
-    public int getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
-
-    public int getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
-
-    public int getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
     }
 
     public ShipmentStatus getStatus() {
@@ -123,9 +86,9 @@ public class Shipment extends Model{
     
     public static Shipment getFromResultSet(ResultSet rs) throws SQLException {
         Shipment shipment = new Shipment();
-        shipment.setOrderId(rs.getInt("OrderId"));
-        shipment.setCustomerId(rs.getInt("CustomerId"));
-        shipment.setEmployeeId(rs.getInt("EmployeeId"));
+//        shipment.setOrderId(rs.getInt("OrderId"));
+//        shipment.setCustomerId(rs.getInt("CustomerId"));
+//        shipment.setEmployeeId(rs.getInt("EmployeeId"));
         shipment.setShipCost(rs.getInt("shipCost"));
         shipment.setStatus(ShipmentStatus.getById(rs.getNString("status")));
         shipment.setStartDate(rs.getTimestamp("startDate"));
@@ -136,9 +99,9 @@ public class Shipment extends Model{
     @Override
     public String toString() {
         return "Shipment{" +
-                "orderId=" + orderId +
-                ", customerId=" + customerId +
-                ", employeeId=" + employeeId +
+                "order=" + order +
+                ", customer=" + customer +
+                ", employee=" + employee +
                 ", status='" + status + '\'' +
                 ",shipCost=" + shipCost +
                 ", startDate=" + startDate +
@@ -150,7 +113,7 @@ public class Shipment extends Model{
     public Object[] toRowTable() {
         System.out.println(this.customer);
         return new Object[]{
-            orderId, customer.getName(), customer.getAddress(), employee.getName(), shipCost, status.getName(), startDate, endDate
+            order.getOrderId(), customer.getName(), customer.getAddress(), employee.getName(), shipCost, status.getName(), startDate, endDate
         };
     }
 

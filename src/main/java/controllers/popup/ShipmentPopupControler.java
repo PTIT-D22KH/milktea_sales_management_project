@@ -39,32 +39,32 @@ public class ShipmentPopupControler{
         this.employeeDao = new EmployeeDao();
         this.orderDao = new OrderDao();
     }    
-    public void add(ShipmentPopupView view, int orderId, SuccessCallback sc, ErrorCallback ec) {
+    public void add(ShipmentPopupView view, Order order, SuccessCallback sc, ErrorCallback ec) {
         if (previousView != null && previousView.isDisplayable()) {
             previousView.requestFocus();
             return;
         }
         try {
-            Shipment shipment = shipmentDao.getById(orderId);
+            Shipment shipment = shipmentDao.getById(order.getOrderId());
             if (shipment != null) {
-                edit(view, orderId, sc, ec);
+                edit(view, order, sc, ec);
                 return;
             }
             shipment = new Shipment();
             shipment.setShipCost(0);
-            shipment.setOrderId(orderId);
+            shipment.setOrder(order);
             shipment.setCustomer(customerDao.getAll().get(0));
             shipment.setEmployee(employeeDao.getAll().get(0));
             shipment.setStatus(ShipmentStatus.TOPAY);
             shipmentDao.save(shipment);
-            edit(view, orderId, sc, ec);
+            edit(view, order, sc, ec);
         } catch (Exception e) {
             ec.onError(e);
             view.dispose();
         }
     }
 
-    public void edit(ShipmentPopupView view, int orderId, SuccessCallback sc, ErrorCallback ec) {
+    public void edit(ShipmentPopupView view, Order order, SuccessCallback sc, ErrorCallback ec) {
         if (previousView != null && previousView.isDisplayable()) {
             previousView.requestFocus();
             if (view != previousView) {
@@ -83,16 +83,15 @@ public class ShipmentPopupControler{
             view.getCboStatus().addItem(value.getName());
         }
         try {
-            Shipment shipment = shipmentDao.getById(orderId);
-            Order order = orderDao.getById(orderId);
-            if (order.getCustomerId() != 0) {
-                Customer customer = customerDao.getById(order.getCustomerId());
+            Shipment shipment = shipmentDao.getById(order.getOrderId());
+            if (order.getCustomer().getCustomerId()!= 0) {
+                Customer customer = customerDao.getById(order.getCustomer().getCustomerId());
                 shipment.setCustomer(customer);
                 view.getLbCustomerName().setText(customer.getName());
             } else {
                 view.getLbCustomerName().setText("<Chưa chọn>");
             }
-            view.getLbEmployeeName().setText(employeeDao.getById(shipment.getEmployeeId()).getName());
+            view.getLbEmployeeName().setText(employeeDao.getById(shipment.getEmployee().getEmployeeId()).getName());
             view.getBtnSelectEmployee().addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
@@ -128,7 +127,7 @@ public class ShipmentPopupControler{
                 @Override
                 public void actionPerformed(ActionEvent evt) {
                     try {
-                        editShipment(view, shipment, orderId);
+                        editShipment(view, shipment, order);
                         view.dispose();
                         view.showMessage("Tạo / sửa đơn ship thành công!");
                         sc.onSuccess();
@@ -143,7 +142,7 @@ public class ShipmentPopupControler{
             }
     }
     
-    private void editShipment(ShipmentPopupView view, Shipment shipment, int orderId) throws SQLException {
+    private void editShipment(ShipmentPopupView view, Shipment shipment, Order order) throws SQLException {
         shipment.setStatus(ShipmentStatus.getByName(view.getCboStatus().getSelectedItem().toString()));
         shipment.setShipCost((int) view.getSpnShipCost().getValue());
         if (shipment.getStatus() == ShipmentStatus.COMPLETED || shipment.getStatus() == ShipmentStatus.CANCELLED) {
@@ -154,7 +153,6 @@ public class ShipmentPopupControler{
         shipmentDao.update(shipment);
         
         //update customer from order
-        Order order = orderDao.getById(orderId);
         order.setCustomer(shipment.getCustomer());
         orderDao.update(order);
     }

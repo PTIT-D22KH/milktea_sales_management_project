@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package controllers.popup;
+import dao.CustomerDao;
 import dao.EmployeeDao;
 import dao.OrderDao;
 import dao.ShipmentDao;
@@ -25,6 +26,7 @@ public class AddOrderPopupController extends PopupController<AddOrderPopupView, 
 //    private final EmployeeDao employeeDao;
 //    private final ShipmentDao shipmentDao;
     private final TableDao tableDao;
+    private final CustomerDao customerDao;
 //    private final DecimalFormat formatter;
 
     public AddOrderPopupController() {
@@ -32,14 +34,16 @@ public class AddOrderPopupController extends PopupController<AddOrderPopupView, 
 //        this.employeeDao = new EmployeeDao();
 //        this.shipmentDao = new ShipmentDao();
         this.tableDao = new TableDao();
+        this.customerDao = new CustomerDao();
 //        this.formatter = new DecimalFormat("###,###,###");
     }
 
-    public AddOrderPopupController(OrderDao orderDao, EmployeeDao employeeDao, ShipmentDao shipmentDao, TableDao tableDao) {
+    public AddOrderPopupController(OrderDao orderDao, EmployeeDao employeeDao, ShipmentDao shipmentDao, TableDao tableDao, CustomerDao customerDao) {
         this.orderDao = orderDao;
 //        this.employeeDao = employeeDao;
 //        this.shipmentDao = shipmentDao;
         this.tableDao = tableDao;
+        this.customerDao = customerDao;
 //        this.formatter = new DecimalFormat("###,###,###");
     }
 
@@ -71,7 +75,7 @@ public class AddOrderPopupController extends PopupController<AddOrderPopupView, 
         order.setStatus(OrderStatus.UNPAID);
         order.setType(type);
         order.setDiscount(discount);
-        order.setCustomerId(1);
+        order.setCustomer(customerDao.getById(1));
         orderDao.save(order);
         tableDao.update(table);
     }

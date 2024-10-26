@@ -4,6 +4,8 @@
  */
 package controllers.popup.order;
 
+import dao.OrderDao;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
@@ -83,11 +85,12 @@ public class OrderItemController {
         return totalAmount;
     }
 
-    public void addOrderItem(OrderItem item) {
+    public void addOrderItem(OrderItem item) throws SQLException{
         if (item == null) {
             return;
         }
-        item.setOrderId(orderId);
+        OrderDao orderDao = new OrderDao();
+        item.setOrder(orderDao.getById(orderId));
         for (OrderItem orderItem : orderItems) {
             if (item.equals(orderItem)) {
                 orderItem.setQuantity(orderItem.getQuantity() + item.getQuantity());

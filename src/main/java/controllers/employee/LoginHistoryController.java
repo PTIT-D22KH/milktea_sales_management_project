@@ -22,7 +22,7 @@ public class LoginHistoryController {
     private final SessionDao sessionDao = new SessionDao();
     private int employeeId;
     public LoginHistoryController() {
-        employeeId = SessionManager.getSession().getEmployeeId();
+        employeeId = SessionManager.getSession().getEmployee().getEmployeeId();
     }
     public void show(LoginHistoryView view) {
         if (previousView != null && previousView.isDisplayable()) {
