@@ -108,13 +108,13 @@ public class ToppingPopupController {
         OrderItem orderItem = new OrderItem();
         try {
             orderItem.setFoodItem(foodItem);
-            orderItem.setFoodPrice((int) view.getSpnFoodPrice().getValue());
+//            orderItem.setFoodPrice((int) view.getSpnFoodPrice().getValue());
             if (foodItem.getFoodCategory().getFoodCategoryId()== 2) {
                 orderItem.setToppingItem((FoodItem) view.getCboTopping().getSelectedItem());
-                orderItem.setToppingPrice(orderItem.getToppingItem().getUnitPrice());
+//                orderItem.setToppingPrice(orderItem.getToppingItem().getUnitPrice());
             } else {
                 orderItem.setToppingItem(foodItemDao.getById(1));
-                orderItem.setToppingPrice(0);
+//                orderItem.setToppingPrice(0);
             }
             orderItem.setQuantity((int) view.getSpnQuantity().getValue());
 

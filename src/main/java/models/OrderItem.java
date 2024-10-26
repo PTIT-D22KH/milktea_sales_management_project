@@ -12,7 +12,7 @@ import java.sql.SQLException;
  * @author DELL
  */
 public class OrderItem extends Model{
-    private int quantity, foodPrice,toppingPrice;
+    private int quantity;
     private String note;
     private FoodItem foodItem, toppingItem;
     private Order order;
@@ -42,23 +42,6 @@ public class OrderItem extends Model{
     public void setOrder(Order order) {
         this.order = order;
     }
-    
-
-    public int getFoodPrice() {
-        return foodPrice;
-    }
-
-    public void setFoodPrice(int foodPrice) {
-        this.foodPrice = foodPrice;
-    }
-
-    public int getToppingPrice() {
-        return toppingPrice;
-    }
-
-    public void setToppingPrice(int toppingPrice) {
-        this.toppingPrice = toppingPrice;
-    }
 
     public String getNote() {
         return note;
@@ -85,13 +68,15 @@ public class OrderItem extends Model{
     }
     
     public int getAmount() {
-        return quantity * (foodPrice + toppingPrice);
+        return quantity * (foodItem.getUnitPrice() + toppingItem.getUnitPrice());
     }
 
     @Override
     public String toString() {
-        return "OrderItem{" + "quantity=" + quantity + ", foodPrice=" + foodPrice + ", toppingPrice=" + toppingPrice + ", note=" + note + ", foodItem=" + foodItem + ", toppingItem=" + toppingItem + ", order=" + order + '}';
+        return "OrderItem{" + "quantity=" + quantity + ", note=" + note + ", foodItem=" + foodItem + ", toppingItem=" + toppingItem + ", order=" + order + '}';
     }
+
+    
   
     
     public static OrderItem getFromResultSet(ResultSet rs) throws SQLException {
@@ -100,8 +85,8 @@ public class OrderItem extends Model{
 //        oi.setOrderId(rs.getInt("orderId"));
 //        oi.setToppingId(rs.getInt("toppingId"));
         oi.setQuantity(rs.getInt("quantity"));
-        oi.setFoodPrice(rs.getInt("foodPrice"));
-        oi.setToppingPrice(rs.getInt("toppingPrice"));
+//        oi.setFoodPrice(rs.getInt("foodPrice"));
+//        oi.setToppingPrice(rs.getInt("toppingPrice"));
         oi.setNote(rs.getNString("note"));
         return oi;
     }

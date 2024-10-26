@@ -94,7 +94,7 @@ public class OrderItemController {
         for (OrderItem orderItem : orderItems) {
             if (item.equals(orderItem)) {
                 orderItem.setQuantity(orderItem.getQuantity() + item.getQuantity());
-                orderItem.setFoodPrice(item.getFoodPrice());
+//                orderItem.setFoodPrice(item.getFoodPrice());
                 renderOrderItem();
                 return;
             }

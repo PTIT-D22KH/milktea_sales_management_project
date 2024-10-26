@@ -46,8 +46,8 @@ public class OrderItemDao extends Dao<OrderItem> {
         stmt.setInt(2, t.getFoodItem().getFoodItemId());
         stmt.setInt(3, t.getToppingItem().getFoodItemId());
         stmt.setInt(4, t.getQuantity());
-        stmt.setInt(5, t.getFoodPrice());
-        stmt.setInt(6, t.getToppingPrice());
+        stmt.setInt(5, t.getFoodItem().getUnitPrice());
+        stmt.setInt(6, t.getToppingItem().getUnitPrice());
         stmt.setNString(7, t.getNote());
         stmt.setInt(8, t.getQuantity());
         stmt.executeUpdate();
@@ -61,8 +61,8 @@ public class OrderItemDao extends Dao<OrderItem> {
         String query = "UPDATE `order_item` SET  `quantity` = ?, `foodPrice` = ?, `toppingPrice` = ?, `note` = ? WHERE `orderId` = ? AND `foodItemId` = ? AND `toppingId` = ?";
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setInt(1, t.getQuantity());
-        stmt.setInt(2, t.getFoodPrice());
-        stmt.setInt(3, t.getToppingPrice());
+        stmt.setInt(2, t.getFoodItem().getUnitPrice());
+        stmt.setInt(3, t.getToppingItem().getUnitPrice());
         stmt.setNString(4, t.getNote());
         stmt.setInt(1, t.getOrder().getOrderId());
         stmt.setInt(2, t.getFoodItem().getFoodItemId());

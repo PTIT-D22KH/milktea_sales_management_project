@@ -35,7 +35,7 @@ public class OrderItemPane extends javax.swing.JPanel {
         } else {
             toppingNameLabel.setText(topping.getName());
         }
-        priceLabel.setText(orderItem.getFoodPrice() + orderItem.getToppingPrice() + " ");
+        priceLabel.setText(orderItem.getFoodItem().getUnitPrice()+ orderItem.getToppingItem().getUnitPrice()+ " ");
         spnQuantity.setValue(orderItem.getQuantity());
     }
 
