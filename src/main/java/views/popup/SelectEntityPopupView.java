@@ -18,8 +18,8 @@ import views.EntityRenderList;
  *
  * @author P51
  */
-public abstract class SelectEntityPopupView <M extends Model> extends javax.swing.JFrame implements BaseSelectEntityPopupView<M>{
-    protected DefaultListModel<M> entityListModel;
+public abstract class SelectEntityPopupView <T extends Model> extends javax.swing.JFrame implements BaseSelectEntityPopupView<T>{
+    protected DefaultListModel<T> entityListModel;
     /**
      * Creates new form SelectEntityPopupView
      */
@@ -40,14 +40,14 @@ public abstract class SelectEntityPopupView <M extends Model> extends javax.swin
      * @return
      */
     @Override
-    public abstract JList<M> getEntityList();
+    public abstract JList<T> getEntityList();
     @Override
     public abstract JTextField getEntityNameTxtField();
     
     @Override
-    public void renderEntity(ArrayList<M> list) {
+    public void renderEntity(ArrayList<T> list) {
         entityListModel.removeAllElements();
-        for (M entity : list) {
+        for (T entity : list) {
             entityListModel.addElement(entity);
         }
     }

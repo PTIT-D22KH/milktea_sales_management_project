@@ -5,14 +5,10 @@
 package views.popup;
 
 
-import java.awt.Dimension;
-import java.util.ArrayList;
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JTextField;
 import models.Customer;
-import utils.ErrorPopup;
 import views.CustomerRenderList;
 /**
  *
