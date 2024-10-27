@@ -7,12 +7,14 @@ package controllers.employee;
 import controllers.TimeCounterController;
 import controllers.popup.ErrorCallback;
 import controllers.popup.SuccessCallback;
+import controllers.employee.CalendarController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import models.Employee;
 import utils.ErrorPopup;
 import utils.SessionManager;
+import views.employee.CalendarView;
 import views.employee.ChangePasswordView;
 import views.employee.EmployeeInformationView;
 import views.employee.LoginHistoryView;
@@ -46,6 +48,8 @@ public class EmployeeInformationController {
                     view.getTimeSessionLabel().setText(secondToHours(second));
                 }
             });
+            CalendarController calendarController = new CalendarController();
+            calendarController.show(view.getCalendarPanel(), new CalendarView());
             addEvent(view);
             this.view = view;
         }

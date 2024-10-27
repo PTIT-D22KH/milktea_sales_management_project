@@ -6,6 +6,7 @@ package views.employee;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -34,6 +35,9 @@ public class EmployeeInformationView extends javax.swing.JPanel {
         return historySessionButton;
     }
     
+    public JPanel getCalendarPanel(){
+        return calendarPanel;
+    }
     
 
     /**

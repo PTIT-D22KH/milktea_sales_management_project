@@ -6,6 +6,7 @@ package views.employee;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -719,6 +720,26 @@ public class CalendarView extends javax.swing.JPanel {
     private javax.swing.JPanel panel_Wednesday;
     private javax.swing.JTextField txtYear;
     // End of variables declaration//GEN-END:variables
+ 
+    public JLabel getLabelWorkingDay(){
+        return labelWorkingDay;
+    }
+    
+    public JLabel getLabelNumberOfBills(){
+        return labelNumberOfBills;
+    }
+    
+    public JLabel getLabelSale(){
+        return labelSale;
+    }
+    
+    public JLabel getLabelWorkingTime(){
+        return labelWorkingTime;
+    }
+    
+    public JLabel getLabelBonus(){
+        return labelBonus;
+    }
     
     public JButton getBtnEnter() {
         return btnEnter;
