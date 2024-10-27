@@ -8,7 +8,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import javax.swing.JList;
-import javax.swing.ListCellRenderer;
 import models.Customer;
 
 /**

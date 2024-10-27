@@ -5,16 +5,14 @@
 package views;
 
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import utils.ErrorPopup;
 
 /**
  *
  * @author P51
  */
-public class ForgotPasswordView extends javax.swing.JFrame {
+public class ForgotPasswordView extends AuthenticationView {
 
     /**
      * Creates new form ForgotPasswordForm
@@ -32,26 +30,14 @@ public class ForgotPasswordView extends javax.swing.JFrame {
         return confirmPassField;
     }
 
+    @Override
     public JPasswordField getPasswordField() {
         return passwordField;
     }
 
+    @Override
     public JTextField getUsernameTxtField() {
         return usernameTxtField;
-    }
-    
-    public void showError(String message) {
-        ErrorPopup.show(new Exception(message));
-    }
-
-
-    public void showError(Exception e) {
-        ErrorPopup.show(e);
-    }
-
-
-    public void showMessage(String message) {
-        JOptionPane.showMessageDialog(null, message);
     }
     /**
      * This method is called from within the constructor to initialize the form.

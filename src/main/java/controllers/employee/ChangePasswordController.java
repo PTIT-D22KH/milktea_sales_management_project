@@ -56,7 +56,7 @@ public class ChangePasswordController {
     }
     private void changePassword(ChangePasswordView view) throws  Exception{
         String oldPass = new String(view.getOldPasswordField().getPassword());
-        String newPass = new String(view.getNewPasswordField().getPassword());
+        String newPass = new String(view.getPasswordField().getPassword());
         String confirmPass = new String(view.getConfirmNewPassField().getPassword());
         Employee currentLoginEmployee = SessionManager.getSession().getEmployee();
         if (oldPass.isEmpty() || newPass.isEmpty()|| confirmPass.isEmpty()) {

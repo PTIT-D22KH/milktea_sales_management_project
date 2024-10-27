@@ -86,7 +86,7 @@
                           <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
                           <Component id="jLabel1" min="-2" pref="204" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                          <Component id="TimeSessionLabel" min="-2" pref="70" max="-2" attributes="0"/>
+                          <Component id="timeSessionLabel" min="-2" pref="70" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="46" max="32767" attributes="0"/>
@@ -99,7 +99,7 @@
                   <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel1" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                      <Component id="TimeSessionLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="timeSessionLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="calendarPanel" min="-2" max="-2" attributes="0"/>
@@ -132,7 +132,7 @@
             <Property name="text" type="java.lang.String" value="Th&#x1edd;i gian phi&#xea;n l&#xe0;m vi&#x1ec7;c:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="TimeSessionLabel">
+        <Component class="javax.swing.JLabel" name="timeSessionLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="16" style="1"/>

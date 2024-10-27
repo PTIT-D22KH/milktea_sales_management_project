@@ -6,12 +6,14 @@ package views.employee;
 
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import views.AuthenticationView;
 
 /**
  *
  * @author P51
  */
-public class ChangePasswordView extends javax.swing.JFrame {
+public class ChangePasswordView extends AuthenticationView {
 
     /**
      * Creates new form ChangePasswordView
@@ -33,8 +35,9 @@ public class ChangePasswordView extends javax.swing.JFrame {
         return confirmNewPassField;
     }
 
-    public JPasswordField getNewPasswordField() {
-        return newPasswordField;
+    @Override
+    public JPasswordField getPasswordField() {
+        return passwordField;
     }
 
     public JPasswordField getOldPasswordField() {
@@ -56,7 +59,7 @@ public class ChangePasswordView extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         oldPasswordField = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
-        newPasswordField = new javax.swing.JPasswordField();
+        passwordField = new javax.swing.JPasswordField();
         jLabel4 = new javax.swing.JLabel();
         confirmNewPassField = new javax.swing.JPasswordField();
         confirmButton = new javax.swing.JButton();
@@ -111,7 +114,7 @@ public class ChangePasswordView extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
-                        .addComponent(newPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(confirmButton)
@@ -135,7 +138,7 @@ public class ChangePasswordView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(newPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -194,7 +197,12 @@ public class ChangePasswordView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField newPasswordField;
     private javax.swing.JPasswordField oldPasswordField;
+    private javax.swing.JPasswordField passwordField;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public JTextField getUsernameTxtField() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

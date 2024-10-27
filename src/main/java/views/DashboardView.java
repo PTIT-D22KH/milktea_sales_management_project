@@ -12,23 +12,27 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import utils.ErrorPopup;
 import views.admin.MenuItemView;
+import views.popup.MessageShowable;
 
 /**
  *
  * @author P51
  */
-public abstract class DashboardView extends JFrame{
+public abstract class DashboardView extends JFrame implements MessageShowable{
     protected JPanel[] cards;
     protected ArrayList<MenuItemView> menuItems = new ArrayList<>();
     
+    @Override
     public void showError(String message) {
         ErrorPopup.show(new Exception(message));
     }
 
+    @Override
     public void showError(Exception e) {
         ErrorPopup.show(e);
     }
 
+    @Override
     public void showMessage(String message) {
         JOptionPane.showMessageDialog(this, message);
     }

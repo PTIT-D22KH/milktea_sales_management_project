@@ -5,11 +5,6 @@
 package views.admin;
 
 import java.awt.MenuItem;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import javax.swing.Icon;
-import utils.IconManager;
 
 /**
  *
@@ -17,9 +12,12 @@ import utils.IconManager;
  */
 public class MenuItemView extends javax.swing.JPanel {
     private String id;
-    private boolean active;
+//    private boolean active;
     /**
      * Creates new form MenuItemView
+     * @param id
+     * @param menuName
+     * @param subMenu
      */
     public MenuItemView(String id, String menuName, MenuItem... subMenu) {
         initComponents();

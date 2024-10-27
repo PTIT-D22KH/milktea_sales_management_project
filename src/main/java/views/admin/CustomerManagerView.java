@@ -3,7 +3,6 @@ package views.admin;
 
 import javax.swing.DefaultComboBoxModel;
 import models.Customer;
-import views.admin.ManagerPaneView;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -16,7 +15,7 @@ import views.admin.ManagerPaneView;
  */
 public class CustomerManagerView extends ManagerPaneView<Customer>{
     
-    String list[] = {
+    private String list[] = {
         "Mã khách hàng",
         "SĐT",
         "Tên khách hàng",

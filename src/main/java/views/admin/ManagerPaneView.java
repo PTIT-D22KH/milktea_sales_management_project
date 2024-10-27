@@ -15,18 +15,22 @@ import javax.swing.table.DefaultTableModel;
 import models.Model;
 import utils.ErrorPopup;
 import utils.IconManager;
+import views.popup.MessageShowable;
 
 /**
  *
  * @author P51
+ * @param <T>
  */
-public abstract class ManagerPaneView<T extends Model> extends JPanel {
+public abstract class ManagerPaneView<T extends Model> extends JPanel implements MessageShowable{
 
-    protected DefaultTableModel tableModel = new DefaultTableModel();
-    private IconManager im = new IconManager();
-    private ArrayList<T> tableData = new ArrayList<>();
+    protected DefaultTableModel tableModel;
+    private final IconManager im = new IconManager();
+    private ArrayList<T> tableData;
 
     public ManagerPaneView() {
+        tableModel = new DefaultTableModel();
+        tableData = new ArrayList<>();
         initComponents();
         dataTable.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
         dataTable.getTableHeader().setOpaque(false);
@@ -76,14 +80,17 @@ public abstract class ManagerPaneView<T extends Model> extends JPanel {
 
     
 
+    @Override
     public void showError(String message) {
         ErrorPopup.show(new Exception(message));
     }
 
+    @Override
     public void showError(Exception e) {
         ErrorPopup.show(e);
     }
 
+    @Override
     public void showMessage(String message) {
         JOptionPane.showMessageDialog(null, message);
     }

@@ -38,7 +38,7 @@ public class LoginController extends AuthenticationController<LoginView>{
     }
     
     public void login() {
-        String username = view.getUsernameTextField().getText();
+        String username = view.getUsernameTxtField().getText();
         String password = new String(view.getPasswordField().getPassword());
         try {
             Employee employee = employeeDao.findByUsername(username);
@@ -61,7 +61,7 @@ public class LoginController extends AuthenticationController<LoginView>{
                     
                 case STAFF:
                     //employee dashboard controller
-                    EmployeeDashboardController controller1 = new EmployeeDashboardController(new EmployeeDashboardView());
+                    EmployeeDashboardController controller1 = new EmployeeDashboardController(new AdminDashboardView());
                     controller1.getView().setPanel(new HomeView());
                     controller1.getView().setVisible(true);
                     view.dispose();

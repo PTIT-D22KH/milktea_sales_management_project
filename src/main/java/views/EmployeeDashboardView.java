@@ -4,12 +4,9 @@
  */
 package views;
 
-import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import utils.ErrorPopup;
 import views.admin.MenuItemView;
 
 /**

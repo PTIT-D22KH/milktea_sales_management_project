@@ -28,16 +28,17 @@ public class EmployeeInformationView extends javax.swing.JPanel {
     }
 
     public JLabel getTimeSessionLabel() {
-        return TimeSessionLabel;
+        return timeSessionLabel;
     }
 
     public JButton getHistorySessionButton() {
         return historySessionButton;
     }
-    
-    public JPanel getCalendarPanel(){
+
+    public JPanel getCalendarPanel() {
         return calendarPanel;
     }
+    
     
 
     /**
@@ -55,7 +56,7 @@ public class EmployeeInformationView extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         calendarPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        TimeSessionLabel = new javax.swing.JLabel();
+        timeSessionLabel = new javax.swing.JLabel();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -102,9 +103,9 @@ public class EmployeeInformationView extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel1.setText("Thời gian phiên làm việc:");
 
-        TimeSessionLabel.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        TimeSessionLabel.setForeground(new java.awt.Color(102, 255, 102));
-        TimeSessionLabel.setText("00:00:00");
+        timeSessionLabel.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        timeSessionLabel.setForeground(new java.awt.Color(102, 255, 102));
+        timeSessionLabel.setText("00:00:00");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -119,7 +120,7 @@ public class EmployeeInformationView extends javax.swing.JPanel {
                         .addGap(65, 65, 65)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(41, 41, 41)
-                        .addComponent(TimeSessionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(timeSessionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(46, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -128,7 +129,7 @@ public class EmployeeInformationView extends javax.swing.JPanel {
                 .addGap(16, 16, 16)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TimeSessionLabel))
+                    .addComponent(timeSessionLabel))
                 .addGap(18, 18, 18)
                 .addComponent(calendarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(40, Short.MAX_VALUE))
@@ -139,12 +140,12 @@ public class EmployeeInformationView extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel TimeSessionLabel;
     private javax.swing.JPanel calendarPanel;
     private javax.swing.JButton changePassButton;
     private javax.swing.JButton historySessionButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel timeSessionLabel;
     // End of variables declaration//GEN-END:variables
 }
