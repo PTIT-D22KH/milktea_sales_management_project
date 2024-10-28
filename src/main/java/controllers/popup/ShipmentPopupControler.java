@@ -13,7 +13,6 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import models.Customer;
 import models.Employee;
 import models.Order;

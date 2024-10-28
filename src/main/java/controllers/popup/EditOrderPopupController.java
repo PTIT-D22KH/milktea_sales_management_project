@@ -74,7 +74,7 @@ public class EditOrderPopupController extends PopupController<EditOrderPopupView
         this.formatter = new DecimalFormat("###,###,###");
     }
 
-    public void updateAmount(EditOrderPopupView view, Order order) {
+    private void updateAmount(EditOrderPopupView view, Order order) {
         order.setTotalAmount(orderItemController.getTotalAmount());
         view.getLbStatus().setText(order.getStatus().getName());
         view.getLbDiscount().setText(order.getDiscount() + "");

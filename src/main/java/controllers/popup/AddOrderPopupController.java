@@ -23,28 +23,18 @@ import views.popup.AddOrderPopupView;
  */
 public class AddOrderPopupController extends PopupController<AddOrderPopupView, Order> {
     private final OrderDao orderDao;
-//    private final EmployeeDao employeeDao;
-//    private final ShipmentDao shipmentDao;
     private final TableDao tableDao;
     private final CustomerDao customerDao;
-//    private final DecimalFormat formatter;
-
     public AddOrderPopupController() {
         this.orderDao = new OrderDao();
-//        this.employeeDao = new EmployeeDao();
-//        this.shipmentDao = new ShipmentDao();
         this.tableDao = new TableDao();
         this.customerDao = new CustomerDao();
-//        this.formatter = new DecimalFormat("###,###,###");
     }
 
     public AddOrderPopupController(OrderDao orderDao, EmployeeDao employeeDao, ShipmentDao shipmentDao, TableDao tableDao, CustomerDao customerDao) {
         this.orderDao = orderDao;
-//        this.employeeDao = employeeDao;
-//        this.shipmentDao = shipmentDao;
         this.tableDao = tableDao;
         this.customerDao = customerDao;
-//        this.formatter = new DecimalFormat("###,###,###");
     }
 
     @Override

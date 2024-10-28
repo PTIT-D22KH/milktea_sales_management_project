@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.sql.SQLException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -82,11 +83,12 @@ public class FoodItemPopupController extends PopupController<FoodItemPopupView, 
                 view.getFoodCategoryComboBoxModel().addElement(fc);
             }
         } 
-        catch (Exception e) {
+        catch (SQLException e) {
             
         }
     }
     
+    @Override
     public void add(FoodItemPopupView view, SuccessCallback sc, ErrorCallback ec) {
         super.add(view, sc, ec);
         initComboBox(view);
