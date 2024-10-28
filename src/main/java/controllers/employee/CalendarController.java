@@ -46,7 +46,7 @@ public class CalendarController {
         this.view.getCmbMonth().setSelectedIndex(LocalDate.now().getMonthValue() - 1);
         this.view.getTxtYear().setText(String.valueOf(LocalDate.now().getYear()));
         renderCalendar(view, Calendar.getInstance());
-        RenderStatistical(view, Calendar.getInstance());
+        renderStatistical(view, Calendar.getInstance());
         addEvent(view);
     }
     
@@ -56,7 +56,7 @@ public class CalendarController {
         view.getCmbMonth().setSelectedIndex(cal.get(Calendar.MONTH));
         view.getTxtYear().setText(cal.get(Calendar.YEAR) + "");
         renderCalendar(view, Calendar.getInstance());
-        RenderStatistical(view, Calendar.getInstance());
+        renderStatistical(view, Calendar.getInstance());
         addEvent(view);
     }
     
@@ -96,7 +96,7 @@ public class CalendarController {
         }
     }
 
-    public void RenderCalendar(int month, int year) {
+    public void renderCalendar(int month, int year) {
         view.getPanelMonth().removeAll();
         int day = LocalDate.of(year, month, 1).getDayOfWeek().getValue();
         int days = new GetDayOfMonth(month, year).getDay();
@@ -153,7 +153,7 @@ public class CalendarController {
         view.updateUI();
     }
     
-    public void RenderStatistical(int month, int year) {
+    public void renderStatistical(int month, int year) {
         try {
             int days = new GetDayOfMonth(month, year).getDay();
             WorkDayDao workDayDao = new WorkDayDao();
@@ -168,7 +168,7 @@ public class CalendarController {
 
     }
 
-    private void RenderStatistical(CalendarView view, Calendar cal) {
+    private void renderStatistical(CalendarView view, Calendar cal) {
         int maxDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
         Calendar start = (Calendar) cal.clone(), end = (Calendar) cal.clone();
         start.set(Calendar.DAY_OF_MONTH, 1);
@@ -200,7 +200,7 @@ public class CalendarController {
             cal.set(Calendar.YEAR, year);
             renderCalendar(view, cal);
 //                RenderStatistical(month, year);
-            RenderStatistical(view, cal);
+            renderStatistical(view, cal);
         });
     }
     

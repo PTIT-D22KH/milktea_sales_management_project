@@ -13,7 +13,7 @@ import views.AuthenticationView;
  *
  * @author P51
  */
-public class ChangePasswordView extends AuthenticationView {
+public class ChangePasswordView extends AuthenticationView{
 
     /**
      * Creates new form ChangePasswordView

@@ -1,0 +1,227 @@
+@startuml
+abstract class models.Model {
+    + {abstract} String toString()
+    + {abstract} Object[] toRowTable()
+    + String getClassName()
+}
+
+class models.Customer {
+    - int customerId
+    - String phoneNumber
+    - String name
+    - String address
+    + static models.Customer getFromResultSet(ResultSet result)
+}
+
+class models.Employee {
+    - int employeeId
+    - String username
+    - String password
+    - String name
+    - String phoneNumber
+    - Date startDate
+    - utils.EmployeePermission permission
+    - int salary
+    + static models.Employee getFromResultSet(ResultSet result)
+}
+
+class models.FoodCategory {
+    - int categoryId
+    - String name
+    - String slug
+    + static models.FoodCategory getFromResultSet(ResultSet result)
+    
+}
+
+class models.FoodItem {
+    - int foodItemId
+    - int unitPrice
+    - String name
+    - String description
+    - String imagePath
+    - String unitName
+    - final DecimalFormat formatter {readOnly}
+    - FoodCategory foodCategory
+    + static models.FoodItem getFromResultSet(ResultSet rs)
+}
+
+class models.Order {
+    - int orderId
+    - models.Customer customer
+    - models.Employee employee
+    - int shipCost
+    - utils.OrderStatus status
+    - utils.OrderType type
+    - Timestamp orderDate
+    - Timestamp payDate
+    - int paidAmount
+    - int totalAmount
+    - int discount
+    - models.Table table
+    + static models.Order getFromResultSet(ResultSet rs)
+    + int getFinalAmount()
+}
+
+class models.OrderItem {
+    - models.Order order
+    - models.FoodItem foodItem
+    - models.FoodItem toppingItem
+    - int quantity
+    - String note
+    + static models.OrderItem getFromResultSet(ResultSet rs)
+}
+
+class models.Session {
+    - int sessionId
+    - models.Employee employee
+    - java.sql.Timestamp startTime
+    - java.sql.Timestamp endTime
+    + static models.Session getFromResultSet(ResultSet rs)
+}
+
+class models.Shipment {
+    - int shipmentId
+    - models.Order order
+    - models.Customer customer
+    - models.Employee employee
+    - int shipCost
+    - java.sql.Timestamp startDate
+    - java.sql.Timestamp endDate
+    - utils.ShipmentStatus status
+    + static models.Shipment getFromResultSet(ResultSet rs)
+}
+
+class models.Table {
+    - int tableId
+    - String name
+    - utils.TableStatus status
+    + static models.Table getFromResultSet(ResultSet rs)
+}
+
+class models.WorkDay {
+    - int amount
+    - int totalAmount
+    - int bonus
+    - String day
+    + static models.WorkDay getFromResultSet(ResultSet rs)
+}
+
+class models.statistical.EmployeeIncome {
+    - Employee employee
+    - int totalIncome
+    - int totalOrder
+    - Date date
+    + EmployeeIncome(Employee employee, int totalIncome, int totalOrder)
+    + EmployeeIncome(int totalIncome, int totalOrder, Date date)
+    + EmployeeIncome(Employee employee, int totalIncome, Date date)
+    + boolean equalDate(Date date)
+}
+
+class models.statistical.EmployeeSalary {
+    - Employee employee
+    - int quantity
+    - int bonus
+    - int total
+    + EmployeeSalary(Employee employee, int quantity, int bonus)
+    - int calTotal()
+}
+
+class models.statistical.ProductIncome {
+    - FoodItem item
+    - int quantity
+    - int amount
+    - int id
+    - String name
+    + ProductIncome(FoodItem item, int quantity, int amount, int id, String name)
+    + ProductIncome(int quantity, String name)
+    + ProductIncome(int quantity, int amount, int id, String name)
+}
+
+class models.statistical.WorkingDay {
+    - ArrayList<Calendar> dates
+    + void addWorkDay(Date date)
+    + boolean isWorking(Calendar cal)
+    + void print()
+    + int count()
+}
+
+class models.statistical.WorkingMinus {
+    - Employee employee
+    - Date date
+    - int minus
+    + WorkingMinus(Employee employee, Date date, int minus)
+    + String toString()
+}
+
+class utils.EmployeePermission {
+    + STAFF
+    + MANAGER
+    + INACTIVE
+    - String id
+    - String name
+    - int priority
+    + static utils.EmployeePermission getById(String id)
+    + static utils.EmployeePermission getByName(String name)
+    + String getId()
+    + String getName()
+    + int getPriority()
+    + int compare(utils.EmployeePermission other)
+}
+
+class utils.OrderStatus {
+    + UNPAID
+    + PAID
+    + CANCEL
+}
+
+class utils.OrderType {
+    + LOCAL
+    + ONLINE
+}
+
+class utils.ShipmentStatus {
+    + TOPAY
+    + TOSHIP
+    + TORECEIVE
+    + COMPLETED
+    + CANCELLED
+}
+
+class utils.StringToSlug {
+    + String toSlug(String input)
+}
+
+class utils.TableStatus {
+    + FREE
+    + SERVING
+    + RESERVING
+}
+
+models.Customer --|> models.Model
+models.Employee --|> models.Model
+models.FoodCategory --|> models.Model
+models.FoodItem --|> models.Model
+models.Order --|> models.Model
+models.OrderItem --|> models.Model
+models.Session --|> models.Model
+models.Shipment --|> models.Model
+models.Table --|> models.Model
+models.statistical.EmployeeIncome o-- models.Employee
+models.statistical.EmployeeSalary o-- models.Employee
+models.statistical.ProductIncome o-- models.FoodItem
+
+models.Customer o-- models.Order
+models.Employee o-- models.Order
+models.Order o-- models.OrderItem
+models.OrderItem o-- models.FoodItem
+models.Order o-- models.Shipment
+models.Employee o-- models.Session
+
+
+models.Order o-- utils.OrderStatus
+models.Order o-- utils.OrderType
+models.Shipment o-- utils.ShipmentStatus
+models.Table o-- utils.TableStatus
+models.FoodItem o-- utils.StringToSlug
+models.Employee o-- utils.EmployeePermission
+@enduml

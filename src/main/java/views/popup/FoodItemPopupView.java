@@ -20,7 +20,7 @@ import utils.ErrorPopup;
  */
 public class FoodItemPopupView extends javax.swing.JFrame implements PopupView{
 
-    DefaultComboBoxModel<FoodCategory> foodCategoryComboBoxModel = new DefaultComboBoxModel<>();
+    private DefaultComboBoxModel<FoodCategory> foodCategoryComboBoxModel = new DefaultComboBoxModel<>();
     
     public FoodItemPopupView() {
         initComponents();

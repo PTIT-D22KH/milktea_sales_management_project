@@ -31,9 +31,10 @@ public class EmployeeInformationController {
     
     public EmployeeInformationController() {
         this.sessionEmployee = SessionManager.getSession().getEmployee();
-        changePasswordController = new ChangePasswordController();
-        historyController = new LoginHistoryController();
-        calendarController = new CalendarController();
+//        this.changePasswordController = new ChangePasswordController();
+        this.changePasswordController = new ChangePasswordController(new ChangePasswordView());
+        this.historyController = new LoginHistoryController();
+        this.calendarController = new CalendarController();
     }
 
     public EmployeeInformationView getView() {

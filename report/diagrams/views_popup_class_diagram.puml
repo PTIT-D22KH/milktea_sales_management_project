@@ -1,0 +1,55 @@
+@startuml
+abstract class views.popup.SelectEntityPopupView
+class java.awt.Dimension
+class java.text.DecimalFormat
+class java.util.ArrayList
+class javax.swing.DefaultComboBoxModel
+class javax.swing.DefaultListModel
+class javax.swing.JButton
+class javax.swing.JComboBox
+class javax.swing.JFrame
+class javax.swing.JLabel
+class javax.swing.JList
+class javax.swing.JOptionPane
+class javax.swing.JPanel
+class javax.swing.JPasswordField
+class javax.swing.JSpinner
+class javax.swing.JTextArea
+class javax.swing.JTextField
+class models.Customer
+class models.Employee
+class models.FoodCategory
+class models.FoodItem
+class models.Model
+class models.OrderItem
+class models.Table
+class utils.ErrorPopup
+class views.CustomerRenderList
+class views.EmployeeRenderList
+class views.popup.AddOrderPopupView
+class views.popup.CustomerPopupView
+class views.popup.EditOrderPopupView
+class views.popup.EmployeePopupView
+class views.popup.FoodCategoryPopupView
+class views.popup.FoodItemPopupView
+class views.popup.SelectCustomerPopupView
+class views.popup.SelectEmployeePopupView
+class views.popup.ShipmentPopupView
+class views.popup.TablePopupView
+class views.popup.ToppingPopupView
+class views.popup.order.FoodCategoryPane
+class views.popup.order.FoodItemPane
+class views.popup.order.OrderItemPane
+interface views.popup.BasePopupView
+interface views.popup.BaseSelectEntityPopupView
+interface views.popup.MessageShowable
+interface views.popup.PopupView
+views.popup.SelectEntityPopupView --|> views.popup.BaseSelectEntityPopupView
+views.popup.AddOrderPopupView --|> views.popup.PopupView
+views.popup.CustomerPopupView --|> views.popup.PopupView
+views.popup.EditOrderPopupView --|> views.popup.PopupView
+views.popup.EmployeePopupView --|> views.popup.PopupView
+views.popup.FoodCategoryPopupView --|> views.popup.PopupView
+views.popup.FoodItemPopupView --|> views.popup.PopupView
+views.popup.TablePopupView --|> views.popup.PopupView
+@enduml

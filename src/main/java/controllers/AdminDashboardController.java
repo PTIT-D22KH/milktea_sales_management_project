@@ -32,13 +32,11 @@ public class AdminDashboardController extends DashboardController<AdminDashboard
     private final ManagerController tableManagerController;
     private final ManagerController foodCategoryManagerController;
     private final ManagerController foodItemManagerController;
-    private final EmployeeInformationController informationController;
 
     private final ManagerPaneView employeeManagerView;
     private final ManagerPaneView tableManagerView;
     private final ManagerPaneView foodCategoryManagerView;
     private final ManagerPaneView foodItemManagerView;
-    private final EmployeeInformationView informationView;
     private final JPanel[] cards;
 
     public AdminDashboardController(AdminDashboardView view) {
@@ -47,13 +45,11 @@ public class AdminDashboardController extends DashboardController<AdminDashboard
         this.tableManagerController = new TableManagerController();
         this.foodCategoryManagerController = new FoodCategoryManagerController();
         this.foodItemManagerController = new FoodItemManagerController();
-        this.informationController = new EmployeeInformationController();
 
         this.employeeManagerView = new EmployeeManagerView();
         this.tableManagerView = new TableManagerView();
         this.foodCategoryManagerView = new FoodCategoryManagerView();
         this.foodItemManagerView = new FoodItemManagerView();
-        this.informationView = new EmployeeInformationView();
 
         this.cards = new JPanel[]{
             homeView, employeeManagerView, tableManagerView, customerManagerView,

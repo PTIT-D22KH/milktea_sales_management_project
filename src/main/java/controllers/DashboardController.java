@@ -7,6 +7,7 @@ package controllers;
 import controllers.admin.CustomerManagerController;
 import controllers.admin.OrderManagerController;
 import controllers.admin.ShipmentManagerController;
+import controllers.employee.EmployeeInformationController;
 import dao.EmployeeDao;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,13 +25,14 @@ import views.admin.ManagerPaneView;
 import views.admin.MenuItemView;
 import views.admin.OrderManagerView;
 import views.admin.ShipmentManagerView;
+import views.employee.EmployeeInformationView;
 
 /**
  *
  * @author P51
  */
-public abstract class DashboardController<V extends DashboardView> {
-    protected V view;
+public abstract class DashboardController<T extends DashboardView> {
+    protected T view;
     protected final ManagerController orderManagerController = new OrderManagerController();
     protected final ManagerController shipmentManagerController = new ShipmentManagerController();
     protected final ManagerController customerManagerController = new CustomerManagerController();
@@ -40,12 +42,14 @@ public abstract class DashboardController<V extends DashboardView> {
     protected final HomeView homeView = new HomeView();
     protected final AboutView aboutView = new AboutView();
     protected final SidebarController sidebarController = new SidebarController();
+    protected final EmployeeInformationController informationController = new EmployeeInformationController();
+    protected final EmployeeInformationView informationView = new EmployeeInformationView();
 
-    public V getView() {
+    public T getView() {
         return view;
     }
 
-    public void setView(V view) {
+    public void setView(T view) {
         this.view = view;
         sidebarController.setSidebarPanel(view.getPanelSideBar());
     }

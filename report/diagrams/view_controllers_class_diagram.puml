@@ -1,0 +1,114 @@
+@startuml
+package controllers {
+    class ManagerController {
+        + void actionAdd()
+        + void actionSearch()
+        + void actionDelete()
+        + void actionEdit()
+        + void updateData()
+    }
+
+    package admin {
+        class CustomerManagerController {
+            - CustomerDao customerDao
+            - ShipmentDao shipmentDao
+            - CustomerPopupController popupController
+            + void actionAdd()
+            + void actionSearch()
+            + void actionDelete()
+            + void actionEdit()
+            + void updateData()
+        }
+
+        class EmployeeManagerController {
+            - EmployeeDao employeeDao
+            - EmployeePopupController popupController
+            + void actionAdd()
+            + void actionSearch()
+            + void actionDelete()
+            + void actionEdit()
+            + void updateData()
+        }
+
+        class OrderManagerController {
+            - OrderDao orderDao
+            - TableDao tableDao
+            - ShipmentDao shipmentDao
+            - AddOrderPopupController addOrderPopupController
+            - EditOrderPopupController editOrderPopupController
+            - Employee sessionEmployee
+            + void setView(EmployeeManagerView view)
+            + void actionAdd()
+            + void actionSearch()
+            + void actionDelete()
+            + void actionEdit()
+            + void updateData()
+        }
+
+        class ShipmentManagerController {
+            - ShipmentDao shipmentDao
+            - ShipmentPopupControler popupController
+            + void actionAdd()
+            + void actionSearch()
+            + void actionDelete()
+            + void actionEdit()
+            + void updateData()
+        }
+    }
+
+    package employee {
+    }
+
+    package popup {
+        class AddOrderPopupController {
+        }
+
+        class EditOrderPopupController {
+        }
+
+        class EmployeePopupController {
+        }
+
+        class ShipmentPopupControler {
+        }
+
+        class CustomerPopupController {
+        }
+    }
+
+    package popuporder {
+    }
+}
+
+class dao.CustomerDao
+class dao.EmployeeDao
+class dao.OrderDao
+class dao.ShipmentDao
+class dao.TableDao
+class models.Employee
+class views.admin.EmployeeManagerView
+class views.popup.AddOrderPopupView
+class views.popup.EditOrderPopupView
+
+controllers.admin.CustomerManagerController --|> controllers.ManagerController
+controllers.admin.EmployeeManagerController --|> controllers.ManagerController
+controllers.admin.OrderManagerController --|> controllers.ManagerController
+controllers.admin.ShipmentManagerController --|> controllers.ManagerController
+
+controllers.admin.CustomerManagerController o-- dao.CustomerDao
+controllers.admin.CustomerManagerController o-- dao.ShipmentDao
+controllers.admin.CustomerManagerController o-- controllers.popup.CustomerPopupController
+
+controllers.admin.EmployeeManagerController o-- dao.EmployeeDao
+controllers.admin.EmployeeManagerController o-- controllers.popup.EmployeePopupController
+
+controllers.admin.OrderManagerController o-- dao.OrderDao
+controllers.admin.OrderManagerController o-- dao.TableDao
+controllers.admin.OrderManagerController o-- dao.ShipmentDao
+controllers.admin.OrderManagerController o-- controllers.popup.AddOrderPopupController
+controllers.admin.OrderManagerController o-- controllers.popup.EditOrderPopupController
+controllers.admin.OrderManagerController o-- models.Employee
+
+controllers.admin.ShipmentManagerController o-- dao.ShipmentDao
+controllers.admin.ShipmentManagerController o-- controllers.popup.ShipmentPopupControler
+@enduml

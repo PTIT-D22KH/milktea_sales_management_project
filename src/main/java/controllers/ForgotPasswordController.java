@@ -63,4 +63,11 @@ public class ForgotPasswordController extends AuthenticationController<ForgotPas
             view.showError("Cập nhật mật khẩu mới thất bại: " + e.getMessage());
         }
     }
+
+    public void showView() {
+        super.showView();
+        view.getPasswordField().setText("");
+        view.getUsernameTxtField().setText("");
+        view.getConfirmPassField().setText("");
+    }
 }
