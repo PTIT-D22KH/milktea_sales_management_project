@@ -7,15 +7,15 @@ package views;
 import java.awt.Component;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
-import models.Employee;
 import models.Model;
 
 /**
  *
  * @author P51
  */
-public abstract class EntityRenderList <T extends Model> extends javax.swing.JPanel implements ListCellRenderer<T>{
+public abstract class EntityRenderList <E extends Model> extends javax.swing.JPanel implements ListCellRenderer<E>{
 
-    public abstract Component getListCellRendererComponent(JList<? extends T> list, T value, int index, boolean isSelected, boolean cellHasFocus);
+    @Override
+    public abstract Component getListCellRendererComponent(JList<? extends E> list, E value, int index, boolean isSelected, boolean cellHasFocus);
     
 }

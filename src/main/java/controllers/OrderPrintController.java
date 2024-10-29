@@ -30,12 +30,12 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
  */
 public class OrderPrintController {
 
-    XWPFDocument document;
-    File orderFile;
-    String fileName;
-    String orderFilePath;
-    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-    DecimalFormat formatter = new DecimalFormat("###,###,###");
+    private XWPFDocument document;
+    private File orderFile;
+    private String fileName;
+    private String orderFilePath;
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+    private final DecimalFormat formatter = new DecimalFormat("###,###,###");
 
     public OrderPrintController() {
         document = new XWPFDocument();

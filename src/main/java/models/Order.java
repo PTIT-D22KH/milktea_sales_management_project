@@ -16,8 +16,7 @@ import utils.OrderType;
  * @author DELL
  */
 public class Order extends Model{
-    private int orderId, employeeId, tableId, customerId;
-    private int paidAmount, totalAmount, discount;
+    private int orderId, paidAmount, totalAmount, discount;
     private OrderStatus status;
     private OrderType type;
     private Timestamp orderDate, payDate;
@@ -28,9 +27,9 @@ public class Order extends Model{
     public static Order getFromResultSet(ResultSet rs) throws SQLException {
         Order o = new Order();
         o.setOrderId(rs.getInt("OrderId"));
-        o.setEmployeeId(rs.getInt("EmployeeId"));
-        o.setTableId(rs.getInt("TableId"));
-        o.setCustomerId(rs.getInt("customerId"));
+//        o.setEmployeeId(rs.getInt("EmployeeId"));
+//        o.setTableId(rs.getInt("TableId"));
+//        o.setCustomerId(rs.getInt("customerId"));
         o.setType(OrderType.getById(rs.getNString("type")));
         o.setStatus(OrderStatus.getById(rs.getNString("status")));
         o.setOrderDate(rs.getTimestamp("orderDate"));
@@ -51,31 +50,7 @@ public class Order extends Model{
     public void setOrderId(int orderId){
         this.orderId = orderId;
     }
-    public int getEmployeeId() {
-        return employeeId;
-    }
 
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    public int getTableId() {
-        return tableId;
-    }
-
-    public void setTableId(int tableId) throws SQLException{
-        this.tableId = tableId;
-        TableDao tableDao = new TableDao();
-        this.table = tableDao.getById(tableId);
-    }
-
-    public int getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
 
     public int getDiscount() {
         return discount;
@@ -125,14 +100,6 @@ public class Order extends Model{
         this.paidAmount = paidAmount;
     }
 
-//    public int getRebate() {
-//        return rebate;
-//    }
-//
-//    public void setRebate(int rebate) {
-//        this.rebate = rebate;
-//    }
-
     public int getTotalAmount() {
         return totalAmount;
     }
@@ -147,7 +114,6 @@ public class Order extends Model{
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
-        this.employeeId = employee.getEmployeeId();
     }
 
     public Table getTable() {
@@ -156,7 +122,6 @@ public class Order extends Model{
 
     public void setTable(Table table) {
         this.table = table;
-        this.tableId = table.getTableId();
     }
 
     public Customer getCustomer() {
@@ -165,14 +130,13 @@ public class Order extends Model{
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
-        this.customerId = customer.getCustomerId();
     }
     public int getFinalAmount() {
         return totalAmount - (int) totalAmount * discount / 100;
     }
     @Override
     public String toString() {
-        return "Order{" + "orderId=" + orderId + ", employeeId=" + employeeId + ", tableId=" + tableId + ", customerId=" + customerId + ", discount=" + discount + ", status=" + status + ", type=" + type + ", orderDate=" + orderDate + ", payDate=" + payDate + ", paidAmount=" + paidAmount + ", totalAmount=" + totalAmount + ", employee=" + employee + ", table=" + table + ", customer=" + customer + '}';
+        return "Order{" + "orderId=" + orderId + ", employee=" + employee + ", table=" + table + ", customer=" + customer + ", discount=" + discount + ", status=" + status + ", type=" + type + ", orderDate=" + orderDate + ", payDate=" + payDate + ", paidAmount=" + paidAmount + ", totalAmount=" + totalAmount + ", employee=" + employee + ", table=" + table + ", customer=" + customer + '}';
     }
 
     @Override

@@ -11,12 +11,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import utils.ErrorPopup;
+import views.popup.MessageShowable;
 
 /**
  *
  * @author TP
  */
-public class CalendarView extends javax.swing.JPanel {
+public class CalendarView extends javax.swing.JPanel implements  MessageShowable{
 
     /**
      * Creates new form CalendarView
@@ -26,6 +27,26 @@ public class CalendarView extends javax.swing.JPanel {
         setSize(738, 578);
     }
 
+    public JLabel getLabelWorkingDay() {
+        return labelWorkingDay;
+    }
+
+    public JLabel getLabelNumberOfBills() {
+        return labelNumberOfBills;
+    }
+
+    public JLabel getLabelSale() {
+        return labelSale;
+    }
+
+    public JLabel getLabelWorkingTime() {
+        return labelWorkingTime;
+    }
+
+    public JLabel getLabelBonus() {
+        return labelBonus;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -720,26 +741,6 @@ public class CalendarView extends javax.swing.JPanel {
     private javax.swing.JPanel panel_Wednesday;
     private javax.swing.JTextField txtYear;
     // End of variables declaration//GEN-END:variables
- 
-    public JLabel getLabelWorkingDay(){
-        return labelWorkingDay;
-    }
-    
-    public JLabel getLabelNumberOfBills(){
-        return labelNumberOfBills;
-    }
-    
-    public JLabel getLabelSale(){
-        return labelSale;
-    }
-    
-    public JLabel getLabelWorkingTime(){
-        return labelWorkingTime;
-    }
-    
-    public JLabel getLabelBonus(){
-        return labelBonus;
-    }
     
     public JButton getBtnEnter() {
         return btnEnter;
@@ -757,14 +758,17 @@ public class CalendarView extends javax.swing.JPanel {
         return txtYear;
     }
     
+    @Override
     public void showError(String message) {
         ErrorPopup.show(new Exception(message));
     }
     
+    @Override
     public void showError(Exception e) {
         ErrorPopup.show(e);
     }
 
+    @Override
     public void showMessage(String message) {
         JOptionPane.showMessageDialog(this, message);
     }

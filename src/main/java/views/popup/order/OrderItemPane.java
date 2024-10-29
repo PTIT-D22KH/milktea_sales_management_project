@@ -16,7 +16,7 @@ import models.OrderItem;
  */
 public class OrderItemPane extends javax.swing.JPanel {
     private OrderItem orderItem;
-    private DecimalFormat formatter = new DecimalFormat("###,###,###");
+    private final DecimalFormat formatter = new DecimalFormat("###,###,###");
     /**
      * Creates new form OrderItemPane
      */
@@ -30,12 +30,12 @@ public class OrderItemPane extends javax.swing.JPanel {
         FoodItem foodItem = orderItem.getFoodItem();
         FoodItem topping = orderItem.getToppingItem();
         foodNameLabel.setText(foodItem.getName());
-        if (foodItem.getCategoryId() != 2) {
+        if (foodItem.getFoodCategory().getFoodCategoryId()!= 2) {
             toppingNameLabel.setText("");
         } else {
             toppingNameLabel.setText(topping.getName());
         }
-        priceLabel.setText(orderItem.getFoodPrice() + orderItem.getToppingPrice() + " ");
+        priceLabel.setText(orderItem.getFoodItem().getUnitPrice()+ orderItem.getToppingItem().getUnitPrice()+ " ");
         spnQuantity.setValue(orderItem.getQuantity());
     }
 

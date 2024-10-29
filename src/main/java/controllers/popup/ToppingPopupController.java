@@ -21,7 +21,7 @@ import views.popup.ToppingPopupView;
  */
 public class ToppingPopupController {
     private final FoodItemDao foodItemDao;
-    private DecimalFormat formatter;
+    private final DecimalFormat formatter;
     private JFrame previousView;
 
     interface Event {
@@ -52,7 +52,7 @@ public class ToppingPopupController {
                 view.getCboTopping().addItem(topping);
             }
             //Ẩn topping nếu k phải trà sữa
-            if (foodItem.getCategoryId()!= 2) {
+            if (foodItem.getFoodCategory().getFoodCategoryId()!= 2) {
                 view.getLbTopping().setVisible(false);
                 view.getCboTopping().setVisible(false);
             }
@@ -108,13 +108,13 @@ public class ToppingPopupController {
         OrderItem orderItem = new OrderItem();
         try {
             orderItem.setFoodItem(foodItem);
-            orderItem.setFoodPrice((int) view.getSpnFoodPrice().getValue());
-            if (foodItem.getCategoryId()== 2) {
+//            orderItem.setFoodPrice((int) view.getSpnFoodPrice().getValue());
+            if (foodItem.getFoodCategory().getFoodCategoryId()== 2) {
                 orderItem.setToppingItem((FoodItem) view.getCboTopping().getSelectedItem());
-                orderItem.setToppingPrice(orderItem.getToppingItem().getUnitPrice());
+//                orderItem.setToppingPrice(orderItem.getToppingItem().getUnitPrice());
             } else {
                 orderItem.setToppingItem(foodItemDao.getById(1));
-                orderItem.setToppingPrice(0);
+//                orderItem.setToppingPrice(0);
             }
             orderItem.setQuantity((int) view.getSpnQuantity().getValue());
 

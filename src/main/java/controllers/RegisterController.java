@@ -80,6 +80,13 @@ public class RegisterController extends AuthenticationController<RegisterView>{
        
     }
   
-    
+    public void showView() {
+        super.showView();
+        view.getNameTxtField().setText("");
+        view.getPasswordField().setText("");
+        view.getPhoneNumberTxtField().setText("");
+        view.getUsernameTxtField().setText("");
+        view.getConfirmPassField().setText("");
+    }
     
 }

@@ -7,7 +7,6 @@ package controllers.employee;
 import controllers.TimeCounterController;
 import controllers.popup.ErrorCallback;
 import controllers.popup.SuccessCallback;
-import controllers.employee.CalendarController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
@@ -26,14 +25,16 @@ import views.employee.LoginHistoryView;
 public class EmployeeInformationController {
     private Employee sessionEmployee;
     private EmployeeInformationView view;
-    private ChangePasswordController changePasswordController;
-    private LoginHistoryController historyController;
+    private final ChangePasswordController changePasswordController;
+    private final LoginHistoryController historyController;
+    private final CalendarController calendarController;
     
     public EmployeeInformationController() {
         this.sessionEmployee = SessionManager.getSession().getEmployee();
-        changePasswordController = new ChangePasswordController();
-        historyController = new LoginHistoryController();
-        
+//        this.changePasswordController = new ChangePasswordController();
+        this.changePasswordController = new ChangePasswordController(new ChangePasswordView());
+        this.historyController = new LoginHistoryController();
+        this.calendarController = new CalendarController();
     }
 
     public EmployeeInformationView getView() {
@@ -48,7 +49,6 @@ public class EmployeeInformationController {
                     view.getTimeSessionLabel().setText(secondToHours(second));
                 }
             });
-            CalendarController calendarController = new CalendarController();
             calendarController.show(view.getCalendarPanel(), new CalendarView());
             addEvent(view);
             this.view = view;

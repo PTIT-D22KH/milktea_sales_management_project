@@ -22,10 +22,10 @@ import views.employee.WorkDayInfoView;
  * @author DELL
  */
 public class DayController {
-     private DayView view;
+    private DayView view;
     private String date;
-    int id;
-    WorkDayInfoController workDayInfoController = new WorkDayInfoController();
+    private int id;
+    private WorkDayInfoController workDayInfoController = new WorkDayInfoController();
 
     public DayController() {
     }
@@ -61,7 +61,7 @@ public class DayController {
         addEvent(view, cal, id);
     }
 
-    public void addEvent(DayView view, Calendar cal, int id) {
+    private void addEvent(DayView view, Calendar cal, int id) {
         view.getLabelNumber().setBackground(Color.red);
         view.addMouseListener(new MouseAdapter() {
             @Override
@@ -76,7 +76,7 @@ public class DayController {
         });
     }
 
-    public void addEvent() {
+    private void addEvent() {
         view.getLabelNumber().setBackground(Color.red);
         view.getLabelNumber().addMouseListener(new MouseAdapter() {
             @Override

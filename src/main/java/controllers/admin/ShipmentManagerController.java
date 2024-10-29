@@ -93,6 +93,7 @@ public class ShipmentManagerController extends ManagerController{
                 throw new Exception("Chọn đơn ship cần chỉnh sửa!");
             } else {
                 Shipment e = shipmentDao.getById(selectedId);
+                System.out.println(e);
                 if (e == null) {
                     throw new Exception("Đơn ship bạn chọn không hợp lệ");
                 }
@@ -111,7 +112,7 @@ public class ShipmentManagerController extends ManagerController{
                         getView().showError(ex);
                     }
                 };
-                popupController.edit(new ShipmentPopupView(), e.getOrderId(), successCallback, errorCallback);
+                popupController.edit(new ShipmentPopupView(), e.getOrder(), successCallback, errorCallback);
             }
 
         } catch (Exception e) {

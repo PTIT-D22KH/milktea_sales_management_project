@@ -15,7 +15,7 @@ import utils.ErrorPopup;
  *
  * @author P51
  */
-public class LoginView extends javax.swing.JFrame {
+public class LoginView extends AuthenticationView {
 
     /**
      * Creates new form LoginView
@@ -24,18 +24,6 @@ public class LoginView extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         this.getRootPane().setDefaultButton(loginButton);
-    }
-    
-    public void showError(String message) {
-        ErrorPopup.show(new Exception(message));
-    }
-
-    public void showError(Exception e) {
-        ErrorPopup.show(e);
-    }
-
-    public void showMessage(String message) {
-        JOptionPane.showMessageDialog(this, message);
     }
 
     public JButton getLoginButton() {
@@ -48,6 +36,7 @@ public class LoginView extends javax.swing.JFrame {
         return forgotPassLabel;
     }
 
+    @Override
     public JPasswordField getPasswordField() {
         return passwordField;
     }
@@ -56,9 +45,12 @@ public class LoginView extends javax.swing.JFrame {
         return registerLabel;
     }
 
-    public JTextField getUsernameTextField() {
-        return usernameTextField;
+    @Override
+    public JTextField getUsernameTxtField() {
+        return usernameTxtField;
     }
+
+    
 
     
     /**
@@ -74,7 +66,7 @@ public class LoginView extends javax.swing.JFrame {
         loginTitle = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         usernameLabel = new javax.swing.JLabel();
-        usernameTextField = new javax.swing.JTextField();
+        usernameTxtField = new javax.swing.JTextField();
         passwordLabel = new javax.swing.JLabel();
         forgotPassLabel = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -156,7 +148,7 @@ public class LoginView extends javax.swing.JFrame {
                             .addComponent(usernameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(usernameTextField)
+                            .addComponent(usernameTxtField)
                             .addComponent(passwordField, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -167,7 +159,7 @@ public class LoginView extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(usernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(usernameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(usernameTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(passwordLabel)
@@ -246,6 +238,6 @@ public class LoginView extends javax.swing.JFrame {
     private javax.swing.JLabel passwordLabel;
     private javax.swing.JLabel registerLabel;
     private javax.swing.JLabel usernameLabel;
-    private javax.swing.JTextField usernameTextField;
+    private javax.swing.JTextField usernameTxtField;
     // End of variables declaration//GEN-END:variables
 }

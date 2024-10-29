@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.sql.SQLException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -82,11 +83,12 @@ public class FoodItemPopupController extends PopupController<FoodItemPopupView, 
                 view.getFoodCategoryComboBoxModel().addElement(fc);
             }
         } 
-        catch (Exception e) {
+        catch (SQLException e) {
             
         }
     }
     
+    @Override
     public void add(FoodItemPopupView view, SuccessCallback sc, ErrorCallback ec) {
         super.add(view, sc, ec);
         initComboBox(view);
@@ -110,7 +112,7 @@ public class FoodItemPopupController extends PopupController<FoodItemPopupView, 
         foodItem.setUnitPrice(Integer.parseInt(unitPrice));
         foodItem.setImagePath(imagePath);
         foodItem.setDescription(description);
-        foodItem.setCategoryId(selectedCategory.getFoodCategoryId());
+        foodItem.setFoodCategory(foodCategoryDao.getById(selectedCategory.getFoodCategoryId()));
         foodItemDao.save(foodItem);
     }
     
@@ -128,7 +130,7 @@ public class FoodItemPopupController extends PopupController<FoodItemPopupView, 
         view.getTxtUnit().setText(foodItem.getUnitName());
         view.getTxtUnitPrice().setText(foodItem.getUnitPrice() + "");
         FoodCategory fc = new FoodCategory();
-        fc.setFoodCategoryId(foodItem.getCategoryId());
+        fc.setFoodCategoryId(foodItem.getFoodCategory().getFoodCategoryId());
         view.getCmbFoodCategory().setSelectedItem(fc);
         if (isExistsImage(foodItem.getImagePath())) {
             view.getTxtImagePath().setText(foodItem.getImagePath());
@@ -172,7 +174,7 @@ public class FoodItemPopupController extends PopupController<FoodItemPopupView, 
         foodItem.setUnitPrice(Integer.parseInt(unitPrice));
         foodItem.setImagePath(imagePath);
         foodItem.setDescription(description);
-        foodItem.setCategoryId(selectedCategory.getFoodCategoryId());
+        foodItem.setFoodCategory(foodCategoryDao.getById(selectedCategory.getFoodCategoryId()));
         foodItemDao.update(foodItem);
     }
     private void validateFoodItemData(String foodName, String unit, String unitPrice, FoodCategory selectedCategory) throws Exception {

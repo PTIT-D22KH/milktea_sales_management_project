@@ -9,6 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import models.Customer;
+import models.Employee;
+import models.Order;
 import models.Shipment;
 
 /**
@@ -29,9 +32,12 @@ public class ShipmentDao extends Dao<Shipment> {
         ResultSet rs = statement.executeQuery(query);
         while (rs.next()) {
             Shipment shipment = Shipment.getFromResultSet(rs);
-            shipment.setCustomer(customerDao.getById(shipment.getCustomerId()));
-            shipment.setOrder(orderDao.getById(shipment.getOrderId()));
-            shipment.setEmployee(employeeDao.getById(shipment.getEmployeeId()));
+            Customer customer = customerDao.getById(rs.getInt("customerId"));
+            Order order = orderDao.getById(rs.getInt("orderId"));
+            Employee employee = employeeDao.getById(rs.getInt("employeeId"));
+            shipment.setCustomer(customer);
+            shipment.setOrder(order);
+            shipment.setEmployee(employee);
             shipments.add(shipment);
         }
         return shipments;
@@ -46,9 +52,9 @@ public class ShipmentDao extends Dao<Shipment> {
         String query = "INSERT INTO `shipment` (`OrderId`, `CustomerId`, `EmployeeId`, `shipCost`, `status`, `startDate`) VALUES ( ?, ?, ?, ?, ?, current_timestamp())";
 
         PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setInt(1, t.getOrderId());
-        stmt.setInt(2, t.getCustomerId());
-        stmt.setInt(3, t.getEmployeeId());
+        stmt.setInt(1, t.getOrder().getOrderId());
+        stmt.setInt(2, t.getCustomer().getCustomerId());
+        stmt.setInt(3, t.getEmployee().getEmployeeId());
         stmt.setInt(4, t.getShipCost());
         stmt.setNString(5, t.getStatus().getId());
         int row = stmt.executeUpdate();
@@ -62,20 +68,20 @@ public class ShipmentDao extends Dao<Shipment> {
         String query = "UPDATE `shipment` SET `CustomerId` = ?, `EmployeeId` = ?, `shipCost` = ?, `status` = ?,`startDate` = ?, `endDate` = ? WHERE `shipment`.`OrderId` = ?";
 
         PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setInt(1, t.getCustomerId());
-        stmt.setInt(2, t.getEmployeeId());
+        stmt.setInt(1, t.getCustomer().getCustomerId());
+        stmt.setInt(2, t.getEmployee().getEmployeeId());
         stmt.setInt(3, t.getShipCost());
         stmt.setNString(4, t.getStatus().getId());
         stmt.setTimestamp(5, t.getStartDate());
         stmt.setTimestamp(6, t.getEndDate());
-        stmt.setInt(7, t.getOrderId());
+        stmt.setInt(7, t.getOrder().getOrderId());
         int row = stmt.executeUpdate();
     }
 
     @Override
     public void delete(Shipment t) throws SQLException {
         PreparedStatement stmt = conn.prepareStatement("DELETE FROM `shipment` WHERE `shipment`.`OrderId` = ?");
-        stmt.setInt(1, t.getOrderId());
+        stmt.setInt(1, t.getOrder().getOrderId());
         stmt.executeUpdate();
     }
 
@@ -104,8 +110,12 @@ public class ShipmentDao extends Dao<Shipment> {
         ResultSet rs = statement.executeQuery(query);
         while (rs.next()) {
             Shipment shipment = Shipment.getFromResultSet(rs);
-            shipment.setCustomer(customerDao.getById(shipment.getCustomerId()));
-            shipment.setEmployee(employeeDao.getById(shipment.getEmployeeId()));
+            Customer customer = customerDao.getById(rs.getInt("customerId"));
+            Order order = orderDao.getById(rs.getInt("orderId"));
+            Employee employee = employeeDao.getById(rs.getInt("employeeId"));
+            shipment.setCustomer(customer);
+            shipment.setOrder(order);
+            shipment.setEmployee(employee);
             shipments.add(shipment);
         }
         return shipments;
@@ -120,6 +130,12 @@ public class ShipmentDao extends Dao<Shipment> {
         ResultSet result = statement.executeQuery(query);
         if (result.next()) {
             Shipment shipment = Shipment.getFromResultSet(result);
+            Customer customer = customerDao.getById(result.getInt("customerId"));
+            Order order = orderDao.getById(result.getInt("orderId"));
+            Employee employee = employeeDao.getById(result.getInt("employeeId"));
+            shipment.setCustomer(customer);
+            shipment.setOrder(order);
+            shipment.setEmployee(employee);
             return shipment;
         }
         return null;

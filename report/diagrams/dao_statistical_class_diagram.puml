@@ -1,0 +1,43 @@
+@startuml
+class dao.statistical.StatisticalDao {
+    - Connection connection;
+    - EmployeeDao employeeDao;
+    + WorkingDay getWorkingDays(Date start, Date end, int employeeId) throws SQLException
+    + WorkingDay getWorkingDays(Timestamp start, Timestamp end, int employeeId) throws SQLException
+    + int getTotalIncome(Timestamp start, Timestamp end, int employeeId) throws SQLException
+    + ArrayList<EmployeeIncome> getListTotalIncomeByDate(Timestamp start, Timestamp end, int employeeId) throws SQLException
+    + ArrayList<EmployeeIncome> getListTotalIncomeByEmployee(Timestamp start, Timestamp end) throws SQLException
+    + ArrayList<EmployeeSalary> getEmployeeSalaries(Timestamp start, Timestamp end) throws SQLException
+    + ArrayList<ProductIncome> getProductIncomes(Timestamp start, Timestamp end) throws SQLException
+    + ArrayList<WorkingDay> getWorkingDays(Timestamp start, Timestamp end) throws SQLException
+}
+
+class models.Employee {
+}
+
+class models.statistical.EmployeeIncome {
+}
+
+class models.statistical.EmployeeSalary {
+}
+
+class models.statistical.ProductIncome {
+}
+
+class models.statistical.WorkingDay {
+}
+
+class utils.DatabaseConnector {
+}
+
+class utils.OrderStatus {
+}
+
+dao.statistical.StatisticalDao ..> models.Employee
+dao.statistical.StatisticalDao ..> models.statistical.EmployeeIncome
+dao.statistical.StatisticalDao ..> models.statistical.EmployeeSalary
+dao.statistical.StatisticalDao ..> models.statistical.ProductIncome
+dao.statistical.StatisticalDao ..> models.statistical.WorkingDay
+dao.statistical.StatisticalDao ..> utils.DatabaseConnector
+dao.statistical.StatisticalDao ..> utils.OrderStatus
+@enduml

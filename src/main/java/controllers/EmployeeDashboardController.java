@@ -7,19 +7,17 @@ import controllers.employee.EmployeeInformationController;
 import javax.swing.JPanel;
 import utils.SessionManager;
 import models.Employee;
-import views.EmployeeDashboardView;
+import views.AdminDashboardView;
 import views.admin.MenuItemView;
 import views.employee.EmployeeInformationView;
 /**
  *
  * @author P51
  */
-public class EmployeeDashboardController extends DashboardController<EmployeeDashboardView>{
-    private final EmployeeInformationController informationController = new EmployeeInformationController();
-    private final EmployeeInformationView informationView = new EmployeeInformationView();
+public class EmployeeDashboardController extends DashboardController<AdminDashboardView>{
     private final JPanel[] cards = {homeView, orderManagerView, customerManagerView, shipmentManagerView, aboutView, informationView};
 
-    public EmployeeDashboardController(EmployeeDashboardView view) {
+    public EmployeeDashboardController(AdminDashboardView view) {
         this.view = view;
         sidebarController.setSidebarPanel(view.getPanelSideBar());
         view.setVisible(true);
