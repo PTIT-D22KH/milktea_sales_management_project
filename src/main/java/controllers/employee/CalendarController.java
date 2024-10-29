@@ -1,14 +1,12 @@
 package controllers.employee;
 
 
-import dao.WorkDayDao;
 import java.awt.Color;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.JPanel;
 
@@ -60,7 +58,7 @@ public class CalendarController {
         addEvent(view);
     }
     
-    public void renderCalendar(CalendarView view, Calendar cal) {
+    private void renderCalendar(CalendarView view, Calendar cal) {
         view.getPanelMonth().removeAll();
         cal.set(Calendar.DAY_OF_MONTH, 1);
         int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
@@ -96,77 +94,7 @@ public class CalendarController {
         }
     }
 
-    public void renderCalendar(int month, int year) {
-        view.getPanelMonth().removeAll();
-        int day = LocalDate.of(year, month, 1).getDayOfWeek().getValue();
-        int days = new GetDayOfMonth(month, year).getDay();
-        if (day < 7) {
-            for (int i = 0; i < day; i++) {
-                Color color = Color.decode("#F0F0F0");
-                DayView dayview = new DayView();
-                dayview.getLabelNumber().setBackground(color);
-                view.getPanelMonth().add(dayview);
-            }
-        }
-        try {
-            WorkDayDao workDayDao = new WorkDayDao();
-            ArrayList<Integer> list = workDayDao.getDay(id, month, year);
-            if (list.isEmpty()) {
-                for (int i = 1; i <= days; i++) {
-                    String date = year + "-" + month + "-" + i;
-                    DayView dayView = new DayView();
-                    DayController dayController = new DayController(dayView, date, i, false, id);
-                    view.getPanelMonth().add(dayView);
-                }
-            } else {
-                int j = 0;
-                for (int i = 1; i <= days; i++) {
-                    if (list.get(j) == i) {
-                        DayView dayView = new DayView();
-                        System.out.println(list.get(j));
-                        String date = year + "-" + month + "-" + i;
-                        DayController dayController = new DayController(dayView, date, i, true, id);
-                        view.getPanelMonth().add(dayView);
-                        if (j < list.size() - 1) {
-                            j++;
-                        }
-                    } else {
-                        String date = year + "-" + month + "-" + i;
-                        DayView dayView = new DayView();
-                        DayController dayController = new DayController(dayView, date, i, false, id);
-                        view.getPanelMonth().add(dayView);
-                    }
-                }
-            }
-        } catch (SQLException e) {
-        }
-        if (day == 7) {
-            day = 0;
-        }
-        for (int i = 1; i <= 42 - days - day; i++) {
-            Color color = Color.decode("#F0F0F0");
-            DayView dayview = new DayView();
-            dayview.getLabelNumber().setBackground(color);
-            view.getPanelMonth().add(dayview);
-        }
-
-        view.updateUI();
-    }
     
-    public void renderStatistical(int month, int year) {
-        try {
-            int days = new GetDayOfMonth(month, year).getDay();
-            WorkDayDao workDayDao = new WorkDayDao();
-            view.getLabelWorkingDay().setText(workDayDao.getDay(id, month, year).size() + "/" + days);
-            view.getLabelNumberOfBills().setText(workDayDao.getTotalOrder(year, month, id) + " đơn");
-            view.getLabelWorkingTime().setText(workDayDao.getTotalWorkingMinutes(month, year, id) + " phút");
-            view.getLabelSale().setText(workDayDao.getTotalIncome(year, month, id) + "đ");
-            view.getLabelBonus().setText(workDayDao.getBonus(id, month, year) + "đ");
-        } catch (SQLException e) {
-
-        }
-
-    }
 
     private void renderStatistical(CalendarView view, Calendar cal) {
         int maxDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
@@ -191,7 +119,7 @@ public class CalendarController {
 
     }
 
-    public void addEvent(CalendarView view) {
+    private void addEvent(CalendarView view) {
         view.getBtnEnter().addActionListener(evt -> {
             int month = Integer.parseInt((String) view.getCmbMonth().getSelectedItem());
             int year = Integer.parseInt(view.getTxtYear().getText());
