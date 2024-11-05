@@ -24,7 +24,7 @@ import views.popup.PopupView;
  * @param <M> The type of Model
  */
 public abstract class PopupController<T extends JFrame & PopupView, S extends Model> implements BasePopupController<T, S> {
-    private JFrame previousView;
+    protected JFrame previousView;
 
     @Override
     public void add(T view, SuccessCallback sc, ErrorCallback ec) {
@@ -96,11 +96,11 @@ public abstract class PopupController<T extends JFrame & PopupView, S extends Mo
 
     protected abstract void editEntity(T view, S model) throws Exception;
     
-    protected JFrame getPreviousView() {
-        return previousView;
-    }
-
-    protected void setPreviousView(JFrame previousView) {
-        this.previousView = previousView;
-    }
+//    protected JFrame getPreviousView() {
+//        return previousView;
+//    }
+//
+//    protected void setPreviousView(JFrame previousView) {
+//        this.previousView = previousView;
+//    }
 }
