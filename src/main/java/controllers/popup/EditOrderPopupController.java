@@ -140,11 +140,11 @@ public class EditOrderPopupController extends PopupController<EditOrderPopupView
     
     @Override
     public void edit(EditOrderPopupView view, Order order, SuccessCallback sc, ErrorCallback ec) {
-        if (getPreviousView() != null && getPreviousView().isDisplayable()) {
-            getPreviousView().requestFocus();
+        if (previousView != null && previousView.isDisplayable()) {
+            previousView.requestFocus();
             return;
         }
-        setPreviousView(view);
+        previousView = view;
         Employee currentLogin = SessionManager.getSession().getEmployee();
         if (order.getEmployee() == null) {
             order.setEmployee(currentLogin);
@@ -242,7 +242,7 @@ public class EditOrderPopupController extends PopupController<EditOrderPopupView
                 order.setTable(nTable);
                 tableDao.update(cTable);
                 tableDao.update(nTable);
-            } catch (Exception ex) {
+            } catch (SQLException ex) {
                 ec.onError(ex);
             }
         });
