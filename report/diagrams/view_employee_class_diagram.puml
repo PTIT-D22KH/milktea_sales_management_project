@@ -1,10 +1,6 @@
 @startuml
 package views.employee {
     class EmployeeInformationView {
-        - JPanel calendarPanel
-        - JButton changePassButton
-        - JButton historySessionButton
-        - JLabel timeSessionLabel
     }
 
     class WorkDayInfoView 
@@ -12,16 +8,6 @@ package views.employee {
     class DayView
     class SessionLoginView
     class CalendarView{
-        - JPanel panelTitle
-        - JPanel panelStatic
-        - JPanel panelTotalBills
-        - JPanel panelTotalSales
-        - JPanel panelTotalWorkingTime
-        - JPanel panelTotalBonus
-        - JPanel panelTotalWorkingDays
-        - JPanel panelFullCalendar
-        - JPanel panelMonth
-        - JPanel panelDay
     }
 }
 

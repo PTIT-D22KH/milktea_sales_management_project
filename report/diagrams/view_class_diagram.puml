@@ -1,45 +1,26 @@
 @startuml
 package views {
     abstract class AuthenticationView {
-        + {abstract} JTextField getUsernameTxtField()
-        + {abstract} JPasswordField getPasswordField()
-        + void showError(String message)
-        + void showError(Exception e)
-        + void showMessage(String message)
+
     }
     class LoginView
     class ForgotPasswordView
     class RegisterView
     abstract class EntityRenderList <E extends Model> {
-        - {abstract} Component getListCellRendererComponent(JList<? extends E> list, E value, int index, boolean isSelected, boolean cellHasFocus)
     }
     class EmployeeRenderList
     class CustomerRenderList
     abstract class DashboardView {
-        - JPanel[] cards
-        - ArrayList<MenuItemView> menuItems
-        + {abstract} JButton getBtnLogout()
-        + {abstract} JLabel getLbName()
-        + {abstract} void addMenu(MenuItemView... menu)
-        + {abstract} void initLayout()
-        + {abstract} JPanel getPanelLayout()
-        + {abstract} JPanel getPanelSideBar()
-        + void setPanel(JPanel panel)
-        + void setCards(JPanel[] cards)
+
     }
     class AdminDashboardView {
-        - JPanel layoutPanel
-        - JPanel leftPanel
-        - JPanel panelHeader
-        - JPanel sidebarPanel
+
     }
     
 }
 interface javax.swing.ListCellRenderer<E>
 interface views.popup.MessageShowable {
-    + {abstract} void showMessage(String message)
-    + {abstract} void showError(String message)
-    + {abstract} void showError(Exception e)
+
 }
 class views.employee.ChangePasswordView
 views.AuthenticationView --|> javax.swing.JFrame

@@ -1,157 +1,49 @@
 @startuml
 abstract class dao.Dao {
-    # Connection conn
-    + {abstract} void save(T t) 
-    + {abstract} void update(T t) 
-    + {abstract} void delete(T t) 
-    + {abstract} void deleteById(int id) 
-    + {abstract} T getById(int id) 
-    + {abstract} ArrayList<T> getAll() 
+
 }
 
 class dao.CustomerDao {
-    + ArrayList<Customer> getAll() 
-    + void save(Customer t) 
-    + void update(Customer t) 
-    + void delete(Customer t) 
-    + void deleteById(int id) 
-    + Customer getById(int id) 
-    + ArrayList<Customer> searchByKey(String key, String word) 
+
 }
 
 class dao.EmployeeDao {
-    + ArrayList<Employee> getAll() 
-    + void save(Employee t) 
-    + void update(Employee t) 
-    + void delete(Employee t) 
-    + void deleteById(int id) 
-    + Employee getById(int id) 
-    + ArrayList<Employee> searchByKey(String key, String word)
-    + Employee findByUsername(String username)
-    + ArrayList<Employee> getAllActiveEmployees()
+
 }
 
 class dao.FoodCategoryDao {
-    + ArrayList<FoodCategory> getAll() 
-    + void save(FoodCategory t) 
-    + void update(FoodCategory t) 
-    + void delete(FoodCategory t) 
-    + void deleteById(int id) 
-    + FoodCategory getById(int id) 
-    + FoodCategory findByName(String name)
-    + ArrayList<FoodCategory> searchByKey(String key, String word)
-    
-}
 
+}
 class dao.FoodItemDao {
-    - FoodCategoryDao foodCategoryDao
-    + ArrayList<FoodItem> getAll() 
-    + void save(FoodItem t) 
-    + void update(FoodItem t) 
-    + void delete(FoodItem t) 
-    + void deleteById(int id) 
-    + FoodItem getById(int id) 
-    + ArrayList<FoodItem> getByCategoryId(int id)
-    + ArrayList<FoodItem> searchByKey(String key, String word)
+
 }
 
 class dao.OrderDao {
-    - EmployeeDao employeeDao
-    - TableDao tableDao
-    - CustomerDao customerDao
-    + ArrayList<Order> getAll() 
-    + ArrayList<Order> getAll(int EmployeeId) 
-    + void save(Order t) 
-    + void update(Order t) 
-    + void delete(Order t) 
-    + void deleteById(int OrderId) 
-    + void deleteItems(int OrderId) 
-    + ArrayList<Order> searchByKey(String key, String word) 
-    + void create(Order t) 
-    + ArrayList<Order> searchByKey(int EmployeeId, String key, String word) 
-    + Order getById(int id) 
+
 }
 
 class dao.OrderItemDao {
-    - FoodItemDao foodItemDao
-    - OrderDao orderDao
-    + ArrayList<OrderItem> getAll() 
-    + void save(OrderItem t) 
-    + void update(OrderItem t) 
-    + void delete(OrderItem t) 
-    + void deleteById(int id) 
-    + void addItem(OrderItem t) 
-    + ArrayList<OrderItem> getByOrderId(int orderId) 
-    + ArrayList<OrderItem> searchByKey(String key, String word) 
-    + OrderItem getById(int id) 
+
 }
 
 class dao.SessionDao {
-    - EmployeeDao employeeDao
-    + ArrayList<Session> getAll() 
-    + ArrayList<Session> getSession(int id)
-    + void save(Session t) 
-    + void update(Session t) 
-    + Session getLast(int EmployeeId)
-    + ArrayList<Session> getAll(Timestamp start, Timestamp end)
-    + Session getById(int id) 
+
 }
 
 class dao.ShipmentDao {
-    - CustomerDao customerDao
-    - OrderDao orderDao
-    - EmployeeDao employeeDao
-    + ArrayList<Shipment> getAll() 
-    + void save(Shipment t) 
-    + void update(Shipment t) 
-    + void delete(Shipment t) 
-    + void deleteById(int id) 
-    + void deleteByCustomerId(int customerId) 
-    + ArrayList<Shipment> searchByKey(String key, String word) 
-    + Shipment getById(int id) 
+
 }
 
 class dao.TableDao {
-    + ArrayList<Table> getAll() 
-    + void save(Table t) 
-    + void update(Table t) 
-    + void delete(Table t) 
-    + void deleteById(int id) 
-    + Table getById(int id) 
-    + Table findByName(String name)
-    + ArrayList<Table> searchByKey(String key, String word)
+
 }
 
 class dao.WorkDayDao {
-    - java.sql.Connection conn
-    + ArrayList<Integer> getDay(int id, int month, int year) throws SQLException
-    + WorkDay getSales(int employeeId, Timestamp date) throws SQLException
-    + int getBonus(int id, int month, int year) throws SQLException
-    + int getTotalWorkingMinutes(Timestamp date, int employeeId) throws SQLException
-    + int getTotalWorkingMinutes(int month, int year, int employeeId) throws SQLException
-    + int getTotalIncome(int year, int month, int employeeId) throws SQLException
-    + int getTotalOrder(int year, int month, int employeeId) throws SQLException
+
 }
 
 class dao.statistical.StatisticalDao {
-    - Connection connection
-    - EmployeeDao employeeDao
-    + int getTotalOrder(Timestamp start, Timestamp end, int employeeId) throws SQLException
-    + int getTotalOrder(Timestamp start, Timestamp end) throws SQLException
-    + int getTotalWorkingMinutes(Timestamp start, Timestamp end) throws SQLException
-    + int getTotalWorkingMinutes(Timestamp start, Timestamp end, int employeeId) throws SQLException
-    + int getTotalIncome(Timestamp start, Timestamp end) throws SQLException
-    + int getTotalIncome(Timestamp start, Timestamp end, int employeeId) throws SQLException
-    + ArrayList<EmployeeIncome> getListTotalIncomeByEmployee(Timestamp start, Timestamp end) throws SQLException
-    + ArrayList<EmployeeIncome> getListTotalIncomeByDate(Timestamp start, Timestamp end) throws SQLException
-    + ArrayList<EmployeeIncome> getListTotalIncomeByDate(Timestamp start, Timestamp end, int employeeId) throws SQLException
-    + int getTotalEmployee() throws SQLException
-    + int getTotalCustomer() throws SQLException
-    + ArrayList<ProductIncome> getQuantityItemByCategory(Timestamp start, Timestamp end, int category) throws SQLException
-    + ArrayList<ProductIncome> getQuantityItem(Timestamp start, Timestamp end) throws SQLException
-    + WorkingDay getWorkingDays(Date start, Date end, int employeeId) throws SQLException
-    + WorkingDay getWorkingDays(Timestamp start, Timestamp end, int employeeId) throws SQLException
-    + ArrayList<EmployeeSalary> getEmployeeSalaries(Timestamp start, Timestamp end) throws SQLException
+
 }
 dao.ShipmentDao --|> dao.Dao
 dao.OrderDao --|> dao.Dao
