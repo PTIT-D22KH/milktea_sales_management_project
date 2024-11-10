@@ -1,109 +1,58 @@
 @startuml
 package controllers {
     class ManagerController {
-        - ManagerPaneView view
-        - void addEvent()
-        + {abstract} void actionAdd()
-        + {abstract} void actionSearch()
-        + {abstract} void actionDelete()
-        + {abstract} void actionEdit()
-        + {abstract} void updateData()
+
     }
     interface AuthenticationBase {
-        + {abstract} void showView();
+
     }
     abstract class AuthenticationController<T extends JFrame> {
-        - T view
-        - EmployeeDao employeeDao
-        + void showView()
-        + {abstract} void addEvent()
+
     }
     class LoginController {
-        - ForgotPasswordController forgotPasswordController;
-        - RegisterController registerController
-        + void login()
+
     }
     class ForgotPasswordController {
-        - void resetPassword()
     }
     class RegisterController {
-        - void register()
     }
     interface MenuBarEvent {
-        + {abstract} void onSelectMenuItem(MenuItemView item)
+
     }
     class SidebarController {
-        - JPanel sidebarPanel
-        - ArrayList<MenuItemView> menuItems
-        - MenuItemView activeMenuItemView
-        + void addMenu(MenuItemView... menu)
-        + void addMenuEvent(MenuBarEvent mbe)
+
     }
     abstract class DashboardController<T extends DashboardView> {
-        - T view
-        -  ManagerController orderManagerController
-        -  ManagerController shipmentManagerController
-        -  ManagerController customerManagerController
-        -  ManagerPaneView orderManagerView
-        -  ManagerPaneView shipmentManagerView
-        -  ManagerPaneView customerManagerView
-        -  HomeView homeView
-        -  AboutView aboutView
-        -  SidebarController sidebarController
-        -  EmployeeInformationController informationController
-        -  EmployeeInformationView informationView
-        + {abstract}  void initMenu()
-        # void addEvent()
-        + {abstract} void onMenuChange(MenuItemView item)
+
     }
     class AdminDashboardController {
-        -  ManagerController employeeManagerController
-        -  ManagerController tableManagerController
-        -  ManagerController foodCategoryManagerController
-        -  ManagerController foodItemManagerController
-        -  ManagerPaneView employeeManagerView
-        -  ManagerPaneView tableManagerView
-        -  ManagerPaneView foodCategoryManagerView
-        -  ManagerPaneView foodItemManagerView
-        -  JPanel[] cards
+
     }
     class EmployeeDashboardController {
-        - JPanel[] cards
+
     }
     package admin {
         class CustomerManagerController {
-            - CustomerDao customerDao
-            - ShipmentDao shipmentDao
-            - CustomerPopupController popupController
+
         }
 
         class EmployeeManagerController {
-            - EmployeeDao employeeDao
-            - EmployeePopupController popupController
+
         }
         class FoodCategoryManagerController {
-            - FoodCategoryDao foodCategoryDao
-            - FoodCategoryPopupController foodCategoryPopupController
+
         }
         class FoodItemManagerController {
-            - FoodItemDao foodItemDao
-            - FoodItemPopupController popupController
+
         }
         class OrderManagerController {
-            - OrderDao orderDao
-            - TableDao tableDao
-            - ShipmentDao shipmentDao
-            - AddOrderPopupController addOrderPopupController
-            - EditOrderPopupController editOrderPopupController
-            - Employee sessionEmployee
+
         }
         class TableManagerController {
-            - TableDao tableDao
-            - TablePopupController popupController
+
         }
         class ShipmentManagerController {
-            - ShipmentDao shipmentDao
-            - ShipmentPopupControler popupController
+
         }
     }
 }

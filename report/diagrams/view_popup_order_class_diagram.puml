@@ -1,6 +1,5 @@
 @startuml
 class views.popup.AddOrderPopupView {
-    - DefaultComboBoxModel<Table> tbComboBoxModel
 }
 
 class views.popup.CustomerPopupView {
@@ -8,7 +7,7 @@ class views.popup.CustomerPopupView {
 }
 
 class views.popup.EditOrderPopupView {
-    - DefaultComboBoxModel<Table> tbComboBoxModel
+
 }
 
 class views.popup.EmployeePopupView {
@@ -16,14 +15,9 @@ class views.popup.EmployeePopupView {
 }
 
 class views.popup.FoodCategoryPopupView {
-    - JTextField nameTxtField
-    - JTextField slugTxtField
-    - JButton btnOK
-    - JButton btnCancel
 }
 
 class views.popup.FoodItemPopupView {
-    - DefaultComboBoxModel<FoodCategory> foodCategoryComboBoxModel
 }
 
 class views.popup.SelectCustomerPopupView {
@@ -43,59 +37,36 @@ class views.popup.TablePopupView {
 }
 
 class views.popup.ToppingPopupView {
-
 }
 
 class views.popup.order.FoodCategoryPane {
-    - FoodCategory foodCategory
 }
 
 class views.popup.order.FoodItemPane {
-    - DecimalFormat formatter
-    - FoodItem foodItem
+
 }
 
 class views.popup.order.OrderItemPane {
-    - OrderItem orderItem
-    - DecimalFormat formatter
+
 }
 abstract class views.popup.SelectEntityPopupView<T extends Model> {
-    # DefaultListModel<T> entityListModel
-    + void renderEntity(ArrayList<T> list)
-    + void showError(String message)
-    + void showError(Exception message)
-    + void showMessage(String message)
-    # abstract void mineInitComponents()
-    # abstract JButton getBtnCancel()
-    # abstract JButton getBtnOK()
-    # abstract JButton getBtnSearch()
-    # abstract JList<T> getEntityList()
-    # abstract JTextField getEntityNameTxtField()
+
 }
 
 interface views.popup.BasePopupView {
-    + {abstract} JButton getBtnOK()
-    + {abstract} JButton getBtnCancel()
+
 }
 
 interface views.popup.BaseSelectEntityPopupView<T extends Model> {
-    + {abstract} JButton getBtnSearch();
-    + {abstract} JList<T> getEntityList();
-    + {abstract} void renderEntity(ArrayList<T> list)
-    + {abstract} JTextField getEntityNameTxtField()
+
 }
 
 interface views.popup.MessageShowable {
-    + {abstract} void showMessage(String message)
-    + {abstract} void showError(String message)
-    + {abstract} void showError(Exception e)
+
 }
 
 interface views.popup.PopupView {
-    + {abstract} JLabel getLbTitle()
-    + {abstract} void dispose()
-    + {abstract} void setVisible(boolean b)
-    + {abstract} String getClassName()
+
 }
 views.popup.AddOrderPopupView --|> java.swing.JFrame
 views.popup.CustomerPopupView --|> java.swing.JFrame

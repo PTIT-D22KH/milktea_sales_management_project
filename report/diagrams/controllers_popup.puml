@@ -2,104 +2,51 @@
 package controllers {
     package popup {
         interface SuccessCallback {
-            + {abstract} void onSuccess()
         }   
         interface ErrorCallback {
-            + {abstract} void onError(Exception e)
         } 
         interface BasePopupController <T extends JFrame, S extends Model> {
-            + {abstract} void add(T view, SuccessCallback sc, ErrorCallback ec)
-            + {abstract} void edit(T view, S model, SuccessCallback sc, ErrorCallback ec)
+
         } 
         abstract class PopupController<T extends JFrame & PopupView, S extends Model> {
-            - JFrame previousView
-            + void add(T view, SuccessCallback sc, ErrorCallback ec)
-            + void edit(T view, S model, SuccessCallback sc, ErrorCallback ec)
-            - void addCancelListener(T view)
-            - void addOkListener(T view, SuccessCallback sc, ErrorCallback ec)
-            - void addEditListener(T view, S model, SuccessCallback sc, ErrorCallback ec)
-            + {abstract} void addEntity(T view) 
-            + {abstract} void editEntity(T view, S model)
+
         }
 
         class AddOrderPopupController {
-            - OrderDao orderDao
-            -  TableDao tableDao
-            -  CustomerDao customerDao
-            + void add(AddOrderPopupView view, SuccessCallback sc, ErrorCallback ec)
-            + void addEntity(AddOrderPopupView view) throws Exception
+
         }
 
         class EditOrderPopupController {
-            - OrderDao orderDao
-            - ShipmentDao shipmentDao
-            - TableDao tableDao
-            - OrderItemDao orderItemDao
-            - FoodItemController foodItemController
-            - OrderItemController orderItemController
-            - ToppingPopupController toppingPopupController
-            - ShipmentPopupControler shipmentPopupControler
-            - OrderPrintController orderPrintController
-            - DecimalFormat formatter
-            + void edit(EditOrderPopupView view, Order order, SuccessCallback sc, ErrorCallback ec)
-            + void editEntity(EditOrderPopupView view, Order order) throws Exception
-            - void updateAmount(EditOrderPopupView view, Order order)
         }
 
         class EmployeePopupController {
-            - EmployeeDao employeeDao
         }
         class FoodCategoryPopupController {
-            - FoodCategoryDao foodCategoryDao;
         }
         class FoodItemPopupController {
-            - FoodItemDao foodItemDao;
-            - FoodCategoryDao foodCategoryDao;
+
         }
         class ShipmentPopupControler {
-            - ShipmentDao shipmentDao
-            - CustomerDao customerDao
-            - EmployeeDao employeeDao
-            - OrderDao orderDao
-            - JFrame previousView
-            + void add(ShipmentPopupView view, Order order, SuccessCallback sc, ErrorCallback ec)
-            + void edit(ShipmentPopupView view, Order order, SuccessCallback sc, ErrorCallback ec)
-            - void editShipment(ShipmentPopupView view, Shipment shipment, Order order) throws SQLException
+
         }
         class TablePopupController {
-            - TableDao tableDao
+
         } 
 
         class CustomerPopupController {
-            - CustomerDao customerDao
+
         }
 
         class ToppingPopupController {
-            - FoodItemDao foodItemDao
-            - DecimalFormat formatter
-            - JFrame previousView
-            + void add(ToppingPopupView view, FoodItem foodItem, Event event)
-            - void updateAmount(ToppingPopupView view)
-            - OrderItem addItem(FoodItem foodItem, ToppingPopupView view)
+
         }
         package order {
             class FoodItemController {
-                - FoodCategoryDao foodCategoryDao
-                - FoodItemDao foodItemDao
-                - JPanel foodCategoryPanel
-                - JPanel foodItemPanel
-                + void renderCategory(Event event) 
-                + void renderFoodItem(int categoryId, Event event)
+
             }
 
             class OrderItemController {
-                - ArrayList<OrderItem> orderItems
-                - JPanel orderItemPanel
-                - int orderId
-                - Event onQuantityChange
-                + void renderOrderItem()
-                + int getTotalAmount()
-                + void addOrderItem(OrderItem item) throws SQLException
+
             }
         }
     }

@@ -1,60 +1,39 @@
 @startuml
 package views.admin {
     abstract class ManagerPaneView<T extends Model> {
-        # DefaultTableModel tableModel
-        - ArrayList<T> tableData
-        - JButton addButton
-        - JComboBox<String> comboSearchField
-        - JTable dataTable
-        - JButton delButton
-        - JButton editButton
-        - JTextField searchTxt
-        - JButton syncButton
-        + int[] getSelectedIds()
-        + int getSelectedId()
-        + void renderTable()
-        + {abstract} void setTableModel()
+
     }
     class AboutView
     class HomeView
     
     class CustomerManagerView {
-        - String list[]
-        + void setTableModel()
+
     }
 
     class EmployeeManagerView {
-        - String list[]
-        + void setTableModel()
+
     }
 
     class FoodCategoryManagerView {
-        - String list[]
-        + void setTableModel()
+
     }
 
     class FoodItemManagerView {
-        - String list[]
-        + void setTableModel()
+
     }
 
     class OrderManagerView {
-        - String list[]
-        + void setTableModel()
+
     }
 
     class ShipmentManagerView {
-        - String list[]
-        + void setTableModel()
+
     }
 
     class TableManagerView {
-        - String list[]
-        + void setTableModel()
+
     }
     class MenuItemView {
-        - String id
-        - JLabel menuNameLabel
     }
 }
 views.admin.ManagerPaneView --|> javax.swing.JPanel
