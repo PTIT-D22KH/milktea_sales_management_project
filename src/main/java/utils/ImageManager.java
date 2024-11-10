@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -22,9 +23,13 @@ public class ImageManager {
     }
     
     public ImageIcon getImage(String name) {
-        try {
-            URL pathImage = getClass().getResource(imagesPath + name);
-            return new ImageIcon(pathImage);
+        try (InputStream is = getClass().getResourceAsStream(imagesPath + name)) {
+            if (is != null) {
+                BufferedImage bi = ImageIO.read(is);
+                return new ImageIcon(bi);
+            } else {
+                return new ImageIcon(getClass().getResource(imagesPath + "tra_sua_default.png"));
+            }
         } catch (Exception e) {
             return new ImageIcon(getClass().getResource(imagesPath + "tra_sua_default.png"));
         }
@@ -37,9 +42,14 @@ public class ImageManager {
     }
 
     public String saveImage(BufferedImage bi, String name) throws IOException {
-        String pathImages = getClass().getResource(imagesPath).getPath();
+        // Use a directory outside the JAR for saving images
+        String userDir = System.getProperty("user.dir");
+        String pathImages = userDir + "/images/";
         String fileName = getUniqueNameFile(name);
         File out = new File(pathImages + fileName);
+        if (!out.getParentFile().exists()) {
+            out.getParentFile().mkdirs();
+        }
         BufferedImage resizedImage = resizeImage(bi, 200);
         ImageIO.write(resizedImage, "png", out);
         return out.getName();
@@ -58,5 +68,4 @@ public class ImageManager {
         String fileName = String.format("%s-%s.%s", name.length() > 35 ? name.substring(0, 35) : name, timeStamp, "png");
         return fileName;
     }
-    
 }

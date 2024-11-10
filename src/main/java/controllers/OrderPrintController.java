@@ -39,19 +39,16 @@ public class OrderPrintController {
 
     public OrderPrintController() {
         document = new XWPFDocument();
-        loadConfig();
+        orderFilePath = System.getProperty("user.dir") + "/order/";
+        createOrderDirectory();
         orderFile = new File(orderFilePath + "order.docx");
     }
-
-    private void loadConfig() {
-        ConfigLoader cfgLoader = ConfigLoader.getInstance();
-        try {
-            orderFilePath = cfgLoader.getProperty("orderFilePath");
-        } catch (Exception e) {
-            e.printStackTrace();
+    private void createOrderDirectory() {
+        File directory = new File(orderFilePath);
+        if (!directory.exists()) {
+            directory.mkdirs();
         }
     }
-
     public void print(int id) throws Exception {
         orderFile = new File(orderFilePath + "order-" + id + ".docx");
         OrderDao orderDao = new OrderDao();
