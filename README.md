@@ -2,10 +2,10 @@
 Java OOP Project - 24-25 Term 1
 
 ## Hướng dẫn chạy chương trình
-### Tải file Jar 
-Vào đường link và tải package release v1.0 về
-### Tải mysql server và mysql workbench về
+### Cài đặt sẵn mysql server và mysql workbench về máy
+### Tải bản release về máy
+Vào phần Release và tải file v1.0 về và giải nén
 
-### Cài đặt user và chạy file schema.sql
+### Chạy file schema.sql bằng MySQL Workbench
 
-### Chạy file JAR
+### Chạy file JAR bằng Java Platform SE binary
