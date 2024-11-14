@@ -193,7 +193,7 @@ public class TablePopupView extends javax.swing.JFrame implements PopupView{
     }
 
     @Override
-    public String getClassName() {
+    public String convertClassName() {
         return "bàn";
     }
     

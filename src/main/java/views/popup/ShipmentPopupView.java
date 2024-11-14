@@ -9,7 +9,6 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
-import javax.swing.JTextField;
 import utils.ErrorPopup;
 /**
  *

@@ -118,7 +118,7 @@ public class Shipment extends Model{
     }
 
     @Override
-    public String getClassName() {
+    public String convertClassName() {
         return "đơn giao hàng";
     }
     

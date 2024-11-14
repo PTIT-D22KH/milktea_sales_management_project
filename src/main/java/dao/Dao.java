@@ -17,7 +17,7 @@ public abstract class Dao<T> {
     /**
      * Get connection 
      */
-    Connection conn = DatabaseConnector.getInstance().getConn();
+    protected Connection conn = DatabaseConnector.getInstance().getConn();
     
     /**
      * Get all the rows from table

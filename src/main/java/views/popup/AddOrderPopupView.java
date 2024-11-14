@@ -57,7 +57,7 @@ public class AddOrderPopupView extends javax.swing.JFrame implements PopupView{
     
     
     @Override
-    public String getClassName() {
+    public String convertClassName() {
         return "hoá đơn";
     }
     /**

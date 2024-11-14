@@ -28,9 +28,16 @@ public class ImageManager {
                 BufferedImage bi = ImageIO.read(is);
                 return new ImageIcon(bi);
             } else {
-                return new ImageIcon(getClass().getResource(imagesPath + "tra_sua_default.png"));
+                try {
+                    URL pathImage = getClass().getResource(imagesPath + name);
+                    return new ImageIcon(pathImage);
+                } catch (Exception ex) {
+                    return new ImageIcon(getClass().getResource(imagesPath + "tra_sua_default.png"));
+                }
+//                return new ImageIcon(getClass().getResource(imagesPath + "tra_sua_default.png"));
             }
         } catch (Exception e) {
+            System.out.println(getClass().getResource(imagesPath + "tra_sua_default.png"));
             return new ImageIcon(getClass().getResource(imagesPath + "tra_sua_default.png"));
         }
     }   
@@ -47,11 +54,20 @@ public class ImageManager {
         String pathImages = userDir + "/images/";
         String fileName = getUniqueNameFile(name);
         File out = new File(pathImages + fileName);
+        String resourceImages = getClass().getResource(imagesPath).getPath();
+        File out2 = new File(resourceImages + fileName);
         if (!out.getParentFile().exists()) {
             out.getParentFile().mkdirs();
         }
         BufferedImage resizedImage = resizeImage(bi, 200);
         ImageIO.write(resizedImage, "png", out);
+        try {
+            ImageIO.write(resizedImage, "png", out2);
+        } catch (IOException e) {
+            
+        }
+        
+        
         return out.getName();
     }
     

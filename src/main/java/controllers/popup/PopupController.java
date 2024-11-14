@@ -67,7 +67,7 @@ public abstract class PopupController<T extends JFrame & PopupView, S extends Mo
                 try {
                     addEntity(view);
                     view.dispose();
-                    view.showMessage("Thêm " + view.getClassName() + " mới thành công!");
+                    view.showMessage("Thêm " + view.convertClassName() + " mới thành công!");
                     sc.onSuccess();
                 } catch (Exception exception) {
                     ec.onError(exception);
@@ -83,7 +83,7 @@ public abstract class PopupController<T extends JFrame & PopupView, S extends Mo
                 try {
                     editEntity(view, model);
                     view.dispose();
-                    view.showMessage("Sửa " + model.getClassName() + " thành công!");
+                    view.showMessage("Sửa " + model.convertClassName() + " thành công!");
                     sc.onSuccess();
                 } catch (Exception ex) {
                     ec.onError(ex);

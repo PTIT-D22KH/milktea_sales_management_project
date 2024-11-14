@@ -186,7 +186,7 @@ public class FoodCategoryPopupView extends javax.swing.JFrame implements PopupVi
     }
 
     @Override
-    public String getClassName() {
+    public String convertClassName() {
         return "loại món";
     }
 }

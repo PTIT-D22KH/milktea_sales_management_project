@@ -14,7 +14,7 @@ import java.util.Properties;
  */
 public class ConfigLoader {
     private static final String CONFIG_PATH = "/config.properties";
-    private static ConfigLoader instance;
+    private static ConfigLoader instance = null;
     private Properties propertyLoader = new Properties();
     
     /**

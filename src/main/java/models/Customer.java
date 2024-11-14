@@ -74,7 +74,7 @@ public class Customer extends Model{
     }
     
     @Override
-    public String getClassName(){ 
+    public String convertClassName(){ 
         return "khách hàng";
     }
 }

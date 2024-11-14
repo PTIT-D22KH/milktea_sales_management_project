@@ -23,7 +23,5 @@ views.employee.CalendarView --|> javax.swing.JPanel
 
 
 
-views.employee.EmployeeInformationView o-- javax.swing.JPanel
 
-views.employee.WorkDayInfoView o-- javax.swing.JPanel
 @enduml
