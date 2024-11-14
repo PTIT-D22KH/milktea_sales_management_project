@@ -10,11 +10,12 @@ package models;
  */
 public abstract class Model {
     
+    @Override
     public abstract String toString();
     
     public abstract Object[] toRowTable();
     
-    public String getClassName() {
+    public String convertClassName() {
         return "";
     }
 }

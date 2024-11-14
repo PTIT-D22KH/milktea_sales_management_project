@@ -4,7 +4,6 @@
  */
 package models;
 
-import dao.TableDao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -149,7 +148,7 @@ public class Order extends Model{
     }
 
     @Override
-    public String getClassName() {
+    public String convertClassName() {
         return "hoá đơn";
     }
     

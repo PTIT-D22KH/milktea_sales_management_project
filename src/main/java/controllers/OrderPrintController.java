@@ -39,7 +39,7 @@ public class OrderPrintController {
 
     public OrderPrintController() {
         document = new XWPFDocument();
-        orderFilePath = System.getProperty("user.dir") + "/order/";
+        orderFilePath = System.getProperty("user.dir") + "/orders/";
         createOrderDirectory();
         orderFile = new File(orderFilePath + "order.docx");
     }

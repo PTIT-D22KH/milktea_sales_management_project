@@ -334,7 +334,7 @@ public class FoodItemPopupView extends javax.swing.JFrame implements PopupView{
     }
 
     @Override
-    public String getClassName() {
+    public String convertClassName() {
         return "món ăn";
     }
 }

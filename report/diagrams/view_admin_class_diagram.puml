@@ -49,5 +49,4 @@ views.admin.HomeView --|> javax.swing.JPanel
 views.admin.AboutView --|> javax.swing.JPanel
 
 views.admin.MenuItemView --|> javax.swing.JPanel
-views.admin.MenuItemView o-- javax.swing.JPanel
 @enduml

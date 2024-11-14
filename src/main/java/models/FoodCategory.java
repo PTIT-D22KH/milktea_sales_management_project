@@ -62,7 +62,7 @@ public class FoodCategory extends Model {
     }
 
     @Override
-    public String getClassName() {
+    public String convertClassName() {
         return "loại món";
     }
 }

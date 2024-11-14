@@ -113,7 +113,7 @@ public class Employee extends Model {
     }
 
     @Override
-    public String getClassName() {
+    public String convertClassName() {
         return "nhân viên";
     }
 }

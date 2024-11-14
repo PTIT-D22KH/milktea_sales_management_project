@@ -54,12 +54,13 @@ public class AdminDashboardView extends DashboardView {
     }
 
     @Override
-    public JPanel getPanelLayout() {
+    public JPanel getLayoutPanel() {
         return layoutPanel;
     }
 
+
     @Override
-    public JPanel getPanelSideBar() {
+    public JPanel getSidebarPanel() {
         return sidebarPanel;
     }
 

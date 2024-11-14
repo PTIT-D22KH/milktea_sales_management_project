@@ -51,7 +51,7 @@ public abstract class DashboardController<T extends DashboardView> {
 
     public void setView(T view) {
         this.view = view;
-        sidebarController.setSidebarPanel(view.getPanelSideBar());
+        sidebarController.setSidebarPanel(view.getSidebarPanel());
     }
 
     protected abstract void initMenu();

@@ -68,7 +68,7 @@ public class Table extends Model{
     }
 
     @Override
-    public String getClassName() {
+    public String convertClassName() {
         return "bàn";
     }
 }

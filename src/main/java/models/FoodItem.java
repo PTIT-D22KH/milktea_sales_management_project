@@ -94,7 +94,7 @@ public class FoodItem extends Model {
     }
 
     @Override
-    public String getClassName() {
+    public String convertClassName() {
         return "món ăn";
     }
     

@@ -19,7 +19,7 @@ public class EmployeeDashboardController extends DashboardController<AdminDashbo
 
     public EmployeeDashboardController(AdminDashboardView view) {
         this.view = view;
-        sidebarController.setSidebarPanel(view.getPanelSideBar());
+        sidebarController.setSidebarPanel(view.getSidebarPanel());
         view.setVisible(true);
         initMenu();
         addEvent();

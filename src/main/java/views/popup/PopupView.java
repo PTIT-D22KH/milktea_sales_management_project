@@ -14,9 +14,9 @@ public interface PopupView extends BasePopupView{
 
     public abstract JLabel getLbTitle();
 
-    public abstract void dispose();
-
-    public abstract void setVisible(boolean b); 
+//    public abstract void dispose();
+//
+//    public abstract void setVisible(boolean b); 
     
-    public abstract String getClassName();
+    public abstract String convertClassName();
 }

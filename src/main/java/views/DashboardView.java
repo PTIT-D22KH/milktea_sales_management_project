@@ -56,9 +56,9 @@ public abstract class DashboardView extends JFrame implements MessageShowable{
     // Thêm các pane vào cardlayout
     public abstract void initLayout();
 
-    public abstract JPanel getPanelLayout();
+    public abstract JPanel getLayoutPanel();
 
-    public abstract JPanel getPanelSideBar();
+    public abstract JPanel getSidebarPanel();
 
     public void setPanel(JPanel panel) {
         for (JPanel card : cards) {

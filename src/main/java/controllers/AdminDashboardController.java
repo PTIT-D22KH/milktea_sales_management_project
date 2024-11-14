@@ -8,7 +8,6 @@ import controllers.admin.EmployeeManagerController;
 import controllers.admin.FoodCategoryManagerController;
 import controllers.admin.FoodItemManagerController;
 import controllers.admin.TableManagerController;
-import controllers.employee.EmployeeInformationController;
 import javax.swing.JPanel;
 import models.Employee;
 import utils.SessionManager;
@@ -19,7 +18,6 @@ import views.admin.FoodItemManagerView;
 import views.admin.ManagerPaneView;
 import views.admin.MenuItemView;
 import views.admin.TableManagerView;
-import views.employee.EmployeeInformationView;
 
 
 /**
@@ -57,7 +55,7 @@ public class AdminDashboardController extends DashboardController<AdminDashboard
             aboutView, informationView
         };
 
-        sidebarController.setSidebarPanel(view.getPanelSideBar());
+        sidebarController.setSidebarPanel(view.getSidebarPanel());
         view.setVisible(true);
         initMenu();
         addEvent();
