@@ -25,46 +25,56 @@ public class OrderDao extends Dao<Order> {
     @Override
     public ArrayList<Order> getAll() throws SQLException {
         ArrayList<Order> orders = new ArrayList<>();
-        Statement statement = conn.createStatement();
         String query = "SELECT * FROM `order` ORDER BY `order`.`orderDate` DESC";
-        ResultSet rs = statement.executeQuery(query);
-        while (rs.next()) {
-            Order order = Order.getFromResultSet(rs);
-            if (order == null) {
-                continue;
+        try (Statement statement = conn.createStatement()) {
+            try(ResultSet rs = statement.executeQuery(query)) {
+                while (rs.next()) {
+                    Order order = Order.getFromResultSet(rs);
+                    if (order == null) {
+                        continue;
+                    }
+                    Employee employee = employeeDao.getById(rs.getInt("employeeId"));
+                    Table table = tableDao.getById(rs.getInt("tableId"));
+                    Customer customer = customerDao.getById(rs.getInt("customerId"));
+                    order.setEmployee(employee);
+                    order.setTable(table);
+                    order.setCustomer(customer);
+                    orders.add(order);
+                }
+                
             }
-            Employee employee = employeeDao.getById(rs.getInt("employeeId"));
-            Table table = tableDao.getById(rs.getInt("tableId"));
-            Customer customer = customerDao.getById(rs.getInt("customerId"));
-            order.setEmployee(employee);
-            order.setTable(table);
-            order.setCustomer(customer);
-            orders.add(order);
+            
         }
         return orders;
     }
 
     /**
      * get all orders from a specific employee
-     * @param EmployeeId
+     * @param employeeId
      * @return
      * @throws SQLException 
      */
-    public ArrayList<Order> getAll(int EmployeeId) throws SQLException {
+    public ArrayList<Order> getAll(int employeeId) throws SQLException {
         ArrayList<Order> orders = new ArrayList<>();
-        Statement statement = conn.createStatement();
-        String query = "SELECT * FROM `order`  WHERE `employeeId`= '" + EmployeeId + "' ORDER BY `order`.`orderDate` DESC";
-        ResultSet rs = statement.executeQuery(query);
-        while (rs.next()) {
-            Order order = Order.getFromResultSet(rs);
-            Employee employee = employeeDao.getById(rs.getInt("employeeId"));
-            Table table = tableDao.getById(rs.getInt("tableId"));
-            Customer customer = customerDao.getById(rs.getInt("customerId"));
-            order.setEmployee(employee);
-            order.setTable(table);
-            order.setCustomer(customer);
-            orders.add(order);
+        
+        String query = "SELECT * FROM `order`  WHERE `employeeId`= '" + employeeId + "' ORDER BY `order`.`orderDate` DESC";
+        try(Statement statement = conn.createStatement()) {
+            try(ResultSet rs = statement.executeQuery(query)) {
+                while (rs.next()) {
+                    Order order = Order.getFromResultSet(rs);
+                    Employee employee = employeeDao.getById(rs.getInt("employeeId"));
+                    Table table = tableDao.getById(rs.getInt("tableId"));
+                    Customer customer = customerDao.getById(rs.getInt("customerId"));
+                    order.setEmployee(employee);
+                    order.setTable(table);
+                    order.setCustomer(customer);
+                    orders.add(order);
+                }
+            }
+            
+            
         }
+        
         return orders;
     }
 
@@ -138,7 +148,11 @@ public class OrderDao extends Dao<Order> {
         stmt.executeUpdate();
     }
 
+    @Override
     public ArrayList<Order> searchByKey(String key, String word) throws SQLException {
+        if (key == null || word == null || key.trim().isEmpty() || word.trim().isEmpty()) {
+            throw new SQLException("Từ khoá không được null/trống");
+        }
         ArrayList<Order> orders = new ArrayList<>();
         Statement statement = conn.createStatement();
         String query = "SELECT * FROM `order` WHERE " + key + " LIKE '%" + word + "%';";
@@ -217,6 +231,13 @@ public class OrderDao extends Dao<Order> {
             return order;
         }
         return null;
+    }
+
+    @Override
+    protected void validate(Order t) throws SQLException {
+        if(t == null) {
+            throw new SQLException("Customer object cannot be null");
+        }
     }
 
 }

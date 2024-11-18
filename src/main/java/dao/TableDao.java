@@ -20,93 +20,131 @@ public class TableDao extends Dao<Table> {
     @Override
     public ArrayList<Table> getAll() throws SQLException {
         ArrayList<Table> tables = new ArrayList<>();
-        Statement statement = conn.createStatement();
         String query = "SELECT * FROM `table`";
-        ResultSet rs = statement.executeQuery(query);
-        while (rs.next()) {
-            Table table = Table.getFromResultSet(rs);
-            tables.add(table);
+        try (PreparedStatement statement = conn.prepareStatement(query);
+             ResultSet rs = statement.executeQuery()) {
+            while (rs.next()) {
+                Table table = Table.getFromResultSet(rs);
+                tables.add(table);
+            }
         }
         return tables;
     }
 
-
     @Override
     public void save(Table t) throws SQLException {
-        if (t == null) {
-            throw new SQLException("Table rỗng");
-        }
+        validate(t);
         String query = "INSERT INTO `table` (`name`, `status`) VALUES (?, ?)";
-
-        PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setNString(1, t.getName());
-        stmt.setNString(2, t.getStatus().getId());
-        int row = stmt.executeUpdate();
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            setTableParameters(stmt, t);
+            stmt.executeUpdate();
+        }
     }
 
     @Override
     public void update(Table t) throws SQLException {
-        if (t == null) {
-            throw new SQLException("Table rỗng");
+        validate(t);
+        String query = "UPDATE `table` SET `name` = ?, `status` = ? WHERE `table`.`tableId` = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            setTableParameters(stmt, t);
+            stmt.setInt(3, t.getTableId());
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected == 0) {
+                throw new SQLException("Không tìm thấy bàn với ID " + t.getTableId());
+            }
         }
-        String query = "UPDATE `table` SET `name` = ? , `status` = ? WHERE `table`.`tableId` = ?";
-
-        PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setNString(1, t.getName());
-        stmt.setNString(2, t.getStatus().getId());
-        stmt.setInt(3, t.getTableId());
-        int row = stmt.executeUpdate();
     }
 
     @Override
     public void delete(Table t) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("DELETE FROM `table` WHERE `table`.`tableId` = ?");
-        stmt.setInt(1, t.getTableId());
-        stmt.executeUpdate();
+        if (t == null) {
+            throw new SQLException("Table rỗng");
+        }
+        deleteById(t.getTableId());
     }
 
     @Override
     public void deleteById(int id) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("DELETE FROM `table` WHERE `table`.`tableId` = ?");
-        stmt.setInt(1, id);
-        stmt.executeUpdate();
+        if (id <= 0) {
+            throw new SQLException("TableId phải > 0");
+        }
+        String query = "DELETE FROM `table` WHERE `table`.`tableId` = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, id);
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected == 0) {
+                throw new SQLException("Không tìm thấy bàn với ID " + id);
+            }
+        }
     }
 
     public Table findByName(String name) throws SQLException {
-        Statement statement = conn.createStatement();
-        String query = "SELECT * FROM `table` WHERE `name` = '" + name + "'";
-        ResultSet rs = statement.executeQuery(query);
-        if (rs.next()) {
-            Table t = Table.getFromResultSet(rs);
-            return t;
+        if (name == null || name.trim().isEmpty()) {
+            throw new SQLException("Tên bàn không được null/trống");
+        }
+        String query = "SELECT * FROM `table` WHERE `name` = ?";
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setString(1, name);
+            try (ResultSet rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    return Table.getFromResultSet(rs);
+                }
+            }
         }
         return null;
     }
 
+    @Override
     public ArrayList<Table> searchByKey(String key, String word) throws SQLException {
+        if (key == null || word == null || key.trim().isEmpty() || word.trim().isEmpty()) {
+            throw new SQLException("Từ khoá không được null/trống");
+        }
         ArrayList<Table> tables = new ArrayList<>();
-        Statement statement = conn.createStatement();
-        String query = "SELECT * FROM `table` WHERE " + key + " LIKE '%" + word + "%';";
-        ResultSet rs = statement.executeQuery(query);
-        while (rs.next()) {
-            Table table = Table.getFromResultSet(rs);
-            tables.add(table);
+        String query = "SELECT * FROM `table` WHERE `" + key + "` LIKE ?";
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setString(1, "%" + word + "%");
+            try (ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    Table table = Table.getFromResultSet(rs);
+                    tables.add(table);
+                }
+            }
         }
         return tables;
     }
 
     @Override
     public Table getById(int id) throws SQLException {
-       Statement statement = conn.createStatement();
-        String query = "SELECT * "
-                + "FROM `table` "
-                + "WHERE `tableId` = " + id;
-        ResultSet result = statement.executeQuery(query);
-        if (result.next()) {
-            Table table = Table.getFromResultSet(result);
-            return table;
+        if (id <= 0) {
+            throw new SQLException("TableId phải > 0");
+        }
+        String query = "SELECT * FROM `table` WHERE `tableId` = ?";
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setInt(1, id);
+            try (ResultSet result = statement.executeQuery()) {
+                if (result.next()) {
+                    return Table.getFromResultSet(result);
+                }
+            }
         }
         return null;
     }
-}
 
+    private void setTableParameters(PreparedStatement stmt, Table t) throws SQLException {
+        stmt.setString(1, t.getName());
+        stmt.setString(2, t.getStatus().getId());
+    }
+
+    @Override
+    protected void validate(Table t) throws SQLException {
+        if (t == null) {
+            throw new SQLException("Table rỗng");
+        }
+        if (t.getName() == null || t.getName().trim().isEmpty()) {
+            throw new SQLException("Tên bàn không được null/trống");
+        }
+        if (t.getStatus() == null) {
+            throw new SQLException("Trạng thái bàn không được null");
+        }
+    }
+}

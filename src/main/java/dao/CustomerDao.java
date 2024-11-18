@@ -4,11 +4,9 @@
  */
 package dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import models.Customer;
 
@@ -18,13 +16,6 @@ import models.Customer;
  */
 public class CustomerDao extends Dao<Customer>{
 
-    public CustomerDao() {
-        
-    }
-    
-    public CustomerDao(Connection mockConnection) {
-        conn = mockConnection;
-    }
 
     /**
      * return all customers in database
@@ -34,13 +25,18 @@ public class CustomerDao extends Dao<Customer>{
     @Override
     public ArrayList<Customer> getAll() throws SQLException {
         ArrayList<Customer> customers = new ArrayList<>();
-        Statement statement = conn.createStatement();
+        
         String query  = "SELECT * FROM `customer`";
-        ResultSet result = statement.executeQuery(query);
-        while (result.next()) {
-            Customer customer = Customer.getFromResultSet(result);
-            customers.add(customer);
-        } 
+        try(PreparedStatement statement = conn.prepareStatement(query)) {
+            try (ResultSet result = statement.executeQuery()) {
+                while (result.next()) {
+                    Customer customer = Customer.getFromResultSet(result);
+                    customers.add(customer);
+                } 
+            }
+        }
+        
+        
         return customers;
     }
 
@@ -52,14 +48,17 @@ public class CustomerDao extends Dao<Customer>{
      */
     @Override
     public Customer getById(int id) throws SQLException {
-        Statement statement = conn.createStatement();
         String query = "SELECT * "
                 + "FROM `customer` "
-                + "WHERE `customerId` = " + id;
-        ResultSet result = statement.executeQuery(query);
-        if (result.next()) {
-            Customer customer = Customer.getFromResultSet(result);
-            return customer;
+                + "WHERE `customerId` = ?";
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setInt(1, id);
+            try (ResultSet result = statement.executeQuery()) {
+                if (result.next()) {
+                    Customer customer = Customer.getFromResultSet(result);
+                    return customer;
+                }
+            }
         }
         return null;
     }
@@ -71,17 +70,16 @@ public class CustomerDao extends Dao<Customer>{
      */
     @Override
     public void save(Customer t) throws SQLException {
-        if  (t == null) {
-            throw new SQLException("Cannot insert into table null object(customer)");
-        }
+        validate(t);
         String query = "INSERT INTO `customer` (`phoneNumber`, `name`, `address`) "
                 + "VALUES (?, ?, ?);";
-        PreparedStatement statement = conn.prepareStatement(query);
-        statement.setNString(1, t.getPhoneNumber()); // index start from 1
-        statement.setNString(2, t.getName());
-        statement.setNString(3, t.getAddress());
-        
-        int row = statement.executeUpdate();        
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setNString(1, t.getPhoneNumber()); // index start from 1
+            statement.setNString(2, t.getName());
+            statement.setNString(3, t.getAddress());
+            
+            int row = statement.executeUpdate();        
+        }
     }
 
     /**
@@ -91,20 +89,19 @@ public class CustomerDao extends Dao<Customer>{
      */
     @Override
     public void update(Customer t) throws SQLException {
-        if (t == null) {
-            throw new SQLException("Cannot update customer table when customer instance is null");
-        }
+        validate(t);
         String query = "UPDATE `customer` "
                 + "SET `phoneNumber` = ?, `address` = ?, `name` = ? "
                 + "WHERE `customerId` = ?";
         
-        PreparedStatement statement = conn.prepareStatement(query);
-        statement.setNString(1, t.getPhoneNumber());
-        statement.setNString(2, t.getAddress());
-        statement.setNString(3, t.getName());
-        statement.setInt(4, t.getCustomerId());
-        
-        int row = statement.executeUpdate();
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setNString(1, t.getPhoneNumber());
+            statement.setNString(2, t.getAddress());
+            statement.setNString(3, t.getName());
+            statement.setInt(4, t.getCustomerId());
+            
+            int row = statement.executeUpdate();
+        }
     }
 
     /**
@@ -114,12 +111,8 @@ public class CustomerDao extends Dao<Customer>{
      */
     @Override
     public void delete(Customer t) throws SQLException {
-        String query = "DELETE "
-                + "FROM `customer`"
-                + "WHERE `customerId` = ?";
-        PreparedStatement statement = conn.prepareStatement(query);
-        statement.setInt(1, t.getCustomerId());
-        statement.executeUpdate();
+        validate(t);
+        deleteById(t.getCustomerId());
     }
 
     /**
@@ -132,9 +125,10 @@ public class CustomerDao extends Dao<Customer>{
         String query = "DELETE "
                 + "FROM `customer`"
                 + "WHERE `customerId` = ?";
-        PreparedStatement statement = conn.prepareStatement(query);
-        statement.setInt(1, id);
-        statement.executeUpdate();        
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setInt(1, id);
+            statement.executeUpdate();        
+        }
     }   
     
     /**
@@ -144,15 +138,29 @@ public class CustomerDao extends Dao<Customer>{
      * @return
      * @throws SQLException 
      */
+    @Override
     public ArrayList<Customer> searchByKey(String key, String word) throws SQLException {
+        if (key == null || word == null || key.trim().isEmpty() || word.trim().isEmpty()) {
+            throw new SQLException("Từ khoá không được null/trống");
+        }
         ArrayList<Customer> customers = new ArrayList<>();
-        Statement statement = conn.createStatement();
-        String query = "SELECT * FROM `customer` WHERE " + key + " LIKE '%" + word + "%';";
-        ResultSet rs = statement.executeQuery(query);
-        while (rs.next()) {
-            Customer customer = Customer.getFromResultSet(rs);
-            customers.add(customer);
+        String query = "SELECT * FROM `customer` WHERE " + key + " LIKE ?";
+        try (PreparedStatement statement = conn.prepareStatement(query)) {
+            statement.setString(1, "%" + word + "%");
+            try (ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    Customer customer = Customer.getFromResultSet(rs);
+                    customers.add(customer);
+                }
+            }
         }
         return customers;
+    }
+
+    @Override
+    protected void validate(Customer t) throws SQLException {
+        if (t == null) {
+            throw new SQLException("Customer object cannot be null");
+        }
     }
 }

@@ -8,6 +8,7 @@ import utils.DatabaseConnector;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.sql.SQLException;
+
 /**
  *
  * @author P51
@@ -15,50 +16,66 @@ import java.sql.SQLException;
  */
 public abstract class Dao<T> {
     /**
-     * Get connection 
+     * Database connection instance
      */
     protected Connection conn = DatabaseConnector.getInstance().getConn();
     
     /**
-     * Get all the rows from table
-     * @return ArrayList<T>
-     * @throws SQLException 
+     * Get all entities from the table
+     * @return ArrayList of all entities
+     * @throws SQLException if database error occurs
      */
     public abstract ArrayList<T> getAll() throws SQLException;
     
     /**
-     * Get the object with a specific id
-     * @param id
-     * @return T
-     * @throws SQLException 
+     * Get an entity by its ID
+     * @param id The ID to search for
+     * @return The entity if found, null otherwise
+     * @throws SQLException if database error occurs
      */
     public abstract T getById(int id) throws SQLException;
     
     /**
-     * Insert new row to the table
-     * @param t
-     * @throws SQLException 
+     * Save a new entity
+     * @param t The entity to save
+     * @throws SQLException if database error occurs or entity is invalid
      */
     public abstract void save(T t) throws SQLException;
     
     /**
-     * Update a specific row in the table
-     * @param t
-     * @throws SQLException 
+     * Update an existing entity
+     * @param t The entity to update
+     * @throws SQLException if database error occurs or entity is invalid
      */
     public abstract void update(T t) throws SQLException;
     
     /**
-     * Delete a specific row in the table
-     * @param t
-     * @throws SQLException 
+     * Delete an entity
+     * @param t The entity to delete
+     * @throws SQLException if database error occurs or entity is invalid
      */
     public abstract void delete(T t) throws SQLException;
     
     /**
-     * 
-     * @param id
-     * @throws SQLException 
+     * Delete an entity by its ID
+     * @param id The ID of the entity to delete
+     * @throws SQLException if database error occurs
      */
     public abstract void deleteById(int id) throws SQLException;
+    
+    /**
+     * Search for entities by a specific field and value
+     * @param key The field to search by
+     * @param value The value to search for
+     * @return ArrayList of matching entities
+     * @throws SQLException if database error occurs
+     */
+    public abstract ArrayList<T> searchByKey(String key, String value) throws SQLException;
+    
+    /**
+     * Validate an entity before saving or updating
+     * @param t The entity to validate
+     * @throws SQLException if validation fails
+     */
+    protected abstract void validate(T t) throws SQLException;
 }
