@@ -4,7 +4,6 @@
  */
 package controllers;
 
-import utils.ConfigLoader;
 import dao.OrderDao;
 import dao.OrderItemDao;
 import java.awt.Desktop;
@@ -24,6 +23,7 @@ import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
+import utils.OrderType;
 /**
  *
  * @author P51
@@ -134,6 +134,38 @@ public class OrderPrintController {
         run.setFontSize(fontSize);
         run.setColor("FF0000");
         run.addBreak();
+        
+        
+              
+        //add customer address
+        run = paragraph.createRun();
+        run.setText("Địa chỉ khách hàng: ");
+        run.setFontSize(fontSize);
+        run = paragraph.createRun();
+        run.setBold(true);
+        run.setText(order.getCustomer().getAddress());
+        run.setFontSize(fontSize);
+        run.setColor("FF0000");
+        run.addBreak();
+        
+        if(order.getType() == OrderType.LOCAL) {
+            //add table
+            run = paragraph.createRun();
+            run.setText("Bàn : ");
+            run.setFontSize(fontSize);
+            run = paragraph.createRun();
+            run.setBold(true);
+            run.setText(String.valueOf(order.getTable().getTableId()));
+            run.setFontSize(fontSize);
+            run.setColor("FF0000");
+            run.addBreak();
+        } else {
+            run = paragraph.createRun();
+            run.setText("Đặt hàng ");
+            run.setFontSize(fontSize);
+            run.addBreak();
+        }
+               
     }
 
     public void createOrderInfo(ArrayList<OrderItem> orderItems) {
