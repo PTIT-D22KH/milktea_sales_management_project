@@ -126,6 +126,7 @@ public class FoodItemPopupController extends PopupController<FoodItemPopupView, 
         view.getLbTitle().setText("Sửa món ăn - " + foodItem.getFoodItemId());
         view.getTxtFoodName().setText(foodItem.getName());
         view.getTxtDescription().setText(foodItem.getDescription());
+        System.out.println(foodItem.getImagePath());
         view.getTxtImagePath().setText(foodItem.getImagePath());
         view.getTxtUnit().setText(foodItem.getUnitName());
         view.getTxtUnitPrice().setText(foodItem.getUnitPrice() + "");
@@ -150,8 +151,11 @@ public class FoodItemPopupController extends PopupController<FoodItemPopupView, 
             if (imagePath.isEmpty()) {
                 return false;
             }
+            String userDir = System.getProperty("user.dir");
+            String pathImages = userDir + "/images/";
+            File f1 = new File(pathImages + imagePath);
             File f = new File(resourcesPath + imagePath);
-            return f.exists() && !f.isDirectory();
+            return (f.exists() && !f.isDirectory()) || (f1.exists() && !f1.isDirectory());
         } 
         catch (Exception e) {
             return false;
