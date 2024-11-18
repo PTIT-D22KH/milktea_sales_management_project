@@ -2,6 +2,7 @@
 Java OOP Project - 24-25 Term 1
 
 ## Hướng dẫn chạy chương trình
+Project sử dụng phiên bản JDK 19
 ### Cài đặt sẵn mysql server và mysql workbench về máy
 ### Tải bản release về máy
 Vào phần Release gần nhất và tải file v1.x(x là 1 số) về và giải nén
