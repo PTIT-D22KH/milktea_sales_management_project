@@ -122,7 +122,7 @@ public class SessionDao extends Dao<Session> {
 
     /**
      * get latest session
-     * @param EmployeeId
+     * @param employeeId
      * @return
      * @throws SQLException 
      */

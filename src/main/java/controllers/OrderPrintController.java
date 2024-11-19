@@ -155,7 +155,7 @@ public class OrderPrintController {
             run.setFontSize(fontSize);
             run = paragraph.createRun();
             run.setBold(true);
-            run.setText(String.valueOf(order.getTable().getTableId()));
+            run.setText(String.valueOf(order.getTable().getName()));
             run.setFontSize(fontSize);
             run.setColor("FF0000");
             run.addBreak();
@@ -163,6 +163,7 @@ public class OrderPrintController {
             run = paragraph.createRun();
             run.setText("Đặt hàng ");
             run.setFontSize(fontSize);
+            run.setColor("FF0000");
             run.addBreak();
         }
                

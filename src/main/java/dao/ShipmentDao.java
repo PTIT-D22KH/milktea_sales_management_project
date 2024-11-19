@@ -58,10 +58,11 @@ public class ShipmentDao extends Dao<Shipment> {
                 + "WHERE `shipment`.`OrderId` = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             setUpdateParameters(stmt, t);
-            int rowsAffected = stmt.executeUpdate();
-            if (rowsAffected == 0) {
-                throw new SQLException("Không tìm thấy shipment với OrderId " + t.getOrder().getOrderId());
-            }
+            stmt.executeUpdate();
+//            int rowsAffected = stmt.executeUpdate();
+//            if (rowsAffected == 0) {
+//                throw new SQLException("Không tìm thấy shipment với OrderId " + t.getOrder().getOrderId());
+//            }
         }
     }
 
@@ -81,10 +82,11 @@ public class ShipmentDao extends Dao<Shipment> {
         String query = "DELETE FROM `shipment` WHERE `shipment`.`OrderId` = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, id);
-            int rowsAffected = stmt.executeUpdate();
-            if (rowsAffected == 0) {
-                throw new SQLException("Không tìm thấy shipment với OrderId " + id);
-            }
+            stmt.executeUpdate();
+//            int rowsAffected = stmt.executeUpdate();
+//            if (rowsAffected == 0) {
+//                throw new SQLException("Không tìm thấy shipment với OrderId " + id);
+//            }
         }
     }
 
