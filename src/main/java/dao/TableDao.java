@@ -49,9 +49,9 @@ public class TableDao extends Dao<Table> {
             setTableParameters(stmt, t);
             stmt.setInt(3, t.getTableId());
             int rowsAffected = stmt.executeUpdate();
-            if (rowsAffected == 0) {
-                throw new SQLException("Không tìm thấy bàn với ID " + t.getTableId());
-            }
+//            if (rowsAffected == 0) {
+//                throw new SQLException("Không tìm thấy bàn với ID " + t.getTableId());
+//            }
         }
     }
 
@@ -72,9 +72,9 @@ public class TableDao extends Dao<Table> {
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, id);
             int rowsAffected = stmt.executeUpdate();
-            if (rowsAffected == 0) {
-                throw new SQLException("Không tìm thấy bàn với ID " + id);
-            }
+//            if (rowsAffected == 0) {
+//                throw new SQLException("Không tìm thấy bàn với ID " + id);
+//            }
         }
     }
 

@@ -5,8 +5,6 @@
 package controllers.popup;
 
 import dao.TableDao;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import models.Table;
 import utils.TableStatus;
 import views.popup.TablePopupView;

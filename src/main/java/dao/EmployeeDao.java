@@ -145,7 +145,8 @@ public class EmployeeDao extends Dao<Employee>{
     public ArrayList<Employee> getAllActiveEmployees() throws SQLException {
         ArrayList<Employee> employees = new ArrayList<>();
         String query = "SELECT * FROM employee"
-                + " WHERE permission <> 'inactive';";
+                + " WHERE permission <> 'inactive' "
+                + " AND permission <> 'manager' ;";
         try (Statement statement = conn.createStatement()) {
             try(ResultSet rs = statement.executeQuery(query)) {
                 while (rs.next()){

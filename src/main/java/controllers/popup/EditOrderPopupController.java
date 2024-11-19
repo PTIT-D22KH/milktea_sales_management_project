@@ -16,6 +16,8 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import models.Customer;
 import models.Employee;
@@ -281,7 +283,11 @@ public class EditOrderPopupController extends PopupController<EditOrderPopupView
                 view.showError("Bạn chỉ có thể ship đơn online");
                 return;
             }
-            shipmentPopupControler.add(new ShipmentPopupView(), order, () -> view.showMessage("Tạo / sửa đơn ship thành công!"), view::showError);
+            shipmentPopupControler.add(new ShipmentPopupView(), order, () -> {
+                //                    Order tempOrder = orderDao.getById(order.getOrderId());
+                view.getCustomerNameLabel().setText(order.getCustomer().getName());
+//                    view.showMessage("Tạo / sửa đơn ship thành công!");
+            }, view::showError);
         });
         view.getPrintOrderButton().addActionListener(evt -> {
             try {
