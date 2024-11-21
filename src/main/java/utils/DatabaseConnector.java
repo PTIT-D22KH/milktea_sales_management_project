@@ -17,14 +17,16 @@ public class DatabaseConnector {
 
     private DatabaseConnector() {
         try {
-            String connectionProperty = "useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+            String connectProperty = "useSSL=true&serverTimezone=GMT%2B7";
             String host = cfgLoader.getProperty("database.host"),
                     port = cfgLoader.getProperty("database.port"),
                     user = cfgLoader.getProperty("database.username"),
                     password = cfgLoader.getProperty("database.password"),
                     name = cfgLoader.getProperty("database.name");
             Class.forName(cfgLoader.getProperty("database.driver_class"));
-            String url = String.format("jdbc:%s://%s:%s/%s?%s", cfgLoader.getProperty("database.jdbc"), host, port, name, connectionProperty);
+//            String url = String.format("jdbc:%s://%s:%s/%s?%s", cfgLoader.getProperty("database.jdbc"), host, port, name, connectionProperty);
+//            String url="jdbc:mysql://java-milktea-test.mysql.database.azure.com:3306/milktea?useSSL=true";
+            String url = String.format("jdbc:%s://%s:%s/%s?%s", cfgLoader.getProperty("database.jdbc"), host, port, name, connectProperty);
             this.conn = DriverManager.getConnection(url, user, password);
             System.out.println("Connect to database successfully!");
         } catch (ClassNotFoundException e) {

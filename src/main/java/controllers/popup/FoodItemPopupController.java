@@ -77,21 +77,38 @@ public class FoodItemPopupController extends PopupController<FoodItemPopupView, 
         view.pack();
     }
     
-    private void initComboBox(FoodItemPopupView view) { //Khởi tạo danh mục loai mon
-        try {
-            for (FoodCategory fc : foodCategoryDao.getAll()) {
-                view.getFoodCategoryComboBoxModel().addElement(fc);
+    private void initComboBox(FoodItemPopupView view, FoodItem foodItem) { //Khởi tạo danh mục loai mon
+        if(foodItem == null) {
+            try {
+                for (FoodCategory fc : foodCategoryDao.getAll()) {
+                    view.getFoodCategoryComboBoxModel().addElement(fc);
+                }
+            } 
+            catch (SQLException e) {
+
             }
-        } 
-        catch (SQLException e) {
-            
+        } else {
+            try {
+                FoodCategory originalCategory = foodCategoryDao.getById(foodItem.getFoodCategory().getFoodCategoryId());
+                view.getFoodCategoryComboBoxModel().addElement(originalCategory);
+                for (FoodCategory fc : foodCategoryDao.getAll()) {
+                    if(fc.getFoodCategoryId() != originalCategory.getFoodCategoryId()) {
+                        view.getFoodCategoryComboBoxModel().addElement(fc);
+                    }
+
+                }
+            } 
+            catch (SQLException e) {
+
+            }
         }
+        
     }
     
     @Override
     public void add(FoodItemPopupView view, SuccessCallback sc, ErrorCallback ec) {
         super.add(view, sc, ec);
-        initComboBox(view);
+        initComboBox(view, null);
         view.getBtnChooseImage().addActionListener(eventShowChooseFileDialog(view));
     }
     
@@ -122,7 +139,7 @@ public class FoodItemPopupController extends PopupController<FoodItemPopupView, 
         if (foodItem == null) {
             view.showError("Món không tồn tại");
         }
-        initComboBox(view);
+        initComboBox(view, foodItem);
         view.getLbTitle().setText("Sửa món ăn - " + foodItem.getFoodItemId());
         view.getTxtFoodName().setText(foodItem.getName());
         view.getTxtDescription().setText(foodItem.getDescription());
